@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/03 v0.1.3.0 Xidian University TeX]
+[2022/04/03 v0.1.4.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022-04-03}{v0.1.3.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022-04-03}{v0.1.4.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \setcounter{tocdepth}{4}
@@ -115,7 +115,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{687}
+% \CheckSum{694}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1779,16 +1779,17 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_cover_iii:nnnn}
+% \begin{macro}{\@@_cover_iii:nnnnn}
 % 绘制论文信息。
 % \begin{arguments}
+%   \item 标签宽度。
 %   \item 标签名称。
 %   \item 字体族。
 %   \item 字号。
 %   \item 论文信息。
 % \end{arguments}
 %    \begin{macrocode}
-\cs_new:Npn \@@_cover_iii:nnnn #1#2#3#4
+\cs_new:Npn \@@_cover_iii:nnnnn #1#2#3#4#5
   {
     \vbox_to_ht:nn {40pt}
       {
@@ -1799,13 +1800,13 @@
           {
             \@@_rm_family:
             \zihao { 3 }
-            \hbox_to_wd:nn { 6em } { \bfseries #1 }
+            \hbox_to_wd:nn { #1 } { \bfseries #2 }
             \skip_horizontal:n { 1em }
             \zihao { -3 }
             \@@_uline:n
               {
                 \hbox_to_wd:nn { 16em }
-                  { \hfil \use:c { @@_ #2 _family : } \zihao { #3 } #4 \hfil }
+                  { \hfil \use:c { @@_ #3 _family : } \zihao { #4 } #5 \hfil }
               }
           }
         \hfil
@@ -1834,6 +1835,27 @@
       }
   }
 \cs_generate_variant:Nn \@@_split_title:Nn { NV }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_cover_iii:nnnn}
+% \changes{v0.1.4.0}{2022/04/03}{自动调整论文信息标签宽度}
+% 绘制论文信息并自动调整论文信息标签宽度。
+% \begin{arguments}
+%   \item 标签名称。
+%   \item 字体族。
+%   \item 字号。
+%   \item 论文信息。
+% \end{arguments}
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \cs_new:Npn \@@_cover_iii:nnnn #1#2#3#4
+      {
+        \tl_if_blank:VTF \l_@@_supv_dept_str
+          { \@@_cover_iii:nnnnn { 4em } { #1 } { #2 } { #3 } { #4 } }
+          { \@@_cover_iii:nnnnn { 6em } { #1 } { #2 } { #3 } { #4 } }
+      }
+  }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\frontmatter}
