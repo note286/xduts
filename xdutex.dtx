@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/03 v0.1.2.0 Xidian University TeX]
+[2022/04/03 v0.1.3.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022-04-03}{v0.1.2.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022-04-03}{v0.1.3.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \setcounter{tocdepth}{4}
@@ -115,7 +115,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{684}
+% \CheckSum{687}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1463,13 +1463,19 @@
 % \end{macro}
 % \subsubsection{图片}
 % \paragraph{图片}
-% \begin{macro}{\DeclareCaptionLabelSeparator,\captionsetup}
+% \begin{macro}{\DeclareCaptionLabelSeparator,\DeclareCaptionFont,\captionsetup}
 % \changes{v0.1.2.0}{2022/04/03}{设置图片标签与后面标题之间的间距}
+% \changes{v0.1.3.0}{2022/04/03}{设置图片标签与标题字体字号}
 % 设置图片标签与后面标题之间的间距。
 %    \begin{macrocode}
 \RequirePackage { caption }
 \DeclareCaptionLabelSeparator { customskip } { \hskip \l_@@_fig_label_sep_tl }
-\captionsetup { labelsep = customskip }
+\DeclareCaptionFont { customfont } { \@@_rm_family: \zihao { 5 } }
+\captionsetup
+  {
+    labelsep = customskip,
+    font     = customfont
+  }
 %    \end{macrocode}
 % \end{macro}
 % \subsubsection{超链接和PDF元数据}
