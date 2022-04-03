@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/03 v0.1.0.0 Xidian University TeX]
+[2022/04/03 v0.1.1.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022-04-03}{v0.1.0.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022-04-03}{v0.1.1.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \setcounter{tocdepth}{4}
@@ -1576,13 +1576,14 @@
 % \end{macro}
 % \begin{macro}{\fancypagestyle}
 % 设置正文页眉页脚。页眉：宋体五号，居中排列。左面页眉为论文题目，右面页眉为章次和章标题。页眉底划线的宽度为 0.75 磅。页码：宋体小五号，排在页眉行的最外侧，不加任何修饰。
+% \changes{v0.1.1.0}{2022/04/03}{修正页眉字号}
 %    \begin{macrocode}
 \fancypagestyle { plain }
   {
     \pagestyle { fancy }
     \fancyhf { }
-    \fancyhead [ CE ] { \@@_rm_family: \zihao { -5 } \l_@@_pure_title_str }
-    \fancyhead [ CO ] { \@@_rm_family: \zihao { -5 } \leftmark            }
+    \fancyhead [ CE ] { \@@_rm_family: \zihao { 5  } \l_@@_pure_title_str }
+    \fancyhead [ CO ] { \@@_rm_family: \zihao { 5  } \leftmark            }
     \fancyhead [ LE ] { \@@_rm_family: \zihao { -5 } \thepage             }
     \fancyhead [ RO ] { \@@_rm_family: \zihao { -5 } \thepage             }
     \renewcommand { \headrulewidth } { 0.75pt }
