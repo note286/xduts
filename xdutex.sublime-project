@@ -1,0 +1,43 @@
+{
+    "folders": [
+        {
+            "path": ".",
+            "file_exclude_patterns": [
+                "*.aux",
+                "*.bbl",
+                "*.bcf",
+                "*.blg",
+                "*.brf",
+                "*.fdb_latexmk",
+                "*.fls",
+                "*.glo",
+                "*.gls",
+                "*.gz",
+                "*.hd",
+                "*.idx",
+                "*.ilg",
+                "*.ind",
+                "*.jpg",
+                "*.lof",
+                "*.log",
+                "*.lot",
+                "*.out",
+                "*.pdf",
+                "*.png",
+                "*.pyc",
+                "*.run.xml",
+                "*.sublime-project",
+                "*.synctex",
+                "*.synctex(busy)",
+                "*.toc",
+                "*.xdv",
+                "*.zip",
+                "_config.yml",
+                "LICENSE"
+            ]
+        }
+    ],
+    "settings": {
+        "TEXroot": "xdutex.dtx"
+    }
+}
