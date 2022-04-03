@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/03 v0.1.1.0 Xidian University TeX]
+[2022/04/03 v0.1.2.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022-04-03}{v0.1.1.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022-04-03}{v0.1.2.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \setcounter{tocdepth}{4}
@@ -115,7 +115,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{676}
+% \CheckSum{684}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -369,6 +369,13 @@
 %   \end{syntax}
 % 设置参考文献\filex{.bib}文件，多个文件之间需要使用英文半角逗号隔开。
 % \end{function}
+% \paragraph{图片配置}
+% \begin{function}[added=2022-04-03]{style/fig-label-sep}
+%   \begin{syntax}
+%     \optx{style/fig-label-sep}=\argx{间距}
+%   \end{syntax}
+% 设置图片标签与后面标题之间的间距，默认值为\valuex{0.75em}。
+% \end{function}
 % \subsubsection{xduugthesis}
 % \paragraph{标准结构}
 % 典型的\clsx{xduugthesis}主文件结构应该如下所示：
@@ -512,7 +519,8 @@
 %     \l_@@_en_cjk_font_bool,
 %     \l_@@_lang_tl,
 %     \l_@@_bib_tool_tl,
-%     \l_@@_bib_file_clist
+%     \l_@@_bib_file_clist,
+%     \l_@@_fig_label_sep_tl
 %   }
 % 中文字体配置名称。
 %    \begin{macrocode}
@@ -561,6 +569,10 @@
 % 参考文献文件。
 %    \begin{macrocode}
 \clist_new:N \l_@@_bib_file_clist
+%    \end{macrocode}
+% 图片标签与后面标题之间的间距。
+%    \begin{macrocode}
+\tl_new:N \l_@@_fig_label_sep_tl
 %    \end{macrocode}
 % \end{variable}
 % \begin{macro}{\keys_define:nn}
@@ -623,7 +635,11 @@
 %    \end{macrocode}
 % 参考文献文件。
 %    \begin{macrocode}
-    bib-resource .clist_set:N = \l_@@_bib_file_clist
+    bib-resource .clist_set:N = \l_@@_bib_file_clist,
+%    \end{macrocode}
+% 图片标签与后面标题之间的间距。
+%    \begin{macrocode}
+    fig-label-sep .tl_set:N = \l_@@_fig_label_sep_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -805,6 +821,7 @@
     style / language              = zh,
     style / bib-backend           = biblatex,
     style / bib-resource          = { },
+    style / fig-label-sep         = { 0.75em },
     info  / title                 = { },
     info  / department            = { },
     info  / major                 = { },
@@ -1442,6 +1459,17 @@
     \markboth        { #1  } { }
     \addcontentsline { toc } { chapter } { #1 }
   }
+%    \end{macrocode}
+% \end{macro}
+% \subsubsection{图片}
+% \paragraph{图片}
+% \begin{macro}{\DeclareCaptionLabelSeparator,\captionsetup}
+% \changes{v0.1.2.0}{2022/04/03}{设置图片标签与后面标题之间的间距}
+% 设置图片标签与后面标题之间的间距。
+%    \begin{macrocode}
+\RequirePackage { caption }
+\DeclareCaptionLabelSeparator { customskip } { \hskip \l_@@_fig_label_sep_tl }
+\captionsetup { labelsep = customskip }
 %    \end{macrocode}
 % \end{macro}
 % \subsubsection{超链接和PDF元数据}
