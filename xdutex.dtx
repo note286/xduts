@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/04 v0.3.1.0 Xidian University TeX]
+[2022/04/04 v0.3.2.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022-04-04}{v0.3.1.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022/04/04}{0.3.2.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \ctexset{
@@ -122,7 +122,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{712}
+% \CheckSum{713}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -891,10 +891,18 @@
   { }
 \PassOptionsToPackage { quiet } { xeCJK }
 %    \end{macrocode}
-% \begin{macro}{\LoadClass}
+% \begin{macro}{\PassOptionsToClass,\LoadClass}
 % 加载\clsx{ctexbook}文档类。
+% \changes{v0.3.2.0}{2022/04/04}{修正行间距为1.5倍}
 %    \begin{macrocode}
-\LoadClass [ fontset = none, sub4section ] { ctexbook }
+\PassOptionsToClass
+  {
+    sub4section,
+%<xduugthesis>    linespread = 1.5,
+    fontset    = none
+  }
+  { ctexbook }
+\LoadClass { ctexbook }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_font_path:}
