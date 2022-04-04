@@ -3,6 +3,7 @@
         {
             "path": ".",
             "file_exclude_patterns": [
+                "*.7z",
                 "*.aux",
                 "*.bbl",
                 "*.bcf",
@@ -25,11 +26,13 @@
                 "*.pdf",
                 "*.png",
                 "*.pyc",
+                "*.rar",
                 "*.run.xml",
                 "*.sublime-project",
                 "*.synctex",
                 "*.synctex(busy)",
                 "*.toc",
+                "*.txt",
                 "*.xdv",
                 "*.zip",
                 "_config.yml",
