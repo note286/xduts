@@ -1,15 +1,22 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/04 v0.2.1.0 Xidian University TeX]
+[2022/04/04 v0.3.0.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022-04-04}{v0.2.1.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022-04-04}{v0.3.0.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
-\setcounter{tocdepth}{4}
+\ctexset{
+  secnumdepth = 5,
+  subparagraph = {
+    afterskip = 1ex plus .2ex,
+    runin = false
+  }
+}
+\setcounter{tocdepth}{5}
 \usepackage{hologo}
 \usepackage{fetamont}
 \usepackage{xurl}
@@ -115,7 +122,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{700}
+% \CheckSum{704}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -188,6 +195,30 @@
 % \filex{thuthesis.dtx}\footctan{macros/latex/contrib/thuthesis/thuthesis.dtx}。
 % \StopEventually{}
 % \section{使用说明}
+% \subsection{基本用法}
+% \subsubsection{xduugthesis}
+% \paragraph{标准结构}
+% 典型的\clsx{xduugthesis}主文件结构应该如下所示：
+% \begin{latexexample}[moretexcs={\xdusetup,\frontmatter,\mainmatter,\chapter,\backmatter},emph={[1]document}]
+%   \documentclass{xduugthesis}
+%   \xdusetup{}
+%   \begin{document}
+%   \frontmatter
+%   \mainmatter
+%   \chapter{欢迎}
+%   使用\LaTeX{}！
+%   \backmatter
+%   \end{document}
+% \end{latexexample}
+% \paragraph{命令与环境}
+% \subparagraph{附录环境}
+% 附录位于参考文献后，即在\tnx{backmatter}后。
+% \begin{latexexample}[emph={[1]appendixes}]
+%   \begin{appendixes}
+%       \chapter{这是一个附录}
+%       \chapter{这是另一个附录}
+%   \end{appendixes}
+% \end{latexexample}
 % \subsection{参数设置}
 % \begin{function}[added=2022-03-07]{\xdusetup}
 %   \begin{syntax}
@@ -389,19 +420,6 @@
 % 设置图片标签与后面标题之间的间距，默认值为\valuex{0.75em}。
 % \end{function}
 % \subsubsection{xduugthesis}
-% \paragraph{标准结构}
-% 典型的\clsx{xduugthesis}主文件结构应该如下所示：
-% \begin{latexexample}[moretexcs={\xdusetup,\frontmatter,\mainmatter,\chapter,\backmatter},emph={[1]document}]
-%   \documentclass{xduugthesis}
-%   \xdusetup{}
-%   \begin{document}
-%   \frontmatter
-%   \mainmatter
-%   \chapter{欢迎}
-%   使用\LaTeX{}！
-%   \backmatter
-%   \end{document}
-% \end{latexexample}
 % \paragraph{信息配置}
 % \begin{function}[added=2022-04-01]{info/title}
 %   \begin{syntax}
@@ -1540,6 +1558,19 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \subsubsection{附录}
+% \begin{macro}{appendixes}
+% 附录环境。
+% \changes{v0.3.0.0}{2022/04/04}{新增附录环境}
+%    \begin{macrocode}
+\RequirePackage { environ }
+\NewEnviron { appendixes }
+  {
+    \appendix
+    \BODY
+  }
+%    \end{macrocode}
+% \end{macro}
 % \subsubsection{通用宏包}
 % 设置纸张尺寸为A4。
 %    \begin{macrocode}
@@ -2002,7 +2033,7 @@
 % \begin{macro}{\theequation}
 % 重定义公式编号样式。
 %    \begin{macrocode}
-\renewcommand { \theequation } { \arabic { chapter } - \arabic { equation } }
+\renewcommand { \theequation } { \thechapter - \arabic { equation } }
 %    \end{macrocode}
 % \end{macro}
 % 排版正文部分。
