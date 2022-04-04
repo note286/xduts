@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/03 v0.1.4.0 Xidian University TeX]
+[2022/04/04 v0.1.4.1 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022-04-03}{v0.1.4.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022-04-04}{v0.1.4.1}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \setcounter{tocdepth}{4}
@@ -277,7 +277,17 @@
 %   \end{syntax}
 % 设置数学字体，具体配置见\tableref{tab:math-font}。除Computer Modern字体外，均使用\pkgx{unicode-math}宏包调用字体。
 % \end{function}
+% \changes{v0.1.4.1}{2022/04/04}{数学字体风格介绍}
 % \begin{optdesc}
+%   \item[cambria] 微软Office预装的数学字体。
+%   \item[fira] 无衬线数学字体。
+%   \item[lm] 基于Computer Modern风格。
+%   \item[libertinus] Linux Libertine风格。
+%   \item[stix] Times风格。
+%   \item[dejavu] DejaVu风格。
+%   \item[pagella] Palatino风格。
+%   \item[termes] Times风格。
+%   \item[xits] 基于STIX，Times风格，有粗体XITS Math Bold可用。
 %   \item[none] 关闭内置数学字体配置，需自行配置数学字体。
 % \end{optdesc}
 % \begin{table}
