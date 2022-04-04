@@ -1,4 +1,5 @@
 test
+*.7z
 *.aux
 *.bcf
 *.cls
@@ -11,9 +12,12 @@ test
 *.ind
 *.log
 *.out
+*.rar
 *.sublime-workspace
 *.synctex(busy)
 *.tex
 *.toc
+*.txt
 *.xml
+*.zip
 xdutex.pdf
