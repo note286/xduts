@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/04 v0.3.0.0 Xidian University TeX]
+[2022/04/04 v0.3.1.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022-04-04}{v0.3.0.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022-04-04}{v0.3.1.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \ctexset{
@@ -122,7 +122,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{704}
+% \CheckSum{712}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1562,11 +1562,14 @@
 % \begin{macro}{appendixes}
 % 附录环境。
 % \changes{v0.3.0.0}{2022/04/04}{新增附录环境}
+% \changes{v0.3.1.0}{2022/04/04}{修正附录中图表编号样式}
 %    \begin{macrocode}
 \RequirePackage { environ }
 \NewEnviron { appendixes }
   {
     \appendix
+    \renewcommand { \thefigure } { \thechapter \arabic { figure } }
+    \renewcommand { \thetable  } { \thechapter \arabic { table  } }
     \BODY
   }
 %    \end{macrocode}
