@@ -32,7 +32,6 @@
                 "*.synctex",
                 "*.synctex(busy)",
                 "*.toc",
-                "*.txt",
                 "*.xdv",
                 "*.zip",
                 "_config.yml",
