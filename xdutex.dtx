@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/04 v0.2.0.0 Xidian University TeX]
+[2022/04/04 v0.2.1.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022-04-04}{v0.2.0.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022-04-04}{v0.2.1.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \setcounter{tocdepth}{4}
@@ -115,7 +115,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{694}
+% \CheckSum{700}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1464,14 +1464,23 @@
 \cs_generate_variant:Nn \@@_get_text_width:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\@@_add_toc:n}
+% 章节添加目录。
+%    \begin{macrocode}
+\cs_new:Npn \@@_add_toc:n #1
+  {
+    \addcontentsline { toc } { chapter } { #1 }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@@_n_chapter_head_toc:n}
 % 新建无编号章节并添加目录及页眉。
 %    \begin{macrocode}
 \cs_new:Npn \@@_n_chapter_head_toc:n #1
   {
-    \chapter*        { #1  }
-    \markboth        { #1  } { }
-    \addcontentsline { toc } { chapter } { #1 }
+    \chapter*     { #1 }
+    \markboth     { #1 } { }
+    \@@_add_toc:n { #1 }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2022,16 +2031,21 @@
       \rmfamily \zihao{-4}
       \file_if_exist_input:n { \l_@@_ack_tl }
     }
+    \cleardoublepage
 %    \end{macrocode}
 % 参考文献。
+% \changes{v0.2.1.0}{2022/04/04}{参考文献添加至目录}
 %    \begin{macrocode}
-    \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
-      {
-        \bibliography { \l_@@_bib_file_clist }
-      }
-      {
-        \printbibliography
-      }
+    \@@_add_toc:n { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
+    {
+      \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
+        {
+          \bibliography { \l_@@_bib_file_clist }
+        }
+        {
+          \printbibliography
+        }
+    }
   }
 %    \end{macrocode}
 % \end{macro}
