@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/04 v0.1.4.1 Xidian University TeX]
+[2022/04/04 v0.2.0.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022-04-04}{v0.1.4.1}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022-04-04}{v0.2.0.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \setcounter{tocdepth}{4}
@@ -214,7 +214,7 @@
 % \centering
 % \begin{tabularx}{\linewidth}{cccc}
 % \toprule
-%                     & \strong{罗马字体族}           & \strong{无衬线字体族} & \strong{打字机字体族} \\
+% \strong{选项名称}   & \strong{罗马字体族}           & \strong{无衬线字体族} & \strong{打字机字体族} \\
 % \midrule
 % |adobe|\tnote{1}    & Adobe 宋体 Std/Adobe 楷体 Std & Adobe 黑体 Std        & Adobe 仿宋 Std        \\
 % |fandol|            & FandolSong/FandolKai          & FandolHei             & FandolFang            \\
@@ -241,7 +241,7 @@
 %   \begin{syntax}
 %     \optx{style/cjk-fake-slant}=\metax{伪斜体倾斜程度}
 %   \end{syntax}
-% 设置中文字体伪斜体倾斜程度。默认为\valuex{0.2}，对于部分存在对应的粗体字体的中文字体，如FandolSong和FandolHei等，该选项不生效。
+% 设置中文字体伪斜体倾斜程度。默认为\valuex{0.2}。
 % \end{function}
 % \begin{function}[added=2022-03-06]{style/latin-font}
 %   \begin{syntax}
@@ -259,10 +259,10 @@
 % \centering
 % \begin{tabularx}{\linewidth}{cYYY}
 % \toprule
-%                & \strong{罗马字体族} & \strong{无衬线字体族} & \strong{打字机字体族} \\
+% \strong{选项名称} & \strong{罗马字体族} & \strong{无衬线字体族} & \strong{打字机字体族} \\
 % \midrule
-% |tacn|\tnote{1} & Times New Roman     & Arial                 & Courier New           \\
-% |thcs|\tnote{2} & Times New Roman     & Helvetica             & Courier Std           \\
+% |tacn|\tnote{1}   & Times New Roman     & Arial                 & Courier New           \\
+% |thcs|\tnote{2}   & Times New Roman     & Helvetica             & Courier Std           \\
 % \bottomrule
 % \end{tabularx}
 % \begin{tablenotes}
@@ -273,7 +273,7 @@
 % \end{table}
 % \begin{function}[added=2022-03-06,updated=2022-03-09]{style/math-font}
 %   \begin{syntax}
-%     \optx{style/math-font}=\metax{asana|cambria|(cm)|fira|lm|libertinus|stix|bonum|dejavu|pagella|schola|termes|xits|none}
+%     \optx{style/math-font}=\metax{asana|cambria|(cm)|fira|garamond|lm|...|termes|xits|none}
 %   \end{syntax}
 % 设置数学字体，具体配置见\tableref{tab:math-font}。除Computer Modern字体外，均使用\pkgx{unicode-math}宏包调用字体。
 % \end{function}
@@ -281,6 +281,7 @@
 % \begin{optdesc}
 %   \item[cambria] 微软Office预装的数学字体。
 %   \item[fira] 无衬线数学字体。
+%   \item[garamond] Garamond风格。
 %   \item[lm] 基于Computer Modern风格。
 %   \item[libertinus] Linux Libertine风格。
 %   \item[stix] Times风格。
@@ -297,12 +298,13 @@
 % \centering
 % \begin{tabularx}{\linewidth}{cY}
 % \toprule
-%                    & \strong{字体名称}     \\
+% \strong{选项名称}  & \strong{字体名称}     \\
 % \midrule
 % |asana|            & Asana Math            \\
 % |cambria|\tnote{1} & Cambria Math          \\
 % |cm|               & Computer Modern       \\
 % |fira|             & Fira Math             \\
+% |garamond|         & Garamond Math         \\
 % |lm|               & Latin Modern Math     \\
 % |libertinus|       & Libertinus Math       \\
 % |stix|             & STIX Math             \\
@@ -614,7 +616,7 @@
 %    \begin{macrocode}
     math-font .choices:nn =
       {
-        asana, cambria, cm, fira, lm, libertinus, stix,
+        asana, cambria, cm, fira, garamond, lm, libertinus, stix,
         bonum, dejavu, pagella, schola, termes, xits, none
       }
       { \tl_set_eq:NN \l_@@_math_font_tl \l_keys_choice_tl },
@@ -1345,6 +1347,7 @@
 % \end{macro}
 % \begin{macro}{\@@_define_math_font:nn}
 % 批量定义数学字体配置。
+% \changes{v0.2.0.0}{2022/04/04}{增加Garamond Math数学字体}
 % \begin{arguments}
 %   \item 配置名称。
 %   \item 字体名称。
@@ -1362,6 +1365,7 @@
   {
     { asana      } { Asana~Math            },
     { fira       } { Fira~Math             },
+    { garamond   } { Garamond-Math         },
     { lm         } { Latin~Modern~Math     },
     { libertinus } { Libertinus~Math       },
     { stix       } { STIX~Math             },
