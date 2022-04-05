@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/04 v0.3.2.0 Xidian University TeX]
+[2022/04/05 v0.4.0.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022/04/04}{0.3.2.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022/04/05}{0.4.0.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \ctexset{
@@ -122,7 +122,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{713}
+% \CheckSum{744}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -419,6 +419,19 @@
 %   \end{syntax}
 % 设置图片标签与后面标题之间的间距，默认值为\valuex{0.75em}。
 % \end{function}
+% \paragraph{章节配置}
+% \begin{function}[added=2022-04-05]{style/before-skip}
+%   \begin{syntax}
+%     \optx{style/before-skip}=\argx{间距列表}
+%   \end{syntax}
+% 设置章节标题前的垂直间距，默认值为\valuex{\{24pt, 18pt, 12pt, 12pt, 12pt, 12pt\}}，分别对应\tnx{chapter}、\tnx{section}、\tnx{subsection}、\tnx{subsubsection}、\tnx{paragraph}和\tnx{subparagraph}。
+% \end{function}
+% \begin{function}[added=2022-04-05]{style/after-skip}
+%   \begin{syntax}
+%     \optx{style/after-skip}=\argx{间距列表}
+%   \end{syntax}
+% 设置章节标题后的垂直间距，默认值为\valuex{\{18pt, 12pt, 6pt, 6pt, 6pt, 6pt\}}，分别对应\tnx{chapter}、\tnx{section}、\tnx{subsection}、\tnx{subsubsection}、\tnx{paragraph}和\tnx{subparagraph}。
+% \end{function}
 % \subsubsection{xduugthesis}
 % \paragraph{信息配置}
 % \begin{function}[added=2022-04-01]{info/title}
@@ -550,7 +563,9 @@
 %     \l_@@_lang_tl,
 %     \l_@@_bib_tool_tl,
 %     \l_@@_bib_file_clist,
-%     \l_@@_fig_label_sep_tl
+%     \l_@@_fig_label_sep_tl,
+%     \l_@@_before_skip_clist,
+%     \l_@@_after_skip_clist
 %   }
 % 中文字体配置名称。
 %    \begin{macrocode}
@@ -603,6 +618,11 @@
 % 图片标签与后面标题之间的间距。
 %    \begin{macrocode}
 \tl_new:N \l_@@_fig_label_sep_tl
+%    \end{macrocode}
+% 设置章节标题前后的垂直间距。
+%    \begin{macrocode}
+\clist_new:N \l_@@_before_skip_clist
+\clist_new:N \l_@@_after_skip_clist
 %    \end{macrocode}
 % \end{variable}
 % \begin{macro}{\keys_define:nn}
@@ -669,7 +689,15 @@
 %    \end{macrocode}
 % 图片标签与后面标题之间的间距。
 %    \begin{macrocode}
-    fig-label-sep .tl_set:N = \l_@@_fig_label_sep_tl
+    fig-label-sep .tl_set:N = \l_@@_fig_label_sep_tl,
+%    \end{macrocode}
+% 设置章节标题前的垂直间距。
+%    \begin{macrocode}
+    before-skip .clist_set:N = \l_@@_before_skip_clist,
+%    \end{macrocode}
+% 设置章节标题后的垂直间距。
+%    \begin{macrocode}
+    after-skip .clist_set:N = \l_@@_after_skip_clist
   }
 %    \end{macrocode}
 % \end{macro}
@@ -852,6 +880,8 @@
     style / bib-backend           = biblatex,
     style / bib-resource          = { },
     style / fig-label-sep         = { 0.75em },
+    style / before-skip           = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
+    style / after-skip            = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
     info  / title                 = { },
     info  / department            = { },
     info  / major                 = { },
@@ -1795,6 +1825,33 @@
             subparagraph  / format = { \@@_en_title:nn { -4 } { 20 } }
           }
       }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\ctexset}
+% 设置章节标题前后的垂直间距。
+% \changes{v0.4.0.0}{2022/04/05}{设置章节标题前后的垂直间距}
+%    \begin{macrocode}
+\ctexset
+  {
+    chapter       / fixskip    = true,
+    section       / fixskip    = true,
+    subsection    / fixskip    = true,
+    subsubsection / fixskip    = true,
+    paragraph     / fixskip    = true,
+    subparagraph  / fixskip    = true,
+    chapter       / beforeskip = { \clist_item:Nn \l_@@_before_skip_clist { 1 } },
+    section       / beforeskip = { \clist_item:Nn \l_@@_before_skip_clist { 2 } },
+    subsection    / beforeskip = { \clist_item:Nn \l_@@_before_skip_clist { 3 } },
+    subsubsection / beforeskip = { \clist_item:Nn \l_@@_before_skip_clist { 4 } },
+    paragraph     / beforeskip = { \clist_item:Nn \l_@@_before_skip_clist { 5 } },
+    subparagraph  / beforeskip = { \clist_item:Nn \l_@@_before_skip_clist { 6 } },
+    chapter       / afterskip  = { \clist_item:Nn \l_@@_after_skip_clist  { 1 } },
+    section       / afterskip  = { \clist_item:Nn \l_@@_after_skip_clist  { 2 } },
+    subsection    / afterskip  = { \clist_item:Nn \l_@@_after_skip_clist  { 3 } },
+    subsubsection / afterskip  = { \clist_item:Nn \l_@@_after_skip_clist  { 4 } },
+    paragraph     / afterskip  = { \clist_item:Nn \l_@@_after_skip_clist  { 5 } },
+    subparagraph  / afterskip  = { \clist_item:Nn \l_@@_after_skip_clist  { 6 } }
   }
 %    \end{macrocode}
 % \end{macro}
