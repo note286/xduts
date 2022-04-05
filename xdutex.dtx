@@ -1,14 +1,21 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/05 v0.4.2.0 Xidian University TeX]
+[2022/04/05 v0.4.2.1 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022/04/05}{0.4.2.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022/04/05}{0.4.2.1}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
+\changes{v0.4.2.1}{2022/04/05}{调整文档目录缩进}
+\usepackage{tocloft}
+\setlength{\cftsecindent}{0em}
+\setlength{\cftsubsecindent}{1em}
+\setlength{\cftsubsubsecindent}{2em}
+\setlength{\cftparaindent}{3em}
+\setlength{\cftsubparaindent}{4em}
 \ctexset{
   secnumdepth = 5,
   subparagraph = {
