@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/05 v0.4.0.0 Xidian University TeX]
+[2022/04/05 v0.4.1.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022/04/05}{0.4.0.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022/04/05}{0.4.1.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \ctexset{
@@ -122,7 +122,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{744}
+% \CheckSum{792}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1520,12 +1520,32 @@
 \cs_generate_variant:Nn \@@_get_text_width:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\@@_add_bookmark:n}
+% 为当前位置添加书签。
+%    \begin{macrocode}
+\cs_new:Npn \@@_add_bookmark:n #1
+  { \currentpdfbookmark { #1 } { #1 } }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@@_add_toc:n}
 % 章节添加目录。
 %    \begin{macrocode}
 \cs_new:Npn \@@_add_toc:n #1
   {
+    \cleardoublepage
+    \phantomsection
     \addcontentsline { toc } { chapter } { #1 }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_n_chapter_head:n}
+% 新建无编号章节并添加页眉和书签。
+%    \begin{macrocode}
+\cs_new:Npn \@@_n_chapter_head:n #1
+  {
+    \@@_add_bookmark:n { #1 }
+    \chapter*          { #1 }
+    \markboth          { #1 } { }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1534,14 +1554,73 @@
 %    \begin{macrocode}
 \cs_new:Npn \@@_n_chapter_head_toc:n #1
   {
+    \@@_add_toc:n { #1 }
     \chapter*     { #1 }
     \markboth     { #1 } { }
-    \@@_add_toc:n { #1 }
   }
 %    \end{macrocode}
 % \end{macro}
+% \subsubsection{目录}
+% \begin{variable}
+%   {
+%     \cftchapleader,
+%     \cftbeforechapskip,
+%     \cftbeforesecskip,
+%     \cftbeforesubsecskip,
+%     \cftbeforesubsubsecskip,
+%     \cftbeforeparaskip,
+%     \cftbeforesubparaskip,
+%     \cftchapfont,
+%     \cftchappagefont,
+%     \cftsecfont,
+%     \cftsubsecfont,
+%     \cftsubsubsecfont,
+%     \cftparafont,
+%     \cftsubparafont,
+%     \cftsecpagefont,
+%     \cftsubsecpagefont,
+%     \cftsubsubsecpagefont,
+%     \cftparapagefont,
+%     \cftsubparapagefont
+%   }
+% 设置目录样式。
+% \changes{v0.4.1.0}{2022/04/05}{设置目录样式}
+%    \begin{macrocode}
+\RequirePackage [ titles ] { tocloft }
+\renewcommand { \cftchapleader } { \bfseries \cftdotfill { \cftdotsep } }
+\clist_map_inline:nn
+  {
+    \cftbeforechapskip,
+    \cftbeforesecskip,
+    \cftbeforesubsecskip,
+    \cftbeforesubsubsecskip,
+    \cftbeforeparaskip,
+    \cftbeforesubparaskip
+  }
+  { \setlength { #1 } { 5pt } }
+  \clist_map_inline:nn
+    {
+      \cftchapfont,
+      \cftchappagefont
+    }
+    { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } \bfseries } }
+\clist_map_inline:nn
+  {
+    \cftsecfont,
+    \cftsubsecfont,
+    \cftsubsubsecfont,
+    \cftparafont,
+    \cftsubparafont,
+    \cftsecpagefont,
+    \cftsubsecpagefont,
+    \cftsubsubsecpagefont,
+    \cftparapagefont,
+    \cftsubparapagefont
+  }
+  { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } } }
+%    \end{macrocode}
+% \end{variable}
 % \subsubsection{图片}
-% \paragraph{图片}
 % \begin{macro}{\DeclareCaptionLabelSeparator,\DeclareCaptionFont,\captionsetup}
 % \changes{v0.1.2.0}{2022/04/03}{设置图片标签与后面标题之间的间距}
 % \changes{v0.1.3.0}{2022/04/03}{设置图片标签与标题字体字号}
@@ -1988,6 +2067,7 @@
     \loadgeometry { cover }
     \pagestyle    { empty }
     \dim_set:Nn \parindent { 0pt }
+    \@@_add_bookmark:n { \@@_lang_switch:nn { 封面 } { Cover } }
 %    \end{macrocode}
 % 排版班级和学号。
 %    \begin{macrocode}
@@ -2055,7 +2135,7 @@
 %    \end{macrocode}
 % 中文摘要，宋体小四号。
 %    \begin{macrocode}
-    \@@_n_chapter_head_toc:n { 摘要 }
+    \@@_n_chapter_head:n { 摘要 }
     {
       \dim_set:Nn \parindent { 2\ccwd }
       \rmfamily \zihao{-4}
@@ -2072,7 +2152,7 @@
 %    \end{macrocode}
 % 英文摘要，Times New Roman字体，小四号。
 %    \begin{macrocode}
-    \@@_n_chapter_head_toc:n {ABSTRACT}
+    \@@_n_chapter_head:n {ABSTRACT}
     {
       \dim_set:Nn \parindent { 2\ccwd }
       \rmfamily \zihao{-4}
@@ -2091,6 +2171,7 @@
 %    \begin{macrocode}
     \setcounter { tocdepth } { 5 }
     \tl_set:Nn \contentsname { \@@_lang_switch:nn { 目录 } { Contents } }
+    \@@_add_bookmark:n { \contentsname }
     \tableofcontents
     \cleardoublepage
   }
@@ -2130,7 +2211,6 @@
       \rmfamily \zihao{-4}
       \file_if_exist_input:n { \l_@@_ack_tl }
     }
-    \cleardoublepage
 %    \end{macrocode}
 % 参考文献。
 % \changes{v0.2.1.0}{2022/04/04}{参考文献添加至目录}
