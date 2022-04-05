@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/05 v0.4.2.1 Xidian University TeX]
+[2022/04/05 v0.4.3.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022/04/05}{0.4.2.1}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022/04/05}{0.4.3.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \changes{v0.4.2.1}{2022/04/05}{调整文档目录缩进}
@@ -129,7 +129,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{794}
+% \CheckSum{802}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1557,6 +1557,18 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\@@_n_chapter_head:nn}
+% 新建无编号章节并添加页眉和书签并单独设置标题样式。
+%    \begin{macrocode}
+\cs_new:Npn \@@_n_chapter_head:nn #1#2
+  {
+    {
+      \ctexset { chapter / format = { #2 } }
+      \@@_n_chapter_head:n { #1 }
+    }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@@_n_chapter_head_toc:n}
 % 新建无编号章节并添加目录及页眉。
 %    \begin{macrocode}
@@ -1605,7 +1617,7 @@
     \cftbeforeparaskip,
     \cftbeforesubparaskip
   }
-  { \setlength { #1 } { 5pt } }
+  { \dim_set:Nn { #1 } { 5pt } }
   \clist_map_inline:nn
     {
       \cftchapfont,
@@ -2167,8 +2179,9 @@
     \cleardoublepage
 %    \end{macrocode}
 % 英文摘要，Times New Roman字体，小四号。
+% \changes{v0.4.3.0}{2022/04/05}{修正英文摘要标题字体}
 %    \begin{macrocode}
-    \@@_n_chapter_head:n {ABSTRACT}
+    \@@_n_chapter_head:nn {ABSTRACT} { \rmfamily \zihao{3} \bfseries \centering }
     {
       \dim_set:Nn \parindent { 2\ccwd }
       \rmfamily \zihao{-4}
