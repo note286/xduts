@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/05 v0.5.0.0 Xidian University TeX]
+[2022/04/06 v0.5.1.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022/04/05}{0.5.0.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022/04/06}{0.5.1.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \changes{v0.4.2.1}{2022/04/05}{调整文档目录缩进}
@@ -129,7 +129,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{802}
+% \CheckSum{816}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -954,6 +954,30 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\@@_if_platform_macos:FT}
+% \changes{v0.5.1.0}{2022/04/06}{判断操作系统是否是macOS}
+% 判断操作系统是否是macOS。
+% \begin{arguments}
+%   \item 非macOS。
+%   \item macOS。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_if_platform_macos:FT #1#2
+  { \ctex_if_platform_macos:TF { #2 } { #1 } }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_texmf_font:nn}
+% \changes{v0.5.1.0}{2022/04/06}{加载字体时自动判断是否为macOS平台}
+% 调用TEXMF中的字体时根据操作系统是否是macOS自动选择调用字体名或文件名。
+% \begin{arguments}
+%   \item 字体名。
+%   \item 文件名。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_texmf_font:nn #1#2
+  { \@@_if_platform_macos:FT { #1 } { #2 } }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@@_rm_family:,\@@_sf_family:,\@@_tt_family:}
 % 切换字体族时，英文根据配置选择是否使用中文字体。
 %    \begin{macrocode}
@@ -1217,17 +1241,18 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_cjk_font_founder:}
+% \changes{v0.5.1.0}{2022/04/06}{适配macOS平台方正字体}
 % 中文字体配置\valuex{founder}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_cjk_font_founder:
   {
     \@@_set_cjk_main_font:nn
-      { \@@_select_font:nn { 方正书宋_GBK } { FZShuSong-Z01.ttf } }
-      { \@@_select_font:nn { 方正楷体_GBK } { FZKai-Z03.ttf     } }
+      { \@@_select_font:nn { FZShuSong-Z01  } { FZShuSong-Z01.ttf } }
+      { \@@_select_font:nn { FZKai-Z03      } { FZKai-Z03.ttf     } }
     \@@_set_cjk_sans_font:n
-      { \@@_select_font:nn { 方正黑体_GBK } { FZHei-B01.ttf     } }
+      { \@@_select_font:nn { FZHei-B01      } { FZHei-B01.ttf     } }
     \@@_set_cjk_mono_font:n
-      { \@@_select_font:nn { 方正仿宋_GBK } { FZFSK.TTF         } }
+      { \@@_select_font:nn { FZFangSong-Z02 } { FZFSK.TTF         } }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1248,19 +1273,20 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_cjk_font_fandol:}
+% \changes{v0.5.1.0}{2022/04/06}{适配macOS平台Fandol字体}
 % 中文字体配置\valuex{fandol}。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_cjk_font_fandol:
   {
     \@@_set_cjk_main_font:nnn
-      { FandolSong-Regular }
-      { FandolSong-Bold    }
-      { FandolKai-Regular  }
+      { FandolSong-Regular.otf }
+      { FandolSong-Bold.otf    }
+      { FandolKai-Regular.otf  }
     \@@_set_cjk_sans_font:nn
-      { FandolHei-Regular  }
-      { FandolHei-Bold     }
+      { FandolHei-Regular.otf  }
+      { FandolHei-Bold.otf     }
     \@@_set_cjk_mono_font:n
-      { FandolFang-Regular }
+      { FandolFang-Regular.otf }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1412,6 +1438,7 @@
 % \begin{macro}{\@@_define_math_font:nn}
 % 批量定义数学字体配置。
 % \changes{v0.2.0.0}{2022/04/04}{增加Garamond Math数学字体}
+% \changes{v0.5.1.0}{2022/04/06}{适配macOS平台MacTeX内置数学字体}
 % \begin{arguments}
 %   \item 配置名称。
 %   \item 字体名称。
@@ -1427,20 +1454,39 @@
   }
 \clist_map_inline:nn
   {
-    { asana      } { Asana~Math            },
-    { fira       } { Fira~Math             },
-    { garamond   } { Garamond-Math         },
-    { lm         } { Latin~Modern~Math     },
-    { libertinus } { Libertinus~Math       },
-    { stix       } { STIX~Math             },
-    { bonum      } { TeX~Gyre~Bonum~Math   },
-    { dejavu     } { TeX~Gyre~DejaVu~Math  },
-    { pagella    } { TeX~Gyre~Pagella~Math },
-    { schola     } { TeX~Gyre~Schola~Math  },
-    { termes     } { TeX~Gyre~Termes~Math  },
-    { xits       } { XITS~Math             }
+    { asana      } { Asana-Math.otf             },
+    { fira       } { FiraMath-Regular.otf       },
+    { garamond   } { Garamond-Math.otf          },
+    { lm         } { latinmodern-math.otf       },
+    { libertinus } { LibertinusMath-Regular.otf },
+    { stix       } { STIXMath-Regular.otf       },
+    { bonum      } { texgyrebonum-math.otf      },
+    { dejavu     } { texgyredejavu-math.otf     },
+    { pagella    } { texgyrepagella-math.otf    },
+    { schola     } { texgyreschola-math.otf     },
+    { termes     } { texgyretermes-math.otf     }
   }
   { \@@_define_math_font:nn #1 }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_load_math_font_xits:}
+% \changes{v0.5.1.0}{2022/04/06}{适配macOS平台MacTeX内置XITSMath数学字体}
+% 数学字体配置\valuex{xits}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_load_math_font_xits:
+  {
+    \@@_load_unicode_math_pkg:
+    \@@_if_platform_macos:FT
+      {
+        \setmathfont { XITS~Math }
+      }
+      {
+        \@@_load_unicode_math_pkg:
+        \setmathfont { XITSMath-Regular.otf }
+        \setmathfont { XITSMath-Bold.otf    }
+          [range= { bfup -> up, bfit -> it } ]
+      }
+  }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_math_font_cm:}
