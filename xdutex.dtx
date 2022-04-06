@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/06 v0.5.1.0 Xidian University TeX]
+[2022/04/06 v0.5.1.1 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022/04/06}{0.5.1.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022/04/06}{0.5.1.1}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \changes{v0.4.2.1}{2022/04/05}{调整文档目录缩进}
@@ -44,6 +44,9 @@
 \newcommand{\tnx}[1]{\xspace\tn{#1}\xspace}
 % <name> LaTeX3键值
 \newcommand{\metax}[1]{\xspace\meta{#1}\xspace}
+% LaTeX3键值对
+\newcommand{\breakablethinspace}{\hskip 0.16667em\relax}
+\newcommand{\kvoptx}[2]{\xspace\texttt{#1\breakablethinspace=\breakablethinspace#2}\xspace}
 % {<name>} LaTeX2e参数
 \newcommand{\argx}[1]{\xspace\Arg{#1}\xspace}
 % [<name>] LaTeX2e可选参数
@@ -232,6 +235,30 @@
 %     \tnx{xdusetup}=\argx{键值列表}
 %   \end{syntax}
 % 本模板提供了一系列选项，可自行配置。载入文档类之后，以下所有选项均可通过统一的命令\tnx{xdusetup}来设置。下文中尖括号内列出了若干个允许的选项，其中加粗的为默认选项。
+% \changes{v0.5.1.1}{2022/04/06}{增加xdusetup配置文档}
+% \csx{xdusetup}的参数是一组由（英文）逗号隔开的选项列表，列表中的选项通常是\kvoptx{\metax{key}}{\metax{value}}的形式。
+% \csx{xdusetup}采用\LaTeXiii{}风格的键值设置，支持不同类型以及多种层次的选项设定。键值列表中，“|=|”左右的空格不影响设置；但需注意，参数列表中不可以出现空行。
+% 一些选项包含子选项，如\optx{style}和\optx{info}等，它们可以按如下两种等价方式来设定：
+% \begin{latexexample}[morekeywords={\xdusetup},emph={[1]style,cjk-font,latin-font,info,title,author,department}]
+%   \xdusetup{
+%     style = {cjk-font = adobe, latin-font = tacn},
+%     info  = {
+%       title      = {论如何让用户认真阅读文档},
+%       author     = {张三},
+%       department = {排版学院}
+%     }
+%   }
+% \end{latexexample}
+% 或者
+% \begin{latexexample}[morekeywords={\xdusetup},emph={[1]style,cjk-font,latin-font,info,title,author,department}]
+%   \xdusetup{
+%     style / cjk-font   = adobe,
+%     style / latin-font = tacn,
+%     info  / title      = {论如何让用户认真阅读文档},
+%     info  / author     = {张三},
+%     info  / department = {排版学院}
+%   }
+% \end{latexexample}
 % \end{function}
 % \subsubsection{通用}
 % \paragraph{字体配置}
