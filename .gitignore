@@ -1,4 +1,5 @@
 test
+.DS_Store
 *.7z
 *.aux
 *.bcf
