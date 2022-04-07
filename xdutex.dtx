@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/07 v0.5.1.2 Xidian University TeX]
+[2022/04/07 v0.5.2.0 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022/04/07}{0.5.1.2}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022/04/07}{0.5.2.0}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \changes{v0.4.2.1}{2022/04/05}{调整文档目录缩进}
@@ -132,7 +132,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{816}
+% \CheckSum{822}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2246,14 +2246,14 @@
     \@@_n_chapter_head:n { 摘要 }
     {
       \dim_set:Nn \parindent { 2\ccwd }
-      \rmfamily \zihao{-4}
+      \rmfamily \zihao { -4 }
       \file_if_exist_input:n { \l_@@_abstract_zh_tl }
     }
 %    \end{macrocode}
 % 中文关键词，黑体小四号。
 %    \begin{macrocode}
     {
-      \sffamily \zihao{-4} \par
+      \sffamily \zihao { -4 } \par
       \@@_typeout_keywords:nNn { 关键词： } { \l_@@_keywords_zh_clist } { \qquad }
     }
     \cleardoublepage
@@ -2264,14 +2264,14 @@
     \@@_n_chapter_head:nn {ABSTRACT} { \rmfamily \zihao{3} \bfseries \centering }
     {
       \dim_set:Nn \parindent { 2\ccwd }
-      \rmfamily \zihao{-4}
+      \rmfamily \zihao { -4 }
       \file_if_exist_input:n { \l_@@_abstract_en_tl }
     }
 %    \end{macrocode}
 % 英文关键词，Times New Roman字体加粗，小四号。
 %    \begin{macrocode}
     {
-      \rmfamily \zihao{-4} \bfseries \par
+      \rmfamily \zihao { -4 } \bfseries \par
       \@@_typeout_keywords:nNn { Keywords： } { \l_@@_keywords_en_clist } { \qquad }
     }
     \cleardoublepage
@@ -2302,7 +2302,7 @@
     \pagestyle     { plain  }
     \pagenumbering { arabic }
     \dim_set:Nn \parindent { 2\ccwd }
-    \rmfamily \zihao{-4}
+    \rmfamily \zihao { -4 }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2317,20 +2317,23 @@
     \@@_n_chapter_head_toc:n { \@@_lang_switch:nn { 致谢 } { Acknowledgements } }
     {
       \dim_set:Nn \parindent { 2\ccwd }
-      \rmfamily \zihao{-4}
+      \rmfamily \zihao { -4 }
       \file_if_exist_input:n { \l_@@_ack_tl }
     }
 %    \end{macrocode}
 % 参考文献。
 % \changes{v0.2.1.0}{2022/04/04}{参考文献添加至目录}
+% \changes{v0.5.2.0}{2022/04/07}{修正参考文献列表字体字号}
 %    \begin{macrocode}
     \@@_add_toc:n { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
     {
       \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
         {
+          \@@_rm_family: \zihao { 5 }
           \bibliography { \l_@@_bib_file_clist }
         }
         {
+          \renewcommand { \bibfont } { \@@_rm_family: \zihao { 5 } }
           \printbibliography
         }
     }
