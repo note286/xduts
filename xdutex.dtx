@@ -1,12 +1,12 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xdutex.dtx}
-[2022/04/06 v0.5.1.1 Xidian University TeX]
+[2022/04/07 v0.5.1.2 Xidian University TeX]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022/04/06}{0.5.1.1}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022/04/07}{0.5.1.2}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
 \changes{v0.4.2.1}{2022/04/05}{调整文档目录缩进}
@@ -177,7 +177,10 @@
 % \clearpage
 % \section{介绍}
 % \xdutex{} (Xidian University \TeX{})
-% 是为了帮助西安电子科技大学本科生/研究生撰写开题报告/学位论文而编写的\LaTeX{}模板套装。
+% 是为了帮助西安电子科技大学本科生/研究生撰写开题报告/学位论文而编写的\LaTeX{}模板套装，目前有：
+% \begin{itemize}
+% \item \clsx{xduugthesis}，本科毕业设计论文。
+% \end{itemize}
 % \par
 % 本文档将尽量完整的介绍模板的使用方法，
 % 如有不清楚之处，或者想提出改进建议，
@@ -199,13 +202,14 @@
 % 提供了很大帮助。
 % 在文档的编写过程中，参考了
 % \filex{ctex.dtx}\footctan{language/chinese/ctex/ctex.dtx}、
-% \filex{install-latex-guide-zh-cn.tex}\footctan{info/install-latex-guide-zh-cn/install-latex-guide-zh-cn.tex}、
 % \filex{fduthesis.dtx}\footctan{macros/latex/contrib/fduthesis/fduthesis.dtx}、
 % \filex{njuthesis.dtx}\footctan{macros/unicodetex/latex/njuthesis/njuthesis.dtx}、
 % \filex{thuthesis.dtx}\footctan{macros/latex/contrib/thuthesis/thuthesis.dtx}。
 % \StopEventually{}
 % \section{使用说明}
 % \subsection{基本用法}
+% \changes{v0.5.1.2}{2022/04/07}{增加编译说明}
+% \LaTeX{}本身是命令行程序，通过不同的命令调用所需的编译引擎，编辑器提供的快捷按钮实际只是做了包装。\xdutex{}仅支持\XeLaTeX{}，参考文献默认使用\biber{}，也可以切换为\bibtex{}，如何编译\LaTeX{}请学习《一份（不太）简短的\LaTeXe{}介绍》中相关内容。
 % \subsubsection{xduugthesis}
 % \paragraph{标准结构}
 % 典型的\clsx{xduugthesis}主文件结构应该如下所示：
@@ -569,6 +573,7 @@
 %     }
 %   }
 % \end{latexexample}
+% \clearpage
 % \section{代码实现}
 % \changes{v0.1.0.0}{2022/04/03}{基本完成本科毕业设计论文模板}
 % \setlength\parindent{0pt}
