@@ -1,14 +1,15 @@
 % \iffalse
 %<*driver>
-\ProvidesFile{xdutex.dtx}
-[2022/04/07 v0.5.2.0 Xidian University TeX]
+\ProvidesFile{xduts.dtx}
+[2022/04/09 v0.5.2.1 Xidian University TeX Suite]
 %</driver>
 %<class>\NeedsTeXFormat{LaTeX2e}
 %<class>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022/04/07}{0.5.2.0}{Xidian University Undergraduate Thesis class}
+%<xduugthesis>  {2022/04/09}{0.5.2.1}{Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
+\changes{v0.5.2.1}{2022/04/09}{修改项目名称}
 \changes{v0.4.2.1}{2022/04/05}{调整文档目录缩进}
 \usepackage{tocloft}
 \setlength{\cftsecindent}{0em}
@@ -68,7 +69,7 @@
 \newcommand{\ctanurl}[1]{\href{https://mirrors.ustc.edu.cn/CTAN/#1}{\ttfamily CTAN://#1}}
 \newcommand{\footctan}[1]{\footnote{\ctanurl{#1}}}
 % logo
-\newcommand{\xdutex}{{\bfseries\ffmfamily XDU\TeX{}}}
+\newcommand{\xduts}{{\bfseries\ffmfamily XDUTS}}
 \newcommand{\texlive}{\TeX{} Live}
 \newcommand{\mactex}{Mac\TeX{}}
 \newcommand{\miktex}{\xspace\hologo{MiKTeX}\xspace}
@@ -149,13 +150,13 @@
 %   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %   Right brace   \}     Tilde         \~}
 % \GetFileInfo{\jobname.dtx}
-% \title{\bfseries\xdutex{}手册}
+% \title{\bfseries\xduts{}手册}
 % \author{\href{https://github.com/note286/}{note286}}
-% \date{\href{https://github.com/note286/xdutex/releases/tag/\fileversion/}{\fileversion}~(\filedate)}
+% \date{\href{https://github.com/note286/xduts/releases/tag/\fileversion/}{\fileversion}~(\filedate)}
 % \maketitle
 % \thispagestyle{empty}
 % \begin{abstract}
-% \xdutex{}是面向西安电子科技大学本科生/研究生的\LaTeXiii{}模板套装，
+% \xduts{}是面向西安电子科技大学本科生/研究生的\LaTeXiii{}模板套装，
 % 支持\XeLaTeX{}，
 % 支持\texlive{}、\mactex{}、\miktex{}，
 % 支持Windows、macOS、GNU/Linux、Overleaf和TeXPage。
@@ -176,7 +177,7 @@
 % \tableofcontents
 % \clearpage
 % \section{介绍}
-% \xdutex{} (Xidian University \TeX{})
+% \xduts{} (Xidian University \TeX{} Suite)
 % 是为了帮助西安电子科技大学本科生/研究生撰写开题报告/学位论文而编写的\LaTeX{}模板套装，目前有：
 % \begin{itemize}
 % \item \clsx{xduugthesis}，本科毕业设计论文。
@@ -184,17 +185,17 @@
 % \par
 % 本文档将尽量完整的介绍模板的使用方法，
 % 如有不清楚之处，或者想提出改进建议，
-% 可以在GitHub Issues\footurl{https://github.com/note286/xdutex/issues/}
+% 可以在GitHub Issues\footurl{https://github.com/note286/xduts/issues/}
 % 参与讨论或提问。另外，不接受任何Pull Requests。
 % \par
-% 请在最新版\LaTeX{}环境中使用最新版\xdutex{}，
+% 请在最新版\LaTeX{}环境中使用最新版\xduts{}，
 % 《一份（不太）简短的\LaTeXe{}介绍》\footctan{info/lshort/chinese/lshort-zh-cn.pdf}
 % 中提及的内容本文档将不再提及。
 % \section{贡献者}
-% \xdutex{}的开发过程中，维护者为
+% \xduts{}的开发过程中，维护者为
 % \href{https://github.com/note286/}{\ttfamily @note286}。
 % 同时，也要感谢所有在GitHub和睿思上提出问题的同学、老师们。
-% \xdutex{}的持续发展，离不开你们的帮助与支持。
+% \xduts{}的持续发展，离不开你们的帮助与支持。
 % \section{致谢}
 % 在学习文学编程的过程中，
 % 《在\LaTeX{}中进行文学编程》\footurl{https://liam.page/2015/01/23/literate-programming-in-latex/}
@@ -209,7 +210,7 @@
 % \section{使用说明}
 % \subsection{基本用法}
 % \changes{v0.5.1.2}{2022/04/07}{增加编译说明}
-% \LaTeX{}本身是命令行程序，通过不同的命令调用所需的编译引擎，编辑器提供的快捷按钮实际只是做了包装。\xdutex{}仅支持\XeLaTeX{}，参考文献默认使用\biber{}，也可以切换为\bibtex{}，如何编译\LaTeX{}请学习《一份（不太）简短的\LaTeXe{}介绍》中相关内容。
+% \LaTeX{}本身是命令行程序，通过不同的命令调用所需的编译引擎，编辑器提供的快捷按钮实际只是做了包装。\xduts{}仅支持\XeLaTeX{}，参考文献默认使用\biber{}，也可以切换为\bibtex{}，如何编译\LaTeX{}请学习《一份（不太）简短的\LaTeXe{}介绍》中相关内容。
 % \subsubsection{xduugthesis}
 % \paragraph{标准结构}
 % 典型的\clsx{xduugthesis}主文件结构应该如下所示：
