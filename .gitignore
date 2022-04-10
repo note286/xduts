@@ -1,5 +1,6 @@
 *.7z
 *.aux
+*.bat
 *.bcf
 *.cls
 *.glo
