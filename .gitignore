@@ -23,5 +23,6 @@
 *.xml
 *.zip
 .DS_Store
+build
 test
 xduts.pdf
