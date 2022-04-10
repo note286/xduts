@@ -15,6 +15,22 @@ XDUTS（Xidian University TeX Suite）是面向西安电子科技大学本科生
 
 ## 获取
 
+XDUTS已上传至CTAN，已被TeX Live/MacTeX收录，在安装最新版TeX Live/MacTeX后，以管理员权限执行（macOS和GNU/Linux请添加`sudo`）
+
+```shell
+tlmgr update --self xduts
+```
+
+来获取最新的XDUTS，运行
+
+```shell
+texdoc xduts
+```
+
+来阅读文档。
+
+一般来说，CTAN更新较为缓慢，若想使用最新版，下载本仓库，运行以下命令来得到相应的文档及文档类/宏包文件。
+
 ```shell
 xetex xduts.ins
 xelatex xduts.dtx
