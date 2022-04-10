@@ -23,7 +23,11 @@
 \postamble
 \endpostamble
 \keepsilent
-\generate{\file{xduugthesis.cls}{\from{\jobname.dtx}{class,xduugthesis}}}
+\generate
+  {
+    \file{xduugthesis.cls}{\from{\jobname.dtx}{class,xduugthesis}}
+    \file{xdufont.sty}{\from{\jobname.dtx}{sty,xdufont}}
+  }
 \nopreamble
 \nopostamble
 \endbatchfile

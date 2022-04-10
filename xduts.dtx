@@ -1,14 +1,18 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/09 v0.5.2.1 Xidian University TeX Suite]
+[2022/04/10 v0.6.0.0 Xidian University TeX Suite]
 %</driver>
-%<class>\NeedsTeXFormat{LaTeX2e}
-%<class>\RequirePackage{expl3}
+%<class|sty>\NeedsTeXFormat{LaTeX2e}
+%<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<xduugthesis>  {2022/04/09}{0.5.2.1}{Xidian University Undergraduate Thesis class}
+%<xdufont>\ProvidesExplPackage{xdufont}
+%<class|sty>  {2022/04/10}{0.6.0.0}
+%<xdufont>  {Xidian University Font package}
+%<xduugthesis>  {Xidian University Undergraduate Thesis class}
 %<*driver>
 \documentclass{ctxdoc}
+\changes{v0.6.0.0}{2022/04/10}{新增xdufont宏包}
 \changes{v0.5.2.1}{2022/04/09}{修改项目名称}
 \changes{v0.4.2.1}{2022/04/05}{调整文档目录缩进}
 \usepackage{tocloft}
@@ -64,6 +68,8 @@
 \newcommand{\valuex}[1]{\xspace\texttt{#1}\xspace}
 % 命令
 \newcommand{\cmdx}[1]{\xspace\texttt{#1}\xspace}
+% 引用
+\newcommand{\secrefx}[1]{第\xspace\ref{#1}\xspace 节}
 % 链接
 \newcommand{\footurl}[1]{\footnote{\url{#1}}}
 \newcommand{\ctanurl}[1]{\href{https://mirrors.ustc.edu.cn/CTAN/#1}{\ttfamily CTAN://#1}}
@@ -77,6 +83,10 @@
 \newcommand{\biber}{\xspace\hologo{biber}\xspace\xspace}
 % arguments list
 \setlist[arguments]{label=\texttt{\#\arabic*}\,:}
+% 浮动体默认设置
+\makeatletter
+\renewcommand{\fps@table}{htbp}
+\makeatother
 % listings
 \definecolor{xdu-ai-orange}{cmyk}{0,0.75,1,0}
 \definecolor{xdu-blue}{cmyk}{0.80,0.50,0,0}
@@ -93,7 +103,7 @@
     frame           = l,
     framerule       = 1 pt,
     framesep        = 0 pt,
-    xleftmargin     = 2 em,
+    xleftmargin     = 0 em,
     xrightmargin    = 3 em,
     escapeinside    = {(*}{*)},
     breaklines      = true,
@@ -133,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{822}
+% \CheckSum{823}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -156,21 +166,22 @@
 % \maketitle
 % \thispagestyle{empty}
 % \begin{abstract}
-% \xduts{}是面向西安电子科技大学本科生/研究生的\LaTeXiii{}模板套装，
+% \xduts{}是面向西安电子科技大学本科生/研究生的\LaTeXiii{}文档类和宏包套装，
 % 支持\XeLaTeX{}，
 % 支持\texlive{}、\mactex{}、\miktex{}，
 % 支持Windows、macOS、GNU/Linux、Overleaf和TeXPage。
 % \end{abstract}
-% \renewcommand\abstractname{免责声明}
+% \renewcommand{\abstractname}{免责声明}
 % \begin{abstract}
-% \noindent
+% 在使用\xduts{}时，默认您同意以下内容：
 % \begin{enumerate}
-% \item 本模板的发布遵守
+% \item \xduts{}作者不对使用\xduts{}产生的格式审查问题负责。
+% \item \xduts{}的发布遵守
 % \LaTeX{} Project Public License\footurl{https://www.latex-project.org/lppl.txt}，
 % 使用前请认真阅读协议内容。
-% \item 任何个人或组织以本模板为基础进行修改、扩展而生成的新的专用模板，
+% \item 任何个人或组织以\xduts{}为基础进行修改、扩展而生成的新的\LaTeX{}文档类/宏包，
 % 请严格遵守\LaTeX{} Project Public License，
-% 由于违犯协议而引起的任何纠纷争端均与本模板作者无关。
+% 由于违犯协议而引起的任何纠纷争端均与\xduts{}作者无关。
 % \end{enumerate}
 % \end{abstract}
 % \clearpage
@@ -178,41 +189,55 @@
 % \clearpage
 % \section{介绍}
 % \xduts{} (Xidian University \TeX{} Suite)
-% 是为了帮助西安电子科技大学本科生/研究生撰写开题报告/学位论文而编写的\LaTeX{}模板套装，目前有：
+% 是为了帮助西安电子科技大学本科生/研究生撰写开题报告/学位论文及其他文档
+% 而编写的\LaTeX{}文档类和宏包套装，目前有：
 % \begin{itemize}
 % \item \clsx{xduugthesis}，本科毕业设计论文。
+% \item \pkgx{xdufont}，中/英/数学字体配置宏包。
+% \end{itemize}
+% 即将支持：
+% \begin{itemize}
+% \item \clsx{xduugtp}，本科毕业设计论文开题报告表。
+% \item \clsx{xdupgthesis}，研究生学位论文。
+% \item \clsx{xdupgtp}，研究生学位论文开题报告表。
 % \end{itemize}
 % \par
-% 本文档将尽量完整的介绍模板的使用方法，
+% 本文档将尽量完整的介绍\xduts{}的使用方法，
 % 如有不清楚之处，或者想提出改进建议，
 % 可以在GitHub Issues\footurl{https://github.com/note286/xduts/issues/}
-% 参与讨论或提问。另外，不接受任何Pull Requests。
-% \par
-% 请在最新版\LaTeX{}环境中使用最新版\xduts{}，
-% 《一份（不太）简短的\LaTeXe{}介绍》\footctan{info/lshort/chinese/lshort-zh-cn.pdf}
-% 中提及的内容本文档将不再提及。
-% \section{贡献者}
-% \xduts{}的开发过程中，维护者为
-% \href{https://github.com/note286/}{\ttfamily @note286}。
-% 同时，也要感谢所有在GitHub和睿思上提出问题的同学、老师们。
-% \xduts{}的持续发展，离不开你们的帮助与支持。
-% \section{致谢}
-% 在学习文学编程的过程中，
-% 《在\LaTeX{}中进行文学编程》\footurl{https://liam.page/2015/01/23/literate-programming-in-latex/}
-% 和《Good things come in little packages: An introduction to writing .ins and .dtx files》\footurl{https://www.tug.org/TUGboat/tb29-2/tb92pakin.pdf}
-% 提供了很大帮助。
-% 在文档的编写过程中，参考了
-% \filex{ctex.dtx}\footctan{language/chinese/ctex/ctex.dtx}、
-% \filex{fduthesis.dtx}\footctan{macros/latex/contrib/fduthesis/fduthesis.dtx}、
-% \filex{njuthesis.dtx}\footctan{macros/unicodetex/latex/njuthesis/njuthesis.dtx}、
-% \filex{thuthesis.dtx}\footctan{macros/latex/contrib/thuthesis/thuthesis.dtx}。
+% 参与讨论或提问。另外，\textbf{不接受任何Pull Requests}。
 % \StopEventually{}
 % \section{使用说明}
-% \subsection{基本用法}
-% \changes{v0.5.1.2}{2022/04/07}{增加编译说明}
-% \LaTeX{}本身是命令行程序，通过不同的命令调用所需的编译引擎，编辑器提供的快捷按钮实际只是做了包装。\xduts{}仅支持\XeLaTeX{}，参考文献默认使用\biber{}，也可以切换为\bibtex{}，如何编译\LaTeX{}请学习《一份（不太）简短的\LaTeXe{}介绍》中相关内容。
-% \subsubsection{xduugthesis}
-% \paragraph{标准结构}
+% \label{使用说明}
+% 《一份（不太）简短的\LaTeXe{}介绍》\footctan{info/lshort/chinese/lshort-zh-cn.pdf}
+% 中提及的内容本文档将不再提及。
+% \xduts{}中的所有文档类和宏包仅内置了实现功能所必要的宏包，
+% 对于常用的宏包如\pkgx{subfig}、\pkgx{algpseudocodex}、
+% \pkgx{amsmath}、\pkgx{amsthm}和\pkgx{siunitx}等均未内置，
+% 用户视需求自行加载。
+% 请在最新版\LaTeX{}环境中使用最新版\xduts{}，
+% 认真阅读相应文档类/宏包使用说明章节即可使用\xduts{}。
+% \par
+% 相应格式规范均已实现，用户仅需要撰写文章内容即可，请勿随意添加格式修改命令。
+% \subsection{xdufont}
+% \pkgx{xdufont}宏包基于\pkgx{xeCJK}，相较于\pkgx{ctex}宏包的主要优势为默认支持宋体粗体、斜体，内置多种字体配置，可任意搭配中/英/数学字体，更加符合校内各种文档的撰写要求。
+% \par
+% \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置，具体的配置选项见\secrefx{字体选项}。\pkgx{xdufont}可以搭配任意文档类进行使用，例如：
+% \begin{latexexample}[moretexcs={\xdusetup},emph={[1]document}]
+%   \documentclass{article}
+%   \usepackage{xdufont}
+%   \xdusetup{}
+%   \begin{document}
+%   宋体\textbf{加粗}\textsl{加斜}
+%   \textsf{黑体}\textbf{\textsf{加粗}}\textsl{\textsf{加斜}}
+%   \end{document}
+% \end{latexexample}
+% \par
+% 学会以上用法后即可立即使用\pkgx{xdufont}宏包了。
+% \subsection{xduugthesis}
+% \pkgx{xduugthesis}基于\clsx{ctexbook}文档类，
+% 提供多种字体配置，部分样式可自定义，信息录入便捷。
+% \par
 % 典型的\clsx{xduugthesis}主文件结构应该如下所示：
 % \begin{latexexample}[moretexcs={\xdusetup,\frontmatter,\mainmatter,\chapter,\backmatter},emph={[1]document}]
 %   \documentclass{xduugthesis}
@@ -225,25 +250,63 @@
 %   \backmatter
 %   \end{document}
 % \end{latexexample}
-% \paragraph{命令与环境}
-% \subparagraph{附录环境}
-% 附录位于参考文献后，即在\tnx{backmatter}后。
-% \begin{latexexample}[emph={[1]appendixes}]
-%   \begin{appendixes}
-%       \chapter{这是一个附录}
-%       \chapter{这是另一个附录}
-%   \end{appendixes}
+% \par
+% \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置。
+% 其中，字体选项见\secrefx{字体选项}，
+% 部分英文字体切换见\secrefx{英文字体}，
+% 论文语言切换见\secrefx{语言配置}，
+% 参考文献配置见\secrefx{参考文献配置}，
+% 图片配置见\secrefx{图片配置}，
+% 章节配置见\secrefx{章节配置}。
+% 如需附录，请使用附录环境，具体见\secrefx{附录环境}。
+% 仅支持如下信息录入，具体每个选项的含义见\secrefx{信息录入}，如没有部分选项，则删除该行即可。
+% \begin{latexexample}[moretexcs={\xdusetup},emph={[2]info}]
+%   \xdusetup {
+%     info = {
+%       title                 = {第一行标题\\第二行标题},
+%       department            = {电子工程学院},
+%       major                 = {电子信息工程},
+%       author                = {张三},
+%       supervisor            = {李四},
+%       supervisor-department = {王五},
+%       supervisor-enterprise = {赵六},
+%       supervisor-school     = {刘七},
+%       class-id              = {123456},
+%       student-id            = {12345678910},
+%       abstract              = {abstract-zh.tex},
+%       abstract*             = {abstract-en.tex},
+%       keywords              = {我,就是,充数的,关键词},
+%       keywords*             = {Dummy,Keywords,Here,it is},
+%       acknowledgements      = {acknowledgements.tex}
+%     }
+%   }
 % \end{latexexample}
+% \par
+% 学会以上用法后即可立即使用\clsx{xduugthesis}文档类了。
+% \section{功能说明}
+% 请根据\secrefx{使用说明}中相应文档类/宏包的说明来选择性地阅读本节内容。
+% \subsection{编译}
+% \label{编译}
+% \changes{v0.5.1.2}{2022/04/07}{增加编译说明}
+% \LaTeX{}本身是命令行程序，通过不同的命令调用所需的编译引擎，编辑器提供的快捷按钮实际只是做了包装。\xduts{}仅支持\XeLaTeX{}，参考文献默认使用\biber{}，也可以切换为\bibtex{}。
 % \subsection{参数设置}
+% \label{参数设置}
+% \changes{v0.5.1.1}{2022/04/06}{增加xdusetup配置文档}
 % \begin{function}[added=2022-03-07]{\xdusetup}
 %   \begin{syntax}
 %     \tnx{xdusetup}=\argx{键值列表}
 %   \end{syntax}
-% 本模板提供了一系列选项，可自行配置。载入文档类之后，以下所有选项均可通过统一的命令\tnx{xdusetup}来设置。下文中尖括号内列出了若干个允许的选项，其中加粗的为默认选项。
-% \changes{v0.5.1.1}{2022/04/06}{增加xdusetup配置文档}
-% \csx{xdusetup}的参数是一组由（英文）逗号隔开的选项列表，列表中的选项通常是\kvoptx{\metax{key}}{\metax{value}}的形式。
-% \csx{xdusetup}采用\LaTeXiii{}风格的键值设置，支持不同类型以及多种层次的选项设定。键值列表中，“|=|”左右的空格不影响设置；但需注意，参数列表中不可以出现空行。
-% 一些选项包含子选项，如\optx{style}和\optx{info}等，它们可以按如下两种等价方式来设定：
+% \xduts{}提供了一系列选项，可自行配置。
+% 载入文档类/宏包之后，以下所有选项均可通过统一的命令\tnx{xdusetup}来设置。
+% \csx{xdusetup}的参数是一组由（英文）逗号隔开的选项列表，
+% 下文中尖括号内列出了若干个允许的选项，其中加粗的为默认选项。
+% 列表中的选项通常是\kvoptx{\metax{key}}{\metax{value}}的形式。
+% \csx{xdusetup}采用\LaTeXiii{}风格的键值设置，
+% 支持不同类型以及多种层次的选项设定。
+% 键值列表中，“|=|”左右的空格不影响设置；
+% 但需注意，参数列表中不可以出现空行。
+% 一些选项包含子选项，如\optx{style}和\optx{info}等，
+% 它们可以按如下两种等价方式来设定：
 % \begin{latexexample}[morekeywords={\xdusetup},emph={[1]style,cjk-font,latin-font,info,title,author,department}]
 %   \xdusetup{
 %     style = {cjk-font = adobe, latin-font = tacn},
@@ -265,9 +328,8 @@
 %   }
 % \end{latexexample}
 % \end{function}
-% \subsubsection{通用}
-% \paragraph{字体配置}
-% 设置字体配置后或不手动配置而使用默认值，请确保相应字体文件已安装。
+% \subsection{字体选项}
+% \label{字体选项}
 % \begin{function}[added=2022-03-06]{style/cjk-font}
 %   \begin{syntax}
 %     \optx{style/cjk-font}=\metax{adobe|fandol|founder|sinotype|(win)|none}
@@ -413,6 +475,8 @@
 %   \end{syntax}
 % 设置字体文件路径，即\metax{路径}目录内存储全部所需中文、英文和数学字体文件，仅在\optx{font-type}等于|file|时有效，默认值为\valuex{fonts}。
 % \end{function}
+% \subsection{英文字体}
+% \label{英文字体}
 % \begin{function}[added=2022-04-01]{style/en-cjk-font}
 %   \begin{syntax}
 %     \optx{style/en-cjk-font}=\metax{true|(false)}
@@ -423,7 +487,8 @@
 %   \item[true] 英文使用相对应字体族的中文字体。
 %   \item[false] 英文使用相对应字体族的英文字体。
 % \end{optdesc}
-% \paragraph{语言配置}
+% \subsection{语言配置}
+% \label{语言配置}
 % \begin{function}[added=2022-03-29]{style/language}
 %   \begin{syntax}
 %     \optx{style/language}=\metax{(zh)|en}
@@ -434,7 +499,8 @@
 %   \item[zh] 中文。
 %   \item[en] 英文。
 % \end{optdesc}
-% \paragraph{参考文献配置}
+% \subsection{参考文献配置}
+% \label{参考文献配置}
 % \begin{function}[added=2022-04-02,updated=2022-04-03]{style/bib-backend}
 %   \begin{syntax}
 %     \optx{style/bib-backend}=\metax{bibtex|(biblatex)}
@@ -451,14 +517,16 @@
 %   \end{syntax}
 % 设置参考文献\filex{.bib}文件，多个文件之间需要使用英文半角逗号隔开。
 % \end{function}
-% \paragraph{图片配置}
+% \subsection{图片配置}
+% \label{图片配置}
 % \begin{function}[added=2022-04-03]{style/fig-label-sep}
 %   \begin{syntax}
 %     \optx{style/fig-label-sep}=\argx{间距}
 %   \end{syntax}
 % 设置图片标签与后面标题之间的间距，默认值为\valuex{0.75em}。
 % \end{function}
-% \paragraph{章节配置}
+% \subsection{章节配置}
+% \label{章节配置}
 % \begin{function}[added=2022-04-05]{style/before-skip}
 %   \begin{syntax}
 %     \optx{style/before-skip}=\argx{间距列表}
@@ -471,8 +539,19 @@
 %   \end{syntax}
 % 设置章节标题后的垂直间距，默认值为\valuex{\{18pt, 12pt, 6pt, 6pt, 6pt, 6pt\}}，分别对应\tnx{chapter}、\tnx{section}、\tnx{subsection}、\tnx{subsubsection}、\tnx{paragraph}和\tnx{subparagraph}。
 % \end{function}
-% \subsubsection{xduugthesis}
-% \paragraph{信息配置}
+% \subsection{附录环境}
+% \label{附录环境}
+% \begin{function}[added=2022-04-04]{appendixes}
+% 附录位于参考文献后，即在\tnx{backmatter}后。
+% \begin{latexexample}[emph={[1]appendixes}]
+%   \begin{appendixes}
+%       \chapter{这是一个附录}
+%       \chapter{这是另一个附录}
+%   \end{appendixes}
+% \end{latexexample}
+% \end{function}
+% \subsection{信息录入}
+% \label{信息录入}
 % \begin{function}[added=2022-04-01]{info/title}
 %   \begin{syntax}
 %     \optx{info/title}=\argx{论文标题}
@@ -538,7 +617,7 @@
 %     \optx{info/abstract}=\argx{中文摘要文件路径}
 %     \optx{info/abstract*}=\argx{英文摘要文件路径}
 %   \end{syntax}
-% 设置摘要文件路径。
+% 设置摘要文件路径，相应文件内仅撰写摘要内容，无需任何环境。
 % \end{function}
 % \begin{function}[added=2022-04-02]{info/keywords,info/keywords*}
 %   \begin{syntax}
@@ -551,44 +630,90 @@
 %   \begin{syntax}
 %     \optx{info/acknowledgements}=\argx{致谢文件路径}
 %   \end{syntax}
-% 设置致谢文件路径。
+% 设置致谢文件路径，相应文件内仅撰写致谢内容，无需任何环境。
 % \end{function}
-% \paragraph{输入示范}
-% 可以参考如下范例输入个人信息。注意不能有空行。
-% \begin{latexexample}[moretexcs={\xdusetup},emph={[2]info}]
-%   \xdusetup {
-%     info = {
-%       title = {第一行标题\\第二行标题},
-%       department = {电子工程学院},
-%       major = {电子信息工程},
-%       author = {张三},
-%       supervisor = {李四},
-%       supervisor-department = {王五},
-%       class-id = {123456},
-%       student-id = {12345678910},
-%       abstract = {abstract-zh.tex},
-%       abstract* = {abstract-en.tex},
-%       keywords = {我,就是,充数的,关键词},
-%       keywords* = {Dummy,Keywords,Here,it is},
-%       acknowledgements = {acknowledgements.tex}
-%     }
-%   }
-% \end{latexexample}
+% \section{贡献者}
+% \xduts{}的开发过程中，维护者为
+% \href{https://github.com/note286/}{\ttfamily @note286}。
+% 同时，也要感谢所有在GitHub和睿思上提出问题的同学、老师们。
+% \xduts{}的持续发展，离不开你们的帮助与支持。
+% \section{致谢}
+% 在学习文学编程的过程中，
+% 《在\LaTeX{}中进行文学编程》\footurl{https://liam.page/2015/01/23/literate-programming-in-latex/}
+% 和《Good things come in little packages: An introduction to writing .ins and .dtx files》\footurl{https://www.tug.org/TUGboat/tb29-2/tb92pakin.pdf}
+% 提供了很大帮助。
+% 在文档的编写过程中，参考了
+% \filex{ctex.dtx}\footctan{language/chinese/ctex/ctex.dtx}、
+% \filex{fduthesis.dtx}\footctan{macros/latex/contrib/fduthesis/fduthesis.dtx}、
+% \filex{njuthesis.dtx}\footctan{macros/unicodetex/latex/njuthesis/njuthesis.dtx}
+% 和\filex{thuthesis.dtx}\footctan{macros/latex/contrib/thuthesis/thuthesis.dtx}。
 % \clearpage
 % \section{代码实现}
 % \changes{v0.1.0.0}{2022/04/03}{基本完成本科毕业设计论文模板}
 % \setlength\parindent{0pt}
-% \subsection{通用}
 %    \begin{macrocode}
 %<@@=xdu>
 %    \end{macrocode}
+% \subsection{文档类和宏包}
 %    \begin{macrocode}
-%<*class>
+%<*class|sty>
 %    \end{macrocode}
 %    \begin{macrocode}
 \RequirePackage { xparse, l3keys2e }
 %    \end{macrocode}
-% \subsubsection{键值选项定义}
+% \begin{macro}{\PassOptionsToPackage}
+% 忽略字体警告。
+%    \begin{macrocode}
+\PassOptionsToPackage { quiet } { xeCJK }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</class|sty>
+%<*class>
+%    \end{macrocode}
+% \begin{macro}{\PassOptionsToClass,\LoadClass}
+% 加载\clsx{ctexbook}文档类。
+% \changes{v0.3.2.0}{2022/04/04}{修正行间距为1.5倍}
+%    \begin{macrocode}
+\PassOptionsToClass
+  {
+    zihao=-4,
+    sub4section,
+    linespread = 1.5,
+    fontset    = none
+  }
+  { ctexbook }
+\LoadClass { ctexbook }
+%    \end{macrocode}
+% \end{macro}
+% 设置纸张尺寸为A4。
+%    \begin{macrocode}
+\RequirePackage { geometry        }
+\geometry       { paper = a4paper }
+%    \end{macrocode}
+%    \begin{macrocode}
+%</class>
+%<*xduugthesis>
+%    \end{macrocode}
+%    \begin{macrocode}
+\RequirePackage { fancyhdr        }
+\RequirePackage { xeCJKfntef      }
+\RequirePackage { graphicx        }
+%    \end{macrocode}
+%    \begin{macrocode}
+%</xduugthesis>
+%<*xdufont>
+%    \end{macrocode}
+%    \begin{macrocode}
+\RequirePackage { xeCJK           }
+%    \end{macrocode}
+%    \begin{macrocode}
+%</xdufont>
+%    \end{macrocode}
+% \subsection{字体配置}
+%    \begin{macrocode}
+%<*class|xdufont>
+%    \end{macrocode}
 % \begin{variable}
 %   {
 %     \l_@@_cjk_font_tl,
@@ -598,14 +723,7 @@
 %     \l_@@_math_font_tl,
 %     \l_@@_unicode_math_tl,
 %     \l_@@_font_type_tl,
-%     \l_@@_font_path_tl,
-%     \l_@@_en_cjk_font_bool,
-%     \l_@@_lang_tl,
-%     \l_@@_bib_tool_tl,
-%     \l_@@_bib_file_clist,
-%     \l_@@_fig_label_sep_tl,
-%     \l_@@_before_skip_clist,
-%     \l_@@_after_skip_clist
+%     \l_@@_font_path_tl
 %   }
 % 中文字体配置名称。
 %    \begin{macrocode}
@@ -638,31 +756,6 @@
 % 字体文件路径。
 %    \begin{macrocode}
 \tl_new:N \l_@@_font_path_tl
-%    \end{macrocode}
-% 英文是否使用中文字体。
-%    \begin{macrocode}
-\bool_new:N \l_@@_en_cjk_font_bool
-%    \end{macrocode}
-% 语言。
-%    \begin{macrocode}
-\tl_new:N \l_@@_lang_tl
-%    \end{macrocode}
-% 参考文献支持方式。
-%    \begin{macrocode}
-\tl_new:N \l_@@_bib_tool_tl
-%    \end{macrocode}
-% 参考文献文件。
-%    \begin{macrocode}
-\clist_new:N \l_@@_bib_file_clist
-%    \end{macrocode}
-% 图片标签与后面标题之间的间距。
-%    \begin{macrocode}
-\tl_new:N \l_@@_fig_label_sep_tl
-%    \end{macrocode}
-% 设置章节标题前后的垂直间距。
-%    \begin{macrocode}
-\clist_new:N \l_@@_before_skip_clist
-\clist_new:N \l_@@_after_skip_clist
 %    \end{macrocode}
 % \end{variable}
 % \begin{macro}{\keys_define:nn}
@@ -707,198 +800,7 @@
 %    \end{macrocode}
 % 字体文件路径配置。
 %    \begin{macrocode}
-    font-path .tl_set:N = \l_@@_font_path_tl,
-%    \end{macrocode}
-% 英文是否使用中文字体。
-%    \begin{macrocode}
-    en-cjk-font .bool_set:N = \l_@@_en_cjk_font_bool,
-%    \end{macrocode}
-% 论文语言配置。
-%    \begin{macrocode}
-    language .choices:nn = { zh, en }
-      { \tl_set_eq:NN \l_@@_lang_tl \l_keys_choice_tl },
-%    \end{macrocode}
-% 参考文献支持方式配置。
-%    \begin{macrocode}
-    bib-backend .choices:nn = { bibtex, biblatex }
-      { \tl_set_eq:NN \l_@@_bib_tool_tl \l_keys_choice_tl },
-%    \end{macrocode}
-% 参考文献文件。
-%    \begin{macrocode}
-    bib-resource .clist_set:N = \l_@@_bib_file_clist,
-%    \end{macrocode}
-% 图片标签与后面标题之间的间距。
-%    \begin{macrocode}
-    fig-label-sep .tl_set:N = \l_@@_fig_label_sep_tl,
-%    \end{macrocode}
-% 设置章节标题前的垂直间距。
-%    \begin{macrocode}
-    before-skip .clist_set:N = \l_@@_before_skip_clist,
-%    \end{macrocode}
-% 设置章节标题后的垂直间距。
-%    \begin{macrocode}
-    after-skip .clist_set:N = \l_@@_after_skip_clist
-  }
-%    \end{macrocode}
-% \end{macro}
-% \begin{variable}
-%   {
-%     \l_@@_title_str,
-%     \l_@@_title_i_str,
-%     \l_@@_title_ii_str,
-%     \l_@@_dept_str,
-%     \l_@@_major_str,
-%     \l_@@_author_str,
-%     \l_@@_supv_str,
-%     \l_@@_supv_dept_str,
-%     \l_@@_supv_ent_str,
-%     \l_@@_supv_sch_str,
-%     \l_@@_class_id_str,
-%     \l_@@_student_id_str,
-%     \l_@@_abstract_zh_tl,
-%     \l_@@_abstract_en_tl,
-%     \l_@@_keywords_zh_clist,
-%     \l_@@_keywords_en_clist,
-%     \l_@@_ack_tl
-%   }
-% 论文标题。
-%    \begin{macrocode}
-\str_new:N \l_@@_title_str
-\str_new:N \l_@@_title_i_str
-\str_new:N \l_@@_title_ii_str
-%    \end{macrocode}
-% 院系名称。
-%    \begin{macrocode}
-\str_new:N \l_@@_dept_str
-%    \end{macrocode}
-% 专业名称。
-%    \begin{macrocode}
-\str_new:N \l_@@_major_str
-%    \end{macrocode}
-% 作者姓名。
-%    \begin{macrocode}
-\str_new:N \l_@@_author_str
-%    \end{macrocode}
-% 导师姓名。
-%    \begin{macrocode}
-\str_new:N \l_@@_supv_str
-%    \end{macrocode}
-% 院内导师姓名。
-%    \begin{macrocode}
-\str_new:N \l_@@_supv_dept_str
-%    \end{macrocode}
-% 校外导师姓名。
-%    \begin{macrocode}
-\str_new:N \l_@@_supv_ent_str
-%    \end{macrocode}
-% 校内导师姓名。
-%    \begin{macrocode}
-\str_new:N \l_@@_supv_sch_str
-%    \end{macrocode}
-% 作者班级号。
-%    \begin{macrocode}
-\str_new:N \l_@@_class_id_str
-%    \end{macrocode}
-% 作者学号。
-%    \begin{macrocode}
-\str_new:N \l_@@_student_id_str
-%    \end{macrocode}
-% 中文摘要。
-%    \begin{macrocode}
-\tl_new:N \l_@@_abstract_zh_tl
-%    \end{macrocode}
-% 英文摘要。
-%    \begin{macrocode}
-\tl_new:N \l_@@_abstract_en_tl
-%    \end{macrocode}
-% 中文关键词。
-%    \begin{macrocode}
-\clist_new:N \l_@@_keywords_zh_clist
-%    \end{macrocode}
-% 英文关键词。
-%    \begin{macrocode}
-\clist_new:N \l_@@_keywords_en_clist
-%    \end{macrocode}
-% 致谢。
-%    \begin{macrocode}
-\tl_new:N \l_@@_ack_tl
-%    \end{macrocode}
-% \end{variable}
-% \begin{macro}{\keys_define:nn}
-% 定义信息键值。
-%    \begin{macrocode}
-\keys_define:nn { xdu / info }
-  {
-%    \end{macrocode}
-% 论文标题。
-%    \begin{macrocode}
-    title .tl_set:N = \l_@@_title_str,
-%    \end{macrocode}
-% 院系名称。
-%    \begin{macrocode}
-    department .tl_set:N = \l_@@_dept_str,
-%    \end{macrocode}
-% 专业名称。
-%    \begin{macrocode}
-    major .tl_set:N = \l_@@_major_str,
-%    \end{macrocode}
-% 作者姓名。
-%    \begin{macrocode}
-    author .tl_set:N = \l_@@_author_str,
-%    \end{macrocode}
-% 导师姓名。
-%    \begin{macrocode}
-    supervisor .tl_set:N = \l_@@_supv_str,
-%    \end{macrocode}
-% 院内导师姓名。
-%    \begin{macrocode}
-    supervisor-department .tl_set:N = \l_@@_supv_dept_str,
-%    \end{macrocode}
-% 校外导师姓名。
-%    \begin{macrocode}
-    supervisor-enterprise .tl_set:N = \l_@@_supv_ent_str,
-%    \end{macrocode}
-% 校内导师姓名。
-%    \begin{macrocode}
-    supervisor-school .tl_set:N = \l_@@_supv_sch_str,
-%    \end{macrocode}
-% 作者班级号。
-%    \begin{macrocode}
-    class-id .tl_set:N = \l_@@_class_id_str,
-%    \end{macrocode}
-% 作者学号。
-%    \begin{macrocode}
-    student-id .tl_set:N = \l_@@_student_id_str,
-%    \end{macrocode}
-% 中文摘要。
-%    \begin{macrocode}
-    abstract .tl_set:N = \l_@@_abstract_zh_tl,
-%    \end{macrocode}
-% 英文摘要。
-%    \begin{macrocode}
-    abstract* .tl_set:N = \l_@@_abstract_en_tl,
-%    \end{macrocode}
-% 中文关键词。
-%    \begin{macrocode}
-    keywords .clist_set:N = \l_@@_keywords_zh_clist,
-%    \end{macrocode}
-% 英文关键词。
-%    \begin{macrocode}
-    keywords* .clist_set:N = \l_@@_keywords_en_clist,
-%    \end{macrocode}
-% 致谢。
-%    \begin{macrocode}
-    acknowledgements .tl_set:N = \l_@@_ack_tl
-  }
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\keys_define:nn}
-% 定义元（meta）键值对。
-%    \begin{macrocode}
-\keys_define:nn { xdu }
-  {
-    style .meta:nn = { xdu / style } { #1 },
-    info  .meta:nn = { xdu / info  } { #1 }
+    font-path .tl_set:N = \l_@@_font_path_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -914,76 +816,7 @@
     style / math-font             = cm,
     style / unicode-math          = { },
     style / font-type             = font,
-    style / font-path             = fonts,
-    style / en-cjk-font           = false,
-    style / language              = zh,
-    style / bib-backend           = biblatex,
-    style / bib-resource          = { },
-    style / fig-label-sep         = { 0.75em },
-    style / before-skip           = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
-    style / after-skip            = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
-    info  / title                 = { },
-    info  / department            = { },
-    info  / major                 = { },
-    info  / author                = { },
-    info  / supervisor            = { },
-    info  / supervisor-department = { },
-    info  / supervisor-enterprise = { },
-    info  / supervisor-school     = { },
-    info  / class-id              = { },
-    info  / student-id            = { },
-    info  / abstract              = { },
-    info  / abstract*             = { },
-    info  / keywords              = { },
-    info  / keywords*             = { },
-    info  / acknowledgements      = { }
-  }
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\xdusetup}
-% 用户设置接口。
-%    \begin{macrocode}
-\NewDocumentCommand \xdusetup { m }
-  { \keys_set:nn { xdu } { #1 } }
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\ProcessKeysOptions}
-% 处理选项。
-%    \begin{macrocode}
-\ProcessKeysOptions { xdu }
-%    \end{macrocode}
-% \end{macro}
-% \subsubsection{配置字体}
-% 忽略字体警告。
-%    \begin{macrocode}
-\str_if_eq:NNTF { \l_@@_cjk_font_tl } { fandol }
-  { \PassOptionsToPackage { quiet } { fontspec } }
-  { }
-\PassOptionsToPackage { quiet } { xeCJK }
-%    \end{macrocode}
-% \begin{macro}{\PassOptionsToClass,\LoadClass}
-% 加载\clsx{ctexbook}文档类。
-% \changes{v0.3.2.0}{2022/04/04}{修正行间距为1.5倍}
-%    \begin{macrocode}
-\PassOptionsToClass
-  {
-    zihao=-4,
-    sub4section,
-%<xduugthesis>    linespread = 1.5,
-    fontset    = none
-  }
-  { ctexbook }
-\LoadClass { ctexbook }
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\@@_font_path:}
-% 当选择使用字体文件配置字体时，设置字体文件路径。
-%    \begin{macrocode}
-\cs_new:Npn \@@_font_path:
-  {
-    \str_if_eq:NNTF { \l_@@_font_type_tl } { font }
-      { }
-      { Path = \l_@@_font_path_tl / , }
+    style / font-path             = fonts
   }
 %    \end{macrocode}
 % \end{macro}
@@ -996,7 +829,7 @@
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \@@_if_platform_macos:FT #1#2
-  { \ctex_if_platform_macos:TF { #2 } { #1 } }
+  { \file_if_exist:nTF { /System/Library/Fonts/Menlo.ttc } { #2 } { #1 } }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_texmf_font:nn}
@@ -1011,18 +844,33 @@
   { \@@_if_platform_macos:FT { #1 } { #2 } }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_rm_family:,\@@_sf_family:,\@@_tt_family:}
-% 切换字体族时，英文根据配置选择是否使用中文字体。
+% \begin{macro}{\@@_select_font:nn}
+% 自动选择字体文件名称或字体名称。
+% \begin{arguments}
+%   \item 字体名称。
+%   \item 字体文件名称。
+% \end{arguments}
 %    \begin{macrocode}
-\cs_new:Npn \@@_rm_family:
-  { \bool_if:NTF \l_@@_en_cjk_font_bool { \CJKfamily+ { rm } } { \rmfamily } }
-\cs_new:Npn \@@_sf_family:
-  { \bool_if:NTF \l_@@_en_cjk_font_bool { \CJKfamily+ { sf } } { \sffamily } }
-\cs_new:Npn \@@_tt_family:
-  { \bool_if:NTF \l_@@_en_cjk_font_bool { \CJKfamily+ { tt } } { \ttfamily } }
+\cs_new:Npn \@@_select_font:nn #1#2
+  {
+    \str_if_eq:NNTF { \l_@@_font_type_tl } { font }
+      { #1 }
+      { #2 }
+  }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{中文字体}
+% \begin{macro}{\@@_font_path:}
+% 当选择使用字体文件配置字体时，设置字体文件路径。
+%    \begin{macrocode}
+\cs_new:Npn \@@_font_path:
+  {
+    \str_if_eq:NNTF { \l_@@_font_type_tl } { font }
+      { }
+      { Path = \l_@@_font_path_tl / , }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \subsubsection{中文字体}
 % \begin{macro}{\@@_cfg_cjk_font_sub_b:}
 % 中文粗体。
 %    \begin{macrocode}
@@ -1184,21 +1032,6 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_select_font:nn}
-% 自动选择字体文件名称或字体名称。
-% \begin{arguments}
-%   \item 字体名称。
-%   \item 字体文件名称。
-% \end{arguments}
-%    \begin{macrocode}
-\cs_new:Npn \@@_select_font:nn #1#2
-  {
-    \str_if_eq:NNTF { \l_@@_font_type_tl } { font }
-      { #1 }
-      { #2 }
-  }
-%    \end{macrocode}
-% \end{macro}
 % \begin{macro}{\@@_set_cjk_main_font:nn,\@@_set_cjk_main_font:nnn}
 % 配置中文罗马族字体。
 % \begin{arguments}
@@ -1329,7 +1162,7 @@
 \cs_new:Npn \@@_load_cjk_font_none: { }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{英文字体}
+% \subsubsection{英文字体}
 % \begin{macro}{\@@_set_latin_font:nnn}
 % 配置英文字体。
 %    \begin{macrocode}
@@ -1444,7 +1277,7 @@
 \cs_new:Npn \@@_load_latin_font_none: { }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{数学字体}
+% \subsubsection{数学字体}
 % \begin{macro}{\@@_load_unicode_math_pkg:}
 % 加载\pkgx{unicode-math}宏包。
 %    \begin{macrocode}
@@ -1480,10 +1313,10 @@
 \cs_new:Npn \@@_define_math_font:nn #1#2
   {
     \cs_new:cpn { @@_load_math_font_ #1 : }
-    {
-      \@@_load_unicode_math_pkg:
-      \setmathfont { #2 }
-    }
+      {
+        \@@_load_unicode_math_pkg:
+        \setmathfont { #2 }
+      }
   }
 \clist_map_inline:nn
   {
@@ -1534,7 +1367,7 @@
 \cs_new:Npn \@@_load_math_font_none: { }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{加载字体}
+% \subsubsection{加载字体}
 % \begin{macro}{\@@_load_font:}
 % 加载中文字体、英文字体和数学字体。
 %    \begin{macrocode}
@@ -1550,14 +1383,310 @@
 \ctex_at_end_preamble:n { \@@_load_font: }
 %    \end{macrocode}
 % \end{macro}
-% \subsubsection{内部函数}
-% \begin{macro}{\@@_begin_document:n}
-% 钩子。
 %    \begin{macrocode}
-\cs_new_protected:Npn \@@_begin_document:n #1
-  { \ctex_gadd_ltxhook:nn { env/document/begin } { #1 } }
+%</class|xdufont>
+%<*xduugthesis>
+%    \end{macrocode}
+% \subsection{信息录入}
+% \begin{variable}
+%   {
+%     \l_@@_title_str,
+%     \l_@@_title_i_str,
+%     \l_@@_title_ii_str,
+%     \l_@@_dept_str,
+%     \l_@@_major_str,
+%     \l_@@_author_str,
+%     \l_@@_supv_str,
+%     \l_@@_supv_dept_str,
+%     \l_@@_supv_ent_str,
+%     \l_@@_supv_sch_str,
+%     \l_@@_class_id_str,
+%     \l_@@_student_id_str,
+%     \l_@@_abstract_zh_tl,
+%     \l_@@_abstract_en_tl,
+%     \l_@@_keywords_zh_clist,
+%     \l_@@_keywords_en_clist,
+%     \l_@@_ack_tl
+%   }
+% 论文标题。
+%    \begin{macrocode}
+\str_new:N \l_@@_title_str
+\str_new:N \l_@@_title_i_str
+\str_new:N \l_@@_title_ii_str
+%    \end{macrocode}
+% 院系名称。
+%    \begin{macrocode}
+\str_new:N \l_@@_dept_str
+%    \end{macrocode}
+% 专业名称。
+%    \begin{macrocode}
+\str_new:N \l_@@_major_str
+%    \end{macrocode}
+% 作者姓名。
+%    \begin{macrocode}
+\str_new:N \l_@@_author_str
+%    \end{macrocode}
+% 导师姓名。
+%    \begin{macrocode}
+\str_new:N \l_@@_supv_str
+%    \end{macrocode}
+% 院内导师姓名。
+%    \begin{macrocode}
+\str_new:N \l_@@_supv_dept_str
+%    \end{macrocode}
+% 校外导师姓名。
+%    \begin{macrocode}
+\str_new:N \l_@@_supv_ent_str
+%    \end{macrocode}
+% 校内导师姓名。
+%    \begin{macrocode}
+\str_new:N \l_@@_supv_sch_str
+%    \end{macrocode}
+% 作者班级号。
+%    \begin{macrocode}
+\str_new:N \l_@@_class_id_str
+%    \end{macrocode}
+% 作者学号。
+%    \begin{macrocode}
+\str_new:N \l_@@_student_id_str
+%    \end{macrocode}
+% 中文摘要。
+%    \begin{macrocode}
+\tl_new:N \l_@@_abstract_zh_tl
+%    \end{macrocode}
+% 英文摘要。
+%    \begin{macrocode}
+\tl_new:N \l_@@_abstract_en_tl
+%    \end{macrocode}
+% 中文关键词。
+%    \begin{macrocode}
+\clist_new:N \l_@@_keywords_zh_clist
+%    \end{macrocode}
+% 英文关键词。
+%    \begin{macrocode}
+\clist_new:N \l_@@_keywords_en_clist
+%    \end{macrocode}
+% 致谢。
+%    \begin{macrocode}
+\tl_new:N \l_@@_ack_tl
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\keys_define:nn}
+% 定义信息键值。
+%    \begin{macrocode}
+\keys_define:nn { xdu / info }
+  {
+%    \end{macrocode}
+% 论文标题。
+%    \begin{macrocode}
+    title .tl_set:N = \l_@@_title_str,
+%    \end{macrocode}
+% 院系名称。
+%    \begin{macrocode}
+    department .tl_set:N = \l_@@_dept_str,
+%    \end{macrocode}
+% 专业名称。
+%    \begin{macrocode}
+    major .tl_set:N = \l_@@_major_str,
+%    \end{macrocode}
+% 作者姓名。
+%    \begin{macrocode}
+    author .tl_set:N = \l_@@_author_str,
+%    \end{macrocode}
+% 导师姓名。
+%    \begin{macrocode}
+    supervisor .tl_set:N = \l_@@_supv_str,
+%    \end{macrocode}
+% 院内导师姓名。
+%    \begin{macrocode}
+    supervisor-department .tl_set:N = \l_@@_supv_dept_str,
+%    \end{macrocode}
+% 校外导师姓名。
+%    \begin{macrocode}
+    supervisor-enterprise .tl_set:N = \l_@@_supv_ent_str,
+%    \end{macrocode}
+% 校内导师姓名。
+%    \begin{macrocode}
+    supervisor-school .tl_set:N = \l_@@_supv_sch_str,
+%    \end{macrocode}
+% 作者班级号。
+%    \begin{macrocode}
+    class-id .tl_set:N = \l_@@_class_id_str,
+%    \end{macrocode}
+% 作者学号。
+%    \begin{macrocode}
+    student-id .tl_set:N = \l_@@_student_id_str,
+%    \end{macrocode}
+% 中文摘要。
+%    \begin{macrocode}
+    abstract .tl_set:N = \l_@@_abstract_zh_tl,
+%    \end{macrocode}
+% 英文摘要。
+%    \begin{macrocode}
+    abstract* .tl_set:N = \l_@@_abstract_en_tl,
+%    \end{macrocode}
+% 中文关键词。
+%    \begin{macrocode}
+    keywords .clist_set:N = \l_@@_keywords_zh_clist,
+%    \end{macrocode}
+% 英文关键词。
+%    \begin{macrocode}
+    keywords* .clist_set:N = \l_@@_keywords_en_clist,
+%    \end{macrocode}
+% 致谢。
+%    \begin{macrocode}
+    acknowledgements .tl_set:N = \l_@@_ack_tl
+  }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\keys_set:nn}
+% 初始设置。
+%    \begin{macrocode}
+\keys_set:nn { xdu }
+  {
+    info  / title                 = { },
+    info  / department            = { },
+    info  / major                 = { },
+    info  / author                = { },
+    info  / supervisor            = { },
+    info  / supervisor-department = { },
+    info  / supervisor-enterprise = { },
+    info  / supervisor-school     = { },
+    info  / class-id              = { },
+    info  / student-id            = { },
+    info  / abstract              = { },
+    info  / abstract*             = { },
+    info  / keywords              = { },
+    info  / keywords*             = { },
+    info  / acknowledgements      = { }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \subsection{样式配置}
+% \begin{variable}
+%   {
+%     \l_@@_en_cjk_font_bool,
+%     \l_@@_lang_tl,
+%     \l_@@_bib_tool_tl,
+%     \l_@@_bib_file_clist,
+%     \l_@@_fig_label_sep_tl,
+%     \l_@@_before_skip_clist,
+%     \l_@@_after_skip_clist
+%   }
+% 英文是否使用中文字体。
+%    \begin{macrocode}
+\bool_new:N \l_@@_en_cjk_font_bool
+%    \end{macrocode}
+% 语言。
+%    \begin{macrocode}
+\tl_new:N \l_@@_lang_tl
+%    \end{macrocode}
+% 参考文献支持方式。
+%    \begin{macrocode}
+\tl_new:N \l_@@_bib_tool_tl
+%    \end{macrocode}
+% 参考文献文件。
+%    \begin{macrocode}
+\clist_new:N \l_@@_bib_file_clist
+%    \end{macrocode}
+% 图片标签与后面标题之间的间距。
+%    \begin{macrocode}
+\tl_new:N \l_@@_fig_label_sep_tl
+%    \end{macrocode}
+% 设置章节标题前后的垂直间距。
+%    \begin{macrocode}
+\clist_new:N \l_@@_before_skip_clist
+\clist_new:N \l_@@_after_skip_clist
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\keys_define:nn}
+% 定义样式键值。
+%    \begin{macrocode}
+\keys_define:nn { xdu / style }
+  {
+%    \end{macrocode}
+% 英文是否使用中文字体。
+%    \begin{macrocode}
+    en-cjk-font .bool_set:N = \l_@@_en_cjk_font_bool,
+%    \end{macrocode}
+% 论文语言配置。
+%    \begin{macrocode}
+    language .choices:nn = { zh, en }
+      { \tl_set_eq:NN \l_@@_lang_tl \l_keys_choice_tl },
+%    \end{macrocode}
+% 参考文献支持方式配置。
+%    \begin{macrocode}
+    bib-backend .choices:nn = { bibtex, biblatex }
+      { \tl_set_eq:NN \l_@@_bib_tool_tl \l_keys_choice_tl },
+%    \end{macrocode}
+% 参考文献文件。
+%    \begin{macrocode}
+    bib-resource .clist_set:N = \l_@@_bib_file_clist,
+%    \end{macrocode}
+% 图片标签与后面标题之间的间距。
+%    \begin{macrocode}
+    fig-label-sep .tl_set:N = \l_@@_fig_label_sep_tl,
+%    \end{macrocode}
+% 设置章节标题前的垂直间距。
+%    \begin{macrocode}
+    before-skip .clist_set:N = \l_@@_before_skip_clist,
+%    \end{macrocode}
+% 设置章节标题后的垂直间距。
+%    \begin{macrocode}
+    after-skip .clist_set:N = \l_@@_after_skip_clist
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\keys_set:nn}
+% 初始设置。
+%    \begin{macrocode}
+\keys_set:nn { xdu }
+  {
+    style / en-cjk-font           = false,
+    style / language              = zh,
+    style / bib-backend           = biblatex,
+    style / bib-resource          = { },
+    style / fig-label-sep         = { 0.75em },
+    style / before-skip           = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
+    style / after-skip            = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt }
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</xduugthesis>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*class|xdufont>
+%    \end{macrocode}
+% \subsection{键值选项}
+% \begin{macro}{\xdusetup}
+% 用户设置接口。
+%    \begin{macrocode}
+\NewDocumentCommand \xdusetup { m }
+  { \keys_set:nn { xdu } { #1 } }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\keys_define:nn}
+% 定义元（meta）键值对。
+%    \begin{macrocode}
+\keys_define:nn { xdu }
+  {
+    style .meta:nn = { xdu / style } { #1 },
+    info  .meta:nn = { xdu / info  } { #1 }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\ProcessKeysOptions}
+% 处理选项。
+%    \begin{macrocode}
+\ProcessKeysOptions { xdu / style }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</class|xdufont>
+%<*xduugthesis>
+%    \end{macrocode}
+% \subsection{内部函数}
 % \begin{macro}{\@@_lang_switch:nn}
 % 根据论文语言自动选择中文对应内容或英文对应内容。
 % \begin{arguments}
@@ -1571,6 +1700,17 @@
       { #1 }
       { #2 }
   }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_rm_family:,\@@_sf_family:,\@@_tt_family:}
+% 切换字体族时，英文根据配置选择是否使用中文字体。
+%    \begin{macrocode}
+\cs_new:Npn \@@_rm_family:
+  { \bool_if:NTF \l_@@_en_cjk_font_bool { \CJKfamily+ { rm } } { \rmfamily } }
+\cs_new:Npn \@@_sf_family:
+  { \bool_if:NTF \l_@@_en_cjk_font_bool { \CJKfamily+ { sf } } { \sffamily } }
+\cs_new:Npn \@@_tt_family:
+  { \bool_if:NTF \l_@@_en_cjk_font_bool { \CJKfamily+ { tt } } { \ttfamily } }
 %    \end{macrocode}
 % \end{macro}
 % \begin{variable}{\l_@@_pure_title_str}
@@ -1659,166 +1799,6 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \subsubsection{目录}
-% \begin{variable}
-%   {
-%     \cftchapleader,
-%     \cftbeforechapskip,
-%     \cftbeforesecskip,
-%     \cftbeforesubsecskip,
-%     \cftbeforesubsubsecskip,
-%     \cftbeforeparaskip,
-%     \cftbeforesubparaskip,
-%     \cftchapfont,
-%     \cftchappagefont,
-%     \cftsecfont,
-%     \cftsubsecfont,
-%     \cftsubsubsecfont,
-%     \cftparafont,
-%     \cftsubparafont,
-%     \cftsecpagefont,
-%     \cftsubsecpagefont,
-%     \cftsubsubsecpagefont,
-%     \cftparapagefont,
-%     \cftsubparapagefont
-%   }
-% 设置目录样式。
-% \changes{v0.4.1.0}{2022/04/05}{设置目录样式}
-%    \begin{macrocode}
-\RequirePackage [ titles ] { tocloft }
-\renewcommand { \cftchapleader } { \bfseries \cftdotfill { \cftdotsep } }
-\clist_map_inline:nn
-  {
-    \cftbeforechapskip,
-    \cftbeforesecskip,
-    \cftbeforesubsecskip,
-    \cftbeforesubsubsecskip,
-    \cftbeforeparaskip,
-    \cftbeforesubparaskip
-  }
-  { \dim_set:Nn { #1 } { 5pt } }
-  \clist_map_inline:nn
-    {
-      \cftchapfont,
-      \cftchappagefont
-    }
-    { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } \bfseries } }
-\clist_map_inline:nn
-  {
-    \cftsecfont,
-    \cftsubsecfont,
-    \cftsubsubsecfont,
-    \cftparafont,
-    \cftsubparafont,
-    \cftsecpagefont,
-    \cftsubsecpagefont,
-    \cftsubsubsecpagefont,
-    \cftparapagefont,
-    \cftsubparapagefont
-  }
-  { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } } }
-%    \end{macrocode}
-% \end{variable}
-% \subsubsection{图片}
-% \begin{macro}{\DeclareCaptionLabelSeparator,\DeclareCaptionFont,\captionsetup}
-% \changes{v0.1.2.0}{2022/04/03}{设置图片标签与后面标题之间的间距}
-% \changes{v0.1.3.0}{2022/04/03}{设置图片标签与标题字体字号}
-% 设置图片标签与后面标题之间的间距。
-%    \begin{macrocode}
-\RequirePackage { caption }
-\DeclareCaptionLabelSeparator { customskip } { \hskip \l_@@_fig_label_sep_tl }
-\DeclareCaptionFont { customfont } { \@@_rm_family: \zihao { 5 } }
-\captionsetup
-  {
-    labelsep = customskip,
-    font     = customfont
-  }
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\PassOptionsToPackage,\captionsetup}
-% \changes{v0.4.2.0}{2022/04/05}{设置子图标签与标题字体字号}
-% 设置子图标签与标题字体字号，支持\pkgx{subfig}和\pkgx{subcaption}宏包。
-%    \begin{macrocode}
-\PassOptionsToPackage { font = small } { subfig }
-\captionsetup [ sub ] { font = customfont }
-%    \end{macrocode}
-% \end{macro}
-% \subsubsection{超链接和PDF元数据}
-% \begin{macro}{\hyperref}
-% 配置超链接和PDF元数据。
-% \changes{v0.5.0.0}{2022/04/05}{添加PDF主题元数据}
-%    \begin{macrocode}
-\RequirePackage{hyperref}
-\hypersetup
-  {
-    bookmarksnumbered,
-    hidelinks
-  }
-\ctex_at_end_preamble:n
-  {
-    \hypersetup
-      {
-        pdftitle   = \l_@@_pure_title_str,
-%<xduugthesis>        pdfsubject = {西安电子科技大学本科毕业设计论文},
-        pdfauthor  = \l_@@_author_str
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
-% \subsubsection{参考文献}
-% \begin{macro}{\addbibresource}
-% 参考文献。
-%    \begin{macrocode}
-\@@_begin_document:n
-  {
-    \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
-      {
-        \RequirePackage [ sort&compress,square,super,comma,numbers ] { natbib }
-        \RequirePackage { gbt7714 }
-        \bibliographystyle { gbt7714-numerical }
-      }
-      {
-        \RequirePackage [ style = gb7714-2015 ] { biblatex }
-        \clist_map_inline:Nn \l_@@_bib_file_clist { \addbibresource { #1 } }
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
-% \subsubsection{附录}
-% \begin{macro}{appendixes}
-% 附录环境。
-% \changes{v0.3.0.0}{2022/04/04}{新增附录环境}
-% \changes{v0.3.1.0}{2022/04/04}{修正附录中图表编号样式}
-%    \begin{macrocode}
-\RequirePackage { environ }
-\NewEnviron { appendixes }
-  {
-    \appendix
-    \renewcommand { \thefigure } { \thechapter \arabic { figure } }
-    \renewcommand { \thetable  } { \thechapter \arabic { table  } }
-    \BODY
-  }
-%    \end{macrocode}
-% \end{macro}
-% \subsubsection{通用宏包}
-% 设置纸张尺寸为A4。
-%    \begin{macrocode}
-\RequirePackage { geometry        }
-\geometry       { paper = a4paper }
-%    \end{macrocode}
-%    \begin{macrocode}
-\RequirePackage { fancyhdr        }
-\RequirePackage { xeCJKfntef      }
-\RequirePackage { graphicx        }
-%    \end{macrocode}
-%    \begin{macrocode}
-%</class>
-%    \end{macrocode}
-% \subsection{xduugthesis.cls}
-%    \begin{macrocode}
-%<*xduugthesis>
-%    \end{macrocode}
-% \subsubsection{内部函数}
 % \begin{macro}{\@@_typeout_keywords:nNn}
 % 排版关键词。
 % \begin{arguments}
@@ -1845,8 +1825,8 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \subsubsection{页面设置}
-% \paragraph{页面尺寸}
+% \subsection{页面设置}
+% \subsubsection{页面尺寸}
 % \begin{macro}{\geometry,\newgeometry,\savegeometry}
 % 正文页面：上3厘米、下2厘米、内侧3厘米、外侧2厘米；装订线1厘米；页眉2厘米；页脚1厘米。
 %    \begin{macrocode}
@@ -1874,7 +1854,7 @@
 \savegeometry { cover }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{页眉页脚}
+% \subsubsection{页眉页脚}
 % \begin{macro}{\chaptermark}
 % 设置奇数页页眉为章标题。
 %    \begin{macrocode}
@@ -1907,16 +1887,16 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \subsubsection{标题设置}
+% \subsection{标题设置}
 % 中文章标题黑体，三号，居中排列。节标题宋体，四号，居中排列。英文一级标题字体为Times New Roman，四号，正体，左对齐，以大写罗马数字（I、II 等）标出序号。其余各级标题的字体均为Times New Roman，小四号，正体。二级及以下级别的标题依次缩进4个英文字符，以1.1，1.2，1.1.1，1.1.2形式标出序号。
-% \paragraph{章节层次}
+% \subsubsection{章节层次}
 % \begin{macro}{\ctexset}
 % 设置章节层次为subparagraph。
 %    \begin{macrocode}
 \ctexset { secnumdepth=5 }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{章节名字}
+% \subsubsection{章节名字}
 % \begin{macro}{\ctexset}
 % 设置章节的名字。
 %    \begin{macrocode}
@@ -1935,7 +1915,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{章节编号}
+% \subsubsection{章节编号}
 % \begin{macro}{\ctexset}
 % 设置章节编号的数字输出格式。
 %    \begin{macrocode}
@@ -1955,7 +1935,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{章节和标题}
+% \subsubsection{章节和标题}
 % \begin{macro}{\@@_zh_title:nnn}
 % 设置中文章节名字和随后的标题内容格式。
 % \begin{arguments}
@@ -2043,7 +2023,162 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{封面}
+% \subsection{目录}
+% \begin{variable}
+%   {
+%     \cftchapleader,
+%     \cftbeforechapskip,
+%     \cftbeforesecskip,
+%     \cftbeforesubsecskip,
+%     \cftbeforesubsubsecskip,
+%     \cftbeforeparaskip,
+%     \cftbeforesubparaskip,
+%     \cftchapfont,
+%     \cftchappagefont,
+%     \cftsecfont,
+%     \cftsubsecfont,
+%     \cftsubsubsecfont,
+%     \cftparafont,
+%     \cftsubparafont,
+%     \cftsecpagefont,
+%     \cftsubsecpagefont,
+%     \cftsubsubsecpagefont,
+%     \cftparapagefont,
+%     \cftsubparapagefont
+%   }
+% 设置目录样式。
+% \changes{v0.4.1.0}{2022/04/05}{设置目录样式}
+%    \begin{macrocode}
+\RequirePackage [ titles ] { tocloft }
+\renewcommand { \cftchapleader } { \bfseries \cftdotfill { \cftdotsep } }
+\clist_map_inline:nn
+  {
+    \cftbeforechapskip,
+    \cftbeforesecskip,
+    \cftbeforesubsecskip,
+    \cftbeforesubsubsecskip,
+    \cftbeforeparaskip,
+    \cftbeforesubparaskip
+  }
+  { \dim_set:Nn { #1 } { 5pt } }
+  \clist_map_inline:nn
+    {
+      \cftchapfont,
+      \cftchappagefont
+    }
+    { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } \bfseries } }
+\clist_map_inline:nn
+  {
+    \cftsecfont,
+    \cftsubsecfont,
+    \cftsubsubsecfont,
+    \cftparafont,
+    \cftsubparafont,
+    \cftsecpagefont,
+    \cftsubsecpagefont,
+    \cftsubsubsecpagefont,
+    \cftparapagefont,
+    \cftsubparapagefont
+  }
+  { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } } }
+%    \end{macrocode}
+% \end{variable}
+% \subsection{公式}
+% \begin{macro}{\theequation}
+% 重定义公式编号样式。
+%    \begin{macrocode}
+\renewcommand { \theequation } { \thechapter - \arabic { equation } }
+%    \end{macrocode}
+% \end{macro}
+% \subsection{图片}
+% \begin{macro}{\DeclareCaptionLabelSeparator,\DeclareCaptionFont,\captionsetup}
+% \changes{v0.1.2.0}{2022/04/03}{设置图片标签与后面标题之间的间距}
+% \changes{v0.1.3.0}{2022/04/03}{设置图片标签与标题字体字号}
+% 设置图片标签与后面标题之间的间距。
+%    \begin{macrocode}
+\RequirePackage { caption }
+\DeclareCaptionLabelSeparator { customskip } { \hskip \l_@@_fig_label_sep_tl }
+\DeclareCaptionFont { customfont } { \@@_rm_family: \zihao { 5 } }
+\captionsetup
+  {
+    labelsep = customskip,
+    font     = customfont
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\PassOptionsToPackage,\captionsetup}
+% \changes{v0.4.2.0}{2022/04/05}{设置子图标签与标题字体字号}
+% 设置子图标签与标题字体字号，支持\pkgx{subfig}和\pkgx{subcaption}宏包。
+%    \begin{macrocode}
+\PassOptionsToPackage { font = small } { subfig }
+\captionsetup [ sub ] { font = customfont }
+%    \end{macrocode}
+% \end{macro}
+% \subsection{超链接和PDF元数据}
+% \begin{macro}{\hyperref}
+% 配置超链接和PDF元数据。
+% \changes{v0.5.0.0}{2022/04/05}{添加PDF主题元数据}
+%    \begin{macrocode}
+\RequirePackage{hyperref}
+\hypersetup
+  {
+    bookmarksnumbered,
+    hidelinks
+  }
+\ctex_at_end_preamble:n
+  {
+    \hypersetup
+      {
+        pdftitle   = \l_@@_pure_title_str,
+%<xduugthesis>        pdfsubject = {西安电子科技大学本科毕业设计论文},
+        pdfauthor  = \l_@@_author_str
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \subsection{参考文献}
+% \begin{macro}{\@@_begin_document:n}
+% 钩子。
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_begin_document:n #1
+  { \ctex_gadd_ltxhook:nn { env/document/begin } { #1 } }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\addbibresource}
+% 参考文献。
+%    \begin{macrocode}
+\@@_begin_document:n
+  {
+    \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
+      {
+        \RequirePackage [ sort&compress,square,super,comma,numbers ] { natbib }
+        \RequirePackage { gbt7714 }
+        \bibliographystyle { gbt7714-numerical }
+      }
+      {
+        \RequirePackage [ style = gb7714-2015 ] { biblatex }
+        \clist_map_inline:Nn \l_@@_bib_file_clist { \addbibresource { #1 } }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \subsection{附录}
+% \begin{macro}{appendixes}
+% 附录环境。
+% \changes{v0.3.0.0}{2022/04/04}{新增附录环境}
+% \changes{v0.3.1.0}{2022/04/04}{修正附录中图表编号样式}
+%    \begin{macrocode}
+\RequirePackage { environ }
+\NewEnviron { appendixes }
+  {
+    \appendix
+    \renewcommand { \thefigure } { \thechapter \arabic { figure } }
+    \renewcommand { \thetable  } { \thechapter \arabic { table  } }
+    \BODY
+  }
+%    \end{macrocode}
+% \end{macro}
+% \subsection{封面}
 % \begin{macro}{\@@_cover_i:nn}
 % 绘制班级和学号。
 % \begin{arguments}
@@ -2287,14 +2422,8 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \subsection{正文}
 % \begin{macro}{\mainmatter}
-% \paragraph{正文}
-% \begin{macro}{\theequation}
-% 重定义公式编号样式。
-%    \begin{macrocode}
-\renewcommand { \theequation } { \thechapter - \arabic { equation } }
-%    \end{macrocode}
-% \end{macro}
 % 排版正文部分。
 %    \begin{macrocode}
 \renewcommand{\mainmatter}
