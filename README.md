@@ -2,34 +2,40 @@
 
 [![](https://img.shields.io/ctan/v/xduts)](https://www.ctan.org/pkg/xduts) [![](https://img.shields.io/github/license/note286/xduts)](https://github.com/note286/xduts/blob/main/LICENSE) [![](https://img.shields.io/github/stars/note286/xduts)](https://github.com/note286/xduts) [![](https://img.shields.io/github/issues/note286/xduts)](https://github.com/note286/xduts/issues?q=is%3Aopen+is%3Aissue) [![](https://img.shields.io/github/issues-closed/note286/xduts)](https://github.com/note286/xduts/issues?q=is%3Aissue+is%3Aclosed) [![](https://img.shields.io/github/commit-activity/m/note286/xduts)](https://github.com/note286/xduts/commits/main) [![](https://img.shields.io/github/v/tag/note286/xduts)](https://github.com/note286/xduts/tags)
 
-XDUTS（Xidian University TeX Suite）是面向西安电子科技大学本科生/研究生的LaTeX3文档类和宏包套装，支持XeLaTeX，支持TeX Live、MacTeX、MiKTeX，支持Windows、macOS、GNU/Linux、Overleaf和TeXPage。旨在帮助西安电子科技大学本科生/研究生撰写开题报告/学位论文及其他文档，目前有：
+XDUTS (Xidian University TeX Suite) is a LaTeX3 document class and package suite for undergraduate/postgraduate students in Xidian University, which can be compiled with XeLaTeX on Windows, macOS, GNU/Linux, Overleaf, and TeXPage. It is designed to typesetting proposal/thesis and other documents.
 
-- xduugthesis，本科毕业设计论文文档类
-- xdufont，中/英/数学字体配置宏包
+XDUTS currently includes:
 
-即将支持：
+- `xduugthesis.cls`, Xidian University Undergraduate Thesis document class
+- `xdufont.sty`, Xidian University Font package
 
-- xduugtp，本科生开题报告文档类
-- xdupgthesis，研究生学位论文文档类
-- xdupgtp，研究生开题报告文档类
+In the future, we plan to add the following document classes, including 
 
-## 获取
+- `xduugtp.cls`, Xidian University Undergraduate Thesis Proposal document class
+- `xdupgtp.cls`, Xidian University Postgraduate Thesis Proposal document class
+- `xdupgthesis.cls`, Xidian University Postgraduate Thesis document class
 
-XDUTS已上传至CTAN，已被TeX Live/MacTeX收录，在安装最新版TeX Live/MacTeX后，以管理员权限执行（macOS和GNU/Linux请添加`sudo`）
+## Installation
+
+You can install XDUTS by either CTAN or GitHub by following the instructions below. 
+
+### CTAN
+
+Make sure the latest version of TeX Live/MacTeX is installed. Then, you can install XDUTS by running command below. If on Windows, it may be necessary to start a Command Prompt as an Administrator. If on macOS or GNU/Linux, please run the command with `sudo`.
 
 ```shell
-tlmgr update --self xduts
+tlmgr update xduts
 ```
 
-来获取最新的XDUTS，运行
+Run command below to open the documentation in TeX Live/MacTeX.
 
 ```shell
 texdoc xduts
 ```
 
-来阅读文档。
+### GitHub
 
-一般来说，CTAN更新较为缓慢，若想使用最新版，下载本仓库，运行以下命令来得到相应的文档及文档类/宏包文件。
+Generally speaking, CTAN updates XDUTS slowly. If you want to use the latest version of XDUTS, download this repository and run the following commands to get the corresponding documentation and document class/package files.
 
 ```shell
 xetex xduts.ins
@@ -40,6 +46,10 @@ xelatex xduts.dtx
 xelatex xduts.dtx
 ```
 
-## 许可
+## Note
 
-This material is subject to [the LaTeX Project Public License 1.3c](https://ctan.org/license/lppl1.3).
+`xidian-text.pdf` and `xidian-logo.pdf` should be placed in the same directory as `xduugthesis.cls`.
+
+## License
+
+XDUTS is subject to [the LaTeX Project Public License 1.3c](https://ctan.org/license/lppl1.3).
