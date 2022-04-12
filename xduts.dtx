@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/11 v0.7.0.0 Xidian University TeX Suite]
+[2022/04/12 v0.8.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/11}{0.7.0.0}
+%<class|sty>  {2022/04/12}{0.8.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -143,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{872}
+% \CheckSum{883}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -237,6 +237,7 @@
 % \subsection{xduugthesis}
 % \pkgx{xduugthesis}基于\clsx{ctexbook}文档类，
 % 提供多种字体配置，部分样式可自定义，信息录入便捷。
+% 请在阅读《本科生毕业设计（论文）工作手册》后再使用\pkgx{xduugthesis}。
 % \par
 % 典型的\clsx{xduugthesis}主文件结构应该如下所示：
 % \begin{latexexample}[moretexcs={\xdusetup,\frontmatter,\mainmatter,\chapter,\backmatter},emph={[1]document}]
@@ -256,6 +257,7 @@
 % 部分英文字体切换见\secrefx{英文字体}，
 % 论文语言切换见\secrefx{语言配置}，
 % 参考文献配置见\secrefx{参考文献配置}，
+% 页面配置见\secrefx{页面配置}，
 % 图片配置见\secrefx{图片配置}，
 % 章节配置见\secrefx{章节配置}。
 % 如需附录，请使用附录环境，具体见\secrefx{附录环境}。
@@ -517,6 +519,18 @@
 %   \end{syntax}
 % 设置参考文献\filex{.bib}文件，多个文件之间需要使用英文半角逗号隔开。
 % \end{function}
+% \subsection{页面配置}
+% \label{页面配置}
+% \begin{function}[added=2022-04-12]{style/symmetric-margin}
+%   \begin{syntax}
+%     \optx{style/symmetric-margin}=\metax{true|(false)}
+%   \end{syntax}
+% 设置左右页边距是否对称。
+% \end{function}
+% \begin{optdesc}
+%   \item[true] 对称。
+%   \item[false] 不对称。
+% \end{optdesc}
 % \subsection{图片配置}
 % \label{图片配置}
 % \begin{function}[added=2022-04-03]{style/fig-label-sep}
@@ -1652,6 +1666,10 @@
 \tl_new:N \l_@@_para_tl
 \tl_new:N \l_@@_subpara_tl
 %    \end{macrocode}
+% 设置页边距是否对称。
+%    \begin{macrocode}
+\bool_new:N \l_@@_sym_mgn_bool
+%    \end{macrocode}
 % \end{variable}
 % \begin{macro}{\keys_define:nn}
 % 定义样式键值。
@@ -1696,7 +1714,11 @@
     subsec-zihao .tl_set:N = \l_@@_subsec_tl,
     subsubsec-zihao .tl_set:N = \l_@@_subsubsec_tl,
     para-zihao .tl_set:N = \l_@@_para_tl,
-    subpara-zihao .tl_set:N = \l_@@_subpara_tl
+    subpara-zihao .tl_set:N = \l_@@_subpara_tl,
+%    \end{macrocode}
+% 设置页边距是否对称。
+%    \begin{macrocode}
+    symmetric-margin .bool_set:N = \l_@@_sym_mgn_bool
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1705,13 +1727,14 @@
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-    style / en-cjk-font   = false,
-    style / language      = zh,
-    style / bib-backend   = biblatex,
-    style / bib-resource  = { },
-    style / fig-label-sep = { 0.75em },
-    style / before-skip   = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
-    style / after-skip    = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt }
+    style / en-cjk-font      = false,
+    style / language         = zh,
+    style / bib-backend      = biblatex,
+    style / bib-resource     = { },
+    style / fig-label-sep    = { 0.75em },
+    style / before-skip      = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
+    style / after-skip       = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
+    style / symmetric-margin = false
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1913,6 +1936,19 @@
   }
 \savegeometry { main }
 %    \end{macrocode}
+% 左右对称正文页面：上3厘米、下2厘米、内侧3厘米、外侧3厘米；页眉2厘米；页脚1厘米。
+%    \begin{macrocode}
+\newgeometry
+  {
+    top    = 3cm,
+    bottom = 2cm,
+    inner  = 3cm,
+    outer  = 3cm,
+    head   = 2cm,
+    foot   = 1cm
+  }
+\savegeometry { main-sym }
+%    \end{macrocode}
 % 封面页面：上2.5厘米、下2.5厘米、内侧3厘米、外侧2厘米。
 %    \begin{macrocode}
 \newgeometry
@@ -1923,6 +1959,18 @@
     outer  = 2cm
   }
 \savegeometry { cover }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_load_main_geometry:}
+% \changes{v0.8.0.0}{2022/04/12}{根据用户配置加载正文页边距配置}
+% 根据用户配置加载正文页边距配置。
+%    \begin{macrocode}
+\cs_new:Npn \@@_load_main_geometry:
+  {
+    \bool_if:NTF \l_@@_sym_mgn_bool
+      { \loadgeometry { main-sym } }
+      { \loadgeometry { main     } }
+  }
 %    \end{macrocode}
 % \end{macro}
 % \subsubsection{页眉页脚}
@@ -2457,9 +2505,10 @@
       }
     \cleardoublepage
 %    \end{macrocode}
+% \changes{v0.8.0.0}{2022/04/12}{支持对称页边距}
 % 更换页面尺寸、页面样式和页码样式。
 %    \begin{macrocode}
-    \loadgeometry  { main  }
+    \@@_load_main_geometry:
     \pagestyle     { plain }
     \pagenumbering { Roman }
 %    \end{macrocode}
@@ -2510,11 +2559,12 @@
 % \end{macro}
 % \subsection{正文}
 % \begin{macro}{\mainmatter}
+% \changes{v0.8.0.0}{2022/04/12}{支持对称页边距}
 % 排版正文部分。
 %    \begin{macrocode}
 \renewcommand{\mainmatter}
   {
-    \loadgeometry  { main   }
+    \@@_load_main_geometry:
     \pagestyle     { plain  }
     \pagenumbering { arabic }
     \dim_set:Nn \parindent { 2\ccwd }
