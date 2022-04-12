@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/12 v0.8.0.0 Xidian University TeX Suite]
+[2022/04/12 v0.8.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/12}{0.8.0.0}
+%<class|sty>  {2022/04/12}{0.8.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -143,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{883}
+% \CheckSum{907}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2416,7 +2416,16 @@
 \cs_generate_variant:Nn \@@_split_title:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
+% \begin{variable}{\l_@@_is_ent_bool,\l_@@_is_wide_bool}
+% \changes{v0.8.1.0}{2022/04/12}{封面导师标签标志位}
+% 是否为校外毕设，是否为宽名称。
+%    \begin{macrocode}
+\bool_new:N \l_@@_is_ent_bool
+\bool_new:N \l_@@_is_wide_bool
+%    \end{macrocode}
+% \end{variable}
 % \begin{macro}{\@@_cover_iii:nnnn}
+% \changes{v0.8.1.0}{2022/04/12}{使用标志位计算论文信息标签宽度}
 % \changes{v0.1.4.0}{2022/04/03}{自动调整论文信息标签宽度}
 % 绘制论文信息并自动调整论文信息标签宽度。
 % \begin{arguments}
@@ -2428,11 +2437,17 @@
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
+    \tl_if_blank:VF \l_@@_supv_dept_str
+      { \bool_set_true:N \l_@@_is_wide_bool }
+    \tl_if_blank:VF \l_@@_supv_ent_str
+      { \bool_set_true:N \l_@@_is_wide_bool }
+    \tl_if_blank:VF \l_@@_supv_sch_str
+      { \bool_set_true:N \l_@@_is_wide_bool }
     \cs_new:Npn \@@_cover_iii:nnnn #1#2#3#4
       {
-        \tl_if_blank:VTF \l_@@_supv_dept_str
-          { \@@_cover_iii:nnnnn { 4em } { #1 } { #2 } { #3 } { #4 } }
+        \bool_if:NTF \l_@@_is_wide_bool
           { \@@_cover_iii:nnnnn { 6em } { #1 } { #2 } { #3 } { #4 } }
+          { \@@_cover_iii:nnnnn { 4em } { #1 } { #2 } { #3 } { #4 } }
       }
   }
 %    \end{macrocode}
@@ -2482,9 +2497,14 @@
     \@@_cover_iii:nnnn { 专业     } { rm } { -3 } { \l_@@_major_str  }
     \@@_cover_iii:nnnn { 学生姓名 } { rm } { -3 } { \l_@@_author_str }
 %    \end{macrocode}
+% \changes{v0.8.1.0}{2022/04/12}{修正封面论文信息标签宽度}
 % 校外毕设，排版校外导师姓名、校内导师姓名。
 %    \begin{macrocode}
-    \tl_if_blank:VTF \l_@@_supv_str
+    \tl_if_blank:VF \l_@@_supv_ent_str
+      { \bool_set_true:N \l_@@_is_ent_bool }
+    \tl_if_blank:VF \l_@@_supv_sch_str
+      { \bool_set_true:N \l_@@_is_ent_bool }
+    \bool_if:NTF \l_@@_is_ent_bool
       {
         \@@_cover_iii:nnnn { 校外导师姓名 } { rm } { -3 } { \l_@@_supv_ent_str }
         \@@_cover_iii:nnnn { 校内导师姓名 } { rm } { -3 } { \l_@@_supv_sch_str }
