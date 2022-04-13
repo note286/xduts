@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/13 v0.10.0.0 Xidian University TeX Suite]
+[2022/04/13 v0.10.0.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/13}{0.10.0.0}
+%<class|sty>  {2022/04/13}{0.10.0.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -547,8 +547,13 @@
 %   \begin{syntax}
 %     \optx{style/table-small-font}=\metax{true|(false)}
 %   \end{syntax}
-% 设置表格字号是否为五号。
+% \changes{v0.10.0.1}{2022/04/13}{补充表格内容字号文档说明}
+% 设置表格内容字号是否为五号。
 % \end{function}
+% \begin{optdesc}
+%   \item[true] 五号。
+%   \item[false] 小四号。
+% \end{optdesc}
 % \subsection{章节配置}
 % \label{章节配置}
 % \begin{function}[added=2022-04-05]{style/before-skip}
