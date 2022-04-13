@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/12 v0.8.2.0 Xidian University TeX Suite]
+[2022/04/13 v0.8.3.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/12}{0.8.2.0}
+%<class|sty>  {2022/04/13}{0.8.3.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -143,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{907}
+% \CheckSum{919}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -863,14 +863,14 @@
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-    style / cjk-font              = win,
-    style / cjk-fake-bold         = 3,
-    style / cjk-fake-slant        = 0.2,
-    style / latin-font            = tacn,
-    style / math-font             = cm,
-    style / unicode-math          = { },
-    style / font-type             = font,
-    style / font-path             = fonts
+    style / cjk-font       = win,
+    style / cjk-fake-bold  = 3,
+    style / cjk-fake-slant = 0.2,
+    style / latin-font     = tacn,
+    style / math-font      = cm,
+    style / unicode-math   = { },
+    style / font-type      = font,
+    style / font-path      = fonts
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1222,13 +1222,28 @@
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_latin_font:nnn #1#2#3
   {
-    \@@_font_path:
     BoldFont        = { #1 },
     SlantedFont     = { #2 },
     BoldSlantedFont = { #3 },
     ItalicFont      = { #2 },
     BoldItalicFont  = { #3 }
   }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_off_latin_ligatures:}
+% \changes{v0.8.3.0}{2022/04/13}{匹配小写字母字符高度}
+% 匹配小写字母字符高度。
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_latin_scale:
+  { Scale = MatchLowercase , }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_off_latin_ligatures:}
+% \changes{v0.8.3.0}{2022/04/13}{关闭连字}
+% 关闭连字。
+%    \begin{macrocode}
+\cs_new:Npn \@@_off_latin_ligatures:
+  { Ligatures = CommonOff , }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_set_latin_main_font:nnnnn}
@@ -1245,11 +1260,18 @@
   {
     \str_if_eq:NNTF { \l_@@_font_type_tl } { font }
       { \setmainfont { #1 } }
-      { \setmainfont { #2 } [ \@@_set_latin_font:nnn { #3 } { #4 } { #5 } ] }
+      {
+        \setmainfont { #2 }
+          [
+            \@@_font_path:
+            \@@_set_latin_font:nnn { #3 } { #4 } { #5 }
+          ]
+      }
   }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_set_latin_sans_font:nnnnn}
+% \changes{v0.8.3.0}{2022/04/13}{修正英文无衬线族字体字符高度}
 % 配置英文无衬线族字体，参数分别为字体名称、字体文件名称（常规、粗体、意大利体、粗意大利体）。
 % \begin{arguments}
 %   \item 字体名称。
@@ -1262,12 +1284,20 @@
 \cs_new:Npn \@@_set_latin_sans_font:nnnnn #1#2#3#4#5
   {
     \str_if_eq:NNTF { \l_@@_font_type_tl } { font }
-      { \setsansfont { #1 } }
-      { \setsansfont { #2 } [ \@@_set_latin_font:nnn { #3 } { #4 } { #5 } ] }
+      { \setsansfont { #1 } [ \@@_set_latin_scale: ] }
+      {
+        \setsansfont { #2 }
+          [
+            \@@_font_path:
+            \@@_set_latin_scale:
+            \@@_set_latin_font:nnn { #3 } { #4 } { #5 }
+          ]
+      }
   }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_set_latin_mono_font:nnnnn}
+% \changes{v0.8.3.0}{2022/04/13}{修正英文等宽族字体字符高度并取消连字}
 % 配置英文等宽族字体，参数分别为字体名称、字体文件名称（常规、粗体、意大利体、粗意大利体）。
 % \begin{arguments}
 %   \item 字体名称。
@@ -1280,8 +1310,16 @@
 \cs_new:Npn \@@_set_latin_mono_font:nnnnn #1#2#3#4#5
   {
     \str_if_eq:NNTF { \l_@@_font_type_tl } { font }
-      { \setmonofont{ #1 } }
-      { \setmonofont{ #2 } [ \@@_set_latin_font:nnn { #3 } { #4 } { #5 } ] }
+      { \setmonofont{ #1 } [ \@@_set_latin_scale: \@@_off_latin_ligatures: ]}
+      {
+        \setmonofont{ #2 }
+          [
+            \@@_font_path:
+            \@@_set_latin_scale:
+            \@@_off_latin_ligatures:
+            \@@_set_latin_font:nnn { #3 } { #4 } { #5 }
+          ]
+      }
   }
 %    \end{macrocode}
 % \end{macro}
