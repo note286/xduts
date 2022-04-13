@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/13 v0.8.3.0 Xidian University TeX Suite]
+[2022/04/13 v0.9.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/13}{0.8.3.0}
+%<class|sty>  {2022/04/13}{0.9.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -143,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{919}
+% \CheckSum{939}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -377,9 +377,9 @@
 %   \end{syntax}
 % 设置中文字体伪斜体倾斜程度。默认为\valuex{0.2}。
 % \end{function}
-% \begin{function}[added=2022-03-06]{style/latin-font}
+% \begin{function}[added=2022-03-06,updated=2022-04-13]{style/latin-font}
 %   \begin{syntax}
-%     \optx{style/latin-font}=\metax{(tacn)|thcs|none}
+%     \optx{style/latin-font}=\metax{(tacn)|thcs|gyre|none}
 %   \end{syntax}
 % 设置英文字体，具体配置见\tableref{tab:latin-font}。
 % \end{function}
@@ -397,6 +397,7 @@
 % \midrule
 % |tacn|\tnote{1}   & Times New Roman     & Arial                 & Courier New           \\
 % |thcs|\tnote{2}   & Times New Roman     & Helvetica             & Courier Std           \\
+% |gyre|            & TeX Gyre Termes     & TeX Gyre Heros        & TeX Gyre Cursor       \\
 % \bottomrule
 % \end{tabularx}
 % \begin{tablenotes}
@@ -834,7 +835,7 @@
 %    \end{macrocode}
 % 英文字体配置。
 %    \begin{macrocode}
-    latin-font .choices:nn = { tacn, thcs, none }
+    latin-font .choices:nn = { tacn, thcs, gyre, none }
       { \tl_set_eq:NN \l_@@_latin_font_tl \l_keys_choice_tl },
 %    \end{macrocode}
 % 数学字体配置。
@@ -1323,6 +1324,66 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\@@_set_latin_main_font:nnnn}
+% \changes{v0.9.0.0}{2022/04/13}{配置TeX Live内置英文罗马族字体}
+% 配置英文罗马族字体，参数分别为字体文件名称（常规、粗体、意大利体、粗意大利体）。
+% \begin{arguments}
+%   \item 常规字体名称。
+%   \item 粗体字体名称。
+%   \item 意大利体字体名称。
+%   \item 粗意大利体字体名称。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_latin_main_font:nnnn #1#2#3#4
+  {
+    \setmainfont { #1 }
+      [
+        \@@_set_latin_font:nnn { #2 } { #3 } { #4 }
+      ]
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_set_latin_sans_font:nnnn}
+% \changes{v0.9.0.0}{2022/04/13}{配置TeX Live内置英文无衬线族字体}
+% 配置英文无衬线族字体，参数分别为字体文件名称（常规、粗体、意大利体、粗意大利体）。
+% \begin{arguments}
+%   \item 常规字体名称。
+%   \item 粗体字体名称。
+%   \item 意大利体字体名称。
+%   \item 粗意大利体字体名称。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_latin_sans_font:nnnn #1#2#3#4
+  {
+    \setsansfont { #1 }
+      [
+        \@@_set_latin_scale:
+        \@@_set_latin_font:nnn { #2 } { #3 } { #4 }
+      ]
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_set_latin_mono_font:nnnn}
+% \changes{v0.9.0.0}{2022/04/13}{配置TeX Live内置英文等宽族字体}
+% 配置英文等宽族字体，参数分别为字体文件名称（常规、粗体、意大利体、粗意大利体）。
+% \begin{arguments}
+%   \item 常规字体名称。
+%   \item 粗体字体名称。
+%   \item 意大利体字体名称。
+%   \item 粗意大利体字体名称。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_set_latin_mono_font:nnnn #1#2#3#4
+  {
+    \setmonofont{ #1 }
+      [
+        \@@_set_latin_scale:
+        \@@_off_latin_ligatures:
+        \@@_set_latin_font:nnn { #2 } { #3 } { #4 }
+      ]
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@@_load_latin_font_tacn:}
 % 英文字体配置\valuex{tacn}。
 %    \begin{macrocode}
@@ -1360,6 +1421,30 @@
       { CourierStd-Bold.otf        }
       { CourierStd-Oblique.otf     }
       { CourierStd-BoldOblique.otf }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_load_latin_font_gyre:}
+% \changes{v0.9.0.0}{2022/04/13}{新增gyre系列英文字体配置}
+% 英文字体配置\valuex{gyre}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_load_latin_font_gyre:
+  {
+    \@@_set_latin_main_font:nnnn
+      { texgyretermes-regular.otf    }
+      { texgyretermes-bold.otf       }
+      { texgyretermes-italic.otf     }
+      { texgyretermes-bolditalic.otf }
+    \@@_set_latin_sans_font:nnnn
+      { texgyreheros-regular.otf     }
+      { texgyreheros-bold.otf        }
+      { texgyreheros-italic.otf      }
+      { texgyreheros-bolditalic.otf  }
+    \@@_set_latin_mono_font:nnnn
+      { texgyrecursor-regular.otf    }
+      { texgyrecursor-bold.otf       }
+      { texgyrecursor-italic.otf     }
+      { texgyrecursor-bolditalic.otf }
   }
 %    \end{macrocode}
 % \end{macro}
