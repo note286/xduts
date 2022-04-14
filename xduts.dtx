@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/14 v0.10.3.0 Xidian University TeX Suite]
+[2022/04/14 v0.10.4.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/14}{0.10.3.0}
+%<class|sty>  {2022/04/14}{0.10.4.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -143,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{962}
+% \CheckSum{977}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2375,12 +2375,26 @@
 % \begin{macro}{\thealgorithm}
 % \changes{v0.10.1.0}{2022/04/13}{重定义算法编号样式}
 % \changes{v0.10.2.0}{2022/04/14}{修正算法环境未加载导致的无法编译}
-% 重定义算法编号样式。
+% \changes{v0.10.4.0}{2022/04/14}{修正\pkgx{algorithm}算法编号样式}
+% 重定义\pkgx{algorithm}宏包算法编号样式。
 %    \begin{macrocode}
+\PassOptionsToPackage { chapter } { algorithm }
 \ctex_at_end_preamble:n
   {
     \cs_if_exist:NT \thealgorithm
       { \cs_set:Npn \thealgorithm { \thechapter . \arabic { algorithm } } }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thealgocf}
+% \changes{v0.10.4.0}{2022/04/14}{修正\pkgx{algorithm2e}算法编号样式}
+% 重定义\pkgx{algorithm2e}宏包算法编号样式。
+%    \begin{macrocode}
+\PassOptionsToPackage { algochapter } { algorithm2e }
+\ctex_at_end_preamble:n
+  {
+    \cs_if_exist:NT \thealgocf
+      { \cs_set:Npn \thealgocf { \thechapter . \arabic { algocf } } }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2478,6 +2492,7 @@
 % \changes{v0.3.0.0}{2022/04/04}{新增附录环境}
 % \changes{v0.3.1.0}{2022/04/04}{修正附录中图表编号样式}
 % \changes{v0.10.2.0}{2022/04/14}{修正附录中算法编号样式}
+% \changes{v0.10.4.0}{2022/04/14}{修正附录中\pkgx{algorithm2e}算法编号样式}
 %    \begin{macrocode}
 \RequirePackage { environ }
 \NewEnviron { appendixes }
@@ -2487,6 +2502,8 @@
     \renewcommand { \thetable  } { \thechapter \arabic { table  } }
     \cs_if_exist:NT \thealgorithm
       { \cs_set:Npn \thealgorithm { \thechapter \arabic { algorithm } } }
+    \cs_if_exist:NT \thealgocf
+      { \cs_set:Npn \thealgocf { \thechapter \arabic { algocf } } }
     \BODY
   }
 %    \end{macrocode}
