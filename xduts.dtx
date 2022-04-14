@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/14 v0.10.4.0 Xidian University TeX Suite]
+[2022/04/14 v1.0.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/14}{0.10.4.0}
+%<class|sty>  {2022/04/14}{1.0.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -143,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{977}
+% \CheckSum{980}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -258,7 +258,7 @@
 % 论文语言切换见\secrefx{语言配置}，
 % 参考文献配置见\secrefx{参考文献配置}，
 % 页面配置见\secrefx{页面配置}，
-% 图片配置见\secrefx{图片配置}，
+% Caption配置见\secrefx{Caption配置}，
 % 表格配置见\secrefx{表格配置}，
 % 章节配置见\secrefx{章节配置}。
 % 如需附录，请使用附录环境，具体见\secrefx{附录环境}。
@@ -533,13 +533,17 @@
 %   \item[true] 对称。
 %   \item[false] 不对称。
 % \end{optdesc}
-% \subsection{图片配置}
-% \label{图片配置}
-% \begin{function}[added=2022-04-03]{style/fig-label-sep}
+% \subsection{Caption配置}
+% \label{Caption配置}
+% \changes{v1.0.0.0}{2022/04/14}{设置图、表、算法标签与后面标题之间的间距}
+% \begin{function}[added=2022-4-14]{style/caption-label-sep}
 %   \begin{syntax}
-%     \optx{style/fig-label-sep}=\argx{间距}
+%     \optx{style/caption-label-sep}=\argx{间距}
 %   \end{syntax}
-% 设置图片标签与后面标题之间的间距，默认值为\valuex{0.75em}。
+% 设置图、表、算法标签与后面标题之间的间距，默认值为\valuex{0.75em}。
+% \end{function}
+% \begin{function}[added=2022-04-03]{style/fig-label-sep}
+% 已弃用。
 % \end{function}
 % \subsection{表格配置}
 % \label{表格配置}
@@ -1761,7 +1765,7 @@
 %     \l_@@_lang_tl,
 %     \l_@@_bib_tool_tl,
 %     \l_@@_bib_file_clist,
-%     \l_@@_fig_label_sep_tl,
+%     \l_@@_cap_label_sep_tl,
 %     \l_@@_before_skip_clist,
 %     \l_@@_after_skip_clist,
 %     \l_@@_chap_tl,
@@ -1787,9 +1791,9 @@
 %    \begin{macrocode}
 \clist_new:N \l_@@_bib_file_clist
 %    \end{macrocode}
-% 图片标签与后面标题之间的间距。
+% 标签与后面标题之间的间距。
 %    \begin{macrocode}
-\tl_new:N \l_@@_fig_label_sep_tl
+\tl_new:N \l_@@_cap_label_sep_tl
 %    \end{macrocode}
 % 设置表格字号是否为五号。
 %    \begin{macrocode}
@@ -1838,9 +1842,9 @@
 %    \begin{macrocode}
     bib-resource .clist_set:N = \l_@@_bib_file_clist,
 %    \end{macrocode}
-% 图片标签与后面标题之间的间距。
+% 标签与后面标题之间的间距。
 %    \begin{macrocode}
-    fig-label-sep .tl_set:N = \l_@@_fig_label_sep_tl,
+    caption-label-sep .tl_set:N = \l_@@_cap_label_sep_tl,
 %    \end{macrocode}
 % 设置表格字号是否为五号。
 %    \begin{macrocode}
@@ -1874,15 +1878,15 @@
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-    style / en-cjk-font      = false,
-    style / language         = zh,
-    style / bib-backend      = biblatex,
-    style / bib-resource     = { },
-    style / fig-label-sep    = { 0.75em },
-    style / table-small-font = false,
-    style / before-skip      = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
-    style / after-skip       = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
-    style / symmetric-margin = false
+    style / en-cjk-font       = false,
+    style / language          = zh,
+    style / bib-backend       = biblatex,
+    style / bib-resource      = { },
+    style / caption-label-sep = { 0.75em },
+    style / table-small-font  = false,
+    style / before-skip       = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
+    style / after-skip        = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
+    style / symmetric-margin  = false
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2394,18 +2398,27 @@
 \ctex_at_end_preamble:n
   {
     \cs_if_exist:NT \thealgocf
-      { \cs_set:Npn \thealgocf { \thechapter . \arabic { algocf } } }
+      {
+        \cs_set:Npn \thealgocf { \thechapter . \arabic { algocf } }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\SetAlgoCaptionSeparator}
+% \changes{v1.0.0.0}{2022/04/14}{修正\pkgx{algorithm2e}算法标签与后面标题之间的间距}
+% 修正\pkgx{algorithm2e}算法标签与后面标题之间的间距。
+%    \begin{macrocode}
+        \SetAlgoCaptionSeparator { \hbox_to_wd:nn { \l_@@_cap_label_sep_tl } { } }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
-% \subsection{图片}
+% \subsection{Caption}
 % \begin{macro}{\DeclareCaptionLabelSeparator,\DeclareCaptionFont,\captionsetup}
 % \changes{v0.1.2.0}{2022/04/03}{设置图片标签与后面标题之间的间距}
 % \changes{v0.1.3.0}{2022/04/03}{设置图片标签与标题字体字号}
-% 设置图片标签与后面标题之间的间距。
+% 设置图表标签与后面标题之间的间距。
 %    \begin{macrocode}
 \RequirePackage { caption }
-\DeclareCaptionLabelSeparator { customskip } { \hskip \l_@@_fig_label_sep_tl }
+\DeclareCaptionLabelSeparator { customskip } { \hskip \l_@@_cap_label_sep_tl }
 \DeclareCaptionFont { customfont } { \@@_rm_family: \zihao { 5 } }
 \captionsetup
   {
@@ -2414,6 +2427,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \subsection{图片}
 % \begin{macro}{\PassOptionsToPackage,\captionsetup}
 % \changes{v0.4.2.0}{2022/04/05}{设置子图标签与标题字体字号}
 % 设置子图标签与标题字体字号，支持\pkgx{subfig}和\pkgx{subcaption}宏包。
