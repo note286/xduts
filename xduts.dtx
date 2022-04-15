@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/15 v1.1.2.0 Xidian University TeX Suite]
+[2022/04/15 v1.1.2.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/15}{1.1.2.0}
+%<class|sty>  {2022/04/15}{1.1.2.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -213,12 +213,14 @@
 % 中提及的内容本文档将不再提及。
 % \xduts{}中的所有文档类和宏包仅内置了实现功能所必要的宏包，
 % 对于常用的宏包如\pkgx{subfig}、\pkgx{algpseudocodex}、
-% \pkgx{amsmath}、\pkgx{amsthm}和\pkgx{siunitx}等均未内置，
+% \pkgx{amsmath}、\pkgx{amsthm}和\pkgx{siunitx}等\textbf{均未内置}，
 % 用户视需求自行加载。
 % 请在最新版\LaTeX{}环境中使用最新版\xduts{}，
 % 认真阅读相应文档类/宏包使用说明章节即可使用\xduts{}。
 % \par
 % 相应格式规范均已实现，用户仅需要撰写文章内容即可，请勿随意添加格式修改命令。
+% \changes{v1.1.2.1}{2022/04/15}{增加默认值说明}
+% 部分样式的默认值并不严格符合学校规范，用户可以结合学校规范自行修改。
 % \subsection{xdufont}
 % \pkgx{xdufont}宏包基于\pkgx{xeCJK}，相较于\pkgx{ctex}宏包的主要优势为默认支持宋体粗体、斜体，内置多种字体配置，可任意搭配中/英/数学字体，更加符合校内各种文档的撰写要求。
 % \par
@@ -486,7 +488,7 @@
 %   \begin{syntax}
 %     \optx{style/en-cjk-font}=\metax{true|(false)}
 %   \end{syntax}
-% 切换字体族时，英文是否使用中文字体。主要作用于封面、章节标题、页眉页脚等。
+% 切换字体族时，英文是否使用中文字体。主要作用于封面、章节标题、caption、页眉页脚等。
 % \end{function}
 % \begin{optdesc}
 %   \item[true] 英文使用相对应字体族的中文字体。
@@ -2065,8 +2067,8 @@
 \cs_new:Npn \@@_n_chapter_head_toc:n #1
   {
     \@@_add_toc:n { #1 }
-    \chapter*     { #1 }
-    \markboth     { #1 } { }
+    \chapter* { #1 }
+    \markboth { #1 } { }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2446,7 +2448,9 @@
                   {
                     \@nameuse { fst@algorithm }
                     \@float@setevery { algorithm }
-                    \ctex_gadd_ltxhook:nn { cmd/@floatboxreset/after } { \zihao { 5 } }
+                    \ctex_gadd_ltxhook:nn
+                      { cmd/@floatboxreset/after }
+                      { \zihao { 5 } }
                     \@float { algorithm }
                   }
                   { \float@end }
