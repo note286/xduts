@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/15 v1.0.2.0 Xidian University TeX Suite]
+[2022/04/15 v1.0.3.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/15}{1.0.2.0}
+%<class|sty>  {2022/04/15}{1.0.3.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -143,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{985}
+% \CheckSum{996}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2404,6 +2404,20 @@
     \cs_if_exist:NT \thealgocf
       {
         \cs_set:Npn \thealgocf { \thechapter . \arabic { algocf } }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\renewenvironment}
+% \changes{v1.0.3.0}{2022/04/15}{修改\pkgx{algorithm2e}算法浮动体默认浮动位置}
+% 修改\pkgx{algorithm2e}算法浮动体默认浮动位置。
+%    \begin{macrocode}
+        \renewenvironment { \algocf@envname } [ 1 ] [ tbp ]
+          {
+            \setboolean { algocf@algostar } { false }
+            \setboolean { algocf@procenvironment } { false }
+            \gdef \algocfautorefname { \algorithmautorefname }
+            \begin { algocf@algorithm } [ #1 ] \ignorespaces
+          }
+          { \end { algocf@algorithm } \ignorespacesafterend }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\SetAlgoCaptionSeparator}
