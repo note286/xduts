@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/14 v1.0.1.0 Xidian University TeX Suite]
+[2022/04/15 v1.0.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/14}{1.0.1.0}
+%<class|sty>  {2022/04/15}{1.0.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -143,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{981}
+% \CheckSum{985}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2442,6 +2442,7 @@
 % \end{macro}
 % \subsection{表格}
 % \changes{v0.10.0.0}{2022/04/13}{设置表格字号是否为五号}
+% \changes{v1.0.2.0}{2022/04/14}{修复表格五号字无法设定浮动位置}
 % \begin{macro}{table}
 % 设置表格字号是否为五号。
 %    \begin{macrocode}
@@ -2450,7 +2451,7 @@
     \bool_if:NT \l_@@_table_small_font_bool
       {
         \renewenvironment { table }
-          { \@float { table } \zihao { 5 } }
+          { \def\@floatboxreset { \reset@font\small\@setminipage } \@float { table } }
           { \end@float }
       }
   }
