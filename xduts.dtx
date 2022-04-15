@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/15 v1.0.4.0 Xidian University TeX Suite]
+[2022/04/15 v1.1.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/15}{1.0.4.0}
+%<class|sty>  {2022/04/15}{1.1.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -143,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1007}
+% \CheckSum{1023}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -260,6 +260,7 @@
 % 页面配置见\secrefx{页面配置}，
 % Caption配置见\secrefx{Caption配置}，
 % 表格配置见\secrefx{表格配置}，
+% 算法配置见\secrefx{算法配置}，
 % 章节配置见\secrefx{章节配置}。
 % 如需附录，请使用附录环境，具体见\secrefx{附录环境}。
 % 仅支持如下信息录入，具体每个选项的含义见\secrefx{信息录入}，如没有部分选项，则删除该行即可。
@@ -547,12 +548,24 @@
 % \end{function}
 % \subsection{表格配置}
 % \label{表格配置}
-% \begin{function}[added=2022-04-13]{style/table-small-font}
+% \begin{function}[added=2022-04-13,updated=2022-04-15]{style/table-small-font}
 %   \begin{syntax}
-%     \optx{style/table-small-font}=\metax{true|(false)}
+%     \optx{style/table-small-font}=\metax{(true)|false}
 %   \end{syntax}
 % \changes{v0.10.0.1}{2022/04/13}{补充表格内容字号文档说明}
 % 设置表格内容字号是否为五号。
+% \end{function}
+% \begin{optdesc}
+%   \item[true] 五号。
+%   \item[false] 小四号。
+% \end{optdesc}
+% \subsection{算法配置}
+% \label{算法配置}
+% \begin{function}[added=2022-04-15]{style/algorithm-small-font}
+%   \begin{syntax}
+%     \optx{style/algorithm-small-font}=\metax{(true)|false}
+%   \end{syntax}
+% 设置算法内容字号是否为五号。
 % \end{function}
 % \begin{optdesc}
 %   \item[true] 五号。
@@ -1766,6 +1779,8 @@
 %     \l_@@_bib_tool_tl,
 %     \l_@@_bib_file_clist,
 %     \l_@@_cap_label_sep_tl,
+%     \l_@@_tab_small_bool,
+%     \l_@@_alg_small_bool,
 %     \l_@@_before_skip_clist,
 %     \l_@@_after_skip_clist,
 %     \l_@@_chap_tl,
@@ -1773,7 +1788,8 @@
 %     \l_@@_subsec_tl,
 %     \l_@@_subsubsec_tl,
 %     \l_@@_para_tl,
-%     \l_@@_subpara_tl
+%     \l_@@_subpara_tl,
+%     \l_@@_sym_mgn_bool
 %   }
 % 英文是否使用中文字体。
 %    \begin{macrocode}
@@ -1797,7 +1813,11 @@
 %    \end{macrocode}
 % 设置表格字号是否为五号。
 %    \begin{macrocode}
-\bool_new:N \l_@@_table_small_font_bool
+\bool_new:N \l_@@_tab_small_bool
+%    \end{macrocode}
+% 设置算法字号是否为五号。
+%    \begin{macrocode}
+\bool_new:N \l_@@_alg_small_bool
 %    \end{macrocode}
 % 设置章节标题前后的垂直间距。
 %    \begin{macrocode}
@@ -1848,7 +1868,11 @@
 %    \end{macrocode}
 % 设置表格字号是否为五号。
 %    \begin{macrocode}
-    table-small-font .bool_set:N = \l_@@_table_small_font_bool,
+    table-small-font .bool_set:N = \l_@@_tab_small_bool,
+%    \end{macrocode}
+% 设置算法字号是否为五号。
+%    \begin{macrocode}
+    algorithm-small-font .bool_set:N = \l_@@_alg_small_bool,
 %    \end{macrocode}
 % 设置章节标题前的垂直间距。
 %    \begin{macrocode}
@@ -1878,15 +1902,16 @@
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-    style / en-cjk-font       = false,
-    style / language          = zh,
-    style / bib-backend       = biblatex,
-    style / bib-resource      = { },
-    style / caption-label-sep = { 0.75em },
-    style / table-small-font  = false,
-    style / before-skip       = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
-    style / after-skip        = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
-    style / symmetric-margin  = false
+    style / en-cjk-font          = false,
+    style / language             = zh,
+    style / bib-backend          = biblatex,
+    style / bib-resource         = { },
+    style / caption-label-sep    = { 0.75em },
+    style / table-small-font     = true,
+    style / algorithm-small-font = true,
+    style / before-skip          = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
+    style / after-skip           = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
+    style / symmetric-margin     = false
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2390,6 +2415,23 @@
       {
         \floatplacement { algorithm } { tbp }
         \cs_set:Npn \thealgorithm { \thechapter . \arabic { algorithm } }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\renewenvironment}
+% \changes{v1.1.0.0}{2022/04/15}{设置\pkgx{algorithm}算法内容字号}
+% 设置\pkgx{algorithm}算法内容字号。
+%    \begin{macrocode}
+        \bool_if:NT \l_@@_alg_small_bool
+          {
+            \renewenvironment { algorithm }
+              {
+                \@nameuse { fst@algorithm }
+                \@float@setevery { algorithm }
+                \ctex_gadd_ltxhook:nn { cmd/@floatboxreset/after } { \zihao { 5 } }
+                \@float { algorithm }
+              }
+              { \float@end }
+          }
       }
   }
 %    \end{macrocode}
@@ -2418,6 +2460,14 @@
             \begin { algocf@algorithm } [ #1 ] \ignorespaces
           }
           { \end { algocf@algorithm } \ignorespacesafterend }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\SetAlFnt}
+% \changes{v1.1.0.0}{2022/04/15}{设置\pkgx{algorithm2e}算法内容字号}
+% 设置\pkgx{algorithm2e}算法内容字号。
+%    \begin{macrocode}
+        \bool_if:NT \l_@@_alg_small_bool
+          { \SetAlFnt { \zihao { 5 } } }
       }
   }
 %    \end{macrocode}
@@ -2483,7 +2533,7 @@
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
-    \bool_if:NT \l_@@_table_small_font_bool
+    \bool_if:NT \l_@@_tab_small_bool
       {
         \renewenvironment { table }
           { \def\@floatboxreset { \reset@font\small\@setminipage } \@float { table } }
