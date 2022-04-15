@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/15 v1.1.1.0 Xidian University TeX Suite]
+[2022/04/15 v1.1.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/15}{1.1.1.0}
+%<class|sty>  {2022/04/15}{1.1.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -143,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1030}
+% \CheckSum{1032}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2422,69 +2422,79 @@
 % \changes{v0.10.2.0}{2022/04/14}{修正算法环境未加载导致的无法编译}
 % \changes{v0.10.4.0}{2022/04/14}{修正\pkgx{algorithm}算法编号样式}
 % \changes{v1.0.1.0}{2022/04/14}{修改\pkgx{algorithm}算法浮动体默认浮动位置}
+% \changes{v1.1.2.0}{2022/04/15}{检测是否加载\pkgx{algorithm}}
 % 重定义\pkgx{algorithm}宏包算法编号样式并修改默认浮动位置。
 %    \begin{macrocode}
 \PassOptionsToPackage { chapter } { algorithm }
 \ctex_at_end_preamble:n
   {
-    \cs_if_exist:NT \thealgorithm
+    \@ifpackageloaded { algorithm }
       {
-        \floatplacement { algorithm } { tbp }
-        \cs_set:Npn \thealgorithm { \thechapter . \arabic { algorithm } }
+        \cs_if_exist:NT \thealgorithm
+          {
+            \floatplacement { algorithm } { tbp }
+            \cs_set:Npn \thealgorithm { \thechapter . \arabic { algorithm } }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\renewenvironment}
 % \changes{v1.1.0.0}{2022/04/15}{设置\pkgx{algorithm}算法内容字号}
 % 设置\pkgx{algorithm}算法内容字号。
 %    \begin{macrocode}
-        \bool_if:NT \l_@@_alg_small_bool
-          {
-            \renewenvironment { algorithm }
+            \bool_if:NT \l_@@_alg_small_bool
               {
-                \@nameuse { fst@algorithm }
-                \@float@setevery { algorithm }
-                \ctex_gadd_ltxhook:nn { cmd/@floatboxreset/after } { \zihao { 5 } }
-                \@float { algorithm }
+                \renewenvironment { algorithm }
+                  {
+                    \@nameuse { fst@algorithm }
+                    \@float@setevery { algorithm }
+                    \ctex_gadd_ltxhook:nn { cmd/@floatboxreset/after } { \zihao { 5 } }
+                    \@float { algorithm }
+                  }
+                  { \float@end }
               }
-              { \float@end }
           }
       }
+      { }
   }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thealgocf}
 % \changes{v0.10.4.0}{2022/04/14}{修正\pkgx{algorithm2e}算法编号样式}
+% \changes{v1.1.2.0}{2022/04/15}{检测是否加载\pkgx{algorithm2e}}
 % 重定义\pkgx{algorithm2e}宏包算法编号样式。
 %    \begin{macrocode}
 \PassOptionsToPackage { algochapter } { algorithm2e }
 \ctex_at_end_preamble:n
   {
-    \cs_if_exist:NT \thealgocf
+    \@ifpackageloaded { algorithm2e }
       {
-        \cs_set:Npn \thealgocf { \thechapter . \arabic { algocf } }
+        \cs_if_exist:NT \thealgocf
+          {
+            \cs_set:Npn \thealgocf { \thechapter . \arabic { algocf } }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\renewenvironment}
 % \changes{v1.0.3.0}{2022/04/15}{修改\pkgx{algorithm2e}算法浮动体默认浮动位置}
 % 修改\pkgx{algorithm2e}算法浮动体默认浮动位置。
 %    \begin{macrocode}
-        \renewenvironment { \algocf@envname } [ 1 ] [ tbp ]
-          {
-            \setboolean { algocf@algostar } { false }
-            \setboolean { algocf@procenvironment } { false }
-            \gdef \algocfautorefname { \algorithmautorefname }
-            \begin { algocf@algorithm } [ #1 ] \ignorespaces
-          }
-          { \end { algocf@algorithm } \ignorespacesafterend }
+            \renewenvironment { \algocf@envname } [ 1 ] [ tbp ]
+              {
+                \setboolean { algocf@algostar } { false }
+                \setboolean { algocf@procenvironment } { false }
+                \gdef \algocfautorefname { \algorithmautorefname }
+                \begin { algocf@algorithm } [ #1 ] \ignorespaces
+              }
+              { \end { algocf@algorithm } \ignorespacesafterend }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\SetAlFnt}
 % \changes{v1.1.0.0}{2022/04/15}{设置\pkgx{algorithm2e}算法内容字号}
 % 设置\pkgx{algorithm2e}算法内容字号。
 %    \begin{macrocode}
-        \bool_if:NT \l_@@_alg_small_bool
-          { \SetAlFnt { \zihao { 5 } } }
+            \bool_if:NT \l_@@_alg_small_bool
+              { \SetAlFnt { \zihao { 5 } } }
+          }
       }
+      { }
   }
 %    \end{macrocode}
 % \end{macro}
