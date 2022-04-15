@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/15 v1.0.3.0 Xidian University TeX Suite]
+[2022/04/15 v1.0.4.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/15}{1.0.3.0}
+%<class|sty>  {2022/04/15}{1.0.4.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -143,7 +143,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{996}
+% \CheckSum{1007}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2418,13 +2418,6 @@
             \begin { algocf@algorithm } [ #1 ] \ignorespaces
           }
           { \end { algocf@algorithm } \ignorespacesafterend }
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\SetAlgoCaptionSeparator}
-% \changes{v1.0.0.0}{2022/04/14}{修正\pkgx{algorithm2e}算法标签与后面标题之间的间距}
-% 修正\pkgx{algorithm2e}算法标签与后面标题之间的间距。
-%    \begin{macrocode}
-        \SetAlgoCaptionSeparator { \hbox_to_wd:nn { \l_@@_cap_label_sep_tl } { } }
       }
   }
 %    \end{macrocode}
@@ -2442,6 +2435,34 @@
   {
     labelsep = customskip,
     font     = customfont
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\captionsetup}
+% \changes{v1.0.4.0}{2022/04/15}{设置\pkgx{algorithm}算法标签与标题字体字号及标签与后面标题之间的间距}
+% 设置\pkgx{algorithm}算法标签与标题字体字号及标签与后面标题之间的间距。
+%    \begin{macrocode}
+\captionsetup [ algorithm ]
+  {
+    labelsep = customskip,
+    font     = customfont
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\SetAlgoCaptionSeparator,\SetAlCapNameFnt,\SetAlCapFnt}
+% \changes{v1.0.0.0}{2022/04/14}{修正\pkgx{algorithm2e}算法标签与后面标题之间的间距}
+% \changes{v1.0.4.0}{2022/04/15}{修正\pkgx{algorithm2e}算法标签与标题字体字号}
+% 设置\pkgx{algorithm2e}算法标签与标题字体字号及标签与后面标题之间的间距。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \cs_if_exist:NT \thealgocf
+      {
+        \SetAlgoCaptionSeparator { \hbox_to_wd:nn { \l_@@_cap_label_sep_tl } { } }
+        \SetAlCapNameFnt         { \@@_rm_family: \zihao { 5 } }
+        \SetAlCapFnt             { \@@_rm_family: \zihao { 5 } }
+        \SetAlCapSty             { }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
