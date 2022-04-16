@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/15 v1.1.3.0 Xidian University TeX Suite]
+[2022/04/16 v1.1.4.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/15}{1.1.3.0}
+%<class|sty>  {2022/04/16}{1.1.4.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -39,8 +39,8 @@
 \usepackage{multirow}
 \usepackage{makecell}
 % 交叉引用
-\newcommand{\secref}[1]{第\xspace\ref{#1}\xspace{节}}
-\newcommand{\tableref}[1]{\tablename\xspace\ref{#1}\xspace}
+\newcommand{\secrefx}[1]{第\xspace\ref{#1}\xspace 节}
+\newcommand{\tabrefx}[1]{\tablename\xspace\ref{#1}\xspace}
 % 文档类选项
 \newcommand{\optx}[1]{\xspace\opt{#1}\xspace}
 % /name LaTeX3控制序列
@@ -68,8 +68,6 @@
 \newcommand{\valuex}[1]{\xspace\texttt{#1}\xspace}
 % 命令
 \newcommand{\cmdx}[1]{\xspace\texttt{#1}\xspace}
-% 引用
-\newcommand{\secrefx}[1]{第\xspace\ref{#1}\xspace 节}
 % 链接
 \newcommand{\footurl}[1]{\footnote{\url{#1}}}
 \newcommand{\ctanurl}[1]{\href{https://mirrors.ustc.edu.cn/CTAN/#1}{\ttfamily CTAN://#1}}
@@ -143,7 +141,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1032}
+% \CheckSum{1044}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -220,7 +218,8 @@
 % \par
 % 相应格式规范均已实现，用户仅需要撰写文章内容即可，请勿随意添加格式修改命令。
 % \changes{v1.1.2.1}{2022/04/15}{增加默认值说明}
-% 部分样式的默认值并不严格符合学校规范，用户可以结合学校规范自行修改。
+% 部分样式的默认值并不严格符合学校规范，
+% 用户可以结合学校规范并参考\secrefx{功能说明}功能说明自行修改。
 % \subsection{xdufont}
 % \pkgx{xdufont}宏包基于\pkgx{xeCJK}，相较于\pkgx{ctex}宏包的主要优势为默认支持宋体粗体、斜体，内置多种字体配置，可任意搭配中/英/数学字体，更加符合校内各种文档的撰写要求。
 % \par
@@ -290,6 +289,7 @@
 % \par
 % 学会以上用法后即可立即使用\clsx{xduugthesis}文档类了。
 % \section{功能说明}
+% \label{功能说明}
 % 请根据\secrefx{使用说明}中相应文档类/宏包的说明来选择性地阅读本节内容。
 % \subsection{编译}
 % \label{编译}
@@ -340,7 +340,7 @@
 %   \begin{syntax}
 %     \optx{style/cjk-font}=\metax{adobe|(fandol)|founder|sinotype|win|none}
 %   \end{syntax}
-% 设置中文字体，具体配置见\tableref{tab:cjk-font}。
+% 设置中文字体，具体配置见\tabrefx{tab:cjk-font}。
 % \end{function}
 % \begin{optdesc}
 %   \item[none] 关闭内置中文字体配置，需自行配置中文字体。
@@ -385,7 +385,7 @@
 %   \begin{syntax}
 %     \optx{style/latin-font}=\metax{tacn|thcs|(gyre)|none}
 %   \end{syntax}
-% 设置英文字体，具体配置见\tableref{tab:latin-font}。
+% 设置英文字体，具体配置见\tabrefx{tab:latin-font}。
 % \end{function}
 % \begin{optdesc}
 %   \item[none] 关闭内置英文字体配置，需自行配置英文字体。
@@ -414,7 +414,7 @@
 %   \begin{syntax}
 %     \optx{style/math-font}=\metax{asana|cambria|(cm)|fira|garamond|lm|...|termes|xits|none}
 %   \end{syntax}
-% 设置数学字体，具体配置见\tableref{tab:math-font}。除Computer Modern字体外，均使用\pkgx{unicode-math}宏包调用字体。
+% 设置数学字体，具体配置见\tabrefx{tab:math-font}。除Computer Modern字体外，均使用\pkgx{unicode-math}宏包调用字体。
 % \end{function}
 % \changes{v0.1.4.1}{2022/04/04}{数学字体风格介绍}
 % \begin{optdesc}
@@ -2049,15 +2049,31 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_n_chapter_head:nn}
+% \begin{macro}{\@@_n_chapter_head_ii:nn}
 % 新建无编号章节并添加页眉和书签并单独设置标题样式。
 %    \begin{macrocode}
-\cs_new:Npn \@@_n_chapter_head:nn #1#2
+\cs_new:Npn \@@_n_chapter_head_ii:nn #1#2
   {
     {
       \ctexset { chapter / format = { #2 } }
       \@@_n_chapter_head:n { #1 }
     }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_n_chapter_head:nn}
+% \changes{v1.1.4.0}{2022/04/16}{新建无编号章节并单独添加页眉和书签}
+% 新建无编号章节并添加页眉和书签，多用于章节标题为2个汉字的情况。
+% \begin{arguments}
+%   \item 书签和页眉处。
+%   \item 章节标题处。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_n_chapter_head:nn #1#2
+  {
+    \@@_add_bookmark:n { #1 }
+    \chapter*          { #2 }
+    \markboth          { #1 } { }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2068,6 +2084,22 @@
   {
     \@@_add_toc:n { #1 }
     \chapter* { #1 }
+    \markboth { #1 } { }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_n_chapter_head_toc:nn}
+% \changes{v1.1.4.0}{2022/04/16}{新建无编号章节并单独添加目录及页眉}
+% 新建无编号章节并添加目录及页眉，多用于章节标题为2个汉字的情况。
+% \begin{arguments}
+%   \item 目录、书签、页眉处。
+%   \item 章节标题处。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_n_chapter_head_toc:nn #1#2
+  {
+    \@@_add_toc:n { #1 }
+    \chapter* { #2 }
     \markboth { #1 } { }
   }
 %    \end{macrocode}
@@ -2868,7 +2900,9 @@
 %    \end{macrocode}
 % 中文摘要，宋体小四号。
 %    \begin{macrocode}
-    \@@_n_chapter_head:n { 摘要 }
+    \@@_n_chapter_head:nn
+      { 摘要            }
+      { 摘 { \quad } 要 }
     {
       \dim_set:Nn \parindent { 2\ccwd }
       \rmfamily \zihao { -4 }
@@ -2886,7 +2920,7 @@
 % 英文摘要，Times New Roman字体，小四号。
 % \changes{v0.4.3.0}{2022/04/05}{修正英文摘要标题字体}
 %    \begin{macrocode}
-    \@@_n_chapter_head:nn {ABSTRACT} { \rmfamily \zihao{3} \bfseries \centering }
+    \@@_n_chapter_head_ii:nn {ABSTRACT} { \rmfamily \zihao{3} \bfseries \centering }
     {
       \dim_set:Nn \parindent { 2\ccwd }
       \rmfamily \zihao { -4 }
@@ -2901,12 +2935,14 @@
     }
     \cleardoublepage
 %    \end{macrocode}
+% \changes{v1.1.4.0}{2022/04/16}{为目录章节标题增加间距}
 % 目录。
 %    \begin{macrocode}
     \setcounter { tocdepth } { 5 }
-    \tl_set:Nn \contentsname { \@@_lang_switch:nn { 目录 } { Contents } }
-    \@@_add_bookmark:n { \contentsname }
-    \tableofcontents
+    \@@_n_chapter_head_toc:nn
+      { \@@_lang_switch:nn { 目录            } { Contents } }
+      { \@@_lang_switch:nn { 目 { \quad } 录 } { Contents } }
+    \@starttoc { toc }
     \cleardoublepage
   }
 %    \end{macrocode}
@@ -2932,9 +2968,12 @@
 \renewcommand{\backmatter}
   {
 %    \end{macrocode}
+% \changes{v1.1.4.0}{2022/04/16}{为致谢章节标题增加间距}
 % 致谢。
 %    \begin{macrocode}
-    \@@_n_chapter_head_toc:n { \@@_lang_switch:nn { 致谢 } { Acknowledgements } }
+    \@@_n_chapter_head_toc:nn
+      { \@@_lang_switch:nn { 致谢            } { Acknowledgements } }
+      { \@@_lang_switch:nn { 致 { \quad } 谢 } { Acknowledgements } }
     {
       \dim_set:Nn \parindent { 2\ccwd }
       \rmfamily \zihao { -4 }
