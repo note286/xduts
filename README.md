@@ -17,9 +17,11 @@ In the future, we plan to add the following document classes, including
 
 ## Installation
 
-You can install XDUTS by either CTAN or GitHub by following the instructions below. 
+You can install XDUTS from either CTAN or GitHub by following the instructions below. 
 
 ### CTAN
+
+#### TeX Live/MacTeX
 
 Make sure the latest version of TeX Live/MacTeX is installed. Then, you can install XDUTS by running command below. If on Windows, it may be necessary to start a Command Prompt as an Administrator. If on macOS or GNU/Linux, please run the command with `sudo`.
 
@@ -28,6 +30,20 @@ tlmgr update xduts
 ```
 
 Run command below to open the documentation in TeX Live/MacTeX.
+
+```shell
+texdoc xduts
+```
+
+#### MiKTeX
+
+You can install XDUTS by running command below.
+
+```shell
+miktex packages install xduts
+```
+
+Run command below to open the documentation.
 
 ```shell
 texdoc xduts
