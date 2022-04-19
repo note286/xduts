@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/19 v1.2.0.1 Xidian University TeX Suite]
+[2022/04/19 v1.2.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/19}{1.2.0.1}
+%<class|sty>  {2022/04/19}{1.2.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -141,7 +141,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1068}
+% \CheckSum{1101}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -260,7 +260,6 @@
 % \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置。
 % 其中，字体选项见\secrefx{字体选项}，
 % 部分英文字体切换见\secrefx{英文字体}，
-% 论文语言切换见\secrefx{语言配置}，
 % 参考文献配置见\secrefx{参考文献配置}，
 % 页面配置见\secrefx{页面配置}，
 % 交叉引用配置见\secrefx{交叉引用配置}，
@@ -2077,6 +2076,10 @@
 % \end{macro}
 % \begin{macro}{\@@_n_chapter_head_ii:nn}
 % 新建无编号章节并添加页眉和书签并单独设置标题样式。
+% \begin{arguments}
+%   \item 章节标题处。
+%   \item 章节标题样式。
+% \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \@@_n_chapter_head_ii:nn #1#2
   {
@@ -2100,6 +2103,24 @@
     \@@_add_bookmark:n { #1 }
     \chapter*          { #2 }
     \markboth          { #1 } { }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_n_chapter_head_ii:nnn}
+% \changes{v1.2.1.0}{2022/04/19}{新建无编号章节并单独添加页眉和书签并单独设置标题样式}
+% 新建无编号章节并添加页眉和书签并单独设置标题样式，多用于章节标题为2个汉字的情况。
+% \begin{arguments}
+%   \item 章节标题处。
+%   \item 书签和页眉处。
+%   \item 章节标题样式。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_n_chapter_head_ii:nnn #1#2#3
+  {
+    {
+      \ctexset { chapter / format = { #3 } }
+      \@@_n_chapter_head:nn { #1 } { #2 }
+    }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2274,21 +2295,34 @@
 % \end{macro}
 % \subsubsection{章节编号}
 % \begin{macro}{\ctexset}
+% \changes{v1.2.1.0}{2022/04/19}{修正英文论文标题序号}
 % 设置章节编号的数字输出格式。
 %    \begin{macrocode}
-\ctexset
+\ctex_at_end_preamble:n
   {
-    chapter       / number =
+    \@@_lang_switch:nn
       {
-        \@@_lang_switch:nn
-          { \chinese { chapter } }
-          { \Roman   { chapter } }
-      },
-    section       / number = { \thesection       },
-    subsection    / number = { \thesubsection    },
-    subsubsection / number = { \thesubsubsection },
-    paragraph     / number = { \theparagraph     },
-    subparagraph  / number = { \thesubparagraph  }
+        \ctexset
+          {
+            chapter       / number = { \chinese { chapter } },
+            section       / number = { \thesection          },
+            subsection    / number = { \thesubsection       },
+            subsubsection / number = { \thesubsubsection    },
+            paragraph     / number = { \theparagraph        },
+            subparagraph  / number = { \thesubparagraph     }
+          }
+      }
+      {
+        \ctexset
+          {
+            chapter       / number = { \Roman { chapter }           },
+            section       / number = { \thesection                  },
+            subsection    / number = { \thesubsection               },
+            subsubsection / number = { ( \roman { subsubsection } ) },
+            paragraph     / number = { ( \alph { paragraph } )      },
+            subparagraph  / number = { ( \arabic { subparagraph } ) }
+          }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2311,15 +2345,23 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\@@_en_t:nnn}
+% \changes{v1.2.1.0}{2022/04/19}{英文章节样式增加位置参数}
 % 设置英文章节名字和随后的标题内容格式。
-% \begin{macro}{\@@_en_t:nn}
 % \begin{arguments}
 %   \item 字号。
-%   \item 偏移量。
+%   \item 位置。
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \@@_en_t:nn #1#2
-  { \zihao { \use:c { l_@@_ #1 _tl } } \raggedright \skip_horizontal:n { #2 ex } }
+  {
+    \rmfamily
+    \zihao { \use:c { l_@@_ #1 _tl } }
+    \bfseries
+    \str_if_eq:ccTF { #2 } { c }
+      { \centering   }
+      { \raggedright }
+  }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\ctexset}
@@ -2330,12 +2372,12 @@
   {
     \@@_lang_switch:nn
       {
-         \@@_tl_set_if_empty:Nn \l_@@_chap_tl      { 3 }
-         \@@_tl_set_if_empty:Nn \l_@@_sec_tl       { 4 }
-         \@@_tl_set_if_empty:Nn \l_@@_subsec_tl    { 4 }
-         \@@_tl_set_if_empty:Nn \l_@@_subsubsec_tl { 4 }
-         \@@_tl_set_if_empty:Nn \l_@@_para_tl      { 4 }
-         \@@_tl_set_if_empty:Nn \l_@@_subpara_tl   { 4 }
+        \@@_tl_set_if_empty:Nn \l_@@_chap_tl      { 3 }
+        \@@_tl_set_if_empty:Nn \l_@@_sec_tl       { 4 }
+        \@@_tl_set_if_empty:Nn \l_@@_subsec_tl    { 4 }
+        \@@_tl_set_if_empty:Nn \l_@@_subsubsec_tl { 4 }
+        \@@_tl_set_if_empty:Nn \l_@@_para_tl      { 4 }
+        \@@_tl_set_if_empty:Nn \l_@@_subpara_tl   { 4 }
         \ctexset
           {
             chapter       / format = { \@@_zh_t:nnn { sf } { chap      } { c } },
@@ -2347,20 +2389,20 @@
           }
       }
       {
-        \@@_tl_set_if_empty:Nn \l_@@_chap_tl      { 4  }
-        \@@_tl_set_if_empty:Nn \l_@@_sec_tl       { -4 }
+        \@@_tl_set_if_empty:Nn \l_@@_chap_tl      { 3  }
+        \@@_tl_set_if_empty:Nn \l_@@_sec_tl       { 4  }
         \@@_tl_set_if_empty:Nn \l_@@_subsec_tl    { -4 }
         \@@_tl_set_if_empty:Nn \l_@@_subsubsec_tl { -4 }
         \@@_tl_set_if_empty:Nn \l_@@_para_tl      { -4 }
         \@@_tl_set_if_empty:Nn \l_@@_subpara_tl   { -4 }
         \ctexset
           {
-            chapter       / format = { \@@_en_t:nn { chap      } { 0  } },
-            section       / format = { \@@_en_t:nn { sec       } { 4  } },
-            subsection    / format = { \@@_en_t:nn { subsec    } { 8  } },
-            subsubsection / format = { \@@_en_t:nn { subsubsec } { 12 } },
-            paragraph     / format = { \@@_en_t:nn { para      } { 16 } },
-            subparagraph  / format = { \@@_en_t:nn { subpara   } { 20 } }
+            chapter       / format = { \@@_en_t:nn { chap      } { c } },
+            section       / format = { \@@_en_t:nn { sec       } { l } },
+            subsection    / format = { \@@_en_t:nn { subsec    } { l } },
+            subsubsection / format = { \@@_en_t:nn { subsubsec } { l } },
+            paragraph     / format = { \@@_en_t:nn { para      } { l } },
+            subparagraph  / format = { \@@_en_t:nn { subpara   } { l } }
           }
       }
   }
@@ -2720,6 +2762,9 @@
 \RequirePackage { environ }
 \NewEnviron { appendixes }
   {
+    \cs_set:Npn \appendixname { \@@_lang_switch:nn { 附录 } { Appendix } }
+    \cs_set:Npn \chaptername { \appendixname }
+    \cs_set:Npn \Roman { \Alph }
     \appendix
     \renewcommand { \thefigure } { \thechapter \arabic { figure } }
     \renewcommand { \thetable  } { \thechapter \arabic { table  } }
@@ -2876,7 +2921,7 @@
 % \begin{macro}{\frontmatter}
 % 排版正文前部分。
 %    \begin{macrocode}
-\renewcommand{\frontmatter}
+\renewcommand { \frontmatter }
   {
     \loadgeometry { cover }
     \pagestyle    { empty }
@@ -2953,13 +2998,19 @@
     \pagestyle     { plain }
     \pagenumbering { Roman }
 %    \end{macrocode}
+% \changes{v1.2.1.0}{2022/04/19}{修正英文论文下中文摘要标题样式}
 % 中文摘要，宋体小四号。
 %    \begin{macrocode}
-    \@@_n_chapter_head:nn
-      { 摘要            }
-      { 摘 { \quad } 要 }
+    \@@_lang_switch:nn
+      { \@@_n_chapter_head:nn { 摘要 } { 摘 { \quad } 要 } }
+      {
+        \@@_n_chapter_head_ii:nnn
+          { 摘要 }
+          { 摘 { \quad } 要 }
+          { \@@_sf_family: \zihao { 3 } \centering }
+      }
     {
-      \dim_set:Nn \parindent { 2\ccwd }
+      \dim_set:Nn \parindent { 2 \ccwd }
       \rmfamily \zihao { -4 }
       \file_if_exist_input:n { \l_@@_abstract_zh_tl }
     }
@@ -2975,9 +3026,9 @@
 % 英文摘要，Times New Roman字体，小四号。
 % \changes{v0.4.3.0}{2022/04/05}{修正英文摘要标题字体}
 %    \begin{macrocode}
-    \@@_n_chapter_head_ii:nn {ABSTRACT} { \rmfamily \zihao{3} \bfseries \centering }
+    \@@_n_chapter_head_ii:nn {ABSTRACT} { \rmfamily \zihao { 3 } \bfseries \centering }
     {
-      \dim_set:Nn \parindent { 2\ccwd }
+      \dim_set:Nn \parindent { 2 \ccwd }
       \rmfamily \zihao { -4 }
       \file_if_exist_input:n { \l_@@_abstract_en_tl }
     }
@@ -3008,12 +3059,12 @@
 % \changes{v0.8.0.0}{2022/04/12}{支持对称页边距}
 % 排版正文部分。
 %    \begin{macrocode}
-\renewcommand{\mainmatter}
+\renewcommand { \mainmatter }
   {
     \@@_load_main_geometry:
     \pagestyle     { plain  }
     \pagenumbering { arabic }
-    \dim_set:Nn \parindent { 2\ccwd }
+    \dim_set:Nn \parindent { 2 \ccwd }
     \rmfamily \zihao { -4 }
   }
 %    \end{macrocode}
@@ -3021,7 +3072,7 @@
 % \begin{macro}{\backmatter}
 % 排版正文后部分。
 %    \begin{macrocode}
-\renewcommand{\backmatter}
+\renewcommand { \backmatter }
   {
 %    \end{macrocode}
 % \changes{v1.1.4.0}{2022/04/16}{为致谢章节标题增加间距}
@@ -3031,7 +3082,7 @@
       { \@@_lang_switch:nn { 致谢            } { Acknowledgements } }
       { \@@_lang_switch:nn { 致 { \quad } 谢 } { Acknowledgements } }
     {
-      \dim_set:Nn \parindent { 2\ccwd }
+      \dim_set:Nn \parindent { 2 \ccwd }
       \rmfamily \zihao { -4 }
       \file_if_exist_input:n { \l_@@_ack_tl }
     }
@@ -3040,7 +3091,8 @@
 % \changes{v0.2.1.0}{2022/04/04}{参考文献添加至目录}
 % \changes{v0.5.2.0}{2022/04/07}{修正参考文献列表字体字号}
 %    \begin{macrocode}
-    \@@_add_toc:n { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
+    \cs_set:Npn \bibname { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
+    \@@_n_chapter_head_toc:n { \bibname }
     {
       \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
         {
@@ -3048,7 +3100,8 @@
           \bibliography { \l_@@_bib_file_clist }
         }
         {
-          \renewcommand { \bibfont } { \@@_rm_family: \zihao { 5 } }
+          \defbibheading { bibliography } [ ] { }
+          \cs_set:Npn \bibfont { \rmfamily \zihao { -4 } }
           \printbibliography
         }
     }
