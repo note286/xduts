@@ -26,7 +26,7 @@ You can install XDUTS from either CTAN or GitHub by following the instructions b
 Make sure the latest version of TeX Live/MacTeX is installed. Then, you can install XDUTS by running command below. If on Windows, it may be necessary to start a Command Prompt as an Administrator. If on macOS or GNU/Linux, please run the command with `sudo`.
 
 ```shell
-tlmgr update xduts
+tlmgr update --self xduts
 ```
 
 Run command below to open the documentation in TeX Live/MacTeX.
@@ -37,10 +37,11 @@ texdoc xduts
 
 #### MiKTeX
 
-You can install XDUTS by running command below.
+You can install/update XDUTS by running command below.
 
 ```shell
 miktex packages install xduts
+miktex packages update xduts
 ```
 
 Run command below to open the documentation.
