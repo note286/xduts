@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/20 v1.2.2.0 Xidian University TeX Suite]
+[2022/04/20 v1.3.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/20}{1.2.2.0}
+%<class|sty>  {2022/04/20}{1.3.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -102,7 +102,7 @@
     framerule       = 1 pt,
     framesep        = 0 pt,
     xleftmargin     = 0 em,
-    xrightmargin    = 3 em,
+    xrightmargin    = 0 em,
     escapeinside    = {(*}{*)},
     breaklines      = true,
     basicstyle      = \small\ttfamily,
@@ -141,7 +141,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1110}
+% \CheckSum{1116}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2706,6 +2706,25 @@
           { \def\@floatboxreset { \reset@font\small\@setminipage } \@float { table } }
           { \end@float }
       }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{longtable}
+% \changes{v1.3.0.0}{2022/04/20}{设置\envx{longtable}环境字号是否为五号}
+% 设置\envx{longtable}环境字号是否为五号。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \@ifpackageloaded { longtable }
+      {
+        \bool_if:NT \l_@@_tab_small_bool
+          {
+            \ctex_gadd_ltxhook:nn
+              { env/longtable/begin }
+              { \small }
+          }
+      }
+      { }
   }
 %    \end{macrocode}
 % \end{macro}
