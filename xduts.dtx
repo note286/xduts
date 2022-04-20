@@ -1,13 +1,13 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/20 v1.3.0.0 Xidian University TeX Suite]
+[2022/04/20 v1.3.0.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
 %<xdufont>\ProvidesExplPackage{xdufont}
-%<class|sty>  {2022/04/20}{1.3.0.0}
+%<class|sty>  {2022/04/20}{1.3.0.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -29,6 +29,7 @@
   }
 }
 \setcounter{tocdepth}{5}
+\ctexset{punct=quanjiao}
 \usepackage{hologo}
 \usepackage{fetamont}
 \usepackage{xurl}
@@ -57,7 +58,8 @@
 % [<name>] LaTeX2e可选参数
 \newcommand{\oargx}[1]{\xspace\Arg{#1}\xspace}
 % 文件
-\newcommand{\filex}[1]{\xspace\texttt{#1}\xspace}
+\usepackage{seqsplit}
+\newcommand{\filex}[1]{\xspace{\ttfamily\seqsplit{#1}}\xspace}
 % 环境
 \newcommand{\envx}[1]{\xspace\env{#1}\xspace}
 % 宏包
@@ -212,11 +214,11 @@
 % \section{使用说明}
 % \label{使用说明}
 % 《一份（不太）简短的\LaTeXe{}介绍》\footctan{info/lshort/chinese/lshort-zh-cn.pdf}
-% 中提及的内容本文档将不再提及。
-% \xduts{}中的所有文档类和宏包仅内置了实现功能所必要的宏包，
+% 中提及的内容本文档将不再赘述。
+% \xduts{}中的所有文档类和宏包仅内置了实现功能所需的宏包，
 % 对于常用的宏包如\pkgx{subfig}、\pkgx{algpseudocodex}、
 % \pkgx{amsmath}、\pkgx{amsthm}和\pkgx{siunitx}等\textbf{均未内置}，
-% 用户视需求自行加载。
+% 用户可以参考\secrefx{兼容性说明}后，视需求自行加载。
 % 请在最新版\LaTeX{}环境中使用最新版\xduts{}，
 % 认真阅读相应文档类/宏包使用说明章节即可使用\xduts{}。
 % \par
@@ -238,13 +240,13 @@
 %   \end{document}
 % \end{latexexample}
 % \par
-% 学会以上用法后即可立即使用\pkgx{xdufont}宏包了。
+% 学会以上用法后即可使用\pkgx{xdufont}宏包。
 % \subsection{xduugthesis}
 % \pkgx{xduugthesis}基于\clsx{ctexbook}文档类，
 % 提供多种字体配置，部分样式可自定义，信息录入便捷。
 % 请在阅读《本科生毕业设计（论文）工作手册》后再使用\pkgx{xduugthesis}。
 % \par
-% 典型的\clsx{xduugthesis}主文件结构应该如下所示：
+% 典型的\clsx{xduugthesis}主文件结构如下所示：
 % \begin{latexexample}[moretexcs={\xdusetup,\frontmatter,\mainmatter,\chapter,\backmatter},emph={[1]document}]
 %   \documentclass{xduugthesis}
 %   \xdusetup{}
@@ -291,7 +293,24 @@
 %   }
 % \end{latexexample}
 % \par
-% 学会以上用法后即可立即使用\clsx{xduugthesis}文档类了。
+% 学会以上用法后即可使用\clsx{xduugthesis}文档类。
+% \changes{v1.3.0.1}{2022/04/20}{增加兼容性说明}
+% \section{兼容性说明}
+% \label{兼容性说明}
+% \xduts{}对部分常见宏包进行了针对性地适配，
+% 需要注意的是，这些宏包仍需用户视需求自行加载。
+% \subsection{算法}
+% 主要适配算法内容字号和默认浮动位置。
+% \pkgx{algorithm}宏包提供了算法浮动体\envx{algorithm}环境，
+% 可以搭配\pkgx{algpseudocodex}等宏包使用。
+% \pkgx{algorithm2e}宏包提供了算法环境，
+% 该宏包提供的\envx{algorithm}环境实际将浮动体与算法内容合二为一。
+% \subsection{图片}
+% 主要适配子图caption字体字号，
+% 包括\pkgx{subfig}宏包和\pkgx{subfigure}宏包。
+% \subsection{表格}
+% 主要适配表格内容字号，
+% 包括所有使用\envx{table}浮动体的表格和\pkgx{longtable}宏包提供的\envx{longtable}环境。
 % \section{功能说明}
 % \label{功能说明}
 % 请根据\secrefx{使用说明}中相应文档类/宏包的说明来选择性地阅读本节内容。
@@ -377,7 +396,7 @@
 %   \begin{syntax}
 %     \optx{style/cjk-fake-bold}=\metax{伪粗体粗细程度}
 %   \end{syntax}
-% 设置中文字体伪粗体粗细程度。默认为\valuex{3}，对于部分存在对应的粗体字体的中文字体，如FandolSong和FandolHei等，该选项不生效。
+% 设置中文字体伪粗体粗细程度。默认为\valuex{3}，对于部分存在对应粗体字体的中文字体，如FandolSong和FandolHei等，该选项不生效。
 % \end{function}
 % \begin{function}[added=2022-04-01]{style/cjk-fake-slant}
 %   \begin{syntax}
