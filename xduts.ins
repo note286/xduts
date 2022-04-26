@@ -17,7 +17,7 @@ This work has the LPPL maintenance status `author-maintained'.
 The Current Maintainer of this work is @note286 in GitHub and CTAN.
 
 This work consists of the files README.md, xduts.dtx, and xduts.ins
-and the derived files xduts.pdf, xduugthesis.cls, and xdufont.sty.
+and the derived files xduts.pdf, xdufont.sty, xdupgthesis.cls, and xduugthesis.cls.
 
 The copyright of xidian-text.pdf and xidian-logo.pdf is Xidian University.
 
@@ -27,8 +27,9 @@ The copyright of xidian-text.pdf and xidian-logo.pdf is Xidian University.
 \keepsilent
 \generate
   {
-    \file{xduugthesis.cls}{\from{\jobname.dtx}{class,xduugthesis}}
     \file{xdufont.sty}{\from{\jobname.dtx}{sty,xdufont}}
+    \file{xdupgthesis.cls}{\from{\jobname.dtx}{class,thesis,xdupgthesis}}
+    \file{xduugthesis.cls}{\from{\jobname.dtx}{class,thesis,xduugthesis}}
   }
 \nopreamble
 \nopostamble
