@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/04/27 v1.4.1.1 Xidian University TeX Suite]
+[2022/05/01 v1.5.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/04/27}{1.4.1.1}
+%<class|sty>  {2022/05/01}{1.5.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -145,7 +145,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1118}
+% \CheckSum{1124}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1818,6 +1818,10 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</xduugthesis>
+%<*thesis>
+%    \end{macrocode}
 % \subsection{样式配置}
 % \begin{variable}
 %   {
@@ -1972,7 +1976,7 @@
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
-%</xduugthesis>
+%</thesis>
 %    \end{macrocode}
 %    \begin{macrocode}
 %<*class|xdufont>
@@ -2207,44 +2211,55 @@
 %    \end{macrocode}
 % \end{macro}
 % \subsection{页面设置}
+%    \begin{macrocode}
+%</xduugthesis>
+%<*thesis>
+%    \end{macrocode}
 % \subsubsection{页面尺寸}
 % \begin{macro}{\geometry,\newgeometry,\savegeometry}
-% 正文页面：上3厘米、下2厘米、内侧3厘米、外侧2厘米；装订线1厘米；页眉2厘米；页脚1厘米。
+% 正文页面。
 %    \begin{macrocode}
 \newgeometry
   {
     top           = 3cm,
     bottom        = 2cm,
-    inner         = 3cm,
-    outer         = 2cm,
-    bindingoffset = 1cm,
+%<xduugthesis>    inner         = 3cm,
+%<xduugthesis>    outer         = 2cm,
+%<xduugthesis>    bindingoffset = 1cm,
+%<xdupgthesis>    inner         = 2.5cm,
+%<xdupgthesis>    outer         = 2.5cm,
+%<xdupgthesis>    bindingoffset = 0.5cm,
     head          = 2cm,
     foot          = 1cm
   }
 \savegeometry { main }
 %    \end{macrocode}
-% 左右对称正文页面：上3厘米、下2厘米、内侧3厘米、外侧3厘米；页眉2厘米；页脚1厘米。
+% 左右对称正文页面。
 %    \begin{macrocode}
 \newgeometry
   {
     top    = 3cm,
     bottom = 2cm,
-    inner  = 3cm,
-    outer  = 3cm,
+%<xduugthesis>    inner  = 3cm,
+%<xduugthesis>    outer  = 3cm,
+%<xdupgthesis>    inner  = 2.75cm,
+%<xdupgthesis>    outer  = 2.75cm,
     head   = 2cm,
     foot   = 1cm
   }
 \savegeometry { main-sym }
 %    \end{macrocode}
-% 封面页面：上2.5厘米、下2厘米、内侧3厘米、外侧2厘米。
+% 封面页面。
 % \changes{v0.10.3.0}{2022/04/14}{修复封面超页}
 %    \begin{macrocode}
 \newgeometry
   {
-    top    = 2.5cm,
+%<xduugthesis>    top    = 2.5cm,
+%<xdupgthesis>    top    = 3cm,
     bottom = 2cm,
     inner  = 3cm,
-    outer  = 2cm
+%<xduugthesis>    outer  = 2cm
+%<xdupgthesis>    outer  = 2.5cm
   }
 \savegeometry { cover }
 %    \end{macrocode}
@@ -2261,6 +2276,10 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</thesis>
+%<*xduugthesis>
+%    \end{macrocode}
 % \subsubsection{页眉页脚}
 % \begin{macro}
 %   {
@@ -2861,6 +2880,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \subsection{封面}
+% \subsubsection{本科生}
 % \begin{macro}{\@@_cover_i:nn}
 % 绘制班级和学号。
 % \begin{arguments}
@@ -3138,7 +3158,27 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</xduugthesis>
+%<*xdupgthesis>
+%    \end{macrocode}
+% \subsubsection{研究生}
+% \begin{macro}{\frontmatter}
+% \changes{v1.5.0.0}{2022/05/01}{设置封面页边距}
+% 排版正文前部分。
+%    \begin{macrocode}
+\renewcommand { \frontmatter }
+  {
+    \loadgeometry { cover }
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</xdupgthesis>
+%<*xduugthesis>
+%    \end{macrocode}
 % \subsection{正文}
+% \subsubsection{本科生}
 % \begin{macro}{\mainmatter}
 % \changes{v0.8.0.0}{2022/04/12}{支持对称页边距}
 % 排版正文部分。
@@ -3197,6 +3237,23 @@
 % \end{macro}
 %    \begin{macrocode}
 %</xduugthesis>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*xdupgthesis>
+%    \end{macrocode}
+% \subsubsection{研究生}
+% \begin{macro}{\mainmatter}
+% \changes{v1.5.0.0}{2022/05/01}{设置正文页边距}
+% 排版正文部分。
+%    \begin{macrocode}
+\renewcommand { \mainmatter }
+  {
+    \@@_load_main_geometry:
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</xdupgthesis>
 %    \end{macrocode}
 %    \begin{macrocode}
 %<@@=>
