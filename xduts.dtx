@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/01 v1.5.1.0 Xidian University TeX Suite]
+[2022/05/02 v1.5.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/01}{1.5.1.0}
+%<class|sty>  {2022/05/02}{1.5.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -825,7 +825,7 @@
 %    \end{macrocode}
 %    \begin{macrocode}
 %</class>
-%<*xduugthesis>
+%<*thesis>
 %    \end{macrocode}
 %    \begin{macrocode}
 \RequirePackage { fancyhdr        }
@@ -833,7 +833,7 @@
 \RequirePackage { graphicx        }
 %    \end{macrocode}
 %    \begin{macrocode}
-%</xduugthesis>
+%</thesis>
 %<*xdufont>
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -2218,64 +2218,86 @@
 % \subsubsection{页面尺寸}
 % \begin{macro}{\geometry,\newgeometry,\savegeometry}
 % \changes{v1.5.1.0}{2022/05/01}{修正页脚高度}
+% \changes{v1.5.2.0}{2022/05/02}{修正底部页边距高度}
 % 正文页面。
 % \begin{description}
-% \item[本科生] 上3cm、下2cm、内3cm、外2cm；装订线1cm；页眉2cm、页脚1cm。
-% \item[研究生] 上3cm、下2cm、内2.5cm、外2.5cm；装订线0.5cm；页眉2cm、页脚1.75cm。
+% \item[本科生] 上3、下2、内3、外2；装订线1；页眉2、页脚1。
+% \item[研究生] 上3、\textbf{下2.5}、内2.5、外2.5；装订线0.5；页眉2、页脚$2.5-1.75=0.75$。
 % \end{description}
 %    \begin{macrocode}
 \newgeometry
   {
+%<*xduugthesis>
     top           = 3cm,
     bottom        = 2cm,
-%<xduugthesis>    inner         = 3cm,
-%<xduugthesis>    outer         = 2cm,
-%<xduugthesis>    bindingoffset = 1cm,
-%<xdupgthesis>    inner         = 2.5cm,
-%<xdupgthesis>    outer         = 2.5cm,
-%<xdupgthesis>    bindingoffset = 0.5cm,
+    inner         = 3cm,
+    outer         = 2cm,
+    bindingoffset = 1cm,
     head          = 2cm,
-%<xduugthesis>    foot          = 1cm
-%<xdupgthesis>    foot          = 1.75cm
+    foot          = 1cm
+%</xduugthesis>
+%<*xdupgthesis>
+    top           = 3cm,
+    bottom        = 2.5cm,
+    inner         = 2.5cm,
+    outer         = 2.5cm,
+    bindingoffset = 0.5cm,
+    head          = 2cm,
+    foot          = 0.75cm
+%</xdupgthesis>
   }
 \savegeometry { main }
 %    \end{macrocode}
 % \changes{v1.5.1.0}{2022/05/01}{修正页脚高度}
+% \changes{v1.5.2.0}{2022/05/02}{修正底部页边距高度}
 % 左右对称正文页面。
 % \begin{description}
-% \item[本科生] 上3cm、下2cm、内3cm、外3cm；页眉2cm、页脚1cm。
-% \item[研究生] 上3cm、下2cm、内2.75cm、外2.75cm；页眉2cm、页脚1.75cm。
+% \item[本科生] 上3、下2、内3、外3；页眉2、页脚1。
+% \item[研究生] 上3、\textbf{下2.5}、内2.75、外2.75；页眉2、页脚$2.5-1.75=0.75$。
 % \end{description}
 %    \begin{macrocode}
 \newgeometry
   {
+%<*xduugthesis>
     top    = 3cm,
     bottom = 2cm,
-%<xduugthesis>    inner  = 3cm,
-%<xduugthesis>    outer  = 3cm,
-%<xdupgthesis>    inner  = 2.75cm,
-%<xdupgthesis>    outer  = 2.75cm,
+    inner  = 3cm,
+    outer  = 3cm,
     head   = 2cm,
-%<xduugthesis>    foot   = 1cm
-%<xdupgthesis>    foot   = 1.75cm
+    foot   = 1cm
+%</xduugthesis>
+%<*xdupgthesis>
+    top    = 3cm,
+    bottom = 2.5cm,
+    inner  = 2.75cm,
+    outer  = 2.75cm,
+    head   = 2cm,
+    foot   = 0.75cm
+%</xdupgthesis>
   }
 \savegeometry { main-sym }
 %    \end{macrocode}
 % \changes{v0.10.3.0}{2022/04/14}{修复封面超页}
 % 封面页面。
 % \begin{description}
-% \item[本科生] 上2.5cm、下2cm、内3cm、外2cm。
-% \item[研究生] 上3cm、下2cm、内3cm、外2.5cm。
+% \item[本科生] 上2.5、下2、内3、外2。
+% \item[研究生] 上3、下2、内3、外2.5。
 % \end{description}
 %    \begin{macrocode}
 \newgeometry
   {
-%<xduugthesis>    top    = 2.5cm,
-%<xdupgthesis>    top    = 3cm,
+%<*xduugthesis>
+    top    = 2.5cm,
     bottom = 2cm,
     inner  = 3cm,
-%<xduugthesis>    outer  = 2cm
-%<xdupgthesis>    outer  = 2.5cm
+    outer  = 2cm
+%</xduugthesis>
+%<*xdupgthesis>
+    top    = 3cm,
+    bottom = 2cm,
+    inner  = 3cm,
+    outer  = 2.5cm
+%</xdupgthesis>
   }
 \savegeometry { cover }
 %    \end{macrocode}
