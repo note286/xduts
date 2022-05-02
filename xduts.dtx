@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/02 v1.7.2.0 Xidian University TeX Suite]
+[2022/05/02 v1.8.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/02}{1.7.2.0}
+%<class|sty>  {2022/05/02}{1.8.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -145,7 +145,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1191}
+% \CheckSum{1195}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1654,9 +1654,9 @@
 %<*thesis>
 %    \end{macrocode}
 % \subsection{信息录入}
+% \changes{v1.8.0.0}{2022/05/02}{拆分信息录入选项}
 % \begin{variable}
 %   {
-%     \l_@@_gr_type_tl,
 %     \l_@@_title_str,
 %     \l_@@_title_i_str,
 %     \l_@@_title_ii_str,
@@ -1664,10 +1664,7 @@
 %     \l_@@_major_str,
 %     \l_@@_author_str,
 %     \l_@@_supv_str,
-%     \l_@@_supv_dept_str,
 %     \l_@@_supv_ent_str,
-%     \l_@@_supv_sch_str,
-%     \l_@@_class_id_str,
 %     \l_@@_student_id_str,
 %     \l_@@_abstract_zh_tl,
 %     \l_@@_abstract_en_tl,
@@ -1675,12 +1672,6 @@
 %     \l_@@_keywords_en_clist,
 %     \l_@@_ack_tl
 %   }
-% 研究生类型。
-%    \begin{macrocode}
-%<*xdupgthesis>
-\tl_new:N \l_@@_gr_type_tl
-%</xdupgthesis>
-%    \end{macrocode}
 % 论文标题。
 %    \begin{macrocode}
 \str_new:N \l_@@_title_str
@@ -1703,21 +1694,9 @@
 %    \begin{macrocode}
 \str_new:N \l_@@_supv_str
 %    \end{macrocode}
-% 院内导师姓名。
-%    \begin{macrocode}
-\str_new:N \l_@@_supv_dept_str
-%    \end{macrocode}
 % 校外导师姓名。
 %    \begin{macrocode}
 \str_new:N \l_@@_supv_ent_str
-%    \end{macrocode}
-% 校内导师姓名。
-%    \begin{macrocode}
-\str_new:N \l_@@_supv_sch_str
-%    \end{macrocode}
-% 作者班级号。
-%    \begin{macrocode}
-\str_new:N \l_@@_class_id_str
 %    \end{macrocode}
 % 作者学号。
 %    \begin{macrocode}
@@ -1750,13 +1729,6 @@
 \keys_define:nn { xdu / info }
   {
 %    \end{macrocode}
-% 研究生类型。
-%    \begin{macrocode}
-%<*xdupgthesis>
-    graduate-type .choices:nn = { master, doctor }
-      { \tl_set_eq:NN \l_@@_gr_type_tl \l_keys_choice_tl },
-%</xdupgthesis>
-%    \end{macrocode}
 % 论文标题。
 %    \begin{macrocode}
     title .tl_set:N = \l_@@_title_str,
@@ -1777,21 +1749,9 @@
 %    \begin{macrocode}
     supervisor .tl_set:N = \l_@@_supv_str,
 %    \end{macrocode}
-% 院内导师姓名。
-%    \begin{macrocode}
-    supervisor-department .tl_set:N = \l_@@_supv_dept_str,
-%    \end{macrocode}
 % 校外导师姓名。
 %    \begin{macrocode}
     supervisor-enterprise .tl_set:N = \l_@@_supv_ent_str,
-%    \end{macrocode}
-% 校内导师姓名。
-%    \begin{macrocode}
-    supervisor-school .tl_set:N = \l_@@_supv_sch_str,
-%    \end{macrocode}
-% 作者班级号。
-%    \begin{macrocode}
-    class-id .tl_set:N = \l_@@_class_id_str,
 %    \end{macrocode}
 % 作者学号。
 %    \begin{macrocode}
@@ -1820,24 +1780,16 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\keys_set:nn}
-% \changes{v1.7.1.0}{2022/05/02}{设置研究生类型默认值}
-% \changes{v1.7.2.0}{2022/05/02}{修正guard}
 % 初始设置。
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-%<*xdupgthesis>
-    info / graduate-type         = { master },
-%</xdupgthesis>
     info / title                 = { },
     info / department            = { },
     info / major                 = { },
     info / author                = { },
     info / supervisor            = { },
-    info / supervisor-department = { },
     info / supervisor-enterprise = { },
-    info / supervisor-school     = { },
-    info / class-id              = { },
     info / student-id            = { },
     info / abstract              = { },
     info / abstract*             = { },
@@ -1847,6 +1799,101 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%<*xduugthesis>
+%    \end{macrocode}
+% \subsubsection{本科生}
+% \begin{variable}
+%   {
+%     \l_@@_supv_dept_str,
+%     \l_@@_supv_sch_str,
+%     \l_@@_class_id_str
+%   }
+% 院内导师姓名。
+%    \begin{macrocode}
+\str_new:N \l_@@_supv_dept_str
+%    \end{macrocode}
+% 校内导师姓名。
+%    \begin{macrocode}
+\str_new:N \l_@@_supv_sch_str
+%    \end{macrocode}
+% 作者班级号。
+%    \begin{macrocode}
+\str_new:N \l_@@_class_id_str
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\keys_define:nn}
+% 定义信息键值。
+%    \begin{macrocode}
+\keys_define:nn { xdu / info }
+  {
+%    \end{macrocode}
+% 院内导师姓名。
+%    \begin{macrocode}
+    supervisor-department .tl_set:N = \l_@@_supv_dept_str,
+%    \end{macrocode}
+% 校内导师姓名。
+%    \begin{macrocode}
+    supervisor-school .tl_set:N = \l_@@_supv_sch_str,
+%    \end{macrocode}
+% 作者班级号。
+%    \begin{macrocode}
+    class-id .tl_set:N = \l_@@_class_id_str
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\keys_set:nn}
+% 初始设置。
+%    \begin{macrocode}
+\keys_set:nn { xdu }
+  {
+    info / supervisor-department = { },
+    info / supervisor-school     = { },
+    info / class-id              = { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</xduugthesis>
+%<*xdupgthesis>
+%    \end{macrocode}
+% \subsubsection{研究生}
+% \begin{variable}
+%   {
+%     \l_@@_gr_type_tl
+%   }
+% 研究生类型。
+%    \begin{macrocode}
+\tl_new:N \l_@@_gr_type_tl
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\keys_define:nn}
+% 定义信息键值。
+%    \begin{macrocode}
+\keys_define:nn { xdu / info }
+  {
+%    \end{macrocode}
+% 研究生类型。
+%    \begin{macrocode}
+    graduate-type .choices:nn = { master, doctor }
+      { \tl_set_eq:NN \l_@@_gr_type_tl \l_keys_choice_tl }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\keys_set:nn}
+% \changes{v1.7.1.0}{2022/05/02}{设置研究生类型默认值}
+% \changes{v1.7.2.0}{2022/05/02}{修正guard}
+% 初始设置。
+%    \begin{macrocode}
+\keys_set:nn { xdu }
+  {
+    info / graduate-type = { master },
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</xdupgthesis>
+%    \end{macrocode}
 % \subsection{样式配置}
 % \begin{variable}
 %   {
