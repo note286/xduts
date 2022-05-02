@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/02 v1.5.2.0 Xidian University TeX Suite]
+[2022/05/02 v1.6.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/02}{1.5.2.0}
+%<class|sty>  {2022/05/02}{1.6.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -145,7 +145,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1124}
+% \CheckSum{1148}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1641,7 +1641,7 @@
 % \end{macro}
 %    \begin{macrocode}
 %</class|xdufont>
-%<*xduugthesis>
+%<*thesis>
 %    \end{macrocode}
 % \subsection{信息录入}
 % \begin{variable}
@@ -1818,10 +1818,6 @@
   }
 %    \end{macrocode}
 % \end{macro}
-%    \begin{macrocode}
-%</xduugthesis>
-%<*thesis>
-%    \end{macrocode}
 % \subsection{样式配置}
 % \begin{variable}
 %   {
@@ -2007,7 +2003,7 @@
 % \end{macro}
 %    \begin{macrocode}
 %</class|xdufont>
-%<*xduugthesis>
+%<*thesis>
 %    \end{macrocode}
 % \subsection{内部函数}
 % \begin{macro}{\@@_lang_switch:nn}
@@ -2211,10 +2207,6 @@
 %    \end{macrocode}
 % \end{macro}
 % \subsection{页面设置}
-%    \begin{macrocode}
-%</xduugthesis>
-%<*thesis>
-%    \end{macrocode}
 % \subsubsection{页面尺寸}
 % \begin{macro}{\geometry,\newgeometry,\savegeometry}
 % \changes{v1.5.1.0}{2022/05/01}{修正页脚高度}
@@ -2314,10 +2306,6 @@
   }
 %    \end{macrocode}
 % \end{macro}
-%    \begin{macrocode}
-%</thesis>
-%<*xduugthesis>
-%    \end{macrocode}
 % \subsubsection{页眉页脚}
 % \begin{macro}
 %   {
@@ -2371,21 +2359,44 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\fancypagestyle}
-% 设置正文页眉页脚。页眉：宋体五号，居中排列。左面页眉为论文题目，右面页眉为章次和章标题。页眉底划线的宽度为 0.75 磅。页码：宋体小五号，排在页眉行的最外侧，不加任何修饰。
 % \changes{v0.1.1.0}{2022/04/03}{修正页眉字号}
+% \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
+% 设置正文页眉页脚。
+% \begin{description}
+% \item[本科生] 页眉：宋体五号，居中排列。左面页眉为论文题目，右面页眉为章次和章标题。页眉底划线的宽度为0.75磅。页码：宋体小五号，排在页眉行的最外侧，不加任何修饰。
+% \item[研究生] 页码设置：前置部分的页码用罗马数字标识，字体为Times New Roman，字号为小五号；主体部分的页码用阿拉伯数字标识，字体为宋体，字号为小五号。页码统一居于页面底端中部，不加任何修饰。
+% \end{description}
 %    \begin{macrocode}
 \fancypagestyle { plain }
   {
     \pagestyle { fancy }
     \fancyhf { }
+%<*xduugthesis>
     \fancyhead [ CE ] { \@@_rm_family: \zihao { 5  } \l_@@_pure_title_str }
     \fancyhead [ CO ] { \@@_rm_family: \zihao { 5  } \leftmark            }
     \fancyhead [ LE ] { \@@_rm_family: \zihao { -5 } \thepage             }
     \fancyhead [ RO ] { \@@_rm_family: \zihao { -5 } \thepage             }
     \renewcommand { \headrulewidth } { 0.75pt }
+%</xduugthesis>
+%<*xdupgthesis>
+    \fancyfoot [ CE ] { \@@_rm_family: \zihao { -5 } \thepage }
+    \fancyfoot [ CO ] { \@@_rm_family: \zihao { -5 } \thepage }
+%</xdupgthesis>
   }
+%<*xdupgthesis>
+\fancypagestyle { front }
+  {
+    \pagestyle { plain }
+    \fancyfoot [ CE ] { \rmfamily \zihao { -5 } \thepage }
+    \fancyfoot [ CO ] { \rmfamily \zihao { -5 } \thepage }
+  }
+%</xdupgthesis>
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</thesis>
+%<*xduugthesis>
+%    \end{macrocode}
 % \subsection{标题设置}
 % 中文章标题黑体，三号，居中排列。节标题宋体，四号，居中排列。英文一级标题字体为Times New Roman，四号，正体，左对齐，以大写罗马数字（I、II 等）标出序号。其余各级标题的字体均为Times New Roman，小四号，正体。二级及以下级别的标题依次缩进4个英文字符，以1.1，1.2，1.1.1，1.1.2形式标出序号。
 % \subsubsection{章节层次}
@@ -3203,11 +3214,16 @@
 % \subsubsection{研究生}
 % \begin{macro}{\frontmatter}
 % \changes{v1.5.0.0}{2022/05/01}{设置封面页边距}
+% \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
 % 排版正文前部分。
 %    \begin{macrocode}
 \renewcommand { \frontmatter }
   {
     \loadgeometry { cover }
+    \pagestyle    { empty }
+    \@@_load_main_geometry:
+    \pagestyle     { front }
+    \pagenumbering { Roman }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3282,11 +3298,14 @@
 % \subsubsection{研究生}
 % \begin{macro}{\mainmatter}
 % \changes{v1.5.0.0}{2022/05/01}{设置正文页边距}
+% \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
 % 排版正文部分。
 %    \begin{macrocode}
 \renewcommand { \mainmatter }
   {
     \@@_load_main_geometry:
+    \pagestyle     { plain  }
+    \pagenumbering { arabic }
   }
 %    \end{macrocode}
 % \end{macro}
