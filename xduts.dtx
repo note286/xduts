@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/02 v1.7.1.0 Xidian University TeX Suite]
+[2022/05/02 v1.7.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/02}{1.7.1.0}
+%<class|sty>  {2022/05/02}{1.7.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -1821,11 +1821,14 @@
 % \end{macro}
 % \begin{macro}{\keys_set:nn}
 % \changes{v1.7.1.0}{2022/05/02}{设置研究生类型默认值}
+% \changes{v1.7.2.0}{2022/05/02}{修正guard}
 % 初始设置。
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
+%<*xdupgthesis>
     info / graduate-type         = { master },
+%</xdupgthesis>
     info / title                 = { },
     info / department            = { },
     info / major                 = { },
