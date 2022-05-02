@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/02 v1.6.0.0 Xidian University TeX Suite]
+[2022/05/02 v1.7.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/02}{1.6.0.0}
+%<class|sty>  {2022/05/02}{1.7.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -145,7 +145,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1148}
+% \CheckSum{1191}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1646,6 +1646,7 @@
 % \subsection{信息录入}
 % \begin{variable}
 %   {
+%     \l_@@_gr_type_tl,
 %     \l_@@_title_str,
 %     \l_@@_title_i_str,
 %     \l_@@_title_ii_str,
@@ -1664,6 +1665,12 @@
 %     \l_@@_keywords_en_clist,
 %     \l_@@_ack_tl
 %   }
+% 研究生类型。
+%    \begin{macrocode}
+%<*xdupgthesis>
+\tl_new:N \l_@@_gr_type_tl
+%</xdupgthesis>
+%    \end{macrocode}
 % 论文标题。
 %    \begin{macrocode}
 \str_new:N \l_@@_title_str
@@ -1732,6 +1739,13 @@
 %    \begin{macrocode}
 \keys_define:nn { xdu / info }
   {
+%    \end{macrocode}
+% 研究生类型。
+%    \begin{macrocode}
+%<*xdupgthesis>
+    graduate-type .choices:nn = { master, doctor }
+      { \tl_set_eq:NN \l_@@_gr_type_tl \l_keys_choice_tl },
+%</xdupgthesis>
 %    \end{macrocode}
 % 论文标题。
 %    \begin{macrocode}
@@ -2003,6 +2017,38 @@
 % \end{macro}
 %    \begin{macrocode}
 %</class|xdufont>
+%<*xdupgthesis>
+%    \end{macrocode}
+% \subsection{内部文本}
+% \begin{variable}{l_@@_header_str}
+% \changes{v1.7.0.0}{2022/05/02}{研究生页眉文本}
+% 研究生页眉文本。
+%    \begin{macrocode}
+\str_new:N \l_@@_header_str
+\ctex_at_end_preamble:n
+  {
+    \@@_lang_switch:nn
+      {
+        \tl_if_eq:NnTF \l_@@_gr_type_tl { master }
+          { \str_set:Nn \l_@@_header_str { 西安电子科技大学硕士学位论文 } }
+          { \str_set:Nn \l_@@_header_str { 西安电子科技大学博士学位论文 } }
+      }
+      {
+        \tl_if_eq:NnTF \l_@@_gr_type_tl { master }
+          {
+            \str_set:Nn \l_@@_header_str
+              { Master~Thesis~of~XIDIAN~UNIVERSITY }
+          }
+          {
+            \str_set:Nn \l_@@_header_str
+              { Doctoral~Dissertation~of~XIDIAN~UNIVERSITY }
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{variable}
+%    \begin{macrocode}
+%</xdupgthesis>
 %<*thesis>
 %    \end{macrocode}
 % \subsection{内部函数}
@@ -2361,10 +2407,11 @@
 % \begin{macro}{\fancypagestyle}
 % \changes{v0.1.1.0}{2022/04/03}{修正页眉字号}
 % \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
+% \changes{v1.7.0.0}{2022/05/02}{设置页眉}
 % 设置正文页眉页脚。
 % \begin{description}
 % \item[本科生] 页眉：宋体五号，居中排列。左面页眉为论文题目，右面页眉为章次和章标题。页眉底划线的宽度为0.75磅。页码：宋体小五号，排在页眉行的最外侧，不加任何修饰。
-% \item[研究生] 页码设置：前置部分的页码用罗马数字标识，字体为Times New Roman，字号为小五号；主体部分的页码用阿拉伯数字标识，字体为宋体，字号为小五号。页码统一居于页面底端中部，不加任何修饰。
+% \item[研究生] 页眉设置：单面页码页眉标题为章节题目，每一章节的起始页必须在单面页码，双面页码页眉标题统一为“西安电子科技大学博/硕士学位论文”，页眉标题居中排列，字体为宋体，字号为五号。页眉文字下添加双横线，双横线宽度为0.5磅。页眉的“西安电子科技大学博士/硕士学位论文”统一翻译成：Doctoral Dissertation of XIDIAN UNIVERSITY/Master Thesis of XIDIAN UNIVERSITY。页码设置：前置部分的页码用罗马数字标识，字体为Times New Roman，字号为小五号；主体部分的页码用阿拉伯数字标识，字体为宋体，字号为小五号。页码统一居于页面底端中部，不加任何修饰。
 % \end{description}
 %    \begin{macrocode}
 \fancypagestyle { plain }
@@ -2379,8 +2426,18 @@
     \renewcommand { \headrulewidth } { 0.75pt }
 %</xduugthesis>
 %<*xdupgthesis>
-    \fancyfoot [ CE ] { \@@_rm_family: \zihao { -5 } \thepage }
-    \fancyfoot [ CO ] { \@@_rm_family: \zihao { -5 } \thepage }
+    \fancyhead [ CE ] { \@@_rm_family: \zihao { 5  } \l_@@_header_str     }
+    \fancyhead [ CO ] { \@@_rm_family: \zihao { 5  } \leftmark            }
+    \fancyfoot [ CE ] { \@@_rm_family: \zihao { -5 } \thepage             }
+    \fancyfoot [ CO ] { \@@_rm_family: \zihao { -5 } \thepage             }
+    \cs_set:Npn \headrulewidth { 0.5pt }
+    \cs_set:Npn \headrule
+      {
+        \hrule \@height \headrulewidth
+        \skip_vertical:N \headrulewidth
+        \hrule \@height \headrulewidth
+        \skip_vertical:N -\headrulewidth
+      }
 %</xdupgthesis>
   }
 %<*xdupgthesis>
