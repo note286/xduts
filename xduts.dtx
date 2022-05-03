@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/03 v1.9.0.0 Xidian University TeX Suite]
+[2022/05/04 v1.9.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/03}{1.9.0.0}
+%<class|sty>  {2022/05/04}{1.9.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -153,7 +153,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1250}
+% \CheckSum{1254}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -3241,7 +3241,7 @@
 % 配置超链接和PDF元数据。
 % \changes{v0.5.0.0}{2022/04/05}{添加PDF主题元数据}
 %    \begin{macrocode}
-\RequirePackage{hyperref}
+\RequirePackage{ hyperref }
 \hypersetup
   {
     bookmarksnumbered,
@@ -3350,14 +3350,14 @@
 %    \begin{macrocode}
 \cs_new:Npn \@@_cover_i:nn #1#2
   {
-    \vbox_to_ht:nn {12pt}
+    \vbox_to_ht:nn { 12pt }
       {
         \mode_leave_vertical:
         \hfill
         \hbox:n
           {
             \@@_rm_family: \zihao { -4 } \bfseries
-            \hbox_to_wd:nn { 3em } {  #1 }
+            \hbox_to_wd:nn { 3em } { #1 }
             \skip_horizontal:n { 1em }
             \@@_uline:n { \hbox_to_wd:nn { 15ex } { \hfil #2 \hfil } }
             \skip_horizontal:n { 1.5cm }
@@ -3377,7 +3377,7 @@
 %    \begin{macrocode}
 \cs_new:Npn \@@_cover_ii:nnn #1#2#3
   {
-    \vbox_to_ht:nn {#1}
+    \vbox_to_ht:nn { #1 }
       {
         \mode_leave_vertical:
         \hfil
@@ -3400,7 +3400,7 @@
 %    \begin{macrocode}
 \cs_new:Npn \@@_cover_iii:nnnnn #1#2#3#4#5
   {
-    \vbox_to_ht:nn {40pt}
+    \vbox_to_ht:nn { 42.5pt }
       {
         \vfill
         \mode_leave_vertical:
@@ -3483,6 +3483,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\frontmatter}
+% \changes{v1.9.1.0}{2022/05/04}{修正封面元素位置及尺寸}
 % 排版正文前部分。
 %    \begin{macrocode}
 \renewcommand { \frontmatter }
@@ -3504,12 +3505,18 @@
 %    \end{macrocode}
 % 排版封面标题。
 %    \begin{macrocode}
-    \vbox_to_ht:nn { 75pt }
-      { \@@_sf_family: \zihao { 0 } \centering { 本科毕业设计论文 } }
+    \vbox_to_ht:nn { 90pt }
+      {
+        \mode_leave_vertical:
+        \hfil
+        \@@_sf_family: \zihao { 0 } \centering
+        \hbox_to_wd:nn { 375pt } { 本科毕业设计论文 }
+        \hfil
+      }
 %    \end{macrocode}
 % 排版西电logo。
 %    \begin{macrocode}
-    \@@_cover_ii:nnn { 130pt } { 120pt } { xidian-logo.pdf }
+    \@@_cover_ii:nnn { 140pt } { 120pt } { xidian-logo.pdf }
 %    \end{macrocode}
 % 拆分论文标题并排版。
 %    \begin{macrocode}
@@ -3590,7 +3597,7 @@
 % 英文摘要，Times New Roman字体，小四号。
 % \changes{v0.4.3.0}{2022/04/05}{修正英文摘要标题字体}
 %    \begin{macrocode}
-    \@@_n_chapter_head_ii:nn {ABSTRACT} { \rmfamily \zihao { 3 } \bfseries \centering }
+    \@@_n_chapter_head_ii:nn { ABSTRACT } { \rmfamily \zihao { 3 } \bfseries \centering }
     {
       \dim_set:Nn \parindent { 2 \ccwd }
       \rmfamily \zihao { -4 }
