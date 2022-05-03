@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/02 v1.8.0.0 Xidian University TeX Suite]
+[2022/05/03 v1.8.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/02}{1.8.0.0}
+%<class|sty>  {2022/05/03}{1.8.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -816,9 +816,11 @@
 % \begin{macro}{\PassOptionsToClass,\LoadClass}
 % 加载\clsx{ctexbook}文档类。
 % \changes{v0.3.2.0}{2022/04/04}{修正行间距为1.5倍}
+% \changes{v1.8.1.0}{2022/05/03}{修正页面尺寸}
 %    \begin{macrocode}
 \PassOptionsToClass
   {
+    a4paper,
     zihao=-4,
     sub4section,
     linespread = 1.5,
