@@ -1,19 +1,24 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/03 v1.8.1.0 Xidian University TeX Suite]
+[2022/05/03 v1.9.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/03}{1.8.1.0}
+%<class|sty>  {2022/05/03}{1.9.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
+\PassOptionsToPackage{AutoFakeBold=3}{xeCJK}
 \documentclass{ctxdoc}
+\changes{v1.9.0.0}{2022/05/03}{支持中文选项默认值加粗}
+\changes{v1.9.0.0}{2022/05/03}{增大function环境盒子宽度}
+\addtolength{\marginparwidth}{5mm}
+\geometry{hmargin={0mm,10mm}}
 \changes{v0.6.0.0}{2022/04/10}{新增xdufont宏包}
 \changes{v0.5.2.1}{2022/04/09}{修改项目名称}
 \changes{v0.4.2.1}{2022/04/05}{调整文档目录缩进}
@@ -37,10 +42,13 @@
 \usepackage{xurl}
 \usepackage{xspace}
 \xspaceaddexceptions{。？！，、；：“”‘’—….－-～·《》<>＿}
-\usepackage{tabularx}
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \usepackage{multirow}
-\usepackage{makecell}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}
+\usepackage{tabularray}
+\DefTblrTemplate{conthead-text}{default}{(续表)}
+\DefTblrTemplate{contfoot-text}{default}{接下页}
 % 交叉引用
 \newcommand{\secrefx}[1]{第\xspace\ref{#1}\xspace 节}
 \newcommand{\tabrefx}[1]{\tablename\xspace\ref{#1}\xspace}
@@ -145,7 +153,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1195}
+% \CheckSum{1250}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -684,19 +692,98 @@
 % \end{function}
 % \subsection{信息录入}
 % \label{信息录入}
-% \begin{function}[added=2022-05-02]{info/graduate-type}
+% \changes{v1.9.0.0}{2022/05/03}{增加信息录入选项分类表}
+% 用户根据\tabrefx{tblr:info}选择相应的选项进行信息录入。
+% \begin{tblr}
+% [
+% long,
+% caption = {信息录入选项分类},
+% label = {tblr:info}
+% ]
+% {
+% width      = \linewidth,
+% colspec    = lX[c]X[c]X[c]X[c]X[c]X[c],
+% cell{1}{1} = {r = 2}{},
+% cell{1}{2} = {c = 2}{},
+% cell{1}{4} = {c = 2}{},
+% cell{1}{6} = {c = 2}{},
+% hline{1,Z} = {.08em},
+% hline{2} = {2-3}{.08em, leftpos = -1, rightpos = -1, endpos},
+% hline{2} = {4-5}{.08em, leftpos = -1, rightpos = -1, endpos},
+% hline{2} = {6-7}{.08em, leftpos = -1, rightpos = -1, endpos},
+% hline{3} = {.08em},
+% cell{odd[3-Z]}{1-Z} = {gray9},
+% cell{3-Z}{1} = {cmd = \texttt},
+% rowhead = 2
+% }
+%                              & 本科   &        & 硕士   &        & 博士   &        \\
+%                              & 校内   & 校外   & 学术   & 专业   & 学术   & 专业   \\
+% graduate-type                &        &        & \cmark & \cmark & \cmark & \cmark \\
+% degree-type                  &        &        & \cmark & \cmark & \cmark & \cmark \\
+% degree                       &        &        & \cmark & \cmark & \cmark & \cmark \\
+% degree*                      &        &        &        & \cmark &        &        \\
+% title                        & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% title*                       &        &        & \cmark & \cmark & \cmark & \cmark \\
+% department                   & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% major                        & \cmark & \cmark & \cmark &        & \cmark &        \\
+% major*                       &        &        & \cmark &        & \cmark &        \\
+% sub-major                    &        &        & \cmark &        & \cmark &        \\
+% domain                       &        &        &        & \cmark &        & \cmark \\
+% author                       & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% author*                      &        &        & \cmark & \cmark & \cmark & \cmark \\
+% supervisor                   & \cmark &        & \cmark & \cmark & \cmark & \cmark \\
+% supervisor*                  &        &        & \cmark & \cmark & \cmark & \cmark \\
+% supervisor-department        & \cmark &        &        &        &        &        \\
+% supervisor-enterprise        &        & \cmark &        & \cmark &        & \cmark \\
+% supervisor-enterprise*       &        &        &        & \cmark &        & \cmark \\
+% supervisor-school            &        & \cmark &        &        &        &        \\
+% supervisor-title             &        &        & \cmark & \cmark & \cmark & \cmark \\
+% supervisor-title*            &        &        & \cmark & \cmark & \cmark & \cmark \\
+% supervisor-enterprise-title  &        &        &        & \cmark &        & \cmark \\
+% supervisor-enterprise-title* &        &        &        & \cmark &        & \cmark \\
+% class-id                     & \cmark & \cmark &        &        &        &        \\
+% student-id                   & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% clc                          &        &        & \cmark & \cmark & \cmark & \cmark \\
+% secret-level                 &        &        & \cmark & \cmark & \cmark & \cmark \\
+% submit-date                  &        &        & \cmark & \cmark & \cmark & \cmark \\
+% abstract                     & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% abstract*                    & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% keywords                     & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% keywords*                    & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% acknowledgements             & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% \end{tblr}
+% \changes{v1.9.0.0}{2022/05/03}{增加研究生信息录入选项文档}
+% \begin{function}[added=2022-05-02,updated=2022-05-03]{info/graduate-type}
 %   \begin{syntax}
-%     \optx{info/graduate-type}=\metax{(master)|doctor}
+%     \optx{info/graduate-type}=\metax{(硕士)|博士}
 %   \end{syntax}
 % 设置研究生类型。
 % \end{function}
 % \begin{optdesc}
-%   \item[master] 硕士研究生。
-%   \item[doctor] 博士研究生。
+%   \item[硕士] 硕士研究生。
+%   \item[博士] 博士研究生。
 % \end{optdesc}
-% \begin{function}[added=2022-04-01]{info/title}
+% \begin{function}[added=2022-05-03]{info/degree-type}
 %   \begin{syntax}
-%     \optx{info/title}=\argx{论文标题}
+%     \optx{info/degree-type}=\metax{(学术)|专业}
+%   \end{syntax}
+% 设置研究生学位类型。
+% \end{function}
+% \begin{optdesc}
+%   \item[学术] 学术学位。
+%   \item[专业] 专业学位。
+% \end{optdesc}
+% \begin{function}[added=2022-05-03]{info/degree,info/degree*}
+%   \begin{syntax}
+%     \optx{info/degree}=\argx{研究生学位类别中文名称}
+%     \optx{info/degree*}=\argx{研究生学位类别英文名称}
+%   \end{syntax}
+% 设置研究生学位类别。
+% \end{function}
+% \begin{function}[added=2022-04-01,updated=2022-05-03]{info/title,info/title*}
+%   \begin{syntax}
+%     \optx{info/title}=\argx{论文中文标题}
+%     \optx{info/title*}=\argx{论文英文标题}
 %   \end{syntax}
 % 设置论文标题。如果需要手动制定换行位点，请使用换行控制符（|\\|），最多两行。
 % \end{function}
@@ -706,41 +793,71 @@
 %   \end{syntax}
 % 设置院系名称。
 % \end{function}
-% \begin{function}[added=2022-04-01]{info/major}
+% \begin{function}[added=2022-04-01,updated=2022-05-03]{info/major,info/major*}
 %   \begin{syntax}
-%     \optx{info/major}=\argx{专业名称}
+%     \optx{info/major}=\argx{专业名称/一级学科名称}
+%     \optx{info/major*}=\argx{一级学科英文名称}
 %   \end{syntax}
-% 设置专业名称。
+% 设置专业名称/一级学科名称。
 % \end{function}
-% \begin{function}[added=2022-04-01]{info/author}
+% \begin{function}[added=2022-05-03]{info/sub-major}
+%   \begin{syntax}
+%     \optx{info/sub-major}=\argx{二级学科名称}
+%   \end{syntax}
+% 设置二级学科名称。
+% \end{function}
+% \begin{function}[added=2022-05-03]{info/domain}
+%   \begin{syntax}
+%     \optx{info/domain}=\argx{领域}
+%   \end{syntax}
+% 设置领域名称。
+% \end{function}
+% \begin{function}[added=2022-04-01,updated=2022-05-03]{info/author,info/author*}
 %   \begin{syntax}
 %     \optx{info/author}=\argx{作者姓名}
+%     \optx{info/author*}=\argx{作者姓名拼音}
 %   \end{syntax}
 % 设置作者姓名。
 % \end{function}
-% \begin{function}[added=2022-04-01]{info/supervisor}
+% \begin{function}[added=2022-04-01,updated=2022-05-03]{info/supervisor,info/supervisor*}
 %   \begin{syntax}
 %     \optx{info/supervisor}=\argx{导师姓名}
+%     \optx{info/supervisor*}=\argx{导师姓名拼音}
 %   \end{syntax}
-% 设置导师姓名。非校外毕业设计填写。
+% 设置导师姓名。
 % \end{function}
 % \begin{function}[added=2022-04-01]{info/supervisor-department}
 %   \begin{syntax}
 %     \optx{info/supervisor-department}=\argx{院内导师姓名}
 %   \end{syntax}
-% 设置院内导师姓名。非校外毕业设计填写，如无院内导师，则无需填写。
+% 设置院内导师姓名。
 % \end{function}
-% \begin{function}[added=2022-04-01]{info/supervisor-enterprise}
+% \begin{function}[added=2022-04-01,updated=2022-05-03]{info/supervisor-enterprise,info/supervisor-enterprise*}
 %   \begin{syntax}
 %     \optx{info/supervisor-enterprise}=\argx{校外导师姓名}
+%     \optx{info/supervisor-enterprise*}=\argx{校外导师姓名拼音}
 %   \end{syntax}
-% 设置校外导师姓名。校外毕业设计填写。
+% 设置校外导师姓名。
 % \end{function}
 % \begin{function}[added=2022-04-01]{info/supervisor-school}
 %   \begin{syntax}
 %     \optx{info/supervisor-school}=\argx{校内导师姓名}
 %   \end{syntax}
-% 设置校内导师姓名。校外毕业设计填写。
+% 设置校内导师姓名。
+% \end{function}
+% \begin{function}[added=2022-05-03]{info/supervisor-title,info/supervisor-title*}
+%   \begin{syntax}
+%     \optx{info/supervisor-title}=\argx{导师职称}
+%     \optx{info/supervisor-title*}=\argx{导师职称英文名称}
+%   \end{syntax}
+% 设置导师职称。
+% \end{function}
+% \begin{function}[added=2022-05-03]{info/supervisor-enterprise-title,info/supervisor-enterprise-title*}
+%   \begin{syntax}
+%     \optx{info/supervisor-enterprise-title}=\argx{校外导师职称}
+%     \optx{info/supervisor-enterprise-title*}=\argx{校外导师职称英文名称}
+%   \end{syntax}
+% 设置校外导师职称。
 % \end{function}
 % \begin{function}[added=2022-04-01]{info/class-id}
 %   \begin{syntax}
@@ -753,6 +870,24 @@
 %     \optx{info/student-id}=\argx{作者学号}
 %   \end{syntax}
 % 设置作者学号。
+% \end{function}
+% \begin{function}[added=2022-05-03]{info/clc}
+%   \begin{syntax}
+%     \optx{info/clc}=\argx{中图分类号}
+%   \end{syntax}
+% 设置中图分类号。
+% \end{function}
+% \begin{function}[added=2022-05-03]{info/secret-level}
+%   \begin{syntax}
+%     \optx{info/secret-level}=\metax{秘密|(公开)}
+%   \end{syntax}
+% 设置密级。
+% \end{function}
+% \begin{function}[added=2022-05-03]{info/submit-date}
+%   \begin{syntax}
+%     \optx{info/submit-date}=\argx{提交日期}
+%   \end{syntax}
+% 设置提交日期。
 % \end{function}
 % \begin{function}[added=2022-04-02]{info/abstract,info/abstract*}
 %   \begin{syntax}
@@ -1860,13 +1995,90 @@
 %<*xdupgthesis>
 %    \end{macrocode}
 % \subsubsection{研究生}
+% \changes{v1.9.0.0}{2022/05/03}{增加研究生信息录入选项}
 % \begin{variable}
 %   {
-%     \l_@@_gr_type_tl
+%     \l_@@_gr_type_tl,
+%     \l_@@_degree_type_tl,
+%     \l_@@_degree_str,
+%     \l_@@_degree_en_str,
+%     \l_@@_author_en_str,
+%     \l_@@_supv_en_str,
+%     \l_@@_supv_ent_en_str,
+%     \l_@@_supv_t_str,
+%     \l_@@_supv_t_en_str,
+%     \l_@@_supv_ent_t_str,
+%     \l_@@_supv_ent_t_en_str,
+%     \l_@@_title_en_str,
+%     \l_@@_major_en_str,
+%     \l_@@_sub_major_str,
+%     \l_@@_domain_str,
+%     \l_@@_clc_str,
+%     \l_@@_secret_lv_str,
+%     \l_@@_submit_date_str
 %   }
 % 研究生类型。
 %    \begin{macrocode}
 \tl_new:N \l_@@_gr_type_tl
+%    \end{macrocode}
+% 学位类型。
+%    \begin{macrocode}
+\tl_new:N \l_@@_degree_type_tl
+%    \end{macrocode}
+% 学位类别。
+%    \begin{macrocode}
+\str_new:N \l_@@_degree_str
+\str_new:N \l_@@_degree_en_str
+%    \end{macrocode}
+% 作者姓名拼音。
+%    \begin{macrocode}
+\str_new:N \l_@@_author_en_str
+%    \end{macrocode}
+% 导师姓名拼音。
+%    \begin{macrocode}
+\str_new:N \l_@@_supv_en_str
+%    \end{macrocode}
+% 校外导师姓名拼音。
+%    \begin{macrocode}
+\str_new:N \l_@@_supv_ent_en_str
+%    \end{macrocode}
+% 导师职称。
+%    \begin{macrocode}
+\str_new:N \l_@@_supv_t_str
+\str_new:N \l_@@_supv_t_en_str
+%    \end{macrocode}
+% 校外导师职称。
+%    \begin{macrocode}
+\str_new:N \l_@@_supv_ent_t_str
+\str_new:N \l_@@_supv_ent_t_en_str
+%    \end{macrocode}
+% 论文标题英文。
+%    \begin{macrocode}
+\str_new:N \l_@@_title_en_str
+%    \end{macrocode}
+% 一级学科英文名称。
+%    \begin{macrocode}
+\str_new:N \l_@@_major_en_str
+%    \end{macrocode}
+% 二级学科。
+%    \begin{macrocode}
+\str_new:N \l_@@_sub_major_str
+%    \end{macrocode}
+% 领域。
+%    \begin{macrocode}
+\str_new:N \l_@@_domain_str
+%    \end{macrocode}
+% 中图分类号。
+%    \begin{macrocode}
+\str_new:N \l_@@_clc_str
+%    \end{macrocode}
+% 密级。
+%    \begin{macrocode}
+\str_new:N \l_@@_secret_lv_str
+%    \end{macrocode}
+% 提交日期。
+%    \begin{macrocode}
+\str_new:N \l_@@_submit_date_str
 %    \end{macrocode}
 % \end{variable}
 % \begin{macro}{\keys_define:nn}
@@ -1877,8 +2089,69 @@
 %    \end{macrocode}
 % 研究生类型。
 %    \begin{macrocode}
-    graduate-type .choices:nn = { master, doctor }
-      { \tl_set_eq:NN \l_@@_gr_type_tl \l_keys_choice_tl }
+    graduate-type .choices:nn = { 硕士, 博士 }
+      { \tl_set_eq:NN \l_@@_gr_type_tl \l_keys_choice_tl },
+%    \end{macrocode}
+% 学位类型。
+%    \begin{macrocode}
+    degree-type .choices:nn = { 学术, 专业 }
+      { \tl_set_eq:NN \l_@@_degree_type_tl \l_keys_choice_tl },
+%    \end{macrocode}
+% 学位类别。
+%    \begin{macrocode}
+    degree .tl_set:N = \l_@@_degree_str,
+    degree* .tl_set:N = \l_@@_degree_en_str,
+%    \end{macrocode}
+% 作者姓名拼音。
+%    \begin{macrocode}
+    author* .tl_set:N = \l_@@_author_en_str,
+%    \end{macrocode}
+% 导师姓名拼音。
+%    \begin{macrocode}
+    supervisor* .tl_set:N = \l_@@_supv_en_str,
+%    \end{macrocode}
+% 校外导师姓名拼音。
+%    \begin{macrocode}
+    supervisor-enterprise* .tl_set:N = \l_@@_supv_ent_en_str,
+%    \end{macrocode}
+% 导师职称。
+%    \begin{macrocode}
+    supervisor-title .tl_set:N = \l_@@_supv_t_str,
+    supervisor-title* .tl_set:N = \l_@@_supv_t_en_str,
+%    \end{macrocode}
+% 校外导师职称。
+%    \begin{macrocode}
+    supervisor-enterprise-title .tl_set:N = \l_@@_supv_ent_t_str,
+    supervisor-enterprise-title* .tl_set:N = \l_@@_supv_ent_t_en_str,
+%    \end{macrocode}
+% 论文标题英文。
+%    \begin{macrocode}
+    title* .tl_set:N = \l_@@_title_en_str,
+%    \end{macrocode}
+% 一级学科英文名称。
+%    \begin{macrocode}
+    major* .tl_set:N = \l_@@_major_en_str,
+%    \end{macrocode}
+% 二级学科。
+%    \begin{macrocode}
+    sub-major .tl_set:N = \l_@@_sub_major_str,
+%    \end{macrocode}
+% 领域。
+%    \begin{macrocode}
+    domain .tl_set:N = \l_@@_domain_str,
+%    \end{macrocode}
+% 中图分类号。
+%    \begin{macrocode}
+    clc .tl_set:N = \l_@@_clc_str,
+%    \end{macrocode}
+% 密级。
+%    \begin{macrocode}
+    secret-level .choices:nn = { 秘密, 公开 }
+      { \tl_set_eq:NN \l_@@_secret_lv_str \l_keys_choice_tl },
+%    \end{macrocode}
+% 提交日期。
+%    \begin{macrocode}
+    submit-date .tl_set:N = \l_@@_submit_date_str
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1889,7 +2162,24 @@
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-    info / graduate-type = { master },
+    info / graduate-type                = { 硕士 },
+    info / degree-type                  = { 学术 },
+    info / degree                       = { },
+    info / degree*                      = { },
+    info / author*                      = { },
+    info / supervisor*                  = { },
+    info / supervisor-enterprise*       = { },
+    info / supervisor-title             = { },
+    info / supervisor-title*            = { },
+    info / supervisor-enterprise-title  = { },
+    info / supervisor-enterprise-title* = { },
+    info / title*                       = { },
+    info / major*                       = { },
+    info / sub-major                    = { },
+    info / domain                       = { },
+    info / clc                          = { },
+    info / secret-level                 = { 公开 },
+    info / submit-date                  = { }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2093,12 +2383,12 @@
   {
     \@@_lang_switch:nn
       {
-        \tl_if_eq:NnTF \l_@@_gr_type_tl { master }
+        \tl_if_eq:NnTF \l_@@_gr_type_tl { 硕士 }
           { \str_set:Nn \l_@@_header_str { 西安电子科技大学硕士学位论文 } }
           { \str_set:Nn \l_@@_header_str { 西安电子科技大学博士学位论文 } }
       }
       {
-        \tl_if_eq:NnTF \l_@@_gr_type_tl { master }
+        \tl_if_eq:NnTF \l_@@_gr_type_tl { 硕士 }
           {
             \str_set:Nn \l_@@_header_str
               { Master~Thesis~of~XIDIAN~UNIVERSITY }
