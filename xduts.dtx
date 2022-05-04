@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/04 v1.9.2.0 Xidian University TeX Suite]
+[2022/05/04 v1.10.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/04}{1.9.2.0}
+%<class|sty>  {2022/05/04}{1.10.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -153,7 +153,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1254}
+% \CheckSum{1255}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -3042,6 +3042,10 @@
   { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } } }
 %    \end{macrocode}
 % \end{variable}
+%    \begin{macrocode}
+%</xduugthesis>
+%<*thesis>
+%    \end{macrocode}
 % \subsection{公式}
 % \begin{macro}{\theequation}
 % 重定义公式编号样式。
@@ -3242,8 +3246,9 @@
 % \end{macro}
 % \subsection{超链接和PDF元数据}
 % \begin{macro}{\hyperref}
-% 配置超链接和PDF元数据。
 % \changes{v0.5.0.0}{2022/04/05}{添加PDF主题元数据}
+% \changes{v1.10.0.0}{2022/05/04}{添加PDF应用程序元数据}
+% 配置超链接和PDF元数据。
 %    \begin{macrocode}
 \RequirePackage{ hyperref }
 \hypersetup
@@ -3256,7 +3261,10 @@
     \hypersetup
       {
         pdftitle   = \l_@@_pure_title_str,
-%<xduugthesis>        pdfsubject = {西安电子科技大学本科毕业设计论文},
+%<xduugthesis>        pdfsubject = { 西安电子科技大学本科毕业设计论文 },
+%<xduugthesis>        pdfcreator = { XeLaTeX~with~xduugthesis~class~in~XDUTS },
+%<xdupgthesis>        pdfsubject = \l_@@_header_str,
+%<xdupgthesis>        pdfcreator = { XeLaTeX~with~xdupgthesis~class~in~XDUTS },
         pdfauthor  = \l_@@_author_str
       }
   }
@@ -3299,7 +3307,7 @@
   { \ctex_gadd_ltxhook:nn { env/document/begin } { #1 } }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\addbibresource}
+% \begin{macro}{\RequirePackage,\bibliographystyle,\addbibresource}
 % 参考文献。
 %    \begin{macrocode}
 \@@_begin_document:n
@@ -3317,6 +3325,10 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</thesis>
+%<*xduugthesis>
+%    \end{macrocode}
 % \subsection{附录}
 % \begin{macro}{appendixes}
 % 附录环境。
