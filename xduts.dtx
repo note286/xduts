@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/04 v1.10.0.0 Xidian University TeX Suite]
+[2022/05/04 v1.10.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/04}{1.10.0.0}
+%<class|sty>  {2022/05/04}{1.10.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -153,7 +153,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1255}
+% \CheckSum{1250}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2983,49 +2983,60 @@
 %    \end{macrocode}
 % \end{macro}
 % \subsection{目录}
-% \begin{variable}
-%   {
-%     \cftchapleader,
-%     \cftbeforechapskip,
-%     \cftbeforesecskip,
-%     \cftbeforesubsecskip,
-%     \cftbeforesubsubsecskip,
-%     \cftbeforeparaskip,
-%     \cftbeforesubparaskip,
-%     \cftchapfont,
-%     \cftchappagefont,
-%     \cftsecfont,
-%     \cftsubsecfont,
-%     \cftsubsubsecfont,
-%     \cftparafont,
-%     \cftsubparafont,
-%     \cftsecpagefont,
-%     \cftsubsecpagefont,
-%     \cftsubsubsecpagefont,
-%     \cftparapagefont,
-%     \cftsubparapagefont
-%   }
-% 设置目录样式。
+% \begin{macro}{\RequirePackage}
 % \changes{v0.4.1.0}{2022/04/05}{设置目录样式}
+% 设置目录样式。
 %    \begin{macrocode}
 \RequirePackage [ titles ] { tocloft }
-\renewcommand { \cftchapleader } { \bfseries \cftdotfill { \cftdotsep } }
+%    \end{macrocode}
+% \end{macro}
+% \begin{variable}{\cftchapleader}
+% 修改目录中一级标题引导点。
+%    \begin{macrocode}
+\cs_set:Npn \cftchapleader { \bfseries \cftdotfill { \cftdotsep } }
+%    \end{macrocode}
+% \end{variable}
+% \begin{variable}
+%   {
+%     \cftbeforechapskip,
+%     \cftbeforesecskip
+%   }
+% \changes{v1.10.1.0}{2022/05/04}{修正目录条目间距}
+% 设置一级标题与其余各级标题条目前垂直间距一致。
+%    \begin{macrocode}
+\dim_set_eq:NN \cftbeforechapskip \cftbeforesecskip
+%    \end{macrocode}
+% \end{variable}
+% \begin{variable}
+%   {
+%     \cftchapfont,
+%     \cftchappagefont
+%   }
+% 设置一级标题及相应页码字体字号。
+%    \begin{macrocode}
 \clist_map_inline:nn
   {
-    \cftbeforechapskip,
-    \cftbeforesecskip,
-    \cftbeforesubsecskip,
-    \cftbeforesubsubsecskip,
-    \cftbeforeparaskip,
-    \cftbeforesubparaskip
+    \cftchapfont,
+    \cftchappagefont
   }
-  { \dim_set:Nn { #1 } { 5pt } }
-  \clist_map_inline:nn
-    {
-      \cftchapfont,
-      \cftchappagefont
-    }
-    { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } \bfseries } }
+  { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } \bfseries } }
+%    \end{macrocode}
+% \end{variable}
+% \begin{variable}
+%   {
+%     \cftsecfont,,
+%     \cftsubsecfont,,
+%     \cftsubsubsecfont,,
+%     \cftparafont,,
+%     \cftsubparafont,,
+%     \cftsecpagefont,,
+%     \cftsubsecpagefont,,
+%     \cftsubsubsecpagefont,,
+%     \cftparapagefont,,
+%     \cftsubparapagefont
+%   }
+% 设置二三四五六级标题及相应页码字体字号。
+%    \begin{macrocode}
 \clist_map_inline:nn
   {
     \cftsecfont,
