@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/04 v1.10.3.1 Xidian University TeX Suite]
+[2022/05/06 v1.11.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/04}{1.10.3.1}
+%<class|sty>  {2022/05/06}{1.11.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -153,7 +153,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1253}
+% \CheckSum{1269}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -328,7 +328,9 @@
 % 包括\pkgx{subfig}宏包和\pkgx{subcaption}宏包。
 % \subsection{表格}
 % 主要适配表格内容字号，
-% 包括所有使用\envx{table}浮动体的表格和\pkgx{longtable}宏包提供的\envx{longtable}环境。
+% 包括所有使用\envx{table}浮动体的表格、
+% \pkgx{tabularray}宏包提供的\envx{tblr}、\envx{longtblr}环境
+% 和\pkgx{longtable}宏包提供的\envx{longtable}环境。
 % \section{功能说明}
 % \label{功能说明}
 % 请根据\secrefx{使用说明}中相应文档类/宏包的说明来选择性地阅读本节内容。
@@ -3169,7 +3171,7 @@
 % \begin{macro}{\DeclareCaptionLabelSeparator,\DeclareCaptionFont,\captionsetup}
 % \changes{v0.1.2.0}{2022/04/03}{设置图片标签与后面标题之间的间距}
 % \changes{v0.1.3.0}{2022/04/03}{设置图片标签与标题字体字号}
-% 设置图表标签与后面标题之间的间距。
+% 设置图表标签与后面标题之间的间距及caption字体字号。
 %    \begin{macrocode}
 \RequirePackage { caption }
 \DeclareCaptionLabelSeparator { customskip } { \hskip \l_@@_cap_label_sep_tl }
@@ -3211,6 +3213,22 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\SetTblrStyle,\DefTblrTemplate}
+% \changes{v1.11.0.0}{2022/05/06}{适配\pkgx{tabularray}宏包caption样式}
+% 设置\pkgx{tabularray}宏包中表格标签与后面标题之间的间距及caption字体字号。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \@ifpackageloaded { tabularray }
+      {
+        \SetTblrStyle { head } { font = \@@_rm_family: \zihao { 5 } }
+        \DefTblrTemplate { caption-sep } { default }
+          { \hskip \l_@@_cap_label_sep_tl }
+      }
+      { }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \subsection{图片}
 % \begin{macro}{\PassOptionsToPackage,\captionsetup}
 % \changes{v0.4.2.0}{2022/04/05}{设置子图标签与标题字体字号}
@@ -3239,7 +3257,7 @@
 % \end{macro}
 % \begin{macro}{longtable}
 % \changes{v1.3.0.0}{2022/04/20}{设置\envx{longtable}环境字号是否为五号}
-% 设置\envx{longtable}环境字号是否为五号。
+% 设置\pkgx{longtable}宏包中\envx{longtable}环境字号是否为五号。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
@@ -3249,6 +3267,28 @@
           {
             \ctex_gadd_ltxhook:nn
               { env/longtable/begin }
+              { \small }
+          }
+      }
+      { }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{tblr,longtblr}
+% \changes{v1.11.0.0}{2022/05/06}{适配\pkgx{tabularray}宏包中\envx{tblr}和\envx{longtblr}环境字号}
+% 设置\pkgx{tabularray}宏包中\envx{tblr}和\envx{longtblr}环境字号是否为五号。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \@ifpackageloaded { tabularray }
+      {
+        \bool_if:NT \l_@@_tab_small_bool
+          {
+            \ctex_gadd_ltxhook:nn
+              { env/tblr/begin }
+              { \small }
+            \ctex_gadd_ltxhook:nn
+              { env/longtblr/begin }
               { \small }
           }
       }
