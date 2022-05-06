@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/06 v1.11.0.0 Xidian University TeX Suite]
+[2022/05/06 v1.12.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/06}{1.11.0.0}
+%<class|sty>  {2022/05/06}{1.12.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -47,6 +47,8 @@
 \usepackage{pifont}
 \newcommand{\cmark}{\ding{51}}
 \usepackage{tabularray}
+\SetTblrStyle{caption-tag}{font=\bfseries}
+\DefTblrTemplate{caption-sep}{default}{\quad}
 \DefTblrTemplate{conthead-text}{default}{(续表)}
 \DefTblrTemplate{contfoot-text}{default}{接下页}
 % 交叉引用
@@ -153,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1269}
+% \CheckSum{1274}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -424,9 +426,9 @@
 %   \end{syntax}
 % 设置中文字体伪斜体倾斜程度。默认为\valuex{0.2}。
 % \end{function}
-% \begin{function}[added=2022-03-06,updated=2022-04-13]{style/latin-font}
+% \begin{function}[added=2022-03-06,updated=2022-05-06]{style/latin-font}
 %   \begin{syntax}
-%     \optx{style/latin-font}=\metax{tacn|thcs|(gyre)|none}
+%     \optx{style/latin-font}=\metax{tac|tacn|thcs|(gyre)|none}
 %   \end{syntax}
 % 设置英文字体，具体配置见\tabrefx{tab:latin-font}。
 % \end{function}
@@ -442,14 +444,16 @@
 % \toprule
 % \strong{选项名称} & \strong{罗马字体族} & \strong{无衬线字体族} & \strong{打字机字体族} \\
 % \midrule
-% |tacn|\tnote{1}   & Times New Roman     & Arial                 & Courier New           \\
-% |thcs|\tnote{2}   & Times New Roman     & Helvetica             & Courier Std           \\
+% |tac|\tnote{1}    & Times New Roman     & Arial                 & Consolas              \\
+% |tacn|\tnote{2}   & Times New Roman     & Arial                 & Courier New           \\
+% |thcs|\tnote{3}   & Times New Roman     & Helvetica             & Courier Std           \\
 % |gyre|            & TeX Gyre Termes     & TeX Gyre Heros        & TeX Gyre Cursor       \\
 % \bottomrule
 % \end{tabularx}
 % \begin{tablenotes}
-% \item [1] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{arial.ttf}、\filex{arialbd.ttf}、\filex{ariali.ttf}、\filex{arialbi.ttf}、\filex{cour.ttf}、\filex{courbd.ttf}、\filex{couri.ttf}和\filex{courbi.ttf}。
-% \item [2] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{Helvetica.ttf}、\filex{Helvetica~Bold.ttf}、\filex{Helvetica~Oblique.ttf}、\filex{Helvetica~Bold~Oblique.ttf}、\filex{CourierStd.otf}、\filex{CourierStd-Bold.otf}、\filex{CourierStd-Oblique.otf}和\filex{CourierStd-BoldOblique.otf}。
+% \item [1] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{arial.ttf}、\filex{arialbd.ttf}、\filex{ariali.ttf}、\filex{arialbi.ttf}、\filex{consola.ttf}、\filex{consolab.ttf}、\filex{consolai.ttf}和\filex{consolaz.ttf}。
+% \item [2] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{arial.ttf}、\filex{arialbd.ttf}、\filex{ariali.ttf}、\filex{arialbi.ttf}、\filex{cour.ttf}、\filex{courbd.ttf}、\filex{couri.ttf}和\filex{courbi.ttf}。
+% \item [3] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{Helvetica.ttf}、\filex{Helvetica~Bold.ttf}、\filex{Helvetica~Oblique.ttf}、\filex{Helvetica~Bold~Oblique.ttf}、\filex{CourierStd.otf}、\filex{CourierStd-Bold.otf}、\filex{CourierStd-Oblique.otf}和\filex{CourierStd-BoldOblique.otf}。
 % \end{tablenotes}
 % \end{threeparttable}
 % \end{table}
@@ -1067,7 +1071,7 @@
 %    \end{macrocode}
 % 英文字体配置。
 %    \begin{macrocode}
-    latin-font .choices:nn = { tacn, thcs, gyre, none }
+    latin-font .choices:nn = { tac, tacn, thcs, gyre, none }
       { \tl_set_eq:NN \l_@@_latin_font_tl \l_keys_choice_tl },
 %    \end{macrocode}
 % 数学字体配置。
@@ -1614,6 +1618,21 @@
         \@@_off_latin_ligatures:
         \@@_set_latin_font:nnn { #2 } { #3 } { #4 }
       ]
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_load_latin_font_tac:}
+% \changes{v1.12.0.0}{2022/05/06}{新增Arial和Consolas英文字体配置}
+% 英文字体配置\valuex{tac}。
+%    \begin{macrocode}
+\cs_new:Npn \@@_load_latin_font_tac:
+  {
+    \@@_set_latin_main_font:nnnnn
+      { Times~New~Roman } { times.ttf   } { timesbd.ttf  } { timesi.ttf   } { timesbi.ttf  }
+    \@@_set_latin_sans_font:nnnnn
+      { Arial           } { arial.ttf   } { arialbd.ttf  } { ariali.ttf   } { arialbi.ttf  }
+    \@@_set_latin_mono_font:nnnnn
+      { Consolas        } { consola.ttf } { consolab.ttf } { consolai.ttf } { consolaz.ttf }
   }
 %    \end{macrocode}
 % \end{macro}
