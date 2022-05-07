@@ -1,0 +1,7 @@
+- 点击上方的Preview来阅读以下内容，阅读完毕以下所有内容后切换至Write，将包括该句话在内的所有内容全部**清空**再提问。
+- 如果不是非常确定这是一个bug，请移步[讨论区](https://github.com/note286/xduts/discussions)，在讨论区同样也要遵守如下的规范。
+- 在得到解答后，请**回复**告知是否解决了问题，而不是问完就跑。
+- 在**认真阅读文档手册**并**严格**按照要求操作后，使用最新版LaTeX环境并更新所有包至最新，或者直接使用Overleaf等在线平台，测试依然有bug再提问。
+- 每个问题开一个issue，不同问题不要放在一个issue里，标题请**简明**地总结出bug内容。
+- issue使用Markdown语法，尤其是代码，请放在**代码块**环境中，不熟悉的可以查看[GitHub Docs](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)，也可以在本地Markdown编辑器里编辑好，再将Markdown源码粘贴至issue里。为了表述清楚，可以点击文本框下方`Attach files by dragging & dropping, selecting or pasting them.`处来**上传图片**，编辑好后点击一下Preview，确认**无误**后再提交。
+- 不建议使用邮件回复issue，请使用**网页**回复，尤其是需要上传图片时会导致图片无法显示。
