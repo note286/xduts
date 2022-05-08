@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/08 v1.13.2.0 Xidian University TeX Suite]
+[2022/05/08 v1.13.3.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/08}{1.13.2.0}
+%<class|sty>  {2022/05/08}{1.13.3.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1283}
+% \CheckSum{1291}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -595,15 +595,18 @@
 % \end{optdesc}
 % \subsection{交叉引用配置}
 % \label{交叉引用配置}
-% \begin{function}[added=2022-04-16]{style/ref-add-space}
+% \begin{function}[added=2022-04-16,updated=2022-05-08]{style/ref-add-space}
 %   \begin{syntax}
 %     \optx{style/ref-add-space}=\metax{true|(false)}
 %   \end{syntax}
-% 是否自动调整\tnx{ref}两侧中英文间空白。
+% 是否自动调整\tnx{ref}和\tnx{pageref}两侧中英文间空白。
 % \end{function}
 % \begin{optdesc}
-%   \item[true] 自动调整\tnx{ref}两侧中英文间空白。未避免产生不正常的空白宽度，请不要在\tnx{ref}两侧输入空格。仅在\optx{language}等于|zh|时有效。
-%   \item[false] 保持原始\tnx{ref}命令效果。
+%   \item[true] 自动调整\tnx{ref}和\tnx{pageref}两侧中英文间空白。
+% 未避免产生不正常的空白宽度，请不要在\tnx{ref}和\tnx{pageref}两侧输入空格。
+% 仅在\optx{language}等于|zh|时有效。
+% 请不要使用\pkgx{subcaption}宏包的提供的\tnx{subref}和\tnx{subref*}命令。
+%   \item[false] 保持原始\tnx{ref}和\tnx{pageref}命令效果。
 % \end{optdesc}
 % \subsection{Caption配置}
 % \label{Caption配置}
@@ -2259,7 +2262,7 @@
 %    \begin{macrocode}
 \clist_new:N \l_@@_bib_file_clist
 %    \end{macrocode}
-% 是否在\tnx{ref}两侧自动调整中英文间空白。
+% 是否在\tnx{ref}和\tnx{pageref}两侧自动调整中英文间空白。
 %    \begin{macrocode}
 \tl_new:N \l_@@_ref_add_space
 %    \end{macrocode}
@@ -2322,7 +2325,7 @@
 %    \begin{macrocode}
     bib-resource .clist_set:N = \l_@@_bib_file_clist,
 %    \end{macrocode}
-% 是否在\tnx{ref}两侧自动调整中英文间空白。
+% 是否在\tnx{ref}和\tnx{pageref}两侧自动调整中英文间空白。
 %    \begin{macrocode}
     ref-add-space .bool_set:N = \l_@@_ref_add_space,
 %    \end{macrocode}
@@ -3374,9 +3377,10 @@
 %    \end{macrocode}
 % \end{macro}
 % \subsection{交叉引用}
-% \begin{macro}{\@@_trad_ref:n,\ref}
+% \begin{macro}{\ref,\pageref}
 % \changes{v1.2.0.0}{2022/04/16}{优化中文环境下\tnx{ref}两侧中英文间空白}
-% 优化中文环境下\tnx{ref}两侧中英文间空白。
+% \changes{v1.13.3.0}{2022/05/08}{优化中文环境下\tnx{pageref}两侧中英文间空白}
+% 优化中文环境下\tnx{ref}和\tnx{pageref}两侧中英文间空白。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
@@ -3396,6 +3400,9 @@
                       {         \@@_trad_ref:n { #1 }         }
                       { \xspace \@@_trad_ref:n { #1 } \xspace }
                   }
+                \cs_set_eq:NN \@@_trad_page_ref:n \pageref
+                \cs_set:Npn \pageref #1
+                  { \xspace \@@_trad_page_ref:n { #1 } \xspace }
               }
           }
       }
