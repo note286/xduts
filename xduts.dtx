@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/08 v1.13.0.0 Xidian University TeX Suite]
+[2022/05/08 v1.13.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/08}{1.13.0.0}
+%<class|sty>  {2022/05/08}{1.13.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1282}
+% \CheckSum{1284}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -3487,11 +3487,12 @@
 % \end{macro}
 % \begin{macro}{\@@_cover_ii:nnn}
 % \changes{v0.6.1.0}{2022/04/11}{修复logo不存在导致的无法编译}
+% \changes{v1.13.1.0}{2022/05/08}{使用融合logo文件}
 % 绘制西电logo。
 % \begin{arguments}
 %   \item 盒子高度。
 %   \item logo高度。
-%   \item logo文件名称。
+%   \item logo类型。
 % \end{arguments}
 %    \begin{macrocode}
 \cs_new:Npn \@@_cover_ii:nnn #1#2#3
@@ -3500,8 +3501,12 @@
       {
         \mode_leave_vertical:
         \hfil
-        \file_if_exist:nT { #3 }
-          { \includegraphics [ height = #2, keepaspectratio ] { #3 } }
+        \file_if_exist:nT { xdulogo.pdf }
+          {
+            \str_if_eq:nnTF { #3 } { text }
+              { \includegraphics [ page = 1, height = #2 ] { xdulogo.pdf } }
+              { \includegraphics [ page = 2, height = #2 ] { xdulogo.pdf } }
+          }
         \hfil
       }
   }
@@ -3620,7 +3625,7 @@
 %    \end{macrocode}
 % 排版西电文字logo。
 %    \begin{macrocode}
-    \@@_cover_ii:nnn { 65pt } { 35pt } { xidian-text.pdf }
+    \@@_cover_ii:nnn { 65pt } { 35pt } { text }
 %    \end{macrocode}
 % 排版封面标题。
 %    \begin{macrocode}
@@ -3635,7 +3640,7 @@
 %    \end{macrocode}
 % 排版西电logo。
 %    \begin{macrocode}
-    \@@_cover_ii:nnn { 140pt } { 120pt } { xidian-logo.pdf }
+    \@@_cover_ii:nnn { 140pt } { 120pt } { icon }
 %    \end{macrocode}
 % 拆分论文标题并排版。
 %    \begin{macrocode}
