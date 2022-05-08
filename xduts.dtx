@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/06 v1.12.0.0 Xidian University TeX Suite]
+[2022/05/08 v1.13.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/06}{1.12.0.0}
+%<class|sty>  {2022/05/08}{1.13.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1274}
+% \CheckSum{1282}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -582,6 +582,16 @@
 % \begin{optdesc}
 %   \item[true] 对称。
 %   \item[false] 不对称。
+% \end{optdesc}
+% \begin{function}[added=2022-05-08]{style/page-vertical-align}
+%   \begin{syntax}
+%     \optx{style/page-vertical-align}=\metax{分散对齐|(顶部对齐)}
+%   \end{syntax}
+% 设置页面垂直方向的对齐方式。
+% \end{function}
+% \begin{optdesc}
+%   \item[分散对齐] 页面高度均匀地填满，使每一页的底部直接对齐。
+%   \item[顶部对齐] 页面中的内容保持它的自然高度，每一页的页面底部用空白填满。
 % \end{optdesc}
 % \subsection{交叉引用配置}
 % \label{交叉引用配置}
@@ -2230,7 +2240,8 @@
 %     \l_@@_subsubsec_tl,
 %     \l_@@_para_tl,
 %     \l_@@_subpara_tl,
-%     \l_@@_sym_mgn_bool
+%     \l_@@_sym_mgn_bool,
+%     \l_@@_page_v_align_tl
 %   }
 % 英文是否使用中文字体。
 %    \begin{macrocode}
@@ -2281,6 +2292,10 @@
 % 设置页边距是否对称。
 %    \begin{macrocode}
 \bool_new:N \l_@@_sym_mgn_bool
+%    \end{macrocode}
+% 设置页面垂直方向的对齐方式。
+%    \begin{macrocode}
+\tl_new:N \l_@@_page_v_align_tl
 %    \end{macrocode}
 % \end{variable}
 % \begin{macro}{\keys_define:nn}
@@ -2342,7 +2357,11 @@
 %    \end{macrocode}
 % 设置页边距是否对称。
 %    \begin{macrocode}
-    symmetric-margin .bool_set:N = \l_@@_sym_mgn_bool
+    symmetric-margin .bool_set:N = \l_@@_sym_mgn_bool,
+%    \end{macrocode}
+% 设置页面垂直方向的对齐方式。
+%    \begin{macrocode}
+    page-vertical-align .tl_set:N = \l_@@_page_v_align_tl
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2361,7 +2380,8 @@
     style / algorithm-small-font = true,
     style / before-skip          = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
     style / after-skip           = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
-    style / symmetric-margin     = false
+    style / symmetric-margin     = false,
+    style / page-vertical-align  = {顶部对齐}
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2828,6 +2848,18 @@
     \fancyfoot [ CO ] { \rmfamily \zihao { -5 } \thepage }
   }
 %</xdupgthesis>
+%    \end{macrocode}
+% \end{macro}
+% \subsubsection{对齐方式}
+% \begin{macro}{\raggedbottom,\flushbottom}
+% \changes{v1.13.0.0}{2022/05/08}{设置页面垂直方向的对齐方式}
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \tl_if_eq:NnTF \l_@@_page_v_align_tl { 顶部对齐 }
+      { \raggedbottom }
+      { \flushbottom  }
+  }
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
