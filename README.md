@@ -65,7 +65,7 @@ xelatex xduts.dtx
 
 ## Note
 
-`xidian-text.pdf` and `xidian-logo.pdf` should be placed in the same directory as `xduugthesis.cls`.
+`xdulogo.pdf` should be placed in the same directory as `xduugthesis.cls`.
 
 ## License
 
