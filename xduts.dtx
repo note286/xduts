@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/08 v1.13.5.1 Xidian University TeX Suite]
+[2022/05/09 v1.13.6.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/08}{1.13.5.1}
+%<class|sty>  {2022/05/09}{1.13.6.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -3443,13 +3443,14 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\RequirePackage,\bibliographystyle,\addbibresource}
+% \changes{v1.13.6.0}{2022/05/09}{移除\pkgx{natbib}宏包显式调用}
 % 参考文献。
 %    \begin{macrocode}
 \@@_begin_document:n
   {
     \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
       {
-        \RequirePackage [ sort&compress,square,super,comma,numbers ] { natbib }
+        \PassOptionsToPackage { sort&compress } { gbt7714 }
         \RequirePackage { gbt7714 }
         \bibliographystyle { gbt7714-numerical }
       }
