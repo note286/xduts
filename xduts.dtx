@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/09 v1.13.6.0 Xidian University TeX Suite]
+[2022/05/10 v1.14.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/09}{1.13.6.0}
+%<class|sty>  {2022/05/10}{1.14.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1299}
+% \CheckSum{1305}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -278,7 +278,9 @@
 %   \end{document}
 % \end{latexexample}
 % \par
-% \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置。
+% \secrefx{编译}介绍了如何编译，
+% \secrefx{参考文献引用}介绍了如何引用参考文献，
+% \secrefx{参数设置}介绍了如何自定义配置。
 % 其中，字体选项见\secrefx{字体选项}，
 % 部分英文字体切换见\secrefx{英文字体}，
 % 参考文献配置见\secrefx{参考文献配置}，
@@ -340,7 +342,14 @@
 % \subsection{编译}
 % \label{编译}
 % \changes{v0.5.1.2}{2022/04/07}{增加编译说明}
-% \LaTeX{}本身是命令行程序，通过不同的命令调用所需的编译引擎，编辑器提供的快捷按钮实际只是做了包装。\xduts{}仅支持\XeLaTeX{}，参考文献默认使用\biber{}，也可以切换为\bibtex{}。
+% \LaTeX{}本身是命令行程序，通过不同的命令调用所需的编译引擎，编辑器提供的快捷按钮实际只是做了包装。
+% \xduts{}仅支持\XeLaTeX{}，参考文献默认使用\biber{}，也可以切换为\bibtex{}。
+% \subsection{参考文献引用}
+% \label{参考文献引用}
+% \xduts{}提供了两种参考文献处理方式，
+% 一种是\pkgx{natbib}和\pkgx{gbt7714}宏包组合，搭配\cmdx{bibtex}命令；
+% 另一种是\pkgx{biblatex}宏包，搭配\cmdx{biber}命令。
+% 引用参考文献时，\tnx{cite}为上标样式，\tnx{parencite}为非上标样式。
 % \subsection{参数设置}
 % \label{参数设置}
 % \changes{v0.5.1.1}{2022/04/06}{增加xdusetup配置文档}
@@ -3444,6 +3453,7 @@
 % \end{macro}
 % \begin{macro}{\RequirePackage,\bibliographystyle,\addbibresource}
 % \changes{v1.13.6.0}{2022/05/09}{移除\pkgx{natbib}宏包显式调用}
+% \changes{v1.14.0.0}{2022/05/10}{为\bibtex{}提供\tnx{parencite}命令}
 % 参考文献。
 %    \begin{macrocode}
 \@@_begin_document:n
@@ -3453,6 +3463,8 @@
         \PassOptionsToPackage { sort&compress } { gbt7714 }
         \RequirePackage { gbt7714 }
         \bibliographystyle { gbt7714-numerical }
+        \NewDocumentCommand \parencite { m }
+          { \group_begin: \citestyle { numbers } \cite { #1 } \group_end: }
       }
       {
         \RequirePackage [ style = gb7714-2015 ] { biblatex }
