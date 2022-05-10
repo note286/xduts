@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/10 v1.14.0.0 Xidian University TeX Suite]
+[2022/05/10 v1.14.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/10}{1.14.0.0}
+%<class|sty>  {2022/05/10}{1.14.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1305}
+% \CheckSum{1308}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1731,13 +1731,13 @@
 % \end{macro}
 % \subsubsection{数学字体}
 % \begin{macro}{\@@_load_unicode_math_pkg:}
+% \changes{v1.14.1.0}{2022/05/10}{使用\tnx{PassOptionsToPackage}传递\pkgx{unicode-math}宏包参数}
 % 加载\pkgx{unicode-math}宏包。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_unicode_math_pkg:
   {
-    \RequirePackage
-      [ \l_@@_unicode_math_tl ]
-      { unicode-math          }
+    \PassOptionsToPackage { \l_@@_unicode_math_tl } { unicode-math }
+    \RequirePackage { unicode-math }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1802,7 +1802,7 @@
         \@@_load_unicode_math_pkg:
         \setmathfont { XITSMath-Regular.otf }
         \setmathfont { XITSMath-Bold.otf    }
-          [range= { bfup -> up, bfit -> it } ]
+          [ range= { bfup -> up, bfit -> it } ]
       }
   }
 %    \end{macrocode}
@@ -3052,9 +3052,11 @@
 % \subsection{目录}
 % \begin{macro}{\RequirePackage}
 % \changes{v0.4.1.0}{2022/04/05}{设置目录样式}
+% \changes{v1.14.1.0}{2022/05/10}{使用\tnx{PassOptionsToPackage}传递\pkgx{tocloft}宏包参数}
 % 设置目录样式。
 %    \begin{macrocode}
-\RequirePackage [ titles ] { tocloft }
+\PassOptionsToPackage { titles } { tocloft }
+\RequirePackage { tocloft }
 %    \end{macrocode}
 % \end{macro}
 % \begin{variable}{\cftchapleader}
@@ -3454,20 +3456,22 @@
 % \begin{macro}{\RequirePackage,\bibliographystyle,\addbibresource}
 % \changes{v1.13.6.0}{2022/05/09}{移除\pkgx{natbib}宏包显式调用}
 % \changes{v1.14.0.0}{2022/05/10}{为\bibtex{}提供\tnx{parencite}命令}
+% \changes{v1.14.1.0}{2022/05/10}{使用\tnx{PassOptionsToPackage}传递\pkgx{gbt7714}和\pkgx{biblatex}宏包参数}
 % 参考文献。
 %    \begin{macrocode}
+\PassOptionsToPackage { sort&compress       } { gbt7714  }
+\PassOptionsToPackage { style = gb7714-2015 } { biblatex }
 \@@_begin_document:n
   {
     \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
       {
-        \PassOptionsToPackage { sort&compress } { gbt7714 }
         \RequirePackage { gbt7714 }
         \bibliographystyle { gbt7714-numerical }
         \NewDocumentCommand \parencite { m }
           { \group_begin: \citestyle { numbers } \cite { #1 } \group_end: }
       }
       {
-        \RequirePackage [ style = gb7714-2015 ] { biblatex }
+        \RequirePackage { biblatex }
         \clist_map_inline:Nn \l_@@_bib_file_clist { \addbibresource { #1 } }
       }
   }
