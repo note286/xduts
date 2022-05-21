@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/15 v1.15.0.1 Xidian University TeX Suite]
+[2022/05/21 v1.15.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/15}{1.15.0.1}
+%<class|sty>  {2022/05/21}{1.15.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -56,9 +56,9 @@
 \newcommand{\tabrefx}[1]{\tablename\xspace\ref{#1}\xspace}
 % 文档类选项
 \newcommand{\optx}[1]{\xspace\opt{#1}\xspace}
-% /name LaTeX3控制序列
+% \name LaTeX3控制序列
 \newcommand{\csx}[1]{\xspace\cs{#1}\xspace}
-% /name 传统LaTeX2e命令
+% \name 传统LaTeX2e命令
 \newcommand{\tnx}[1]{\xspace\tn{#1}\xspace}
 % <name> LaTeX3键值
 \newcommand{\metax}[1]{\xspace\meta{#1}\xspace}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1315}
+% \CheckSum{1329}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -3756,9 +3756,10 @@
         \@@_cover_iii:nnnn { 校内导师姓名 } { rm } { -3 } { \l_@@_supv_sch_str }
       }
 %    \end{macrocode}
+% \changes{v1.15.1.0}{2022/05/21}{使用\csx{group_begin:}和\csx{group_end:}替换分组}
 % 校内毕设，排版导师姓名、院内导师姓名。
 %    \begin{macrocode}
-      {
+      \group_begin:
         \@@_cover_iii:nnnn { 导师姓名 } { rm } { -3 } { \l_@@_supv_str }
         \tl_if_blank:VF \l_@@_supv_dept_str
           {
@@ -3768,7 +3769,7 @@
               { -3                  }
               { \l_@@_supv_dept_str }
           }
-      }
+      \group_end:
     \cleardoublepage
 %    \end{macrocode}
 % \changes{v0.8.0.0}{2022/04/12}{支持对称页边距}
@@ -3790,11 +3791,11 @@
           { 摘 { \quad } 要 }
           { \@@_sf_family: \zihao { 3 } \centering }
       }
-    {
+    \group_begin:
       \dim_set:Nn \parindent { 2 \ccwd }
       \rmfamily \zihao { -4 }
       \file_if_exist_input:n { \l_@@_abstract_zh_tl }
-    }
+    \group_end:
 %    \end{macrocode}
 % \changes{v1.10.3.0}{2022/05/04}{使用弹性长度分隔关键词}
 % 关键词弹性分隔间距。
@@ -3803,11 +3804,11 @@
 %    \end{macrocode}
 % 中文关键词，黑体小四号。
 %    \begin{macrocode}
-    {
+    \group_begin:
       \sffamily \zihao { -4 } \par
       \@@_typeout_keywords:nNn
         { 关键词： } { \l_@@_keywords_zh_clist } { \@@_keywords_space: }
-    }
+    \group_end:
     \cleardoublepage
 %    \end{macrocode}
 % 英文摘要，Times New Roman字体，小四号。
@@ -3815,19 +3816,19 @@
 %    \begin{macrocode}
     \@@_n_chapter_head_ii:nn
       { ABSTRACT } { \rmfamily \zihao { 3 } \bfseries \centering }
-    {
+    \group_begin:
       \dim_set:Nn \parindent { 2 \ccwd }
       \rmfamily \zihao { -4 }
       \file_if_exist_input:n { \l_@@_abstract_en_tl }
-    }
+    \group_end:
 %    \end{macrocode}
 % 英文关键词，Times New Roman字体加粗，小四号。
 %    \begin{macrocode}
-    {
+    \group_begin:
       \rmfamily \zihao { -4 } \bfseries \par
       \@@_typeout_keywords:nNn
         { Keywords： } { \l_@@_keywords_en_clist } { \@@_keywords_space: }
-    }
+    \group_end:
     \cleardoublepage
 %    \end{macrocode}
 % \changes{v1.1.4.0}{2022/04/16}{为目录章节标题增加间距}
@@ -3895,11 +3896,11 @@
     \@@_n_chapter_head_toc:nn
       { \@@_lang_switch:nn { 致谢            } { Acknowledgements } }
       { \@@_lang_switch:nn { 致 { \quad } 谢 } { Acknowledgements } }
-    {
+    \group_begin:
       \dim_set:Nn \parindent { 2 \ccwd }
       \rmfamily \zihao { -4 }
       \file_if_exist_input:n { \l_@@_ack_tl }
-    }
+    \group_end:
 %    \end{macrocode}
 % 参考文献。
 % \changes{v0.2.1.0}{2022/04/04}{参考文献添加至目录}
@@ -3909,7 +3910,7 @@
 %    \begin{macrocode}
     \cs_set:Npn \bibname { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
     \@@_n_chapter_head_toc:n { \bibname }
-    {
+    \group_begin:
       \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
         {
           \cs_set:Npn \bibsection { }
@@ -3921,7 +3922,7 @@
           \cs_set:Npn \bibfont { \@@_rm_family: \zihao { 5 } }
           \printbibliography
         }
-    }
+    \group_end:
   }
 %    \end{macrocode}
 % \end{macro}
