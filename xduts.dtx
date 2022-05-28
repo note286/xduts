@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/22 v1.16.0.0 Xidian University TeX Suite]
+[2022/05/28 v1.17.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/22}{1.16.0.0}
+%<class|sty>  {2022/05/28}{1.17.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1496}
+% \CheckSum{1630}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2575,7 +2575,7 @@
   }
 %    \end{macrocode}
 % \end{variable}
-% \begin{macro}{\@@_split_title:Nn,\@@_split_title:Nn}
+% \begin{macro}{\@@_split_title:Nn,\@@_split_title:NV}
 % 拆分标题。
 % \begin{arguments}
 %   \item 拆分后标题。
@@ -3908,19 +3908,20 @@
 %     \l_@@_ac_master,
 %     \l_@@_pro_master,
 %     \l_@@_ac_phd,
-%     \l_@@_pro_phd
+%     \l_@@_pro_phd,
+%     \l_@@_ac,
+%     \l_@@_pro
 %   }
 % \changes{v1.16.0.0}{2022/05/22}{研究生类别}
+% \changes{v1.17.0.0}{2022/05/28}{增加学术和专业研究生布尔变量}
 % 研究生类别。
 %    \begin{macrocode}
 \bool_new:N \l_@@_ac_master
 \bool_new:N \l_@@_pro_master
 \bool_new:N \l_@@_ac_phd
 \bool_new:N \l_@@_pro_phd
-\bool_set_false:N \l_@@_ac_master
-\bool_set_false:N \l_@@_pro_master
-\bool_set_false:N \l_@@_ac_phd
-\bool_set_false:N \l_@@_pro_phd
+\bool_new:N \l_@@_ac
+\bool_new:N \l_@@_pro
 \ctex_at_end_preamble:n
   {
     \tl_if_eq:NnTF \l_@@_gr_type_tl { 硕士 }
@@ -3934,27 +3935,36 @@
           { \bool_set_true:N \l_@@_ac_phd  }
           { \bool_set_true:N \l_@@_pro_phd }
       }
+    \tl_if_eq:NnTF \l_@@_degree_type_tl { 学术 }
+      { \bool_set_true:N \l_@@_ac  }
+      { \bool_set_true:N \l_@@_pro }
   }
 %    \end{macrocode}
 % \end{variable}
-% \begin{macro}{\@@_cover_i:nnnn}
+% \begin{macro}{\@@_cover_i:nnnnn}
 % \changes{v1.16.0.0}{2022/05/22}{绘制研究生封面单行内容}
-% 绘制研究生封面单行内容。
+% \changes{v1.17.0.0}{2022/05/28}{绘制研究生封面和提名页单行内容}
+% 绘制研究生封面和提名页单行内容。
 % \begin{arguments}
 %   \item 盒子高度。
 %   \item 字体族。
 %   \item 字号。
+%   \item 是否加粗。
 %   \item 盒子内容。
 % \end{arguments}
 %    \begin{macrocode}
-\cs_new:Npn \@@_cover_i:nnnn #1#2#3#4
+\cs_new:Npn \@@_cover_i:nnnnn #1#2#3#4#5
   {
     \dim_set:Nn \baselineskip { 20pt }
     \vbox_to_ht:nn { #1 }
       {
         \vfill
         \mode_leave_vertical:
-        \hfil \use:c { #2 family } \zihao { #3 } #4 \hfil
+        \hfil
+        \use:c { #2 family } \zihao { #3 }
+        \str_if_eq:nnTF { #4 } { bf } { \bfseries } { }
+        #5
+        \hfil
       }
   }
 %    \end{macrocode}
@@ -3992,6 +4002,149 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\@@_cover_iii:nnnn}
+% \changes{v1.17.0.0}{2022/05/28}{绘制研究生中文提名页顶部信息}
+% 绘制研究生中文提名页顶部信息。
+% \begin{arguments}
+%   \item 标签宽度。
+%   \item 标签名称。
+%   \item 值宽度。
+%   \item 值内容。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_cover_iii:nnnn #1#2#3#4
+  {
+    \dim_set:Nn \baselineskip { 20pt }
+    \hbox:n
+      {
+        \rmfamily \zihao { 5 } \bfseries
+        \hbox_to_wd:nn { #1 } { #2 }
+        \skip_horizontal:n { 0.5em }
+        \@@_uline:n { \hbox_to_wd:nn { #3 } { \hfil #4 \hfil } }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_cover_iiii:nnnn}
+% \changes{v1.17.0.0}{2022/05/28}{绘制研究生中文提名页底部部信息}
+% 绘制研究生中文提名页底部部信息。
+% \begin{arguments}
+%   \item 标签宽度。
+%   \item 标签名称。
+%   \item 值宽度。
+%   \item 值内容。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_cover_iiii:n #1
+  {
+    \dim_set:Nn \baselineskip { 20pt }
+    \vbox_to_ht:nn { 30pt }
+      {
+        \vfill
+        \hbox:n
+          {
+            \rmfamily \zihao { 4 } \bfseries
+            \skip_horizontal:n { 10em }
+            #1
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_zh_today:}
+% \changes{v1.17.0.0}{2022/05/28}{中文今日年月}
+% 中文今日年月。
+%    \begin{macrocode}
+\cs_new:Npn \@@_zh_today:
+  { \int_use:N \c_sys_year_int 年 \int_use:N \c_sys_month_int 月 }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_split_submit_date:N}
+% \changes{v1.17.0.0}{2022/05/28}{拆分提交日期为年和月}
+% 拆分提交日期为年和月。
+%    \begin{macrocode}
+\seq_new:N \l_@@_submit_date_seq
+\cs_new:Npn \@@_split_submit_date:N #1
+  {
+    \seq_set_split:NnV \l_@@_submit_date_seq { - } \l_@@_submit_date_str
+    \clist_set_from_seq:NN #1 \l_@@_submit_date_seq
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_zh_submit_date:}
+% \changes{v1.17.0.0}{2022/05/28}{中文提交日期}
+% 中文提交日期。
+%    \begin{macrocode}
+\clist_new:N \l_@@_submit_date_clist
+\cs_new:Npn \@@_zh_submit_date:
+  {
+    \str_if_empty:NTF \l_@@_submit_date_str
+      { \@@_zh_today: }
+      {
+        \@@_split_submit_date:N \l_@@_submit_date_clist
+        \clist_item:Nn \l_@@_submit_date_clist { 1 } 年
+        \clist_item:Nn \l_@@_submit_date_clist { 2 } 月
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_zh_title_page:}
+% \changes{v1.17.0.0}{2022/05/28}{中文提名页}
+% 中文提名页。
+%    \begin{macrocode}
+\cs_new:Npn \@@_zh_title_page:
+  {
+    \vbox:n { }
+    \skip_vertical:n { -7.5pt }
+    \dim_set:Nn \baselineskip { 15.6bp }
+    \vbox:n
+      {
+        \mode_leave_vertical:
+        \@@_cover_iii:nnnn { 4em } { 学校代码 } { 7em } { 10701                }
+        \hfill
+        \@@_cover_iii:nnnn { 3em } { 学号     } { 7em } { \l_@@_student_id_str }
+      }
+    \vbox:n
+      {
+        \mode_leave_vertical:
+        \@@_cover_iii:nnnn { 4em } { 分类号   } { 7em } { \l_@@_clc_str        }
+        \hfill
+        \@@_cover_iii:nnnn { 3em } { 密级     } { 7em } { \l_@@_secret_lv_str  }
+      }
+    \dim_set:Nn \baselineskip { 20pt }
+    \@@_cover_i:nnnnn { 100pt  } { sf } { 1  } { bf } { 西安电子科技大学   }
+    \@@_cover_i:nnnnn { 85pt   } { rm } { -1 } { bf } { \l_@@_gr_type_tl 学位论文 }
+    \@@_cover_i:nnnnn { 105pt  } { rm } { 2  } { bf } { \l_@@_title_i_str  }
+    \@@_cover_i:nnnnn { 27.5pt } { rm } { 2  } { bf } { \l_@@_title_ii_str }
+    \skip_vertical:n { 80pt }
+    \@@_cover_iiii:n { 作者姓名：\l_@@_author_str }
+    \bool_if:NTF \l_@@_ac
+      {
+        \@@_cover_iiii:n { 一级学科：\l_@@_major_str }
+        \@@_cover_iiii:n { 二级学科（研究方向）：\l_@@_sub_major_str }
+      }
+      {
+        \@@_cover_iiii:n { 领\qquad{}域：\l_@@_domain_str }
+        }
+    \@@_cover_iiii:n { 学位类别：\l_@@_degree_str }
+    \bool_if:NTF \l_@@_pro_master
+      {
+        \@@_cover_iiii:n { 学校导师姓名、职称：\l_@@_supv_str \enskip \l_@@_supv_t_str }
+        \str_if_empty:NF \l_@@_supv_ii_str
+          { \@@_cover_iiii:n { \phantom { 学校导师姓名、职称： } \l_@@_supv_ii_str \enskip \l_@@_supv_ii_t_str } }
+        \@@_cover_iiii:n { 企业导师姓名、职称：\l_@@_supv_ent_str \enskip \l_@@_supv_ent_t_str }
+      }
+      {
+        \@@_cover_iiii:n { 指导教师姓名、职称：\l_@@_supv_str \enskip \l_@@_supv_t_str }
+        \str_if_empty:NF \l_@@_supv_ii_str
+          { \@@_cover_iiii:n { \phantom { 指导教师姓名、职称： } \l_@@_supv_ii_str \enskip \l_@@_supv_ii_t_str } }
+      }
+    \@@_cover_iiii:n { 学\qquad{}院：\l_@@_dept_str }
+    \@@_cover_iiii:n { 提交日期：\@@_zh_submit_date:}
+    \cleardoublepage
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\frontmatter}
 % \changes{v1.5.0.0}{2022/05/01}{设置封面页边距}
 % \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
@@ -4003,19 +4156,20 @@
     \loadgeometry { cover }
     \pagestyle    { empty }
     \dim_set:Nn \parindent { 0pt }
+    \dim_set:Nn \baselineskip { 20pt }
     \@@_add_bookmark:n { \@@_lang_switch:nn { 封面 } { Cover } }
 %    \end{macrocode}
 % 拆分论文标题。
 %    \begin{macrocode}
     \clist_new:N \l_@@_title_clist
     \@@_split_title:NV \l_@@_title_clist \l_@@_title_str
-    \str_set:Nx \l_@@_title_i_str  { \clist_item:Nn  \l_@@_title_clist { 1 } }
-    \str_set:Nx \l_@@_title_ii_str { \clist_item:Nn  \l_@@_title_clist { 2 } }
+    \str_set:Nx \l_@@_title_i_str  { \clist_item:Nn \l_@@_title_clist { 1 } }
+    \str_set:Nx \l_@@_title_ii_str { \clist_item:Nn \l_@@_title_clist { 2 } }
 %    \end{macrocode}
 % 排版封面标题。
 %    \begin{macrocode}
-    \@@_cover_i:nnnn { 465pt } { rm } { 2 } { \bfseries \l_@@_title_i_str  }
-    \@@_cover_i:nnnn { 30pt  } { rm } { 2 } { \bfseries \l_@@_title_ii_str }
+    \@@_cover_i:nnnnn { 465pt } { rm } { 2 } { bf } { \l_@@_title_i_str  }
+    \@@_cover_i:nnnnn { 30pt  } { rm } { 2 } { bf } { \l_@@_title_ii_str }
     \skip_vertical:n { 65pt }
 %    \end{macrocode}
 % 排版封面论文信息。
@@ -4044,6 +4198,9 @@
       }
     \@@_cover_ii:nnn { 6em } { 申请学位类别 } { \l_@@_degree_str }
     \cleardoublepage
+    \@@_zh_title_page:
+%    \end{macrocode}
+%    \begin{macrocode}
     \@@_load_main_geometry:
     \pagestyle     { front }
     \pagenumbering { Roman }
