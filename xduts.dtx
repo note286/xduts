@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/29 v1.17.0.1 Xidian University TeX Suite]
+[2022/05/29 v1.18.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/29}{1.17.0.1}
+%<class|sty>  {2022/05/29}{1.18.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1630}
+% \CheckSum{1859}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -3910,28 +3910,35 @@
 %     \l_@@_pro_master,
 %     \l_@@_ac_phd,
 %     \l_@@_pro_phd,
+%     \l_@@_phd,
+%     \l_@@_master,
 %     \l_@@_ac,
 %     \l_@@_pro
 %   }
 % \changes{v1.16.0.0}{2022/05/22}{研究生类别}
 % \changes{v1.17.0.0}{2022/05/28}{增加学术和专业研究生布尔变量}
+% \changes{v1.18.0.0}{2022/05/29}{增加硕士和博士研究生布尔变量}
 % 研究生类别。
 %    \begin{macrocode}
 \bool_new:N \l_@@_ac_master
 \bool_new:N \l_@@_pro_master
 \bool_new:N \l_@@_ac_phd
 \bool_new:N \l_@@_pro_phd
+\bool_new:N \l_@@_phd
+\bool_new:N \l_@@_master
 \bool_new:N \l_@@_ac
 \bool_new:N \l_@@_pro
 \ctex_at_end_preamble:n
   {
     \tl_if_eq:NnTF \l_@@_gr_type_tl { 硕士 }
       {
+        \bool_set_true:N \l_@@_master
         \tl_if_eq:NnTF \l_@@_degree_type_tl { 学术 }
           { \bool_set_true:N \l_@@_ac_master  }
           { \bool_set_true:N \l_@@_pro_master }
       }
       {
+        \bool_set_true:N \l_@@_phd
         \tl_if_eq:NnTF \l_@@_degree_type_tl { 学术 }
           { \bool_set_true:N \l_@@_ac_phd  }
           { \bool_set_true:N \l_@@_pro_phd }
@@ -4052,12 +4059,48 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_zh_today:}
+% \begin{macro}{\@@_en_month:n}
+% \changes{v1.18.0.0}{2022/05/29}{英文月份}
+% 英文月份。
+%    \begin{macrocode}
+\cs_new:Npn \@@_en_month:n #1
+  {
+    \str_case:Vn #1
+      {
+        { 1  } { January   }
+        { 2  } { February  }
+        { 3  } { March     }
+        { 4  } { April     }
+        { 5  } { May       }
+        { 6  } { June      }
+        { 7  } { July      }
+        { 8  } { August    }
+        { 9  } { September }
+        { 10 } { October   }
+        { 11 } { November  }
+        { 12 } { December  }
+        { 01 } { January   }
+        { 02 } { February  }
+        { 03 } { March     }
+        { 04 } { April     }
+        { 05 } { May       }
+        { 06 } { June      }
+        { 07 } { July      }
+        { 08 } { August    }
+        { 09 } { September }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_zh_today:,\@@_en_today:}
 % \changes{v1.17.0.0}{2022/05/28}{中文今日年月}
-% 中文今日年月。
+% \changes{v1.18.0.0}{2022/05/29}{英文今日年月}
+% 今日年月。
 %    \begin{macrocode}
 \cs_new:Npn \@@_zh_today:
   { \int_use:N \c_sys_year_int 年 \int_use:N \c_sys_month_int 月 }
+\cs_new:Npn \@@_en_today:
+  { \@@_en_month:n { \c_sys_month_int } ~ \int_use:N \c_sys_year_int }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_split_submit_date:N}
@@ -4085,6 +4128,27 @@
         \@@_split_submit_date:N \l_@@_submit_date_clist
         \clist_item:Nn \l_@@_submit_date_clist { 1 } 年
         \clist_item:Nn \l_@@_submit_date_clist { 2 } 月
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_en_submit_date:}
+% \changes{v1.18.0.0}{2022/05/29}{英文提交日期}
+% 英文提交日期。
+%    \begin{macrocode}
+\str_new:N \l_@@_submit_date_month_str
+\cs_new:Npn \@@_en_submit_date:
+  {
+    \str_if_empty:NTF \l_@@_submit_date_str
+      { \@@_en_today: }
+      {
+        \@@_split_submit_date:N \l_@@_submit_date_clist
+        \str_set:Nx \l_@@_submit_date_month_str
+          { \clist_item:Nn \l_@@_submit_date_clist { 2 } }
+          \typeout{xxxxxxxxxxxxxxx}
+          \typeout{\l_@@_submit_date_month_str}
+        \@@_en_month:n { \l_@@_submit_date_month_str } ~
+        \clist_item:Nn \l_@@_submit_date_clist { 1 }
       }
   }
 %    \end{macrocode}
@@ -4130,18 +4194,160 @@
     \@@_cover_iiii:n { 学位类别：\l_@@_degree_str }
     \bool_if:NTF \l_@@_pro_master
       {
-        \@@_cover_iiii:n { 学校导师姓名、职称：\l_@@_supv_str \enskip \l_@@_supv_t_str }
+        \@@_cover_iiii:n
+          {
+            学校导师姓名、职称：
+            \l_@@_supv_str \enskip \l_@@_supv_t_str
+          }
         \str_if_empty:NF \l_@@_supv_ii_str
-          { \@@_cover_iiii:n { \phantom { 学校导师姓名、职称： } \l_@@_supv_ii_str \enskip \l_@@_supv_ii_t_str } }
-        \@@_cover_iiii:n { 企业导师姓名、职称：\l_@@_supv_ent_str \enskip \l_@@_supv_ent_t_str }
+          {
+            \@@_cover_iiii:n
+              {
+                \phantom { 学校导师姓名、职称： }
+                \l_@@_supv_ii_str \enskip \l_@@_supv_ii_t_str
+              }
+          }
+        \@@_cover_iiii:n
+          {
+            企业导师姓名、职称：
+            \l_@@_supv_ent_str \enskip \l_@@_supv_ent_t_str
+          }
       }
       {
-        \@@_cover_iiii:n { 指导教师姓名、职称：\l_@@_supv_str \enskip \l_@@_supv_t_str }
+        \@@_cover_iiii:n
+          {
+            指导教师姓名、职称：
+            \l_@@_supv_str \enskip \l_@@_supv_t_str
+          }
         \str_if_empty:NF \l_@@_supv_ii_str
-          { \@@_cover_iiii:n { \phantom { 指导教师姓名、职称： } \l_@@_supv_ii_str \enskip \l_@@_supv_ii_t_str } }
+          {
+            \@@_cover_iiii:n
+              {
+                \phantom { 指导教师姓名、职称： }
+                \l_@@_supv_ii_str \enskip \l_@@_supv_ii_t_str
+              }
+          }
       }
     \@@_cover_iiii:n { 学\qquad{}院：\l_@@_dept_str }
     \@@_cover_iiii:n { 提交日期：\@@_zh_submit_date:}
+    \cleardoublepage
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_en_title_supv:n}
+% \changes{v1.18.0.0}{2022/05/29}{英文提名页底部导师姓名拼音盒子}
+% 英文提名页底部导师姓名拼音盒子。
+%    \begin{macrocode}
+\dim_new:N \l_@@_supv_dim
+\dim_new:N \l_@@_supv_max_dim
+\box_new:N \l_@@_supv_box
+\cs_new:Npn \@@_en_title_supv:n #1
+  {
+    \rmfamily \zihao { 3 }
+    \dim_zero:N \l_@@_supv_max_dim
+    \hbox_set:Nn \l_@@_supv_box { \l_@@_supv_en_str }
+    \dim_set:Nn \l_@@_supv_dim { \box_wd:N \l_@@_supv_box }
+    \dim_set:Nn \l_@@_supv_max_dim
+      { \dim_max:nn { \l_@@_supv_dim } { \l_@@_supv_max_dim } }
+    \str_if_empty:NF \l_@@_supv_ii_str
+      {
+        \hbox_set:Nn \l_@@_supv_box { \l_@@_supv_ii_en_str }
+        \dim_set:Nn \l_@@_supv_dim { \box_wd:N \l_@@_supv_box }
+        \dim_set:Nn \l_@@_supv_max_dim
+          { \dim_max:nn { \l_@@_supv_dim } { \l_@@_supv_max_dim } }
+      }
+    \bool_if:NT \l_@@_pro_master
+      {
+        \hbox_set:Nn \l_@@_supv_box { \l_@@_supv_ent_en_str }
+        \dim_set:Nn \l_@@_supv_dim { \box_wd:N \l_@@_supv_box }
+        \dim_set:Nn \l_@@_supv_max_dim
+          { \dim_max:nn { \l_@@_supv_dim } { \l_@@_supv_max_dim } }
+      }
+    \hbox_to_wd:nn { \l_@@_supv_max_dim } { #1 \hfil } \quad
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_en_title_supv_t:n}
+% \changes{v1.18.0.0}{2022/05/29}{英文提名页底部导师英文职称盒子}
+% 英文提名页底部导师英文职称盒子。
+%    \begin{macrocode}
+\dim_new:N \l_@@_supv_t_dim
+\dim_new:N \l_@@_supv_t_max_dim
+\box_new:N \l_@@_supv_t_box
+\cs_new:Npn \@@_en_title_supv_t:n #1
+  {
+    \rmfamily \zihao { 3 }
+    \dim_zero:N \l_@@_supv_t_max_dim
+    \hbox_set:Nn \l_@@_supv_t_box { \l_@@_supv_t_en_str }
+    \dim_set:Nn \l_@@_supv_t_dim { \box_wd:N \l_@@_supv_t_box }
+    \dim_set:Nn \l_@@_supv_t_max_dim
+      { \dim_max:nn { \l_@@_supv_t_dim } { \l_@@_supv_t_max_dim } }
+    \str_if_empty:NF \l_@@_supv_ii_str
+      {
+        \hbox_set:Nn \l_@@_supv_t_box { \l_@@_supv_ii_t_en_str }
+        \dim_set:Nn \l_@@_supv_t_dim { \box_wd:N \l_@@_supv_t_box }
+        \dim_set:Nn \l_@@_supv_t_max_dim
+          { \dim_max:nn { \l_@@_supv_t_dim } { \l_@@_supv_t_max_dim } }
+      }
+    \bool_if:NT \l_@@_pro_master
+      {
+        \hbox_set:Nn \l_@@_supv_t_box { \l_@@_supv_ent_t_en_str }
+        \dim_set:Nn \l_@@_supv_t_dim { \box_wd:N \l_@@_supv_t_box }
+        \dim_set:Nn \l_@@_supv_t_max_dim
+          { \dim_max:nn { \l_@@_supv_t_dim } { \l_@@_supv_t_max_dim } }
+      }
+    \hbox_to_wd:nn { \l_@@_supv_t_max_dim } { #1 \hfil } \quad
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_en_title_page:}
+% \changes{v1.18.0.0}{2022/05/29}{英文提名页}
+% 英文提名页。
+%    \begin{macrocode}
+\cs_new:Npn \@@_en_title_page:
+  {
+    \vbox:n { }
+    \skip_vertical:n { -3.5pt }
+    \dim_set:Nn \baselineskip { 30pt }
+    \vbox_to_ht:nn { 170pt }
+      {
+        \rmfamily \zihao{2} \bfseries \centering
+        \dim_set:Nn \baselineskip { 30pt }
+        \l_@@_title_en_str
+      }
+    \vbox_to_ht:nn { 360pt }
+      {
+        \rmfamily \zihao{3} \centering
+        \dim_set:Nn \baselineskip { 30pt }
+        A
+        \bool_if:NTF \l_@@_master { ~thesis~ } { ~dissertation~ }
+        submitted~to\\
+        XIDIAN~UNIVERSITY\\
+        in~partial~fulfillment~of~the~requirements\\
+        for~the~degree~of
+        \bool_if:NTF \l_@@_master { ~Master\\ } { ~Doctor~of~Philosophy\\ }
+        in~\l_@@_degree_en_str\\
+      }
+    \vbox:n
+      {
+        \rmfamily \zihao { 3 } \centering
+        \dim_set:Nn \baselineskip { 30pt }
+        By\\
+        \l_@@_author_en_str\\
+        Supervisor:~\@@_en_title_supv:n { \l_@@_supv_en_str }
+        Title:~\@@_en_title_supv_t:n { \l_@@_supv_t_en_str } \\
+        \str_if_empty:NF \l_@@_supv_ii_str
+          {
+            \phantom { Supervisor:~ } \@@_en_title_supv:n { \l_@@_supv_ii_en_str }
+            \phantom { Title:~ } \@@_en_title_supv_t:n { \l_@@_supv_ii_t_en_str } \\
+          }
+        \bool_if:NT \l_@@_pro_master
+          {
+            Supervisor:~ \@@_en_title_supv:n { \l_@@_supv_ent_en_str }
+            Title:~ \@@_en_title_supv_t:n { \l_@@_supv_ent_t_en_str } \\
+          }
+        \@@_en_submit_date:
+      }
     \cleardoublepage
   }
 %    \end{macrocode}
@@ -4199,12 +4405,15 @@
       }
     \@@_cover_ii:nnn { 6em } { 申请学位类别 } { \l_@@_degree_str }
     \cleardoublepage
-    \@@_zh_title_page:
+    \@@_lang_switch:nn
+      { \@@_zh_title_page: \@@_en_title_page: }
+      { \@@_en_title_page: \@@_zh_title_page: }
 %    \end{macrocode}
 %    \begin{macrocode}
     \@@_load_main_geometry:
     \pagestyle     { front }
     \pagenumbering { Roman }
+    \dim_set:Nn \baselineskip { 20pt }
   }
 %    \end{macrocode}
 % \end{macro}
