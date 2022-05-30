@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/30 v1.19.0.0 Xidian University TeX Suite]
+[2022/05/30 v1.20.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/30}{1.19.0.0}
+%<class|sty>  {2022/05/30}{1.20.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{1940}
+% \CheckSum{2004}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2755,6 +2755,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_typeout_keywords:nNn}
+% \changes{v1.20.0.0}{2022/05/30}{允许关键词标签带格式}
 % 排版关键词。
 % \begin{arguments}
 %   \item 标签名称。
@@ -2764,11 +2765,11 @@
 %    \begin{macrocode}
 \cs_new:Npn \@@_typeout_keywords:nNn #1#2#3
   {
-    \str_clear_new:N \l_@@_keywords_label_str
-    \str_set:Nn \l_@@_keywords_label_str { #1 }
+    \tl_clear_new:N \l_@@_keywords_label_str
+    \tl_set:Nn \l_@@_keywords_label_tl { #1 }
     \dim_zero_new:N \l_@@_keywords_label_dim
-    \@@_get_text_width:NV \l_@@_keywords_label_dim \l_@@_keywords_label_str
-    \begin { list } { \l_@@_keywords_label_str }
+    \@@_get_text_width:NV \l_@@_keywords_label_dim \l_@@_keywords_label_tl
+    \begin { list } { \l_@@_keywords_label_tl }
       {
         \labelwidth  \l_@@_keywords_label_dim
         \labelsep    \c_zero_dim
@@ -4468,6 +4469,74 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\@@_zh_abstract_keywords:}
+% \changes{v1.20.0.0}{2022/05/30}{中文摘要和关键词}
+% 中文摘要和关键词。
+%    \begin{macrocode}
+\cs_new:Npn \@@_zh_abstract_keywords:
+  {
+%    \end{macrocode}
+% 中文摘要。
+%    \begin{macrocode}
+    \@@_lang_switch:nn
+      { \@@_n_chapter_head:nn { 摘要 } { 摘 { \quad } 要 } }
+      {
+        \@@_n_chapter_head_ii:nnn
+          { 摘要 }
+          { 摘 { \quad } 要 }
+          { \@@_sf_family: \zihao { 3 } \centering }
+      }
+    \group_begin:
+      \dim_set:Nn \parindent { 2 \ccwd }
+      \rmfamily \zihao { -4 }
+      \dim_set:Nn \baselineskip { 20pt }
+      \file_if_exist_input:n { \l_@@_abstract_zh_tl }
+    \group_end:
+%    \end{macrocode}
+% 中文关键词。
+%    \begin{macrocode}
+    \group_begin:
+      \rmfamily \zihao { -4 }
+      \dim_set:Nn \baselineskip { 20pt }
+      \skip_vertical:n { 20pt }
+      \@@_typeout_keywords:nNn
+        { \textbf { 关键词 } ： } { \l_@@_keywords_zh_clist } { ， }
+    \group_end:
+    \cleardoublepage
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_en_abstract_keywords:}
+% \changes{v1.20.0.0}{2022/05/30}{英文摘要和关键词}
+% 英文摘要和关键词。
+%    \begin{macrocode}
+\cs_new:Npn \@@_en_abstract_keywords:
+  {
+%    \end{macrocode}
+% 英文摘要。
+%    \begin{macrocode}
+    \@@_n_chapter_head_ii:nn
+      { ABSTRACT } { \rmfamily \zihao { 3 } \centering }
+    \group_begin:
+      \dim_set:Nn \parskip { 20pt }
+      \rmfamily \zihao { -4 }
+      \dim_set:Nn \baselineskip { 20pt }
+      \file_if_exist_input:n { \l_@@_abstract_en_tl }
+    \group_end:
+%    \end{macrocode}
+% 英文关键词。
+%    \begin{macrocode}
+    \group_begin:
+      \rmfamily \zihao { -4 }
+      \dim_set:Nn \baselineskip { 20pt }
+      \skip_vertical:n { 20pt }
+      \@@_typeout_keywords:nNn
+        { \textbf { Keywords } ： } { \l_@@_keywords_en_clist } { ,~ }
+    \group_end:
+    \cleardoublepage
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\frontmatter}
 % \changes{v1.5.0.0}{2022/05/01}{设置封面页边距}
 % \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
@@ -4524,12 +4593,13 @@
       { \@@_zh_title_page: \@@_en_title_page: }
       { \@@_en_title_page: \@@_zh_title_page: }
     \@@_statement:
-%    \end{macrocode}
-%    \begin{macrocode}
     \@@_load_main_geometry:
     \pagestyle     { front }
     \pagenumbering { Roman }
     \dim_set:Nn \baselineskip { 20pt }
+    \@@_lang_switch:nn
+      { \@@_zh_abstract_keywords: \@@_en_abstract_keywords: }
+      { \@@_en_abstract_keywords: \@@_zh_abstract_keywords: }
   }
 %    \end{macrocode}
 % \end{macro}
