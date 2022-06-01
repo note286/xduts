@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/05/30 v1.20.1.0 Xidian University TeX Suite]
+[2022/06/01 v1.21.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/05/30}{1.20.1.0}
+%<class|sty>  {2022/06/01}{1.21.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2005}
+% \CheckSum{2144}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -2327,6 +2327,23 @@
 %</xdupgthesis>
 %<*thesis>
 %    \end{macrocode}
+% \subsection{标签宏配置}
+% \label{标签宏配置}
+% \begin{macro}
+%   {
+%     \figurename,
+%     \figname,
+%     \tablename,
+%     \tabname,
+%   }
+% \changes{v1.21.0.0}{2022/06/01}{配置图表标签宏}
+%    \begin{macrocode}
+\cs_set:Npn \figurename { \@@_lang_switch:nn { 图 } { Figure } }
+\cs_new_eq:NN \figname \figurename
+\cs_set:Npn \tablename  { \@@_lang_switch:nn { 表 } { Table  } }
+\cs_new_eq:NN \tabname \tablename
+%    \end{macrocode}
+% \end{macro}
 % \subsection{样式配置}
 % \begin{variable}
 %   {
@@ -3010,7 +3027,7 @@
 % \end{macro}
 %    \begin{macrocode}
 %</thesis>
-%<*xduugthesis>
+%<*xduugthesis|xdupgthesis>
 %    \end{macrocode}
 % \subsection{标题设置}
 % 中文章标题黑体，三号，居中排列。节标题宋体，四号，居中排列。英文一级标题字体为Times New Roman，四号，正体，左对齐，以大写罗马数字（I、II 等）标出序号。其余各级标题的字体均为Times New Roman，小四号，正体。二级及以下级别的标题依次缩进4个英文字符，以1.1，1.2，1.1.1，1.1.2形式标出序号。
@@ -3256,7 +3273,7 @@
 %    \end{macrocode}
 % \end{variable}
 %    \begin{macrocode}
-%</xduugthesis>
+%</xduugthesis|xdupgthesis>
 %<*thesis>
 %    \end{macrocode}
 % \subsection{公式}
@@ -4444,7 +4461,7 @@
         的论文、发明专利等成果，署名单位为西安电子科技大学。
         \par
         保密的学位论文在
-        \str_if_eq:NNTF \l_@@_secret_lv_str {秘密}
+        \str_if_eq:NNTF \l_@@_secret_lv_str { 秘密 }
           {
             \str_if_empty:NTF \l_@@_secret_year_str
               { \@@_uline:n { \skip_horizontal:n { 1.5em } } }
@@ -4539,6 +4556,118 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\@@_loft_label_num_width:nN}
+% \changes{v1.21.0.0}{2022/06/01}{计算图表索引编号标签最大宽度}
+% 计算图表索引编号标签最大宽度。
+%    \begin{macrocode}
+\cs_new:Npn \@@_loft_label_num_width:nN #1#2
+  {
+%    \end{macrocode}
+% 读取索引文件。
+%    \begin{macrocode}
+    \tl_clear_new:N \l_@@_loft_tl
+    \file_get:nnN
+      { \jobname.#1 }
+      { \let\do\@makeother \dospecials }
+      \l_@@_loft_tl
+%    \end{macrocode}
+% 使用正则表达式匹配索引编号。
+%    \begin{macrocode}
+    \seq_clear_new:N \l_@@_loft_label_num_seq
+    \cs_generate_variant:Nn \regex_extract_all:nnN { nVN }
+    \str_if_eq:nnTF { #1 } { lof }
+      {
+        \regex_extract_all:nVN
+          { \\contentsline\ \{figure\}\{\\numberline\ \{\K[0-9A-Z\.]+ }
+          \l_@@_loft_tl \l_@@_loft_label_num_seq
+      }
+      {
+        \regex_extract_all:nVN
+          { \\contentsline\ \{table\}\{\\numberline\ \{\K[0-9A-Z\.]+ }
+          \l_@@_loft_tl \l_@@_loft_label_num_seq
+      }
+%    \end{macrocode}
+% 计算所有索引编号的最大宽度。
+%    \begin{macrocode}
+    \dim_zero_new:N \l_@@_loft_label_num_dim
+    \seq_map_inline:Nn \l_@@_loft_label_num_seq
+      {
+        \@@_get_text_width:Nn \l_@@_loft_label_num_dim { ##1 }
+        \dim_set:Nn #2 { \dim_max:nn { \l_@@_loft_label_num_dim } { #2 } }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_list_of_figure:}
+% \changes{v1.21.0.0}{2022/05/31}{插图索引}
+% 插图索引。
+%    \begin{macrocode}
+\cs_new:Npn \@@_list_of_figure:
+  {
+    \@@_n_chapter_head:n
+      { \@@_lang_switch:nn { 插图索引 } { List of Figures } }
+    \group_begin:
+      \addtocontents { lof } { \vspace { 10pt } }
+      \renewcommand { \addvspace } [1] { }
+%    \end{macrocode}
+% 配置文本标签及宽度。
+%    \begin{macrocode}
+      \tl_set:Nn \cftfigpresnum {  \figurename \space }
+      \dim_zero_new:N \l_@@_lof_label_dim
+      \@@_get_text_width:NV \l_@@_lof_label_dim \cftfigpresnum
+      \dim_set:Nn \cftfignumwidth { \l_@@_lof_label_dim }
+%    \end{macrocode}
+% 配置索引编号标签宽度。
+%    \begin{macrocode}
+      \dim_new:N \l_@@_lof_label_num_max_dim
+      \@@_loft_label_num_width:nN { lof } \l_@@_lof_label_num_max_dim
+      \dim_add:Nn \cftfignumwidth { \l_@@_lof_label_num_max_dim }
+      \dim_add:Nn \cftfignumwidth { .75em }
+      \dim_set:Nn \cftfigindent { 0pt }
+%    \end{macrocode}
+% 排版索引表。
+%    \begin{macrocode}
+      \@starttoc { lof }
+    \group_end:
+    \cleardoublepage
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_list_of_table:}
+% \changes{v1.21.0.0}{2022/05/31}{表格索引}
+% 表格索引。
+%    \begin{macrocode}
+\cs_new:Npn \@@_list_of_table:
+  {
+    \@@_n_chapter_head:n
+      { \@@_lang_switch:nn { 表格索引 } { List of Tables } }
+    \group_begin:
+      \addtocontents { lot } { \vspace { 10pt } }
+      \renewcommand { \addvspace } [1] { }
+%    \end{macrocode}
+% 配置文本标签及宽度。
+%    \begin{macrocode}
+      \tl_set:Nn \cfttabpresnum {  \tablename \space }
+      \dim_zero_new:N \l_@@_lot_label_dim
+      \@@_get_text_width:NV \l_@@_lot_label_dim \cfttabpresnum
+      \dim_set:Nn \cfttabnumwidth { \l_@@_lot_label_dim }
+%    \end{macrocode}
+% 配置索引编号标签宽度。
+%    \begin{macrocode}
+      \dim_new:N \l_@@_lot_label_num_max_dim
+      \@@_loft_label_num_width:nN { lot } \l_@@_lot_label_num_max_dim
+      \dim_add:Nn \cfttabnumwidth { \l_@@_lot_label_num_max_dim }
+      \dim_add:Nn \cfttabnumwidth { .75em }
+      \dim_set:Nn \cfttabindent { 0pt }
+%    \end{macrocode}
+% 排版索引表。
+%    \begin{macrocode}
+      \@starttoc { lot }
+    \group_end:
+    \cleardoublepage
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\frontmatter}
 % \changes{v1.5.0.0}{2022/05/01}{设置封面页边距}
 % \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
@@ -4602,6 +4731,8 @@
     \@@_lang_switch:nn
       { \@@_zh_abstract_keywords: \@@_en_abstract_keywords: }
       { \@@_en_abstract_keywords: \@@_zh_abstract_keywords: }
+    \@@_list_of_figure:
+    \@@_list_of_table:
   }
 %    \end{macrocode}
 % \end{macro}
