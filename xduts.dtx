@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/05 v1.23.1.0 Xidian University TeX Suite]
+[2022/06/05 v1.24.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/05}{1.23.1.0}
+%<class|sty>  {2022/06/05}{1.24.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2287}
+% \CheckSum{2304}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -5160,6 +5160,27 @@
     \dim_set:Nn \parindent { 2 \ccwd }
     \rmfamily \zihao { -4 }
     \dim_set:Nn \baselineskip { 20pt }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\backmatter}
+% 排版正文后部分。
+%    \begin{macrocode}
+\renewcommand { \backmatter }
+  {
+%    \end{macrocode}
+% \changes{v1.24.0.0}{2022/06/05}{研究生学位论文致谢}
+% 致谢。
+%    \begin{macrocode}
+    \@@_n_chapter_head_toc:nn
+      { \@@_lang_switch:nn { 致谢            } { Acknowledgements } }
+      { \@@_lang_switch:nn { 致 { \quad } 谢 } { Acknowledgements } }
+    \group_begin:
+      \dim_set:Nn \parindent { 2 \ccwd }
+      \rmfamily \zihao { -4 }
+      \dim_set:Nn \baselineskip { 20pt }
+      \file_if_exist_input:n { \l_@@_ack_tl }
+    \group_end:
   }
 %    \end{macrocode}
 % \end{macro}
