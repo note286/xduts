@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/01 v1.21.0.0 Xidian University TeX Suite]
+[2022/06/05 v1.22.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/01}{1.21.0.0}
+%<class|sty>  {2022/06/05}{1.22.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -55,7 +55,7 @@
 \newcommand{\secrefx}[1]{第\xspace\ref{#1}\xspace 节}
 \newcommand{\tabrefx}[1]{\tablename\xspace\ref{#1}\xspace}
 % 文档类选项
-\newcommand{\optx}[1]{\xspace\opt{#1}\xspace}
+\newcommand{\optx}[1]{\xspace{\ttfamily\seqsplit{#1}}\xspace}
 % \name LaTeX3控制序列
 \newcommand{\csx}[1]{\xspace\cs{#1}\xspace}
 % \name 传统LaTeX2e命令
@@ -79,9 +79,9 @@
 % 文档类
 \newcommand{\clsx}[1]{\xspace\cls{#1}\xspace}
 % 值
-\newcommand{\valuex}[1]{\xspace\texttt{#1}\xspace}
+\newcommand{\valuex}[1]{\xspace{\ttfamily\seqsplit{#1}}\xspace}
 % 命令
-\newcommand{\cmdx}[1]{\xspace\texttt{#1}\xspace}
+\newcommand{\cmdx}[1]{\xspace{\ttfamily\seqsplit{#1}}\xspace}
 % 链接
 \newcommand{\footurl}[1]{\footnote{\url{#1}}}
 \newcommand{\ctanurl}[1]{\href{https://mirrors.ustc.edu.cn/CTAN/#1}{\ttfamily CTAN://#1}}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2144}
+% \CheckSum{2273}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -242,7 +242,9 @@
 % 请在最新版\LaTeX{}环境中使用最新版\xduts{}，
 % 认真阅读相应文档类/宏包使用说明章节即可使用\xduts{}。
 % \subsection{xdufont}
-% \pkgx{xdufont}宏包基于\pkgx{xeCJK}，相较于\pkgx{ctex}宏包的主要优势为默认支持宋体粗体、斜体，内置多种字体配置，可任意搭配中/英/数学字体，更加符合校内各种文档的撰写要求。
+% \pkgx{xdufont}宏包基于\pkgx{xeCJK}和\pkgx{unicode-math}，
+% 在中文字体配置方面相较于\pkgx{ctex}宏包的主要优势为默认支持宋体粗体、斜体，
+% 内置多种字体配置，可任意搭配中/英/数学字体，更加符合校内各种文档的撰写要求。
 % \par
 % \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置，具体的配置选项见\secrefx{字体选项}。\pkgx{xdufont}可以搭配任意文档类进行使用，例如：
 % \begin{latexexample}[moretexcs={\xdusetup},emph={[1]document}]
@@ -709,6 +711,57 @@
 %   \item[7] 七号
 %   \item[8] 八号
 % \end{optdesc}
+% \subsection{对照表配置}
+% \label{对照表配置}
+% \begin{function}[added=2022-06-05]{style/customize-los,style/customize-loa}
+%   \begin{syntax}
+%     \optx{style/customize-los}=\metax{(true)|false}
+%     \optx{style/customize-loa}=\metax{(true)|false}
+%   \end{syntax}
+% 是否完全自定义符号对照表和缩略语对照表。
+% \end{function}
+% \begin{optdesc}
+%   \item[true] 完全自定义符号对照表和缩略语对照表，对照表由用户自行排版。
+% 在\secrefx{信息录入}中提及的\optx{info/los}和\optx{info/loa}中对应的文件中可以通过表格或列表等方式实现对照表，例如：
+% \begin{latexexample}[emph={[1]tabular}]
+%   \begin{tabular}{ll}
+%     符号         & 符号名称 \\
+%     $\pi$        & 圆周率   \\
+%     $\mathbb{R}$ & 实数     \\
+%   \end{tabular}
+% \end{latexexample}
+%   \item[false] 使用内置的基于\envx{longtblr}环境（\pkgx{tabularray}宏包）实现的
+% 符号对照表和缩略语对照表样式。
+% 在\secrefx{信息录入}中提及的\optx{info/los}和\optx{info/loa}中对应的文件仅需填写相应列数的内容即可，例如：
+% \begin{latexexample}
+%   $\pi$        & 圆周率 \\
+%   $\mathbb{R}$ & 实数   \\
+% \end{latexexample}
+% \end{optdesc}
+% \begin{function}[added=2022-06-05]{style/colspec-los,style/colspec-loa}
+%   \begin{syntax}
+%     \optx{style/colspec-los}=\argx{符号对照表列格式}
+%     \optx{style/colspec-loa}=\argx{缩略语对照表列格式}
+%   \end{syntax}
+% 设置符号对照表和缩略语对照表列格式，
+% 符号对照表列格式默认值为\valuex{Q[l,m]X[l,m]}。
+% 缩略语对照表列格式默认值为\valuex{Q[l,m]X[l,m]X[l,m]}。
+% 语法参考\pkgx{tabularray}宏包\cmdx{colspec}选项。
+% 仅在\optx{style/customize-los}和\optx{style/customize-loa}等于\valuex{false}时有效。
+% \end{function}
+% \begin{function}[added=2022-06-05]{style/title-row-los,style/title-row-loa}
+%   \begin{syntax}
+%     \optx{style/title-row-los}=\metax{true|(false)}
+%     \optx{style/title-row-loa}=\metax{true|(false)}
+%   \end{syntax}
+% 是否每页均显示符号对照表和缩略语对照表标题行。
+% 仅在\optx{style/customize-los}和\optx{style/customize-loa}等于\valuex{false}时有效。
+% \end{function}
+% \begin{optdesc}
+%   \item[true] 每页均显示符号对照表和缩略语对照表标题行，
+% 要求在\secrefx{信息录入}中提及的\optx{info/los}和\optx{info/loa}中对应的文件内至少有一行内容。
+%   \item[false] 仅第一页显示显示符号对照表和缩略语对照表标题行。
+% \end{optdesc}
 % \subsection{附录环境}
 % \label{附录环境}
 % \begin{function}[added=2022-04-04]{appendixes}
@@ -782,6 +835,8 @@
 % abstract*                    & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % keywords                     & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % keywords*                    & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% los                          &        &        & \cmark & \cmark & \cmark & \cmark \\
+% loa                          &        &        & \cmark & \cmark & \cmark & \cmark \\
 % acknowledgements             & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % \end{tblr}
 % \changes{v1.9.0.0}{2022/05/03}{增加研究生信息录入选项文档}
@@ -942,6 +997,20 @@
 %     \optx{info/keywords*}=\argx{英文关键词}
 %   \end{syntax}
 % 设置关键词，关键词之间需要使用英文半角逗号隔开。
+% \end{function}
+% \changes{v1.22.0.0}{2022/06/05}{符号对照表文件路径}
+% \begin{function}[added=2022-06-05]{info/los}
+%   \begin{syntax}
+%     \optx{info/los}=\argx{符号对照表文件路径}
+%   \end{syntax}
+% 设置符号对照表文件路径。
+% \end{function}
+% \changes{v1.22.0.0}{2022/06/05}{缩略语对照表文件路径}
+% \begin{function}[added=2022-06-05]{info/loa}
+%   \begin{syntax}
+%     \optx{info/loa}=\argx{缩略语对照表文件路径}
+%   \end{syntax}
+% 设置缩略语对照表文件路径。
 % \end{function}
 % \begin{function}[added=2022-04-02]{info/acknowledgements}
 %   \begin{syntax}
@@ -2111,7 +2180,9 @@
 %     \l_@@_clc_str,
 %     \l_@@_secret_lv_str,
 %     \l_@@_secret_year_str,
-%     \l_@@_submit_date_str
+%     \l_@@_submit_date_str,
+%     \l_@@_los_str,
+%     \l_@@_loa_str
 %   }
 % 研究生类型。
 %    \begin{macrocode}
@@ -2179,6 +2250,14 @@
 % 提交日期。
 %    \begin{macrocode}
 \str_new:N \l_@@_submit_date_str
+%    \end{macrocode}
+% 符号对照表文件路径。
+%    \begin{macrocode}
+\str_new:N \l_@@_los_str
+%    \end{macrocode}
+% 缩略语对照表文件路径。
+%    \begin{macrocode}
+\str_new:N \l_@@_loa_str
 %    \end{macrocode}
 % \end{variable}
 % \begin{macro}{\keys_define:nn}
@@ -2255,7 +2334,15 @@
 %    \end{macrocode}
 % 提交日期。
 %    \begin{macrocode}
-    submit-date .tl_set:N = \l_@@_submit_date_str
+    submit-date .tl_set:N = \l_@@_submit_date_str,
+%    \end{macrocode}
+% 符号对照表文件路径。
+%    \begin{macrocode}
+    los .tl_set:N = \l_@@_los_str,
+%    \end{macrocode}
+% 缩略语对照表文件路径。
+%    \begin{macrocode}
+    loa .tl_set:N = \l_@@_loa_str
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2284,7 +2371,9 @@
     info / clc                          = { },
     info / secret-level                 = { 公开 },
     info / secret-year                  = { },
-    info / submit-date                  = { }
+    info / submit-date                  = { },
+    info / los                          = { },
+    info / loa                          = { }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2509,8 +2598,92 @@
 % \end{macro}
 %    \begin{macrocode}
 %</thesis>
+%<*xdupgthesis>
 %    \end{macrocode}
+% \changes{v1.22.0.0}{2022/06/05}{对照表样式配置}
+% \subsection{对照表样式配置}
+% \begin{variable}
+%   {
+%     \l_@@_customize_los_bool,
+%     \l_@@_customize_loa_bool,
+%     \l_@@_colspec_los_tl,
+%     \l_@@_colspec_loa_tl,
+%     \l_@@_title_row_los_bool,
+%     \l_@@_title_row_los_bool,
+%   }
+% 是否完全自定义符号对照。
 %    \begin{macrocode}
+\bool_new:N \l_@@_customize_los_bool
+%    \end{macrocode}
+% 是否完全自定义缩略语对照表。
+%    \begin{macrocode}
+\bool_new:N \l_@@_customize_loa_bool
+%    \end{macrocode}
+% 符号对照表列格式。
+%    \begin{macrocode}
+\tl_new:N \l_@@_colspec_los_tl
+%    \end{macrocode}
+% 缩略语对照表列格式。
+%    \begin{macrocode}
+\tl_new:N \l_@@_colspec_loa_tl
+%    \end{macrocode}
+% 是否每页均显示符号对照表标题行。
+%    \begin{macrocode}
+\bool_new:N \l_@@_title_row_los_bool
+%    \end{macrocode}
+% 是否每页均显示缩略语对照表标题行。
+%    \begin{macrocode}
+\bool_new:N \l_@@_title_row_loa_bool
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\keys_define:nn}
+% 定义信息键值。
+%    \begin{macrocode}
+\keys_define:nn { xdu / style }
+  {
+%    \end{macrocode}
+% 是否完全自定义符号对照。
+%    \begin{macrocode}
+    customize-los .bool_set:N = \l_@@_customize_los_bool,
+%    \end{macrocode}
+% 是否完全自定义缩略语对照表。
+%    \begin{macrocode}
+    customize-loa .bool_set:N = \l_@@_customize_loa_bool,
+%    \end{macrocode}
+% 符号对照表列格式。
+%    \begin{macrocode}
+    colspec-los .tl_set:N = \l_@@_colspec_los_tl,
+%    \end{macrocode}
+% 缩略语对照表列格式。
+%    \begin{macrocode}
+    colspec-loa .tl_set:N = \l_@@_colspec_loa_tl,
+%    \end{macrocode}
+% 是否每页均显示符号对照表标题行。
+%    \begin{macrocode}
+    title-row-los .bool_set:N = \l_@@_title_row_los_bool,
+%    \end{macrocode}
+% 是否每页均显示缩略语对照表标题行。
+%    \begin{macrocode}
+    title-row-loa .bool_set:N = \l_@@_title_row_loa_bool
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\keys_set:nn}
+% 初始设置。
+%    \begin{macrocode}
+\keys_set:nn { xdu }
+  {
+    style / customize-los = { true               },
+    style / customize-loa = { true               },
+    style / colspec-los   = { Q[l,m]X[l,m]       },
+    style / colspec-loa   = { Q[l,m]X[l,m]X[l,m] },
+    style / title-row-los = { false              },
+    style / title-row-loa = { false              }
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</xdupgthesis>
 %<*class|xdufont>
 %    \end{macrocode}
 % \subsection{键值选项}
@@ -4605,7 +4778,7 @@
 \cs_new:Npn \@@_list_of_figure:
   {
     \@@_n_chapter_head:n
-      { \@@_lang_switch:nn { 插图索引 } { List of Figures } }
+      { \@@_lang_switch:nn { 插图索引 } { List~of~Figures } }
     \group_begin:
       \addtocontents { lof } { \vspace { 10pt } }
       \renewcommand { \addvspace } [1] { }
@@ -4640,7 +4813,7 @@
 \cs_new:Npn \@@_list_of_table:
   {
     \@@_n_chapter_head:n
-      { \@@_lang_switch:nn { 表格索引 } { List of Tables } }
+      { \@@_lang_switch:nn { 表格索引 } { List~of~Tables } }
     \group_begin:
       \addtocontents { lot } { \vspace { 10pt } }
       \renewcommand { \addvspace } [1] { }
@@ -4665,6 +4838,144 @@
       \@starttoc { lot }
     \group_end:
     \cleardoublepage
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\UseTblrLibrary,\NewTblrTheme}
+% \changes{v1.22.0.0}{2022/06/05}{对照表样式}
+% 对照表样式。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \bool_new:N \l_@@_load_tabularray_bool
+    \bool_if:NF \l_@@_customize_los_bool
+      { \bool_set_true:N \l_@@_load_tabularray_bool }
+    \bool_if:NF \l_@@_customize_loa_bool
+      { \bool_set_true:N \l_@@_load_tabularray_bool }
+    \bool_if:NT \l_@@_load_tabularray_bool
+      {
+        \RequirePackage { tabularray }
+        \UseTblrLibrary { functional }
+        \NewTblrTheme { losloatheme }
+          {
+            \DefTblrTemplate { caption-tag   } { default } { }
+            \DefTblrTemplate { caption-sep   } { default } { }
+            \DefTblrTemplate { caption-text  } { default } { }
+            \DefTblrTemplate { conthead-text } { default } { }
+            \DefTblrTemplate { contfoot-text } { default } { }
+          }
+      }
+    \cs_generate_variant:Nn \__tblr_parse_colrow_spec:nn { nV }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_symbols_list:}
+% \changes{v1.22.0.0}{2022/06/05}{符号对照表}
+% 符号对照表。
+%    \begin{macrocode}
+\cs_new:Npn \@@_symbols_list:
+  {
+    \@@_n_chapter_head:n
+      { \@@_lang_switch:nn { 符号对照表 } { List~of~Symbols } }
+%    \end{macrocode}
+% 是否完全自定义符号对照表。
+%    \begin{macrocode}
+    \bool_if:NTF \l_@@_customize_los_bool
+      { \file_if_exist_input:n { \l_@@_los_str } }
+      {
+%    \end{macrocode}
+% 配置符号对照表标题行。
+%    \begin{macrocode}
+        \tl_new:N \l_@@_los_head_tl
+        \@@_lang_switch:nn
+          { \tl_set:Nn \l_@@_los_head_tl { 符号 & 符号名称 \\        } }
+          { \tl_set:Nn \l_@@_los_head_tl { Notation & Description \\ } }
+%    \end{macrocode}
+% 是否每页均显示符号对照表标题行。
+%    \begin{macrocode}
+        \tl_new:N \l_@@_los_rowhead_tl
+        \bool_if:NTF \l_@@_title_row_los_bool
+          { \tl_set:Nn \l_@@_los_rowhead_tl { 1 } }
+          { \tl_set:Nn \l_@@_los_rowhead_tl { 0 } }
+%    \end{macrocode}
+% 使用\envx{longtblr}环境排版符号对照表。
+%    \begin{macrocode}
+        \begin { longtblr }
+          [
+            evaluate = \FileIfExistInput,
+            expand   = \l_@@_los_head_tl,
+            theme    = losloatheme
+          ]
+          {
+            rowhead = \l_@@_los_rowhead_tl,
+            rows    = { font = \rmfamily \zihao { -4 } } ,
+            stretch = -1,
+            rowsep  = { 3pt } ,
+            rows    = { ht = 14pt }
+          }
+          \__tblr_parse_colrow_spec:nV { column } \l_@@_colspec_los_tl
+          \l_@@_los_head_tl
+          \FileIfExistInput { \l_@@_los_str }
+        \end { longtblr }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_abbreviations_list:}
+% \changes{v1.22.0.0}{2022/06/05}{缩略语对照表}
+% 缩略语对照表。
+%    \begin{macrocode}
+\cs_new:Npn \@@_abbreviations_list:
+  {
+    \@@_n_chapter_head:n
+      { \@@_lang_switch:nn { 缩略语对照表 } { List~of~Abbreviations } }
+%    \end{macrocode}
+% 是否完全自定义缩略语对照表。
+%    \begin{macrocode}
+    \bool_if:NTF \l_@@_customize_loa_bool
+      { \file_if_exist_input:n { \l_@@_loa_str } }
+      {
+%    \end{macrocode}
+% 配置缩略语对照表标题行。
+%    \begin{macrocode}
+        \tl_new:N \l_@@_loa_head_tl
+        \@@_lang_switch:nn
+          {
+            \tl_set:Nn \l_@@_loa_head_tl
+              { 缩略语 & 英文全称 & 中文对照 \\ }
+          }
+          {
+            \tl_set:Nn \l_@@_loa_head_tl
+              { Abbreviation & English~Full~Name & Chinese~Full~Name \\ }
+          }
+%    \end{macrocode}
+% 是否每页均显示缩略语对照表标题行。
+%    \begin{macrocode}
+        \tl_new:N \l_@@_loa_rowhead_tl
+        \bool_if:NTF \l_@@_title_row_loa_bool
+          { \tl_set:Nn \l_@@_loa_rowhead_tl { 1 } }
+          { \tl_set:Nn \l_@@_loa_rowhead_tl { 0 } }
+%    \end{macrocode}
+% 使用\envx{longtblr}环境排版缩略语对照表。
+%    \begin{macrocode}
+        \begin { longtblr }
+          [
+            evaluate = \FileIfExistInput,
+            expand   = \l_@@_loa_head_tl,
+            theme    = losloatheme
+          ]
+          {
+            rowhead = \l_@@_loa_rowhead_tl,
+            rows    = { font = \rmfamily \zihao { -4 } } ,
+            stretch = -1,
+            rowsep  = { 3pt } ,
+            rows    = { ht = 14pt }
+          }
+          \__tblr_parse_colrow_spec:nV { column } \l_@@_colspec_loa_tl
+          \l_@@_loa_head_tl
+          \FileIfExistInput { \l_@@_loa_str }
+        \end { longtblr }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4733,6 +5044,8 @@
       { \@@_en_abstract_keywords: \@@_zh_abstract_keywords: }
     \@@_list_of_figure:
     \@@_list_of_table:
+    \@@_symbols_list:
+    \@@_abbreviations_list:
   }
 %    \end{macrocode}
 % \end{macro}
