@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/05 v1.25.0.0 Xidian University TeX Suite]
+[2022/06/07 v1.26.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/05}{1.25.0.0}
+%<class|sty>  {2022/06/07}{1.26.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2329}
+% \CheckSum{2406}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -762,6 +762,69 @@
 % 要求在\secrefx{信息录入}中提及的\optx{info/los}和\optx{info/loa}中对应的文件内至少有一行内容。
 %   \item[false] 仅第一页显示显示符号对照表和缩略语对照表标题行。
 % \end{optdesc}
+% \changes{v1.26.0.0}{2022/06/07}{作者简介配置}
+% \subsection{作者简介配置}
+% \label{作者简介配置}
+% \begin{function}[added=2022-06-07]{style/customize-edubg,style/customize-resresult}
+%   \begin{syntax}
+%     \optx{style/customize-edubg}=\metax{(true)|false}
+%     \optx{style/customize-resresult}=\metax{(true)|false}
+%   \end{syntax}
+% 是否完全自定义作者简介中教育背景和攻读硕士学位期间的研究成果。
+% \end{function}
+% \begin{optdesc}
+%   \item[true] 完全自定义作者简介中教育背景和攻读硕士学位期间的研究成果，由用户自行排版。
+% 在\secrefx{信息录入}中提及的\optx{info/bio}中对应的文件中
+% 可以通过段落、表格或列表等方式排版教育背景和攻读硕士学位期间的研究成果，例如：
+% \begin{latexexample}[moretexcs={\subsection}]
+%   \section{基本情况}
+%   张三，男，陕西西安人，1982年8月出生，西安电子科技大学XX学院XX专业2008级硕士研究生。
+%   \section{教育背景}
+%   2001.08～2005.07 西安电子科技大学，本科，专业：电子信息工程
+%   \par
+%   2008.08～ 西安电子科技大学，硕士研究生，专业：电磁场与微波技术
+%   \section{攻读硕士学位期间的研究成果}
+%   \subsection{发表学术论文}
+%   [1] XXX, XXX, XXX. Rapid development technique for drip irrigation emitters[J]. RP Journal,UK.,2003,9(2): 104-110.(SCI: 672CZ, EI: 03187452127)
+%   \par
+%   [2] XXX, XXX, XXX. 基于快速成型制造的滴管快速制造技术研究[J]. 西安交通大学学报, 2001, 15(9): 935-939. (EI: 02226959521)
+%   \subsection{申请（授权）专利}
+%   [1] XXX, XXX, XXX等. 专利名称: 国别,专利号[P]. 出版日期.
+%   \subsection{参与科研项目及获奖}
+%   \begin{resresult}
+%   [1] XXX项目, 项目名称, 起止时间, 完成情况, 作者贡献。
+%   \par
+%   [2] XXX, XXX, XXX等. 科研项目名称. 陕西省科技进步三等奖, 获奖日期.
+% \end{latexexample}
+%   \item[false] 使用内置的基于\envx{tblr}环境（\pkgx{tabularray}宏包）实现的
+% 教育背景表格环境\envx{edubg}和基于\envx{enumerate}环境（\pkgx{enumitem}宏包）实现的
+% 攻读硕士学位期间的研究成果列表环境\envx{resresult}。
+% 在\secrefx{信息录入}中提及的\optx{info/bio}中对应的文件中使用\envx{edubg}和\envx{resresult}环境即可，例如：
+% \begin{latexexample}[moretexcs={\subsection},emph={[1]edubg,resresult}]
+%   \section{基本情况}
+%   张三，男，陕西西安人，1982年8月出生，西安电子科技大学XX学院XX专业2008级硕士研究生。
+%   \section{教育背景}
+%   \begin{edubg}
+%   2001.08～2005.07 & 西安电子科技大学，本科，专业：电子信息工程\\
+%   2008.08～ & 西安电子科技大学，硕士研究生，专业：电磁场与微波技术\\
+%   \end{edubg}
+%   \section{攻读硕士学位期间的研究成果}
+%   \subsection{发表学术论文}
+%   \begin{resresult}
+%   \item XXX, XXX, XXX. Rapid development technique for drip irrigation emitters[J]. RP Journal,UK.,2003,9(2): 104-110.(SCI: 672CZ, EI: 03187452127)
+%   \item XXX, XXX, XXX. 基于快速成型制造的滴管快速制造技术研究[J]. 西安交通大学学报, 2001, 15(9): 935-939. (EI: 02226959521)
+%   \end{resresult}
+%   \subsection{申请（授权）专利}
+%   \begin{resresult}
+%   \item XXX, XXX, XXX等. 专利名称: 国别,专利号[P]. 出版日期.
+%   \end{resresult}
+%   \subsection{参与科研项目及获奖}
+%   \begin{resresult}
+%   \item XXX项目, 项目名称, 起止时间, 完成情况, 作者贡献。
+%   \item XXX, XXX, XXX等. 科研项目名称. 陕西省科技进步三等奖, 获奖日期.
+%   \end{resresult}
+% \end{latexexample}
+% \end{optdesc}
 % \subsection{附录环境}
 % \label{附录环境}
 % \begin{function}[added=2022-04-04]{appendixes}
@@ -838,6 +901,7 @@
 % los                          &        &        & \cmark & \cmark & \cmark & \cmark \\
 % loa                          &        &        & \cmark & \cmark & \cmark & \cmark \\
 % acknowledgements             & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% bio                          &        &        & \cmark & \cmark & \cmark & \cmark \\
 % \end{tblr}
 % \changes{v1.9.0.0}{2022/05/03}{增加研究生信息录入选项文档}
 % \begin{function}[added=2022-05-02,updated=2022-05-03]{info/graduate-type}
@@ -1017,6 +1081,12 @@
 %     \optx{info/acknowledgements}=\argx{致谢文件路径}
 %   \end{syntax}
 % 设置致谢文件路径，相应文件内仅撰写致谢内容，无需任何环境。
+% \end{function}
+% \begin{function}[added=2022-06-07]{info/bio}
+%   \begin{syntax}
+%     \optx{info/bio}=\argx{作者简介路径}
+%   \end{syntax}
+% 设置作者简介文件路径，文件内容可参考\secrefx{作者简介配置}中的示例。
 % \end{function}
 % \subsection{额外命令}
 % \label{额外命令}
@@ -2182,7 +2252,8 @@
 %     \l_@@_secret_year_str,
 %     \l_@@_submit_date_str,
 %     \l_@@_los_str,
-%     \l_@@_loa_str
+%     \l_@@_loa_str,
+%     \l_@@_bio_str
 %   }
 % 研究生类型。
 %    \begin{macrocode}
@@ -2258,6 +2329,10 @@
 % 缩略语对照表文件路径。
 %    \begin{macrocode}
 \str_new:N \l_@@_loa_str
+%    \end{macrocode}
+% 作者简介文件路径。
+%    \begin{macrocode}
+\str_new:N \l_@@_bio_str
 %    \end{macrocode}
 % \end{variable}
 % \begin{macro}{\keys_define:nn}
@@ -2342,7 +2417,11 @@
 %    \end{macrocode}
 % 缩略语对照表文件路径。
 %    \begin{macrocode}
-    loa .tl_set:N = \l_@@_loa_str
+    loa .tl_set:N = \l_@@_loa_str,
+%    \end{macrocode}
+% 作者简介文件路径。
+%    \begin{macrocode}
+    bio .tl_set:N = \l_@@_bio_str
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2373,7 +2452,8 @@
     info / secret-year                  = { },
     info / submit-date                  = { },
     info / los                          = { },
-    info / loa                          = { }
+    info / loa                          = { },
+    info / bio                          = { }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2679,6 +2759,48 @@
     style / colspec-loa   = { Q[l,m]X[l,m]X[l,m] },
     style / title-row-los = { false              },
     style / title-row-loa = { false              }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \changes{v1.26.0.0}{2022/06/07}{作者简介样式配置}
+% \subsection{作者简介样式配置}
+% \begin{variable}
+%   {
+%     \l_@@_customize_edubg_bool,
+%     \l_@@_customize_resresult_bool
+%   }
+% 是否完全自定义作者简介中教育背景。
+%    \begin{macrocode}
+\bool_new:N \l_@@_customize_edubg_bool
+%    \end{macrocode}
+% 是否完全自定义作者简介中攻读硕士学位期间的研究成果。
+%    \begin{macrocode}
+\bool_new:N \l_@@_customize_resresult_bool
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\keys_define:nn}
+% 定义信息键值。
+%    \begin{macrocode}
+\keys_define:nn { xdu / style }
+  {
+%    \end{macrocode}
+% 是否完全自定义作者简介中教育背景。
+%    \begin{macrocode}
+    customize-edubg .bool_set:N = \l_@@_customize_edubg_bool,
+%    \end{macrocode}
+% 是否完全自定义作者简介中攻读硕士学位期间的研究成果。
+%    \begin{macrocode}
+    customize-resresult .bool_set:N = \l_@@_customize_resresult_bool
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\keys_set:nn}
+% 初始设置。
+%    \begin{macrocode}
+\keys_set:nn { xdu }
+  {
+    style / customize-edubg     = { true },
+    style / customize-resresult = { true }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5163,6 +5285,61 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\RequirePackage,\newenvironment}
+% \changes{v1.26.0.0}{2022/06/07}{作者简介样式}
+% 作者简介样式。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+%    \end{macrocode}
+% 计算列表和表格缩进距离。
+%    \begin{macrocode}
+      \dim_new:N \l_@@_bio_indent_dim
+      \box_new:N \l_@@_bio_indent_box
+      \hbox_set:Nn \l_@@_bio_indent_box { \rmfamily \zihao { -3 } \bfseries 1. \quad}
+      \dim_set:Nn \l_@@_bio_indent_dim {\box_wd:N \l_@@_bio_indent_box}
+%    \end{macrocode}
+% 定义教育背景表格环境。
+%    \begin{macrocode}
+    \bool_if:NF \l_@@_customize_edubg_bool
+      {
+        \RequirePackage { tabularray }
+        \newenvironment { edubg }
+          {
+            \dim_set:Nn \parindent { 0pt }
+            \begin{tblr}
+              {
+                colspec = { @{ \skip_horizontal:N \l_@@_bio_indent_dim } lX @{ } },
+                rows    = { font = \zihao { -4 } \dim_set:Nn \baselineskip { 20pt } }
+              }
+          }
+          {
+            \end{tblr}
+            \dim_set:Nn \parindent { 2 \ccwd }
+          }
+      }
+%    \end{macrocode}
+% 定义研究成果列表。
+%    \begin{macrocode}
+    \bool_if:NF \l_@@_customize_resresult_bool
+      {
+        \RequirePackage { enumitem }
+        \SetEnumitemKey { resresult }
+          {
+            label   = {[}\arabic*{]},
+            left    = \l_@@_bio_indent_dim,
+            align   = right,
+            parsep  = 0pt,
+            itemsep = 0pt,
+            topsep  = 0pt
+          }
+        \newenvironment { resresult }
+          { \begin { enumerate } [ resresult ] }
+          { \end { enumerate } }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\backmatter}
 % 排版正文后部分。
 %    \begin{macrocode}
@@ -5204,6 +5381,32 @@
       \rmfamily \zihao { -4 }
       \dim_set:Nn \baselineskip { 20pt }
       \file_if_exist_input:n { \l_@@_ack_tl }
+    \group_end:
+%    \end{macrocode}
+% \changes{v1.26.0.0}{2022/06/07}{研究生学位论文作者简介}
+% 作者简介。
+%    \begin{macrocode}
+    \@@_n_chapter_head_toc:n
+      { \@@_lang_switch:nn { 作者简介 } { Author~Biography } }
+    \group_begin:
+      \dim_set:Nn \parindent { 2 \ccwd }
+      \rmfamily \zihao { -4 }
+      \dim_set:Nn \baselineskip { 20pt }
+%    \end{macrocode}
+% 配置作者简介部分标题样式。
+%    \begin{macrocode}
+      \ctexset
+        {
+            section    / number = { \arabic { section } . },
+            section    / format = { \rmfamily \zihao { -3 } \bfseries \raggedright },
+            subsection / number = { \arabic { section } . \arabic { subsection } },
+            subsection / format = { \rmfamily \zihao { 4 } \bfseries \raggedright },
+            subsection / indent = { \l_@@_bio_indent_dim }
+        }
+%    \end{macrocode}
+% 作者简介文件。
+%    \begin{macrocode}
+      \file_if_exist_input:n { \l_@@_bio_str }
     \group_end:
   }
 %    \end{macrocode}
