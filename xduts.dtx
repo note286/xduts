@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/07 v1.26.0.0 Xidian University TeX Suite]
+[2022/06/07 v1.26.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/07}{1.26.0.0}
+%<class|sty>  {2022/06/07}{1.26.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2406}
+% \CheckSum{2410}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4649,6 +4649,7 @@
 % \end{macro}
 % \begin{macro}{\@@_en_title_page:}
 % \changes{v1.18.0.0}{2022/05/29}{英文提名页}
+% \changes{v1.26.1.0}{2022/06/07}{修复作者拼音为空无法编译}
 % 英文提名页。
 %    \begin{macrocode}
 \cs_new:Npn \@@_en_title_page:
@@ -4680,7 +4681,10 @@
         \rmfamily \zihao { 3 } \centering
         \dim_set:Nn \baselineskip { 30pt }
         By\\
-        \l_@@_author_en_str\\
+        \l_@@_author_en_str
+        \str_if_empty:NTF \l_@@_author_en_str
+          { \skip_vertical:N \baselineskip }
+          { \\ }
         Supervisor:~\@@_en_title_supv:n { \l_@@_supv_en_str }
         Title:~\@@_en_title_supv_t:n { \l_@@_supv_t_en_str } \\
         \str_if_empty:NF \l_@@_supv_ii_str
