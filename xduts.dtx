@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/07 v1.26.1.0 Xidian University TeX Suite]
+[2022/06/09 v1.26.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/07}{1.26.1.0}
+%<class|sty>  {2022/06/09}{1.26.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2410}
+% \CheckSum{2426}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4997,6 +4997,7 @@
 % \end{macro}
 % \begin{macro}{\@@_symbols_list:}
 % \changes{v1.22.0.0}{2022/06/05}{符号对照表}
+% \changes{v1.26.2.0}{2022/06/09}{修复符号对照表列格式解析错误}
 % 符号对照表。
 %    \begin{macrocode}
 \cs_new:Npn \@@_symbols_list:
@@ -5026,20 +5027,31 @@
 %    \end{macrocode}
 % 使用\envx{longtblr}环境排版符号对照表。
 %    \begin{macrocode}
-        \begin { longtblr }
-          [
-            evaluate = \FileIfExistInput,
-            expand   = \l_@@_los_head_tl,
-            theme    = losloatheme
-          ]
+        \tl_new:N \l_@@_los_begin_tblr_tl
+        \tl_set:Nx \l_@@_los_begin_tblr_tl
           {
-            rowhead = \l_@@_los_rowhead_tl,
-            rows    = { font = \rmfamily \zihao { -4 } } ,
-            stretch = -1,
-            rowsep  = { 3pt } ,
-            rows    = { ht = 14pt }
+            \exp_not:n
+              {
+                \begin { longtblr }
+                  [
+                    evaluate = \FileIfExistInput,
+                    expand   = \l_@@_los_head_tl,
+                    theme    = losloatheme
+                  ]
+              }
+              {
+                colspec = { \exp_not:V \l_@@_colspec_los_tl },
+                \exp_not:n
+                  {
+                    rowhead = \l_@@_los_rowhead_tl,
+                    rows    = { font = \rmfamily \zihao { -4 } } ,
+                    stretch = -1,
+                    rowsep  = { 3pt } ,
+                    rows    = { ht = 14pt }
+                  }
+              }
           }
-          \__tblr_parse_colrow_spec:nV { column } \l_@@_colspec_los_tl
+        \tl_use:N \l_@@_los_begin_tblr_tl
           \l_@@_los_head_tl
           \FileIfExistInput { \l_@@_los_str }
         \end { longtblr }
@@ -5049,6 +5061,7 @@
 % \end{macro}
 % \begin{macro}{\@@_abbreviations_list:}
 % \changes{v1.22.0.0}{2022/06/05}{缩略语对照表}
+% \changes{v1.26.2.0}{2022/06/09}{修复缩略语对照表列格式解析错误}
 % 缩略语对照表。
 %    \begin{macrocode}
 \cs_new:Npn \@@_abbreviations_list:
@@ -5084,20 +5097,31 @@
 %    \end{macrocode}
 % 使用\envx{longtblr}环境排版缩略语对照表。
 %    \begin{macrocode}
-        \begin { longtblr }
-          [
-            evaluate = \FileIfExistInput,
-            expand   = \l_@@_loa_head_tl,
-            theme    = losloatheme
-          ]
+        \tl_new:N \l_@@_loa_begin_tblr_tl
+        \tl_set:Nx \l_@@_loa_begin_tblr_tl
           {
-            rowhead = \l_@@_loa_rowhead_tl,
-            rows    = { font = \rmfamily \zihao { -4 } } ,
-            stretch = -1,
-            rowsep  = { 3pt } ,
-            rows    = { ht = 14pt }
+            \exp_not:n
+              {
+                \begin { longtblr }
+                  [
+                    evaluate = \FileIfExistInput,
+                    expand   = \l_@@_loa_head_tl,
+                    theme    = losloatheme
+                  ]
+              }
+              {
+                colspec = { \exp_not:V \l_@@_colspec_loa_tl },
+                \exp_not:n
+                  {
+                    rowhead = \l_@@_loa_rowhead_tl,
+                    rows    = { font = \rmfamily \zihao { -4 } } ,
+                    stretch = -1,
+                    rowsep  = { 3pt } ,
+                    rows    = { ht = 14pt }
+                  }
+              }
           }
-          \__tblr_parse_colrow_spec:nV { column } \l_@@_colspec_loa_tl
+        \tl_use:N \l_@@_loa_begin_tblr_tl
           \l_@@_loa_head_tl
           \FileIfExistInput { \l_@@_loa_str }
         \end { longtblr }
