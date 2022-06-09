@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/09 v1.26.2.0 Xidian University TeX Suite]
+[2022/06/09 v1.26.3.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/09}{1.26.2.0}
+%<class|sty>  {2022/06/09}{1.26.3.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -4998,6 +4998,7 @@
 % \begin{macro}{\@@_symbols_list:}
 % \changes{v1.22.0.0}{2022/06/05}{符号对照表}
 % \changes{v1.26.2.0}{2022/06/09}{修复符号对照表列格式解析错误}
+% \changes{v1.26.3.0}{2022/06/09}{修复符号对照表文件导入接口}
 % 符号对照表。
 %    \begin{macrocode}
 \cs_new:Npn \@@_symbols_list:
@@ -5034,7 +5035,7 @@
               {
                 \begin { longtblr }
                   [
-                    evaluate = \FileIfExistInput,
+                    evaluate = \fileIfExistInput,
                     expand   = \l_@@_los_head_tl,
                     theme    = losloatheme
                   ]
@@ -5044,16 +5045,16 @@
                 \exp_not:n
                   {
                     rowhead = \l_@@_los_rowhead_tl,
-                    rows    = { font = \rmfamily \zihao { -4 } } ,
+                    rows    = { font = \rmfamily \zihao { -4 } },
                     stretch = -1,
-                    rowsep  = { 3pt } ,
+                    rowsep  = { 3pt },
                     rows    = { ht = 14pt }
                   }
               }
           }
         \tl_use:N \l_@@_los_begin_tblr_tl
           \l_@@_los_head_tl
-          \FileIfExistInput { \l_@@_los_str }
+          \fileIfExistInput { \l_@@_los_str }
         \end { longtblr }
       }
   }
@@ -5062,6 +5063,7 @@
 % \begin{macro}{\@@_abbreviations_list:}
 % \changes{v1.22.0.0}{2022/06/05}{缩略语对照表}
 % \changes{v1.26.2.0}{2022/06/09}{修复缩略语对照表列格式解析错误}
+% \changes{v1.26.3.0}{2022/06/09}{修复缩略语对照表文件导入接口}
 % 缩略语对照表。
 %    \begin{macrocode}
 \cs_new:Npn \@@_abbreviations_list:
@@ -5104,7 +5106,7 @@
               {
                 \begin { longtblr }
                   [
-                    evaluate = \FileIfExistInput,
+                    evaluate = \fileIfExistInput,
                     expand   = \l_@@_loa_head_tl,
                     theme    = losloatheme
                   ]
@@ -5114,16 +5116,16 @@
                 \exp_not:n
                   {
                     rowhead = \l_@@_loa_rowhead_tl,
-                    rows    = { font = \rmfamily \zihao { -4 } } ,
+                    rows    = { font = \rmfamily \zihao { -4 } },
                     stretch = -1,
-                    rowsep  = { 3pt } ,
+                    rowsep  = { 3pt },
                     rows    = { ht = 14pt }
                   }
               }
           }
         \tl_use:N \l_@@_loa_begin_tblr_tl
           \l_@@_loa_head_tl
-          \FileIfExistInput { \l_@@_loa_str }
+          \fileIfExistInput { \l_@@_loa_str }
         \end { longtblr }
       }
   }
