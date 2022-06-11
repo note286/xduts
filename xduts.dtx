@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/10 v1.26.5.0 Xidian University TeX Suite]
+[2022/06/11 v1.26.6.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/10}{1.26.5.0}
+%<class|sty>  {2022/06/11}{1.26.6.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2501}
+% \CheckSum{2567}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4385,32 +4385,6 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_cover_iiii:nnnn}
-% \changes{v1.17.0.0}{2022/05/28}{绘制研究生中文提名页底部部信息}
-% 绘制研究生中文提名页底部部信息。
-% \begin{arguments}
-%   \item 标签宽度。
-%   \item 标签名称。
-%   \item 值宽度。
-%   \item 值内容。
-% \end{arguments}
-%    \begin{macrocode}
-\cs_new:Npn \@@_cover_iiii:n #1
-  {
-    \dim_set:Nn \baselineskip { 20pt }
-    \vbox_to_ht:nn { 30pt }
-      {
-        \vfill
-        \hbox:n
-          {
-            \rmfamily \zihao { 4 } \bfseries
-            \skip_horizontal:n { 10em }
-            #1
-          }
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
 % \begin{macro}{\@@_en_month:n}
 % \changes{v1.18.0.0}{2022/05/29}{英文月份}
 % 英文月份。
@@ -4613,63 +4587,115 @@
 % 论文标题。
 %    \begin{macrocode}
     \skip_vertical:n { 87.5pt }
-    \vbox_to_ht:nn { 125pt }
+    \vbox_to_ht:nn { 150pt }
       {
         \rmfamily \zihao { 2 } \bfseries \centering
         \dim_set:Nn \baselineskip { 30pt }
         \l_@@_title_str
       }
 %    \end{macrocode}
-% 底部信息。
+% \changes{v1.26.6.0}{2022/06/11}{研究生中文提名页底部信息宽度测量}
+% 底部信息宽度测量。
 %    \begin{macrocode}
-    \@@_cover_iiii:n { 作者姓名：\l_@@_author_str }
+    \rmfamily \zihao { 4 } \bfseries
+    \dim_new:N \l_@@_zh_title_page_info_dim
+    \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+      { 作者姓名：\l_@@_author_str }
     \bool_if:NTF \l_@@_ac
       {
-        \@@_cover_iiii:n { 一级学科：\l_@@_major_str }
-        \@@_cover_iiii:n { 二级学科（研究方向）：\l_@@_sub_major_str }
+        \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+          { 一级学科：\l_@@_major_str }
+        \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+          { 二级学科（研究方向）：\l_@@_sub_major_str }
       }
       {
-        \@@_cover_iiii:n { 领\qquad{}域：\l_@@_domain_str }
-        }
-    \@@_cover_iiii:n { 学位类别：\l_@@_degree_str }
+        \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+          { 领\qquad{}域：\l_@@_domain_str }
+      }
+      \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+        { 学位类别：\l_@@_degree_str }
     \bool_if:NTF \l_@@_pro_master
       {
-        \@@_cover_iiii:n
-          {
-            学校导师姓名、职称：
-            \l_@@_supv_str \enskip \l_@@_supv_t_str
-          }
+        \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+          { 学校导师姓名、职称：\l_@@_supv_str \enskip \l_@@_supv_t_str }
         \str_if_empty:NF \l_@@_supv_ii_str
           {
-            \@@_cover_iiii:n
+            \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+              { 学校导师姓名、职称：\l_@@_supv_ii_str \enskip \l_@@_supv_ii_t_str }
+          }
+        \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+          { 企业导师姓名、职称：\l_@@_supv_ent_str \enskip \l_@@_supv_ent_t_str }
+      }
+      {
+        \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+          { 指导教师姓名、职称：\l_@@_supv_str \enskip \l_@@_supv_t_str }
+        \str_if_empty:NF \l_@@_supv_ii_str
+          {
+            \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+              { 指导教师姓名、职称：\l_@@_supv_ii_str \enskip \l_@@_supv_ii_t_str }
+          }
+      }
+    \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+      { 学\qquad{}院：\l_@@_dept_str }
+    \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
+      { 提交日期：\@@_zh_submit_date: }
+%    \end{macrocode}
+% \changes{v1.26.6.0}{2022/06/11}{研究生中文提名页底部信息自动居中}
+% 底部信息。
+%    \begin{macrocode}
+    \dim_new:N \l_@@_zh_title_page_info_skip_dim
+    \dim_set_eq:NN \l_@@_zh_title_page_info_skip_dim \linewidth
+    \dim_sub:Nn \l_@@_zh_title_page_info_skip_dim { \l_@@_zh_title_page_info_dim }
+    \skip_horizontal:n { \dim_eval:n { \l_@@_zh_title_page_info_skip_dim / 2 } }
+    \vbox:n
+      {
+        \rmfamily \zihao { 4 } \bfseries
+        \dim_set:Nn \baselineskip { 32pt }
+        作者姓名：\l_@@_author_str
+        \bool_if:NTF \l_@@_ac
+          {
+            \par
+            一级学科：\l_@@_major_str
+            \par
+            二级学科（研究方向）：\l_@@_sub_major_str
+          }
+          {
+            \par
+            领\qquad{}域：\l_@@_domain_str
+          }
+        \par
+        学位类别：\l_@@_degree_str
+        \bool_if:NTF \l_@@_pro_master
+          {
+            \par
+            学校导师姓名、职称：
+            \l_@@_supv_str \enskip \l_@@_supv_t_str
+            \str_if_empty:NF \l_@@_supv_ii_str
               {
+                \par
                 \phantom { 学校导师姓名、职称： }
                 \l_@@_supv_ii_str \enskip \l_@@_supv_ii_t_str
               }
-          }
-        \@@_cover_iiii:n
-          {
+            \par
             企业导师姓名、职称：
             \l_@@_supv_ent_str \enskip \l_@@_supv_ent_t_str
           }
-      }
-      {
-        \@@_cover_iiii:n
           {
+            \par
             指导教师姓名、职称：
             \l_@@_supv_str \enskip \l_@@_supv_t_str
-          }
-        \str_if_empty:NF \l_@@_supv_ii_str
-          {
-            \@@_cover_iiii:n
+            \str_if_empty:NF \l_@@_supv_ii_str
               {
+                \par
                 \phantom { 指导教师姓名、职称： }
                 \l_@@_supv_ii_str \enskip \l_@@_supv_ii_t_str
               }
           }
+        \par
+        学\qquad{}院：\l_@@_dept_str
+        \par
+        提交日期：\@@_zh_submit_date:
       }
-    \@@_cover_iiii:n { 学\qquad{}院：\l_@@_dept_str  }
-    \@@_cover_iiii:n { 提交日期：\@@_zh_submit_date: }
     \cleardoublepage
   }
 %    \end{macrocode}
