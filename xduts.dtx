@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/11 v1.26.7.0 Xidian University TeX Suite]
+[2022/06/12 v1.26.7.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/11}{1.26.7.0}
+%<class|sty>  {2022/06/12}{1.26.7.1}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -3971,8 +3971,10 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \subsection{封面}
+% \changes{v1.26.7.1}{2022/06/12}{整理代码结构}
+% \subsection{前言部分}
 % \subsubsection{本科生}
+% \paragraph{前言组件}
 % \begin{macro}{\@@_cover_i:nn}
 % 绘制班级和学号。
 % \begin{arguments}
@@ -4096,9 +4098,10 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \paragraph{\tn{frontmatter}}
 % \begin{macro}{\frontmatter}
 % \changes{v1.9.1.0}{2022/05/04}{修正封面元素位置及尺寸}
-% 排版正文前部分。
+% 排版前言部分。
 %    \begin{macrocode}
 \renewcommand { \frontmatter }
   {
@@ -4254,6 +4257,7 @@
 %<*xdupgthesis>
 %    \end{macrocode}
 % \subsubsection{研究生}
+% \paragraph{封面}
 % \begin{variable}
 %   {
 %     \l_@@_ac_master,
@@ -4551,6 +4555,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \paragraph{中文提名页}
 % \begin{macro}{\@@_zh_title_page_info:}
 % \changes{v1.26.7.0}{2022/06/11}{拆分研究生中文提名页底部信息}
 % 中文提名页底部信息。
@@ -4715,6 +4720,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \paragraph{中文提名页}
 % \begin{macro}{\@@_en_title_supv:n}
 % \changes{v1.18.0.0}{2022/05/29}{英文提名页底部导师姓名拼音盒子}
 % 英文提名页底部导师姓名拼音盒子。
@@ -4837,6 +4843,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \paragraph{声明页}
 % \begin{macro}{\@@_statement:}
 % \changes{v1.19.0.0}{2022/05/30}{学位论文独创性声明和关于论文使用授权的说明}
 % 学位论文独创性声明和关于论文使用授权的说明。
@@ -4921,6 +4928,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \paragraph{中英文摘要}
 % \begin{macro}{\@@_zh_abstract_keywords:}
 % \changes{v1.20.0.0}{2022/05/30}{中文摘要和关键词}
 % 中文摘要和关键词。
@@ -4989,6 +4997,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \paragraph{图表索引}
 % \begin{macro}{\@@_loft_label_num_width:nN}
 % \changes{v1.21.0.0}{2022/06/01}{计算图表索引编号标签最大宽度}
 % 计算图表索引编号标签最大宽度。
@@ -5101,6 +5110,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \paragraph{对照表}
 % \begin{macro}{\UseTblrLibrary,\NewTblrTheme}
 % \changes{v1.22.0.0}{2022/06/05}{对照表样式}
 % 对照表样式。
@@ -5271,11 +5281,12 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \paragraph{\tn{frontmatter}}
 % \begin{macro}{\frontmatter}
 % \changes{v1.5.0.0}{2022/05/01}{设置封面页边距}
 % \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
 % \changes{v1.16.0.0}{2022/05/22}{绘制研究生封面}
-% 排版正文前部分。
+% 排版前言部分。
 %    \begin{macrocode}
 \renewcommand { \frontmatter }
   {
@@ -5351,7 +5362,7 @@
 %</xdupgthesis>
 %<*xduugthesis>
 %    \end{macrocode}
-% \subsection{正文}
+% \subsection{正文部分}
 % \subsubsection{本科生}
 % \begin{macro}{\mainmatter}
 % \changes{v0.8.0.0}{2022/04/12}{支持对称页边距}
@@ -5367,8 +5378,36 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</xduugthesis>
+%<*xdupgthesis>
+%    \end{macrocode}
+% \subsubsection{研究生}
+% \begin{macro}{\mainmatter}
+% \changes{v1.5.0.0}{2022/05/01}{设置正文页边距}
+% \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
+% \changes{v1.23.1.0}{2022/06/05}{设置正文字号和行间距}
+% 排版正文部分。
+%    \begin{macrocode}
+\renewcommand { \mainmatter }
+  {
+    \@@_load_main_geometry:
+    \pagestyle     { plain  }
+    \pagenumbering { arabic }
+    \dim_set:Nn \parindent { 2 \ccwd }
+    \rmfamily \zihao { -4 }
+    \dim_set:Nn \baselineskip { 20pt }
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</xdupgthesis>
+%<*xduugthesis>
+%    \end{macrocode}
+% \subsection{后记部分}
+% \subsubsection{本科生}
 % \begin{macro}{\backmatter}
-% 排版正文后部分。
+% 排版后记部分。
 %    \begin{macrocode}
 \renewcommand { \backmatter }
   {
@@ -5411,28 +5450,9 @@
 % \end{macro}
 %    \begin{macrocode}
 %</xduugthesis>
-%    \end{macrocode}
-%    \begin{macrocode}
 %<*xdupgthesis>
 %    \end{macrocode}
 % \subsubsection{研究生}
-% \begin{macro}{\mainmatter}
-% \changes{v1.5.0.0}{2022/05/01}{设置正文页边距}
-% \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
-% \changes{v1.23.1.0}{2022/06/05}{设置正文字号和行间距}
-% 排版正文部分。
-%    \begin{macrocode}
-\renewcommand { \mainmatter }
-  {
-    \@@_load_main_geometry:
-    \pagestyle     { plain  }
-    \pagenumbering { arabic }
-    \dim_set:Nn \parindent { 2 \ccwd }
-    \rmfamily \zihao { -4 }
-    \dim_set:Nn \baselineskip { 20pt }
-  }
-%    \end{macrocode}
-% \end{macro}
 % \begin{macro}{\RequirePackage,\newenvironment}
 % \changes{v1.26.0.0}{2022/06/07}{作者简介样式}
 % 作者简介样式。
@@ -5489,7 +5509,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\backmatter}
-% 排版正文后部分。
+% 排版后记部分。
 %    \begin{macrocode}
 \renewcommand { \backmatter }
   {
