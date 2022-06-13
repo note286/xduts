@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/12 v1.26.7.1 Xidian University TeX Suite]
+[2022/06/13 v1.26.8.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/12}{1.26.7.1}
+%<class|sty>  {2022/06/13}{1.26.8.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -3132,10 +3132,12 @@
 % \begin{macro}{\geometry,\newgeometry,\savegeometry}
 % \changes{v1.5.1.0}{2022/05/01}{修正页脚高度}
 % \changes{v1.5.2.0}{2022/05/02}{修正底部页边距高度}
+% \changes{v1.26.8.0}{2022/06/13}{修正研究生页眉高度}
 % 正文页面。
 % \begin{description}
 % \item[本科生] 上3、下2、内3、外2；装订线1；页眉2、页脚1。
 % \item[研究生] 上3、\textbf{下2.5}、内2.5、外2.5；装订线0.5；页眉2、页脚$2.5-1.75=0.75$。
+% 实测上3.14，headheight和headsep均为实测。
 % \end{description}
 %    \begin{macrocode}
 \newgeometry
@@ -3150,12 +3152,13 @@
     foot          = 1cm
 %</xduugthesis>
 %<*xdupgthesis>
-    top           = 3cm,
+    top           = 3.14cm,
     bottom        = 2.5cm,
     inner         = 2.5cm,
     outer         = 2.5cm,
     bindingoffset = 0.5cm,
-    head          = 2cm,
+    headheight    = 20pt,
+    headsep       = 10pt,
     foot          = 0.75cm
 %</xdupgthesis>
   }
@@ -3180,12 +3183,13 @@
     foot   = 1cm
 %</xduugthesis>
 %<*xdupgthesis>
-    top    = 3cm,
-    bottom = 2.5cm,
-    inner  = 2.75cm,
-    outer  = 2.75cm,
-    head   = 2cm,
-    foot   = 0.75cm
+    top        = 3.14cm,
+    bottom     = 2.5cm,
+    inner      = 2.75cm,
+    outer      = 2.75cm,
+    headheight = 20pt,
+    headsep    = 10pt,
+    foot       = 0.75cm
 %</xdupgthesis>
   }
 \savegeometry { main-sym }
