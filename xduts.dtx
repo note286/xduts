@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/17 v1.26.11.0 Xidian University TeX Suite]
+[2022/06/17 v1.26.11.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/17}{1.26.11.0}
+%<class|sty>  {2022/06/17}{1.26.11.1}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -197,7 +197,10 @@
 % \end{enumerate}
 % \end{abstract}
 % \clearpage
-% \tableofcontents
+% \section*{\contentsname\markright{目录}}
+% \makeatletter
+% \@starttoc{toc}
+% \makeatother
 % \clearpage
 % \section{介绍}
 % \xduts{} (Xidian University \TeX{} Suite)
@@ -1099,6 +1102,15 @@
 %   \caption{本文与文献\noauxwrite{\parencite{某文献}}计算开销对比}
 % \end{latexexample}
 % \end{function}
+% \subsection{隐藏功能}
+% \changes{v1.26.11.1}{2022/06/17}{带教导师与挂名导师}
+% \subsubsection{带教导师与挂名导师}
+% 已和学位办确认，对于研究生，如挂名导师与带教导师不是一人的，
+% 仅需填写带教导师，无需填写挂名导师。
+% 如有特殊需求，需要填写两位老师，
+% 可在\optx{info/supervisor}、\optx{info/supervisor*}、
+% \optx{info/supervisor-title}和\optx{info/supervisor-title*}中
+% 使用逗号分隔两位老师的信息。
 % \section{贡献者}
 % \xduts{}的开发过程中，唯一维护者为
 % \href{https://github.com/note286/}{\ttfamily @note286}。
