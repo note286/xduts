@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/13 v1.26.9.0 Xidian University TeX Suite]
+[2022/06/17 v1.26.10.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/13}{1.26.9.0}
+%<class|sty>  {2022/06/17}{1.26.10.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2575}
+% \CheckSum{2583}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4573,7 +4573,7 @@
 % \changes{v1.26.6.0}{2022/06/11}{研究生中文提名页底部信息宽度测量}
 % 底部信息宽度测量。
 %    \begin{macrocode}
-    \rmfamily \zihao { 4 } \bfseries
+    \rmfamily \zihao { 4 }
     \dim_new:N \l_@@_zh_title_page_info_dim
     \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
       { 作者姓名：\l_@@_author_str }
@@ -4617,6 +4617,7 @@
       { 提交日期：\@@_zh_submit_date: }
 %    \end{macrocode}
 % \changes{v1.26.6.0}{2022/06/11}{研究生中文提名页底部信息自动居中}
+% \changes{v1.26.10.0}{2022/06/17}{修正中文提名页底部信息字体系列}
 % 底部信息。
 %    \begin{macrocode}
     \dim_new:N \l_@@_zh_title_page_info_skip_dim
@@ -4625,26 +4626,26 @@
     \skip_horizontal:n { \dim_eval:n { \l_@@_zh_title_page_info_skip_dim / 2 } }
     \vbox:n
       {
-        \rmfamily \zihao { 4 } \bfseries
+        \rmfamily \zihao { 4 }
         \dim_set:Nn \baselineskip { 32pt }
-        作者姓名：\l_@@_author_str
+        { \bfseries 作者姓名： } \l_@@_author_str
         \bool_if:NTF \l_@@_ac
           {
             \par
-            一级学科：\l_@@_major_str
+            { \bfseries 一级学科： } \l_@@_major_str
             \par
-            二级学科（研究方向）：\l_@@_sub_major_str
+            { \bfseries 二级学科（研究方向）： } \l_@@_sub_major_str
           }
           {
             \par
-            领\qquad{}域：\l_@@_domain_str
+            { \bfseries 领\qquad{}域： } \l_@@_domain_str
           }
         \par
-        学位类别：\l_@@_degree_str
+        { \bfseries 学位类别： } \l_@@_degree_str
         \bool_if:NTF \l_@@_pro_master
           {
             \par
-            学校导师姓名、职称：
+            { \bfseries 学校导师姓名、职称： }
             \l_@@_supv_str \enskip \l_@@_supv_t_str
             \str_if_empty:NF \l_@@_supv_ii_str
               {
@@ -4653,12 +4654,12 @@
                 \l_@@_supv_ii_str \enskip \l_@@_supv_ii_t_str
               }
             \par
-            企业导师姓名、职称：
+            { \bfseries 企业导师姓名、职称： }
             \l_@@_supv_ent_str \enskip \l_@@_supv_ent_t_str
           }
           {
             \par
-            指导教师姓名、职称：
+            { \bfseries 指导教师姓名、职称： }
             \l_@@_supv_str \enskip \l_@@_supv_t_str
             \str_if_empty:NF \l_@@_supv_ii_str
               {
@@ -4668,9 +4669,9 @@
               }
           }
         \par
-        学\qquad{}院：\l_@@_dept_str
+        { \bfseries 学\qquad{}院： } \l_@@_dept_str
         \par
-        提交日期：\@@_zh_submit_date:
+        { \bfseries 提交日期： } \@@_zh_submit_date:
       }
   }
 %    \end{macrocode}
