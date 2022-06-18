@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/18 v1.27.0.0 Xidian University TeX Suite]
+[2022/06/18 v1.28.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/18}{1.27.0.0}
+%<class|sty>  {2022/06/18}{1.28.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2624}
+% \CheckSum{2646}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -3921,6 +3921,11 @@
 \RequirePackage { tocloft }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</thesis>
+%<*xduugthesis>
+%    \end{macrocode}
+% \subsubsection{本科生}
 % \begin{variable}{\cftchapleader}
 % 修改目录中一级标题引导点。
 %    \begin{macrocode}
@@ -3984,6 +3989,65 @@
   { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } } }
 %    \end{macrocode}
 % \end{variable}
+%    \begin{macrocode}
+%</xduugthesis>
+%<*xdupgthesis>
+%    \end{macrocode}
+% \changes{v1.28.0.0}{2022/06/18}{研究生学位论文目录样式}
+% \subsubsection{研究生}
+% \begin{variable}{\cftdotsep}
+% 修改引导点之间的距离。
+%    \begin{macrocode}
+\cs_set:Npn \cftdotsep { 0 }
+%    \end{macrocode}
+% \end{variable}
+% \begin{variable}{\cftchapleader}
+% 修改目录中一级标题引导点。
+%    \begin{macrocode}
+\cs_set:Npn \cftchapleader { \cftdotfill { \cftdotsep } }
+%    \end{macrocode}
+% \end{variable}
+% \begin{variable}
+%   {
+%     \cftbeforechapskip,
+%     \cftbeforesecskip
+%   }
+% 设置一级标题与其余各级标题条目前垂直间距一致。
+%    \begin{macrocode}
+\dim_set_eq:NN \cftbeforechapskip \cftbeforesecskip
+%    \end{macrocode}
+% \end{variable}
+% \begin{variable}{\cftchapfont}
+% 设置一级标题字体字号。
+%    \begin{macrocode}
+\renewcommand { \cftchapfont } { \@@_sf_family: \zihao { -4 } }
+%    \end{macrocode}
+% \end{variable}
+% \begin{variable}
+%   {
+%     \cftsecfont,
+%     \cftsubsecfont,
+%     \cftchappagefont,
+%     \cftsecpagefont,
+%     \cftsubsecpagefont
+%   }
+% 设置二三级标题及一二三级标题页码字体字号。
+%    \begin{macrocode}
+\clist_map_inline:nn
+  {
+    \cftsecfont,
+    \cftsubsecfont,
+    \cftchappagefont,
+    \cftsecpagefont,
+    \cftsubsecpagefont
+  }
+  { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } } }
+%    \end{macrocode}
+% \end{variable}
+%    \begin{macrocode}
+%</xdupgthesis>
+%<*thesis>
+%    \end{macrocode}
 % \subsection{公式}
 % \begin{macro}{\theequation}
 % 重定义公式编号样式。
@@ -5748,9 +5812,10 @@
     \@@_abbreviations_list:
 %    \end{macrocode}
 % \changes{v1.23.0.0}{2022/06/05}{研究生学位论文目录}
+% \changes{v1.28.0.0}{2022/06/18}{设置研究生学位论文目录深度}
 % 目录。
 %    \begin{macrocode}
-    \setcounter { tocdepth } { 5 }
+    \setcounter { tocdepth } { 2 }
     \@@_n_chapter_head:nn
       { \@@_lang_switch:nn { 目录            } { Contents } }
       { \@@_lang_switch:nn { 目 { \quad } 录 } { Contents } }
