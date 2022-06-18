@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/18 v1.26.11.2 Xidian University TeX Suite]
+[2022/06/18 v1.27.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/18}{1.26.11.2}
+%<class|sty>  {2022/06/18}{1.27.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2588}
+% \CheckSum{2624}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -3621,18 +3621,19 @@
 % \end{macro}
 %    \begin{macrocode}
 %</thesis>
-%<*xduugthesis|xdupgthesis>
+%<*xduugthesis>
 %    \end{macrocode}
 % \subsection{标题设置}
+% \subsubsection{本科生}
 % 中文章标题黑体，三号，居中排列。节标题宋体，四号，居中排列。英文一级标题字体为Times New Roman，四号，正体，左对齐，以大写罗马数字（I、II 等）标出序号。其余各级标题的字体均为Times New Roman，小四号，正体。二级及以下级别的标题依次缩进4个英文字符，以1.1，1.2，1.1.1，1.1.2形式标出序号。
-% \subsubsection{章节层次}
+% \paragraph{章节层次}
 % \begin{macro}{\ctexset}
 % 设置章节层次为subparagraph。
 %    \begin{macrocode}
 \ctexset { secnumdepth=5 }
 %    \end{macrocode}
 % \end{macro}
-% \subsubsection{章节名字}
+% \paragraph{章节名字}
 % \begin{macro}{\ctexset}
 % 设置章节的名字。
 %    \begin{macrocode}
@@ -3651,7 +3652,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \subsubsection{章节编号}
+% \paragraph{章节编号}
 % \begin{macro}{\ctexset}
 % \changes{v1.2.1.0}{2022/04/19}{修正英文论文标题序号}
 % 设置章节编号的数字输出格式。
@@ -3684,7 +3685,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \subsubsection{章节和标题}
+% \paragraph{章节和标题}
 % \begin{macro}{\@@_zh_t:nnn}
 % 设置中文章节名字和随后的标题内容格式。
 % \begin{arguments}
@@ -3793,6 +3794,123 @@
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</xduugthesis>
+%<*xdupgthesis>
+%    \end{macrocode}
+% \changes{v1.27.0.0}{2022/06/18}{研究生学位论文章节标题样式}
+% \subsubsection{研究生}
+% \paragraph{章节层次}
+% \begin{macro}{\ctexset}
+% 设置章节层次为subparagraph。
+%    \begin{macrocode}
+\ctexset { secnumdepth=5 }
+%    \end{macrocode}
+% \end{macro}
+% \paragraph{章节名字}
+% \begin{macro}{\ctexset}
+% 设置章节的名字。
+%    \begin{macrocode}
+\ctexset
+  {
+    chapter       / name = { 第, 章 },
+    section       / name = {        },
+    subsection    / name = {        },
+    subsubsection / name = { （, ） },
+    paragraph     / name = { （, ） },
+    subparagraph  / name = { （, ） }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \paragraph{章节编号}
+% \begin{macro}{\ctexset}
+% 设置章节编号的数字输出格式。
+%    \begin{macrocode}
+\ctexset
+  {
+    chapter       / number = { \chinese { chapter }      },
+    section       / number = { \thesection               },
+    subsection    / number = { \thesubsection            },
+    subsubsection / number = { \arabic { subsubsection } },
+    paragraph     / number = { \alph { paragraph }       },
+    subparagraph  / number = { \roman { subparagraph }   }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \paragraph{章节格式}
+% \begin{macro}{\ctexset}
+% 设置章节名字和随后的标题内容格式。
+%    \begin{macrocode}
+\cs_new:Npn \@@_sec_format_i:n #1
+  { \@@_rm_family: \bfseries \zihao { #1 } \dim_set:Nn \baselineskip { 20pt } }
+\cs_new:Npn \@@_sec_format_ii:
+  { \@@_sf_family: \centering \zihao { 3 } \dim_set:Nn \baselineskip { 20pt } }
+\ctexset
+  {
+    chapter       / format = { \@@_sec_format_ii:        },
+    section       / format = { \@@_sec_format_i:n { -3 } },
+    subsection    / format = { \@@_sec_format_i:n { 4  } },
+    subsubsection / format = { \@@_sec_format_i:n { 4  } },
+    paragraph     / format = { \@@_sec_format_i:n { 4  } },
+    subparagraph  / format = { \@@_sec_format_i:n { 4  } }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \paragraph{章节编号与标题间距}
+% \begin{macro}{\ctexset}
+% 设置章节编号与标题间距。
+%    \begin{macrocode}
+\ctexset
+  {
+    chapter       / aftername = { \quad   },
+    section       / aftername = { \enskip },
+    subsection    / aftername = { \enskip },
+    subsubsection / aftername = { },
+    paragraph     / aftername = { },
+    subparagraph  / aftername = { }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \paragraph{章节缩进}
+% \begin{macro}{\ctexset}
+% 设置章节标题本身的首行缩进。
+%    \begin{macrocode}
+\ctexset
+  {
+    chapter       / indent = { 0bp  },
+    section       / indent = { 0bp  },
+    subsection    / indent = { 24bp },
+    subsubsection / indent = { 24bp },
+    paragraph     / indent = { 24bp },
+    subparagraph  / indent = { 24bp }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \paragraph{章节间距}
+% \begin{macro}{\ctexset}
+% 设置章节标题前后的垂直间距。
+%    \begin{macrocode}
+\ctexset
+  {
+    chapter       / beforeskip = { 6pt  },
+    section       / beforeskip = { 18pt },
+    subsection    / beforeskip = { 12pt },
+    subsubsection / beforeskip = { 12pt },
+    paragraph     / beforeskip = { 12pt },
+    subparagraph  / beforeskip = { 12pt },
+    chapter       / afterskip  = { 18pt },
+    section       / afterskip  = { 12pt },
+    subsection    / afterskip  = { 6pt  },
+    subsubsection / afterskip  = { 6pt  },
+    paragraph     / afterskip  = { 6pt  },
+    subparagraph  / afterskip  = { 6pt  }
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</xdupgthesis>
+%<*thesis>
+%    \end{macrocode}
 % \subsection{目录}
 % \begin{macro}{\RequirePackage}
 % \changes{v0.4.1.0}{2022/04/05}{设置目录样式}
@@ -3866,10 +3984,6 @@
   { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } } }
 %    \end{macrocode}
 % \end{variable}
-%    \begin{macrocode}
-%</xduugthesis|xdupgthesis>
-%<*thesis>
-%    \end{macrocode}
 % \subsection{公式}
 % \begin{macro}{\theequation}
 % 重定义公式编号样式。
