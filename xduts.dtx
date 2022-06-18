@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/18 v1.28.1.0 Xidian University TeX Suite]
+[2022/06/18 v1.28.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/18}{1.28.1.0}
+%<class|sty>  {2022/06/18}{1.28.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2662}
+% \CheckSum{2655}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -3357,24 +3357,6 @@
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_n_chapter_head_toc_ii:nnn}
-% \changes{v1.28.1.0}{2022/06/18}{新建无编号章节并添加目录及页眉并单独设置标题样式，多用于章节标题为2个汉字的情况}
-% 新建无编号章节并添加目录及页眉并单独设置标题样式，多用于章节标题为2个汉字的情况。
-% \begin{arguments}
-%   \item 章节标题处。
-%   \item 书签和页眉处。
-%   \item 章节标题样式。
-% \end{arguments}
-%    \begin{macrocode}
-\cs_new:Npn \@@_n_chapter_head_toc_ii:nnn #1#2#3
-  {
-    \group_begin:
-      \ctexset { chapter / format = { #3 } }
-      \@@_n_chapter_head_toc:nn { #1 } { #2 }
-    \group_end:
-  }
-%    \end{macrocode}
-% \end{macro}
 % \begin{macro}{\@@_typeout_keywords:nNn}
 % \changes{v1.20.0.0}{2022/05/30}{允许关键词标签带格式}
 % 排版关键词。
@@ -5432,6 +5414,7 @@
 % \begin{macro}{\@@_zh_abstract_keywords:}
 % \changes{v1.20.0.0}{2022/05/30}{中文摘要和关键词}
 % \changes{v1.28.1.0}{2022/06/18}{添加中文摘要至目录}
+% \changes{v1.28.2.0}{2022/06/18}{修正英文语言下中文摘要标题样式}
 % 中文摘要和关键词。
 %    \begin{macrocode}
 \cs_new:Npn \@@_zh_abstract_keywords:
@@ -5439,14 +5422,7 @@
 %    \end{macrocode}
 % 中文摘要。
 %    \begin{macrocode}
-    \@@_lang_switch:nn
-      { \@@_n_chapter_head_toc:nn { 摘要 } { 摘 { \quad } 要 } }
-      {
-        \@@_n_chapter_head_toc_ii:nnn
-          { 摘要 }
-          { 摘 { \quad } 要 }
-          { \@@_sf_family: \zihao { 3 } \centering }
-      }
+    \@@_n_chapter_head_toc:nn { 摘要 } { 摘 { \quad } 要 }
     \group_begin:
       \dim_set:Nn \parindent { 2 \ccwd }
       \rmfamily \zihao { -4 }
@@ -5470,6 +5446,7 @@
 % \begin{macro}{\@@_en_abstract_keywords:}
 % \changes{v1.20.0.0}{2022/05/30}{英文摘要和关键词}
 % \changes{v1.28.1.0}{2022/06/18}{添加英文摘要至目录}
+% \changes{v1.28.2.0}{2022/06/18}{修正英文语言下英文摘要标题样式}
 % 英文摘要和关键词。
 %    \begin{macrocode}
 \cs_new:Npn \@@_en_abstract_keywords:
@@ -5478,11 +5455,12 @@
 % 英文摘要。
 %    \begin{macrocode}
     \@@_n_chapter_head_toc_ii:nn
-      { ABSTRACT } { \rmfamily \zihao { 3 } \centering }
+      { ABSTRACT } { \centering \rmfamily \zihao { 3 } \dim_set:Nn \baselineskip { 20pt } }
     \group_begin:
       \dim_set:Nn \parskip { 20pt }
       \rmfamily \zihao { -4 }
       \dim_set:Nn \baselineskip { 20pt }
+      \file_if_exist:nT { \l_@@_abstract_en_tl } { \skip_vertical:n { -20pt } }
       \file_if_exist_input:n { \l_@@_abstract_en_tl }
     \group_end:
 %    \end{macrocode}
