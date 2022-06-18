@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/18 v1.28.0.0 Xidian University TeX Suite]
+[2022/06/18 v1.28.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/18}{1.28.0.0}
+%<class|sty>  {2022/06/18}{1.28.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2646}
+% \CheckSum{2662}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -3272,10 +3272,10 @@
 %    \begin{macrocode}
 \cs_new:Npn \@@_n_chapter_head_ii:nn #1#2
   {
-    {
+    \group_begin:
       \ctexset { chapter / format = { #2 } }
       \@@_n_chapter_head:n { #1 }
-    }
+    \group_end:
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3306,10 +3306,10 @@
 %    \begin{macrocode}
 \cs_new:Npn \@@_n_chapter_head_ii:nnn #1#2#3
   {
-    {
+    \group_begin:
       \ctexset { chapter / format = { #3 } }
       \@@_n_chapter_head:nn { #1 } { #2 }
-    }
+    \group_end:
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3337,6 +3337,41 @@
     \@@_add_toc:n { #1 }
     \chapter* { #2 }
     \markboth { #1 } { }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_n_chapter_head_toc_ii:nn}
+% \changes{v1.28.1.0}{2022/06/18}{新建无编号章节并单独添加目录及页眉并单独设置标题样式}
+% 新建无编号章节并单独添加目录及页眉并单独设置标题样式。
+% \begin{arguments}
+%   \item 目录、书签、页眉处。
+%   \item 章节标题处。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_n_chapter_head_toc_ii:nn #1#2
+  {
+    \group_begin:
+      \ctexset { chapter / format = { #2 } }
+      \@@_n_chapter_head_toc:n { #1 }
+    \group_end:
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_n_chapter_head_toc_ii:nnn}
+% \changes{v1.28.1.0}{2022/06/18}{新建无编号章节并添加目录及页眉并单独设置标题样式，多用于章节标题为2个汉字的情况}
+% 新建无编号章节并添加目录及页眉并单独设置标题样式，多用于章节标题为2个汉字的情况。
+% \begin{arguments}
+%   \item 章节标题处。
+%   \item 书签和页眉处。
+%   \item 章节标题样式。
+% \end{arguments}
+%    \begin{macrocode}
+\cs_new:Npn \@@_n_chapter_head_toc_ii:nnn #1#2#3
+  {
+    \group_begin:
+      \ctexset { chapter / format = { #3 } }
+      \@@_n_chapter_head_toc:nn { #1 } { #2 }
+    \group_end:
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5396,6 +5431,7 @@
 % \paragraph{中英文摘要}
 % \begin{macro}{\@@_zh_abstract_keywords:}
 % \changes{v1.20.0.0}{2022/05/30}{中文摘要和关键词}
+% \changes{v1.28.1.0}{2022/06/18}{添加中文摘要至目录}
 % 中文摘要和关键词。
 %    \begin{macrocode}
 \cs_new:Npn \@@_zh_abstract_keywords:
@@ -5404,9 +5440,9 @@
 % 中文摘要。
 %    \begin{macrocode}
     \@@_lang_switch:nn
-      { \@@_n_chapter_head:nn { 摘要 } { 摘 { \quad } 要 } }
+      { \@@_n_chapter_head_toc:nn { 摘要 } { 摘 { \quad } 要 } }
       {
-        \@@_n_chapter_head_ii:nnn
+        \@@_n_chapter_head_toc_ii:nnn
           { 摘要 }
           { 摘 { \quad } 要 }
           { \@@_sf_family: \zihao { 3 } \centering }
@@ -5433,6 +5469,7 @@
 % \end{macro}
 % \begin{macro}{\@@_en_abstract_keywords:}
 % \changes{v1.20.0.0}{2022/05/30}{英文摘要和关键词}
+% \changes{v1.28.1.0}{2022/06/18}{添加英文摘要至目录}
 % 英文摘要和关键词。
 %    \begin{macrocode}
 \cs_new:Npn \@@_en_abstract_keywords:
@@ -5440,7 +5477,7 @@
 %    \end{macrocode}
 % 英文摘要。
 %    \begin{macrocode}
-    \@@_n_chapter_head_ii:nn
+    \@@_n_chapter_head_toc_ii:nn
       { ABSTRACT } { \rmfamily \zihao { 3 } \centering }
     \group_begin:
       \dim_set:Nn \parskip { 20pt }
@@ -5507,11 +5544,12 @@
 % \end{macro}
 % \begin{macro}{\@@_list_of_figure:}
 % \changes{v1.21.0.0}{2022/05/31}{插图索引}
+% \changes{v1.28.1.0}{2022/06/18}{添加插图索引至目录}
 % 插图索引。
 %    \begin{macrocode}
 \cs_new:Npn \@@_list_of_figure:
   {
-    \@@_n_chapter_head:n
+    \@@_n_chapter_head_toc:n
       { \@@_lang_switch:nn { 插图索引 } { List~of~Figures } }
     \group_begin:
       \addtocontents { lof } { \vspace { 10pt } }
@@ -5542,11 +5580,12 @@
 % \end{macro}
 % \begin{macro}{\@@_list_of_table:}
 % \changes{v1.21.0.0}{2022/05/31}{表格索引}
+% \changes{v1.28.1.0}{2022/06/18}{添加表格索引至目录}
 % 表格索引。
 %    \begin{macrocode}
 \cs_new:Npn \@@_list_of_table:
   {
-    \@@_n_chapter_head:n
+    \@@_n_chapter_head_toc:n
       { \@@_lang_switch:nn { 表格索引 } { List~of~Tables } }
     \group_begin:
       \addtocontents { lot } { \vspace { 10pt } }
@@ -5609,11 +5648,12 @@
 % \changes{v1.26.2.0}{2022/06/09}{修复符号对照表列格式解析错误}
 % \changes{v1.26.3.0}{2022/06/09}{修复符号对照表文件导入接口}
 % \changes{v1.26.5.0}{2022/06/10}{修复符号对照表空文件标题行错误}
+% \changes{v1.28.1.0}{2022/06/18}{添加符号对照表至目录}
 % 符号对照表。
 %    \begin{macrocode}
 \cs_new:Npn \@@_symbols_list:
   {
-    \@@_n_chapter_head:n
+    \@@_n_chapter_head_toc:n
       { \@@_lang_switch:nn { 符号对照表 } { List~of~Symbols } }
 %    \end{macrocode}
 % 是否完全自定义符号对照表。
@@ -5677,11 +5717,12 @@
 % \changes{v1.26.2.0}{2022/06/09}{修复缩略语对照表列格式解析错误}
 % \changes{v1.26.3.0}{2022/06/09}{修复缩略语对照表文件导入接口}
 % \changes{v1.26.5.0}{2022/06/10}{修复缩略语对照表空文件标题行错误}
+% \changes{v1.28.1.0}{2022/06/18}{添加缩略语对照表至目录}
 % 缩略语对照表。
 %    \begin{macrocode}
 \cs_new:Npn \@@_abbreviations_list:
   {
-    \@@_n_chapter_head:n
+    \@@_n_chapter_head_toc:n
       { \@@_lang_switch:nn { 缩略语对照表 } { List~of~Abbreviations } }
 %    \end{macrocode}
 % 是否完全自定义缩略语对照表。
