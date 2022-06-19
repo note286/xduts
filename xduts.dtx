@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/19 v1.29.2.0 Xidian University TeX Suite]
+[2022/06/19 v1.29.3.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/19}{1.29.2.0}
+%<class|sty>  {2022/06/19}{1.29.3.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2687}
+% \CheckSum{2695}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -5568,6 +5568,7 @@
 % \begin{macro}{\@@_list_of_figure:}
 % \changes{v1.21.0.0}{2022/05/31}{插图索引}
 % \changes{v1.28.1.0}{2022/06/18}{添加插图索引至目录}
+% \changes{v1.29.3.0}{2022/06/19}{修正插图索引字号}
 % 插图索引。
 %    \begin{macrocode}
 \cs_new:Npn \@@_list_of_figure:
@@ -5595,6 +5596,7 @@
 %    \end{macrocode}
 % 排版索引表。
 %    \begin{macrocode}
+      \rmfamily \zihao { -4 } \dim_set:Nn \baselineskip { 20pt }
       \@starttoc { lof }
     \group_end:
     \cleardoublepage
@@ -5604,6 +5606,7 @@
 % \begin{macro}{\@@_list_of_table:}
 % \changes{v1.21.0.0}{2022/05/31}{表格索引}
 % \changes{v1.28.1.0}{2022/06/18}{添加表格索引至目录}
+% \changes{v1.29.3.0}{2022/06/19}{修正表格索引字号}
 % 表格索引。
 %    \begin{macrocode}
 \cs_new:Npn \@@_list_of_table:
@@ -5631,6 +5634,7 @@
 %    \end{macrocode}
 % 排版索引表。
 %    \begin{macrocode}
+      \rmfamily \zihao { -4 } \dim_set:Nn \baselineskip { 20pt }
       \@starttoc { lot }
     \group_end:
     \cleardoublepage
