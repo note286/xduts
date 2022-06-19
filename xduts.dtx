@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/19 v1.29.1.0 Xidian University TeX Suite]
+[2022/06/19 v1.29.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/19}{1.29.1.0}
+%<class|sty>  {2022/06/19}{1.29.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2659}
+% \CheckSum{2687}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -3838,11 +3838,17 @@
 % \end{macro}
 % \paragraph{章节名字}
 % \begin{macro}{\ctexset}
+% \changes{v1.29.2.0}{2022/06/19}{修正英文研究生学位论文一级标题名称}
 % 设置章节的名字。
 %    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \@@_lang_switch:nn
+      { \ctexset { chapter / name = { 第, 章        } } }
+      { \ctexset { chapter / name = { Chapter\space } } }
+  }
 \ctexset
   {
-    chapter       / name = { 第, 章 },
     section       / name = {        },
     subsection    / name = {        },
     subsubsection / name = { （, ） },
@@ -3853,11 +3859,17 @@
 % \end{macro}
 % \paragraph{章节编号}
 % \begin{macro}{\ctexset}
+% \changes{v1.29.2.0}{2022/06/19}{修正英文研究生学位论文一级标题数字输出格式}
 % 设置章节编号的数字输出格式。
 %    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \@@_lang_switch:nn
+      { \ctexset { chapter / number = { \chinese { chapter } } } }
+      { \ctexset { chapter / number = { \Roman   { chapter } } } }
+  }
 \ctexset
   {
-    chapter       / number = { \chinese { chapter }      },
     section       / number = { \thesection               },
     subsection    / number = { \thesubsection            },
     subsubsection / number = { \arabic { subsubsection } },
@@ -3867,16 +3879,30 @@
 %    \end{macrocode}
 % \end{macro}
 % \paragraph{章节格式}
-% \begin{macro}{\ctexset}
+% \begin{macro}
+%   {
+%     \@@_sec_format_i:n,
+%     \@@_sec_format_ii:,
+%     \@@_sec_format_iii:,
+%     \ctexset
+%   }
+% \changes{v1.29.2.0}{2022/06/19}{修正英文研究生学位论文一级标题字体}
 % 设置章节名字和随后的标题内容格式。
 %    \begin{macrocode}
 \cs_new:Npn \@@_sec_format_i:n #1
   { \@@_rm_family: \bfseries \zihao { #1 } \dim_set:Nn \baselineskip { 20pt } }
 \cs_new:Npn \@@_sec_format_ii:
   { \@@_sf_family: \centering \zihao { 3 } \dim_set:Nn \baselineskip { 20pt } }
+\cs_new:Npn \@@_sec_format_iii:
+  { \@@_rm_family: \centering \zihao { 3 } \dim_set:Nn \baselineskip { 20pt } }
+\ctex_at_end_preamble:n
+  {
+    \@@_lang_switch:nn
+      { \ctexset { chapter / format = { \@@_sec_format_ii:  } } }
+      { \ctexset { chapter / format = { \@@_sec_format_iii: } } }
+  }
 \ctexset
   {
-    chapter       / format = { \@@_sec_format_ii:        },
     section       / format = { \@@_sec_format_i:n { -3 } },
     subsection    / format = { \@@_sec_format_i:n { 4  } },
     subsubsection / format = { \@@_sec_format_i:n { 4  } },
@@ -4047,9 +4073,15 @@
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{\cftchapfont}
+% \changes{v1.29.2.0}{2022/06/19}{修正英文研究生学位论文目录中一级标题字体}
 % 设置一级标题字体字号。
 %    \begin{macrocode}
-\renewcommand { \cftchapfont } { \@@_sf_family: \zihao { -4 } }
+\ctex_at_end_preamble:n
+  {
+    \@@_lang_switch:nn
+      { \cs_set:Npn \cftchapfont { \@@_sf_family: \zihao { -4 } } }
+      { \cs_set:Npn \cftchapfont { \@@_rm_family: \zihao { -4 } } }
+  }
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}
