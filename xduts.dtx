@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/19 v1.29.3.0 Xidian University TeX Suite]
+[2022/06/20 v1.30.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/19}{1.29.3.0}
+%<class|sty>  {2022/06/20}{1.30.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2695}
+% \CheckSum{2768}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -567,7 +567,7 @@
 % \end{function}
 % \begin{optdesc}
 %   \item[zh] 中文。
-%   \item[en] 英文。
+%   \item[en] 英文。注意，研究生学位论文一二三级标题命令请参考\secrefx{英文研究生学位论文双语标题}。
 % \end{optdesc}
 % \subsection{参考文献配置}
 % \label{参考文献配置}
@@ -1367,6 +1367,8 @@
 % \setlength\parindent{2em}
 % \subsection{额外命令}
 % \label{额外命令}
+% \subsubsection{\tn{noauxwrite}}
+% \label{noauxwrite}
 % \begin{function}[added=2022-05-13]{\noauxwrite}
 %   \begin{syntax}
 %     \tn{noauxwrite}\marg{参考文献引用命令}
@@ -1375,6 +1377,26 @@
 % 一个简单的例子如下所示：
 % \begin{latexexample}[moretexcs={\noauxwrite,\caption,\parencite}]
 %   \caption{本文与文献\noauxwrite{\parencite{某文献}}计算开销对比}
+% \end{latexexample}
+% \end{function}
+% \changes{v1.30.0.0}{2022/06/20}{英文研究生学位论文双语标题}
+% \subsubsection{英文研究生学位论文双语标题}
+% \label{英文研究生学位论文双语标题}
+% \begin{function}[added=2022-06-20]{\chapter,\section,\subsection}
+%   \begin{syntax}
+%     \tn{chapter}\marg{英文标题}\marg{中文标题}
+%     \tn{section}\marg{英文标题}\marg{中文标题}
+%     \tn{subsection}\marg{英文标题}\marg{中文标题}
+%   \end{syntax}
+% 在英文研究生学位论文中一二三级标题为中英双语，其他级别标题为英文。
+% 一个简单的例子如下所示：
+% \begin{latexexample}[moretexcs={\chapter,\section,\subsection,\subsubsection,\paragraph,\subparagraph}]
+%   \chapter{This Is Chapter}{这是一级标题}
+%   \section{This Is Section}{这是二级标题}
+%   \subsection{This Is Subsection}{这是三级标题}
+%   \subsubsection{This Is Subsubsection}
+%   \paragraph{This Is Paragraph}
+%   \subparagraph{This Is Subparagraph}
 % \end{latexexample}
 % \end{function}
 % \subsection{隐藏功能}
@@ -5467,6 +5489,7 @@
 % 中文摘要。
 %    \begin{macrocode}
     \@@_n_chapter_head_toc:nn { 摘要 } { 摘 { \quad } 要 }
+    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 摘要 } }
     \group_begin:
       \dim_set:Nn \parindent { 2 \ccwd }
       \rmfamily \zihao { -4 }
@@ -5501,6 +5524,7 @@
 %    \begin{macrocode}
     \@@_n_chapter_head_toc_ii:nn
       { \textrm { ABSTRACT } } { \centering \rmfamily \zihao { 3 } \dim_set:Nn \baselineskip { 20pt } }
+    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { \textrm { ABSTRACT } } }
     \group_begin:
       \dim_set:Nn \parskip { 20pt }
       \rmfamily \zihao { -4 }
@@ -5575,6 +5599,7 @@
   {
     \@@_n_chapter_head_toc:n
       { \@@_lang_switch:nn { 插图索引 } { List~of~Figures } }
+    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 插图索引 } }
     \group_begin:
       \addtocontents { lof } { \vspace { 10pt } }
       \renewcommand { \addvspace } [1] { }
@@ -5613,6 +5638,7 @@
   {
     \@@_n_chapter_head_toc:n
       { \@@_lang_switch:nn { 表格索引 } { List~of~Tables } }
+    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 表格索引 } }
     \group_begin:
       \addtocontents { lot } { \vspace { 10pt } }
       \renewcommand { \addvspace } [1] { }
@@ -5683,6 +5709,7 @@
   {
     \@@_n_chapter_head_toc:n
       { \@@_lang_switch:nn { 符号对照表 } { List~of~Symbols } }
+    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 符号对照表 } }
 %    \end{macrocode}
 % 是否完全自定义符号对照表。
 %    \begin{macrocode}
@@ -5753,6 +5780,7 @@
   {
     \@@_n_chapter_head_toc:n
       { \@@_lang_switch:nn { 缩略语对照表 } { List~of~Abbreviations } }
+    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 缩略语对照表 } }
 %    \end{macrocode}
 % 是否完全自定义缩略语对照表。
 %    \begin{macrocode}
@@ -5813,6 +5841,17 @@
           \fileIfExistInput { \l_@@_loa_str }
         \end { longtblr }
       }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_add_zh_toc:nn}
+% \changes{v1.30.0.0}{2022/06/20}{添加章节至中文目录}
+%    \begin{macrocode}
+\cs_new:Npn \@@_add_zh_toc:nn #1#2
+  {
+    \str_if_eq:NNTF { #1 } { chapter }
+      { \phantomsection \addcontentsline { zh.toc } { #1 } { \@@_sf_family: #2 } }
+      { \phantomsection \addcontentsline { zh.toc } { #1 } { #2 } }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5891,6 +5930,17 @@
       { \@@_lang_switch:nn { 目 { \quad } 录 } { Contents } }
     \@starttoc { toc }
     \cleardoublepage
+%    \end{macrocode}
+% \changes{v1.30.0.0}{2022/06/20}{英文研究生学位论文中文目录}
+% 英文研究生学位论文中文目录。
+%    \begin{macrocode}
+    \@@_lang_switch:nn { }
+      {
+        \setcounter { tocdepth } { 2 }
+        \@@_n_chapter_head:nn { 目录 } { \@@_sf_family: 目 { \quad } 录 }
+        \@starttoc { zh.toc }
+        \cleardoublepage
+      }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -5933,6 +5983,32 @@
     \dim_set:Nn \parindent { 2 \ccwd }
     \rmfamily \zihao { -4 }
     \dim_set:Nn \baselineskip { 20pt }
+%    \end{macrocode}
+% \changes{v1.30.0.0}{2022/06/20}{英文研究生学位论文目录中正文一二三级中英双语标题}
+% 英文研究生学位论文目录中正文一二三级中英双语标题。
+%    \begin{macrocode}
+    \@@_lang_switch:nn { }
+      {
+        \cs_new_eq:NN \@@_org_chapter:n \chapter
+        \RenewDocumentCommand { \chapter } { m m }
+          {
+            \@@_org_chapter:n { ##1 }
+            \@@_add_zh_toc:nn { chapter }
+              { \numberline { 第 \chinese { chapter } 章 \hspace { .3em } } ##2 }
+          }
+        \cs_new_eq:NN \@@_org_section:n \section
+        \RenewDocumentCommand { \section } { m m }
+          {
+            \@@_org_section:n { ##1 }
+            \@@_add_zh_toc:nn { section } { \numberline { \thesection } ##2 }
+          }
+        \cs_new_eq:NN \@@_org_subsection:n \subsection
+        \RenewDocumentCommand { \subsection } { m m }
+          {
+            \@@_org_subsection:n { ##1 }
+            \@@_add_zh_toc:nn { subsection } { \numberline { \thesubsection } ##2 }
+          }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -6050,11 +6126,22 @@
 \renewcommand { \backmatter }
   {
 %    \end{macrocode}
+% \changes{v1.30.0.0}{2022/06/20}{恢复英文研究生学位论文后记一二三级标题命令}
+% 恢复英文研究生学位论文后记一二三级标题命令。
+%    \begin{macrocode}
+    \@@_lang_switch:nn { }
+      {
+        \cs_set_eq:NN \chapter \@@_org_chapter:n
+        \cs_set_eq:NN \section \@@_org_section:n
+        \cs_set_eq:NN \subsection \@@_org_subsection:n
+      }
+%    \end{macrocode}
 % \changes{v1.25.0.0}{2022/06/05}{研究生学位论文参考文献}
 % 参考文献。
 %    \begin{macrocode}
     \cs_set:Npn \bibname { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
     \@@_n_chapter_head_toc:n { \bibname }
+    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 参考文献 } }
     \group_begin:
       \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
         {
@@ -6080,6 +6167,7 @@
     \@@_n_chapter_head_toc:nn
       { \@@_lang_switch:nn { 致谢            } { Acknowledgements } }
       { \@@_lang_switch:nn { 致 { \quad } 谢 } { Acknowledgements } }
+    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 致谢 } }
     \group_begin:
       \dim_set:Nn \parindent { 2 \ccwd }
       \rmfamily \zihao { -4 }
@@ -6093,6 +6181,7 @@
 %    \begin{macrocode}
     \@@_n_chapter_head_toc:n
       { \@@_lang_switch:nn { 作者简介 } { Author~Biography } }
+    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 作者简介 } }
     \group_begin:
       \dim_set:Nn \parindent { 2 \ccwd }
       \rmfamily \zihao { -4 }
