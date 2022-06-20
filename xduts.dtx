@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/20 v1.30.0.1 Xidian University TeX Suite]
+[2022/06/20 v1.30.0.2 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/20}{1.30.0.1}
+%<class|sty>  {2022/06/20}{1.30.0.2}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -208,11 +208,8 @@
 % 而编写的\LaTeXiii{}文档类和宏包套装，目前有：
 % \begin{itemize}
 % \item \pkgx{xdufont}，中/英/数学字体配置宏包。
-% \item \clsx{xduugthesis}，本科毕业设计论文。
-% \end{itemize}
-% 正在开发：
-% \begin{itemize}
 % \item \clsx{xdupgthesis}，研究生学位论文。
+% \item \clsx{xduugthesis}，本科毕业设计论文。
 % \end{itemize}
 % 即将支持：
 % \begin{itemize}
@@ -262,7 +259,47 @@
 % \par
 % 学会以上用法后即可使用\pkgx{xdufont}宏包。
 % \changes{v1.4.0.0}{2022/04/26}{新增研究生学位论文}
+% \changes{v1.30.0.2}{2022/06/20}{研究生学位论文文档}
 % \subsection{xdupgthesis}
+% \pkgx{xdupgthesis}基于\clsx{ctexbook}文档类，
+% 提供多种字体配置，部分样式可自定义，信息录入便捷。
+% 请在阅读《西安电子科技大学研究生学位论文模板（2015年修订版）-2019.03修订》后再使用\pkgx{xdupgthesis}。
+% 专业学位硕士请额外阅读《西安电子科技大学专业学位硕士学位论文封面及中英文题名页模板（2015年版）-2019.03修订》，
+% 撰写英文学位论文请额外阅读《西安电子科技大学英文学位论文撰写相关规定》。
+% \par
+% 典型的\clsx{xdupgthesis}主文件结构如下所示：
+% \begin{latexexample}[moretexcs={\xdusetup,\frontmatter,\mainmatter,\chapter,\backmatter},emph={[1]document}]
+%   \documentclass{xdupgthesis}
+%   \xdusetup{}
+%   \begin{document}
+%   \frontmatter
+%   \mainmatter
+%   \chapter{欢迎}
+%   使用\LaTeX{}！
+%   \backmatter
+%   \end{document}
+% \end{latexexample}
+% \par
+% \secrefx{编译}介绍了如何编译，
+% \secrefx{参考文献引用}介绍了如何引用参考文献，
+% \secrefx{参数设置}介绍了如何自定义配置。
+% 其中，字体选项见\secrefx{字体选项}，
+% 部分英文字体切换见\secrefx{英文字体}，
+% 语言配置见\secrefx{语言配置}，
+% 参考文献配置见\secrefx{参考文献配置}，
+% 页面配置见\secrefx{页面配置}，
+% 交叉引用配置见\secrefx{交叉引用配置}，
+% Caption配置见\secrefx{Caption配置}，
+% 表格配置见\secrefx{表格配置}，
+% 算法配置见\secrefx{算法配置}，
+% 章节配置见\secrefx{章节配置}，
+% 对照表配置见\secrefx{对照表配置}，
+% 作者简介配置见\secrefx{作者简介配置}。
+% 如需附录，请使用附录环境，具体见\secrefx{附录环境}。
+% 支持的信息录入选项见\secrefx{信息录入}。
+% \par
+% 学会以上用法后即可使用\clsx{xdupgthesis}文档类。
+% 另外，在\secrefx{额外命令}中提供了部分额外命令来增强排版。
 % \subsection{xduugthesis}
 % \pkgx{xduugthesis}基于\clsx{ctexbook}文档类，
 % 提供多种字体配置，部分样式可自定义，信息录入便捷。
@@ -355,6 +392,7 @@
 % 但需注意，参数列表中不可以出现空行。
 % 一些选项包含子选项，如\optx{style}和\optx{info}等，
 % 它们可以按如下两种等价方式来设定：
+% \end{function}
 % \begin{latexexample}[morekeywords={\xdusetup},emph={[1]style,cjk-font,latin-font,info,title,author,department,abstract,keywords*}]
 %   \xdusetup{
 %     style = { cjk-font = fandol, latin-font = gyre },
@@ -379,7 +417,6 @@
 %     info  / keywords*  = {Dummy,Keywords,Here,it is}
 %   }
 % \end{latexexample}
-% \end{function}
 % \subsection{字体选项}
 % \label{字体选项}
 % \begin{function}[added=2022-03-06]{style/cjk-font}
