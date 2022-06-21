@@ -6,14 +6,14 @@ XDUTS (Xidian University TeX Suite) is a LaTeX3 document class and package suite
 
 XDUTS currently includes:
 
-- `xduugthesis.cls`, Xidian University Undergraduate Thesis document class
 - `xdufont.sty`, Xidian University Font package
+- `xdupgthesis.cls`, Xidian University Postgraduate Thesis document class
+- `xduugthesis.cls`, Xidian University Undergraduate Thesis document class
 
 In the future, we plan to add the following document classes, including 
 
 - `xduugtp.cls`, Xidian University Undergraduate Thesis Proposal document class
 - `xdupgtp.cls`, Xidian University Postgraduate Thesis Proposal document class
-- `xdupgthesis.cls`, Xidian University Postgraduate Thesis document class
 
 ## Installation
 
@@ -52,15 +52,16 @@ texdoc xduts
 
 ### GitHub
 
-Generally speaking, CTAN updates XDUTS slowly. If you want to use the latest version of XDUTS, download this repository and run the following commands to get the corresponding documentation and document class/package files.
+Generally speaking, CTAN updates XDUTS slowly. If you want to use the latest version of XDUTS, download this repository and run the following command to get the document class/package files.
 
 ```shell
 xetex xduts.ins
-xelatex xduts.dtx
-makeindex -s gind.ist -o xduts.ind xduts.idx
-makeindex -s gglo.ist -o xduts.gls xduts.glo
-xelatex xduts.dtx
-xelatex xduts.dtx
+```
+
+Run command below to get the documentation.
+
+```shell
+l3build ctan
 ```
 
 ## Note
