@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/20 v1.30.0.2 Xidian University TeX Suite]
+[2022/06/21 v1.31.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/20}{1.30.0.2}
+%<class|sty>  {2022/06/21}{1.31.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2768}
+% \CheckSum{2773}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -603,6 +603,19 @@
 %   \item[bibtex] 使用\bibtex{}处理文献，样式由\pkgx{natbib}宏包负责。
 %   \item[biblatex] 使用\biber{}处理文献，样式由\pkgx{biblatex}宏包负责。
 % \end{optdesc}
+% \changes{v1.31.0.0}{2022/06/21}{修改\pkgx{biblatex}默认选项}
+% \begin{function}[added=2022-06-21]{style/biblatex-option}
+%   \begin{syntax}
+%     \optx{style/biblatex-option}=\argx{biblatex宏包选项}
+%   \end{syntax}
+% 修改\pkgx{biblatex}默认选项，具体配置参考\filex{biblatex-gb7714-2015.pdf}，
+% 仅在\optx{style/bib-backend}等于|biblatex|时有效。例如：
+% \begin{latexexample}[morekeywords={\xdusetup},emph={[1]style,biblatex-option}]
+%   \xdusetup{
+%     style / biblatex-option = { gbnamefmt=quanpin }
+%   }
+% \end{latexexample}
+% \end{function}
 % \begin{function}[added=2022-04-02]{style/bib-resource}
 %   \begin{syntax}
 %     \optx{style/bib-resource}=\argx{参考文献文件路径}
@@ -1446,11 +1459,7 @@
 % 《在\LaTeX{}中进行文学编程》\footurl{https://liam.page/2015/01/23/literate-programming-in-latex/}
 % 和《Good things come in little packages: An introduction to writing .ins and .dtx files》\footurl{https://www.tug.org/TUGboat/tb29-2/tb92pakin.pdf}
 % 提供了很大帮助。
-% 在文档的编写过程中，参考了
-% \filex{ctex.dtx}\footctan{language/chinese/ctex/ctex.dtx}、
-% \filex{fduthesis.dtx}\footctan{macros/latex/contrib/fduthesis/fduthesis.dtx}、
-% \filex{njuthesis.dtx}\footctan{macros/unicodetex/latex/njuthesis/njuthesis.dtx}
-% 和\filex{thuthesis.dtx}\footctan{macros/latex/contrib/thuthesis/thuthesis.dtx}。
+% 在文档的编写过程中，参考了\filex{ctex.dtx}、\filex{fduthesis.dtx}、\filex{njuthesis.dtx}和\filex{thuthesis.dtx}。
 % \clearpage
 % \section{代码实现}
 % \changes{v0.1.0.0}{2022/04/03}{基本完成本科毕业设计论文模板}
@@ -2849,6 +2858,7 @@
 %     \l_@@_en_cjk_font_bool,
 %     \l_@@_lang_tl,
 %     \l_@@_bib_tool_tl,
+%     \l_@@_biblatex_option_tl,
 %     \l_@@_bib_file_clist,
 %     \l_@@_cap_label_sep_tl,
 %     \l_@@_tab_small_bool,
@@ -2875,6 +2885,10 @@
 % 参考文献支持方式。
 %    \begin{macrocode}
 \tl_new:N \l_@@_bib_tool_tl
+%    \end{macrocode}
+% 修改\pkgx{biblatex}默认选项。
+%    \begin{macrocode}
+\tl_new:N \l_@@_biblatex_option_tl
 %    \end{macrocode}
 % 参考文献文件。
 %    \begin{macrocode}
@@ -2939,6 +2953,10 @@
     bib-backend .choices:nn = { bibtex, biblatex }
       { \tl_set_eq:NN \l_@@_bib_tool_tl \l_keys_choice_tl },
 %    \end{macrocode}
+% 修改\pkgx{biblatex}默认选项。
+%    \begin{macrocode}
+    biblatex-option .tl_set:N = \l_@@_biblatex_option_tl,
+%    \end{macrocode}
 % 参考文献文件。
 %    \begin{macrocode}
     bib-resource .clist_set:N = \l_@@_bib_file_clist,
@@ -2994,6 +3012,7 @@
     style / en-cjk-font          = false,
     style / language             = zh,
     style / bib-backend          = biblatex,
+    style / biblatex-option      = { },
     style / bib-resource         = { },
     style / ref-add-space        = false,
     style / caption-label-sep    = { 0.75em },
@@ -4500,6 +4519,7 @@
           { \group_begin: \citestyle { numbers } \cite { #1 } \group_end: }
       }
       {
+        \PassOptionsToPackage { \l_@@_biblatex_option_tl } { biblatex }
         \RequirePackage { biblatex }
         \clist_map_inline:Nn \l_@@_bib_file_clist { \addbibresource { #1 } }
       }
