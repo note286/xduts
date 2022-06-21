@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/21 v1.31.0.0 Xidian University TeX Suite]
+[2022/06/21 v2.0.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/21}{1.31.0.0}
+%<class|sty>  {2022/06/21}{2.0.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -617,10 +617,7 @@
 % \end{latexexample}
 % \end{function}
 % \begin{function}[added=2022-04-02]{style/bib-resource}
-%   \begin{syntax}
-%     \optx{style/bib-resource}=\argx{参考文献文件路径}
-%   \end{syntax}
-% 设置参考文献\filex{.bib}文件，多个文件之间需要使用英文半角逗号隔开。
+% 已弃用，请使用\secrefx{信息录入}中的\optx{info/bib-resource}。
 % \end{function}
 % \subsection{页面配置}
 % \label{页面配置}
@@ -949,6 +946,7 @@
 % keywords*                    & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % los                          &        &        & \cmark & \cmark & \cmark & \cmark \\
 % loa                          &        &        & \cmark & \cmark & \cmark & \cmark \\
+% bib-resource                 & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % acknowledgements             & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % bio                          &        &        & \cmark & \cmark & \cmark & \cmark \\
 % \end{tblr}
@@ -1124,6 +1122,13 @@
 %     \optx{info/loa}=\argx{缩略语对照表文件路径}
 %   \end{syntax}
 % 设置缩略语对照表文件路径。
+% \end{function}
+% \changes{v2.0.0.0}{2022/06/21}{修改参考文献文件路径选项名称}
+% \begin{function}[added=2022-06-21]{info/bib-resource}
+%   \begin{syntax}
+%     \optx{info/bib-resource}=\argx{参考文献文件路径}
+%   \end{syntax}
+% 设置参考文献\filex{.bib}文件路径，多个文件之间需要使用英文半角逗号隔开。
 % \end{function}
 % \begin{function}[added=2022-04-02]{info/acknowledgements}
 %   \begin{syntax}
@@ -2362,6 +2367,7 @@
 %     \l_@@_abstract_en_tl,
 %     \l_@@_keywords_zh_clist,
 %     \l_@@_keywords_en_clist,
+%     \l_@@_bib_file_clist,
 %     \l_@@_ack_tl
 %   }
 % 论文标题。
@@ -2409,6 +2415,10 @@
 % 英文关键词。
 %    \begin{macrocode}
 \clist_new:N \l_@@_keywords_en_clist
+%    \end{macrocode}
+% 参考文献文件。
+%    \begin{macrocode}
+\clist_new:N \l_@@_bib_file_clist
 %    \end{macrocode}
 % 致谢。
 %    \begin{macrocode}
@@ -2465,6 +2475,10 @@
 %    \begin{macrocode}
     keywords* .clist_set:N = \l_@@_keywords_en_clist,
 %    \end{macrocode}
+% 参考文献文件。
+%    \begin{macrocode}
+    bib-resource .clist_set:N = \l_@@_bib_file_clist,
+%    \end{macrocode}
 % 致谢。
 %    \begin{macrocode}
     acknowledgements .tl_set:N = \l_@@_ack_tl
@@ -2487,6 +2501,7 @@
     info / abstract*             = { },
     info / keywords              = { },
     info / keywords*             = { },
+    info / bib-resource          = { },
     info / acknowledgements      = { }
   }
 %    \end{macrocode}
@@ -2859,7 +2874,6 @@
 %     \l_@@_lang_tl,
 %     \l_@@_bib_tool_tl,
 %     \l_@@_biblatex_option_tl,
-%     \l_@@_bib_file_clist,
 %     \l_@@_cap_label_sep_tl,
 %     \l_@@_tab_small_bool,
 %     \l_@@_alg_small_bool,
@@ -2889,10 +2903,6 @@
 % 修改\pkgx{biblatex}默认选项。
 %    \begin{macrocode}
 \tl_new:N \l_@@_biblatex_option_tl
-%    \end{macrocode}
-% 参考文献文件。
-%    \begin{macrocode}
-\clist_new:N \l_@@_bib_file_clist
 %    \end{macrocode}
 % 是否在\tnx{ref}和\tnx{pageref}两侧自动调整中英文间空白。
 %    \begin{macrocode}
@@ -2957,10 +2967,6 @@
 %    \begin{macrocode}
     biblatex-option .tl_set:N = \l_@@_biblatex_option_tl,
 %    \end{macrocode}
-% 参考文献文件。
-%    \begin{macrocode}
-    bib-resource .clist_set:N = \l_@@_bib_file_clist,
-%    \end{macrocode}
 % 是否在\tnx{ref}和\tnx{pageref}两侧自动调整中英文间空白。
 %    \begin{macrocode}
     ref-add-space .bool_set:N = \l_@@_ref_add_space,
@@ -3013,7 +3019,6 @@
     style / language             = zh,
     style / bib-backend          = biblatex,
     style / biblatex-option      = { },
-    style / bib-resource         = { },
     style / ref-add-space        = false,
     style / caption-label-sep    = { 0.75em },
     style / table-small-font     = true,
