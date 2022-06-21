@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/21 v2.0.0.0 Xidian University TeX Suite]
+[2022/06/22 v2.1.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/21}{2.0.0.0}
+%<class|sty>  {2022/06/22}{2.1.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2773}
+% \CheckSum{2791}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -940,6 +940,7 @@
 % secret-level                 &        &        & \cmark & \cmark & \cmark & \cmark \\
 % secret-year                  &        &        & \cmark & \cmark & \cmark & \cmark \\
 % submit-date                  &        &        & \cmark & \cmark & \cmark & \cmark \\
+% statement-scan               &        &        & \cmark & \cmark & \cmark & \cmark \\
 % abstract                     & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % abstract*                    & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % keywords                     & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
@@ -1094,6 +1095,13 @@
 %     \optx{info/submit-date}=\argx{yyyy-mm}
 %   \end{syntax}
 % 设置提交日期，如果留空，则自动使用编译当天年份和月份。
+% \end{function}
+% \changes{v2.1.0.0}{2022/06/22}{声明页扫描文件路径}
+% \begin{function}[added=2022-06-22]{info/statement-scan}
+%   \begin{syntax}
+%     \optx{info/statement-scan}=\argx{学位论文独创性声明和关于论文使用授权的说明页扫描文件路径}
+%   \end{syntax}
+% 设置学位论文独创性声明和关于论文使用授权的说明页扫描文件路径。
 % \end{function}
 % \begin{function}[added=2022-04-02]{info/abstract,info/abstract*}
 %   \begin{syntax}
@@ -2605,6 +2613,7 @@
 %     \l_@@_secret_lv_str,
 %     \l_@@_secret_year_str,
 %     \l_@@_submit_date_str,
+%     \l_@@_statement_scan_str,
 %     \l_@@_los_str,
 %     \l_@@_loa_str,
 %     \l_@@_bio_str
@@ -2675,6 +2684,10 @@
 % 提交日期。
 %    \begin{macrocode}
 \str_new:N \l_@@_submit_date_str
+%    \end{macrocode}
+% 声明页扫描文件路径。
+%    \begin{macrocode}
+\str_new:N \l_@@_statement_scan_str
 %    \end{macrocode}
 % 符号对照表文件路径。
 %    \begin{macrocode}
@@ -2765,6 +2778,10 @@
 %    \begin{macrocode}
     submit-date .tl_set:N = \l_@@_submit_date_str,
 %    \end{macrocode}
+% 声明页扫描文件路径。
+%    \begin{macrocode}
+    statement-scan .tl_set:N = \l_@@_statement_scan_str,
+%    \end{macrocode}
 % 符号对照表文件路径。
 %    \begin{macrocode}
     los .tl_set:N = \l_@@_los_str,
@@ -2805,6 +2822,7 @@
     info / secret-level                 = { 公开 },
     info / secret-year                  = { },
     info / submit-date                  = { },
+    info / statement-scan               = { },
     info / los                          = { },
     info / loa                          = { },
     info / bio                          = { }
@@ -3589,6 +3607,14 @@
 %</xdupgthesis>
   }
 \savegeometry { cover }
+%    \end{macrocode}
+% \changes{v2.1.0.0}{2022/06/22}{无页边距页面}
+% 无页边距页面。
+%    \begin{macrocode}
+%<*xdupgthesis>
+\newgeometry  { margin = 0cm }
+\savegeometry { nomargin     }
+%</xdupgthesis>
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_main_geometry:}
@@ -5942,7 +5968,21 @@
 %    \end{macrocode}
 % 声明页。
 %    \begin{macrocode}
-    \@@_statement:
+    \file_if_exist:nTF { \l_@@_statement_scan_str }
+      {
+        \loadgeometry{ nomargin }
+        \vbox_to_ht:nn { \textheight }
+          {
+            \vfil
+            \centering
+            \includegraphics
+              [ width = \textwidth, height = \textheight, keepaspectratio ]
+              { \l_@@_statement_scan_str }
+            \vfil
+          }
+        \cleardoublepage
+      }
+      { \@@_statement: }
 %    \end{macrocode}
 % 更改页面样式。
 %    \begin{macrocode}
