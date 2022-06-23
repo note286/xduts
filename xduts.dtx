@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/22 v2.1.0.0 Xidian University TeX Suite]
+[2022/06/23 v2.2.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/22}{2.1.0.0}
+%<class|sty>  {2022/06/23}{2.2.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2791}
+% \CheckSum{2842}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1103,6 +1103,22 @@
 %   \end{syntax}
 % 设置学位论文独创性声明和关于论文使用授权的说明页扫描文件路径。
 % \end{function}
+% \changes{v2.2.0.0}{2022/06/23}{声明页签名文件路径}
+% \begin{function}[added=2022-06-23]{info/statement-sign}
+%   \begin{syntax}
+%     \optx{info/statement-sign}=\argx{文件路径1,文件路径2,文件路径3,文件路径4,文件路径5,文件路径6}
+%   \end{syntax}
+% 设置声明页签名文件路径。
+% 文件支持格式与\tnx{includegraphics}一致，建议文件为透明背景且仅有黑色，并尽量减少边距。
+% \end{function}
+% \begin{optdesc}
+%   \item[文件路径1] 学位论文独创性声明本人签名文件路径。
+%   \item[文件路径2] 学位论文独创性声明日期文件路径。
+%   \item[文件路径3] 关于论文使用授权的说明本人签名文件路径。
+%   \item[文件路径4] 关于论文使用授权的说明日期文件路径。
+%   \item[文件路径5] 关于论文使用授权的说明导师签名文件路径。
+%   \item[文件路径6] 关于论文使用授权的说明日期文件路径。
+% \end{optdesc}
 % \begin{function}[added=2022-04-02]{info/abstract,info/abstract*}
 %   \begin{syntax}
 %     \optx{info/abstract}=\argx{中文摘要文件路径}
@@ -2614,6 +2630,7 @@
 %     \l_@@_secret_year_str,
 %     \l_@@_submit_date_str,
 %     \l_@@_statement_scan_str,
+%     \l_@@_statement_sign_clist,
 %     \l_@@_los_str,
 %     \l_@@_loa_str,
 %     \l_@@_bio_str
@@ -2688,6 +2705,10 @@
 % 声明页扫描文件路径。
 %    \begin{macrocode}
 \str_new:N \l_@@_statement_scan_str
+%    \end{macrocode}
+% 声明页签名文件路径。
+%    \begin{macrocode}
+\clist_new:N \l_@@_statement_sign_clist
 %    \end{macrocode}
 % 符号对照表文件路径。
 %    \begin{macrocode}
@@ -2782,6 +2803,10 @@
 %    \begin{macrocode}
     statement-scan .tl_set:N = \l_@@_statement_scan_str,
 %    \end{macrocode}
+% 声明页签名文件路径。
+%    \begin{macrocode}
+    statement-sign .clist_set:N = \l_@@_statement_sign_clist,
+%    \end{macrocode}
 % 符号对照表文件路径。
 %    \begin{macrocode}
     los .tl_set:N = \l_@@_los_str,
@@ -2823,6 +2848,7 @@
     info / secret-year                  = { },
     info / submit-date                  = { },
     info / statement-scan               = { },
+    info / statement-sign               = { },
     info / los                          = { },
     info / loa                          = { },
     info / bio                          = { }
@@ -5465,8 +5491,47 @@
 %    \end{macrocode}
 % \end{macro}
 % \paragraph{声明页}
+% \begin{macro}
+%   {
+%     \@@_statement_scan_sign_uline:n,
+%     \@@_statement_scan_sign:nnnn
+%   }
+% \changes{v2.2.0.0}{2022/06/23}{声明页签字扫描文件}
+% 声明页签字扫描文件。
+%    \begin{macrocode}
+\cs_new:Npn \@@_statement_scan_sign_uline:n #1
+  {
+    \@@_uline:n
+      {
+        \vbox_to_ht:nn { 17.5pt }
+          {
+            \vfil
+            \hbox_to_wd:nn { 10em }
+              {
+                \hfil
+                \includegraphics [ width = 10em, height = 25pt, keepaspectratio ] { #1 }
+                \hfil
+              }
+          }
+      }
+  }
+\cs_new:Npn \@@_statement_scan_sign:nnnn #1#2#3#4
+  {
+    \vbox_to_ht:nn { 30pt }
+      {
+        \vfil
+        #1：
+        \@@_statement_scan_sign_uline:n { #2 }
+        \hfill
+        #3：
+        \@@_statement_scan_sign_uline:n { #4 }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@@_statement:}
 % \changes{v1.19.0.0}{2022/05/30}{学位论文独创性声明和关于论文使用授权的说明}
+% \changes{v2.2.0.0}{2022/06/23}{支持声明页插入签字扫描文件}
 % 学位论文独创性声明和关于论文使用授权的说明。
 %    \begin{macrocode}
 \cs_new:Npn \@@_statement:
@@ -5480,7 +5545,7 @@
         西安电子科技大学\\
         学位论文独创性（或创新性）声明
       }
-    \vbox_to_ht:nn { 140pt }
+    \vbox_to_ht:nn { 120pt }
       {
         \rmfamily \zihao { -4 }
         \dim_set:Nn \parindent { 2em }
@@ -5494,15 +5559,27 @@
         学位论文若有不实之处，本人承担一切法律责任。
         \vfil
       }
+    \clist_if_empty:NT \l_@@_statement_sign_clist
+      { \skip_vertical:n { 20pt } }
     \vbox_to_ht:nn { 175pt }
       {
         \rmfamily \zihao { -4 }
         \dim_set:Nn \parindent { 2em }
         \dim_set:Nn \baselineskip { 20pt }
-        本人签名：\@@_uline:n { \skip_horizontal:n { 10em } }
-        \hfill
-        日\qquad{}期：\@@_uline:n { \skip_horizontal:n { 10em } }
+        \clist_if_empty:NTF \l_@@_statement_sign_clist
+          {
+            本人签名：\@@_uline:n { \skip_horizontal:n { 10em } }
+            \hfill
+            日\qquad{}期：\@@_uline:n { \skip_horizontal:n { 10em } }
+          }
+          {
+            \@@_statement_scan_sign:nnnn
+              { 本人签名     } { \clist_item:Nn \l_@@_statement_sign_clist { 1 } }
+              { 日\qquad{}期 } { \clist_item:Nn \l_@@_statement_sign_clist { 2 } }
+          }
       }
+    \clist_if_empty:NF \l_@@_statement_sign_clist
+      { \skip_vertical:n { 20pt } }
     \vbox_to_ht:nn { 60pt }
       {
         \rmfamily \zihao { 4 } \bfseries \centering
@@ -5510,7 +5587,7 @@
         西安电子科技大学\\
         关于论文使用授权的说明
       }
-    \vbox_to_ht:nn { 140pt }
+    \vbox_to_ht:nn { 120pt }
       {
         \rmfamily \zihao { -4 }
         \dim_set:Nn \parindent { 2em }
@@ -5532,18 +5609,32 @@
         年解密后适用本授权书。
         \vfil
       }
+    \clist_if_empty:NT \l_@@_statement_sign_clist
+      { \skip_vertical:n { 20pt } }
     \vbox:n
       {
         \rmfamily \zihao { -4 }
         \dim_set:Nn \parindent { 2em }
         \dim_set:Nn \baselineskip { 40pt }
-        本人签名：\@@_uline:n { \skip_horizontal:n { 10em } }
-        \hfill
-        导师签名：\@@_uline:n { \skip_horizontal:n { 10em } }
-        \par
-        日\qquad{}期：\@@_uline:n { \skip_horizontal:n { 10em } }
-        \hfill
-        日\qquad{}期：\@@_uline:n { \skip_horizontal:n { 10em } }
+        \clist_if_empty:NTF \l_@@_statement_sign_clist
+          {
+            本人签名：\@@_uline:n { \skip_horizontal:n { 10em } }
+            \hfill
+            导师签名：\@@_uline:n { \skip_horizontal:n { 10em } }
+            \par
+            日\qquad{}期：\@@_uline:n { \skip_horizontal:n { 10em } }
+            \hfill
+            日\qquad{}期：\@@_uline:n { \skip_horizontal:n { 10em } }
+          }
+          {
+            \@@_statement_scan_sign:nnnn
+              { 本人签名     } { \clist_item:Nn \l_@@_statement_sign_clist { 3 } }
+              { 导师签名     } { \clist_item:Nn \l_@@_statement_sign_clist { 5 } }
+            \par
+            \@@_statement_scan_sign:nnnn
+              { 日\qquad{}期 } { \clist_item:Nn \l_@@_statement_sign_clist { 4 } }
+              { 日\qquad{}期 } { \clist_item:Nn \l_@@_statement_sign_clist { 6 } }
+          }
       }
     \cleardoublepage
   }
@@ -5970,7 +6061,7 @@
 %    \begin{macrocode}
     \file_if_exist:nTF { \l_@@_statement_scan_str }
       {
-        \loadgeometry{ nomargin }
+        \loadgeometry { nomargin }
         \vbox_to_ht:nn { \textheight }
           {
             \vfil
