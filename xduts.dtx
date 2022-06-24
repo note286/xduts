@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/25 v2.6.0.0 Xidian University TeX Suite]
+[2022/06/25 v2.6.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/25}{2.6.0.0}
+%<class|sty>  {2022/06/25}{2.6.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2861}
+% \CheckSum{2865}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -6288,6 +6288,7 @@
 % \changes{v2.2.2.0}{2022/06/24}{修正本科生毕业设计参考文献行间距}
 % \changes{v2.2.3.0}{2022/06/24}{修改本科生毕业设计参考文献\bibtex{}字体字号设置方式}
 % \changes{v2.2.5.0}{2022/06/24}{修改本科生毕业设计参考文献标签与文献内容的间距}
+% \changes{v2.6.1.0}{2022/06/25}{修正本科生毕业设计参考文献斜杠符号字体}
 %    \begin{macrocode}
     \cs_set:Npn \bibname { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
     \@@_n_chapter_head_toc:n { \bibname }
@@ -6297,7 +6298,10 @@
           \dim_set:Nn \labelsep { 1ex }
           \bibliography { \l_@@_bib_file_clist }
         }
-        { \printbibliography }
+        {
+          \cs_set:Npn \texttt { }
+          \printbibliography
+        }
     \group_end:
   }
 %    \end{macrocode}
@@ -6382,6 +6386,7 @@
 % \changes{v2.2.2.0}{2022/06/24}{修正研究生学位论文参考文献行间距}
 % \changes{v2.2.3.0}{2022/06/24}{修改研究生学位论文参考文献\bibtex{}字体字号设置方式}
 % \changes{v2.2.5.0}{2022/06/24}{修改研究生学位论文参考文献标签与文献内容的间距}
+% \changes{v2.6.1.0}{2022/06/25}{修正研究生学位论文参考文献斜杠符号字体}
 % 参考文献。
 %    \begin{macrocode}
     \cs_set:Npn \bibname { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
@@ -6393,7 +6398,10 @@
           \dim_set:Nn \labelsep { 1ex }
           \bibliography { \l_@@_bib_file_clist }
         }
-        { \printbibliography }
+        {
+          \cs_set:Npn \texttt { }
+          \printbibliography
+        }
     \group_end:
 %    \end{macrocode}
 % \changes{v1.24.0.0}{2022/06/05}{研究生学位论文致谢}
