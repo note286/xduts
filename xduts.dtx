@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/24 v2.2.5.0 Xidian University TeX Suite]
+[2022/06/25 v2.6.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/24}{2.2.5.0}
+%<class|sty>  {2022/06/25}{2.6.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2843}
+% \CheckSum{2861}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -683,6 +683,16 @@
 % \end{optdesc}
 % \subsection{算法配置}
 % \label{算法配置}
+% \begin{function}[added=2022-06-25]{style/algorithm-small-caption}
+%   \begin{syntax}
+%     \optx{style/algorithm-small-caption}=\metax{(true)|false}
+%   \end{syntax}
+% 设置算法Caption字号是否为五号。
+% \end{function}
+% \begin{optdesc}
+%   \item[true] 五号。
+%   \item[false] 小四号。
+% \end{optdesc}
 % \begin{function}[added=2022-04-15]{style/algorithm-small-font}
 %   \begin{syntax}
 %     \optx{style/algorithm-small-font}=\metax{(true)|false}
@@ -2920,6 +2930,7 @@
 %     \l_@@_biblatex_option_tl,
 %     \l_@@_cap_label_sep_tl,
 %     \l_@@_tab_small_bool,
+%     \l_@@_alg_small_cap_bool,
 %     \l_@@_alg_small_bool,
 %     \l_@@_before_skip_clist,
 %     \l_@@_after_skip_clist,
@@ -2960,7 +2971,11 @@
 %    \begin{macrocode}
 \bool_new:N \l_@@_tab_small_bool
 %    \end{macrocode}
-% 设置算法字号是否为五号。
+% 设置算法Caption字号是否为五号。
+%    \begin{macrocode}
+\bool_new:N \l_@@_alg_small_cap_bool
+%    \end{macrocode}
+% 设置算法内容字号是否为五号。
 %    \begin{macrocode}
 \bool_new:N \l_@@_alg_small_bool
 %    \end{macrocode}
@@ -3023,7 +3038,11 @@
 %    \begin{macrocode}
     table-small-font .bool_set:N = \l_@@_tab_small_bool,
 %    \end{macrocode}
-% 设置算法字号是否为五号。
+% 设置算法Caption字号是否为五号。
+%    \begin{macrocode}
+    algorithm-small-caption .bool_set:N = \l_@@_alg_small_cap_bool,
+%    \end{macrocode}
+% 设置算法内容字号是否为五号。
 %    \begin{macrocode}
     algorithm-small-font .bool_set:N = \l_@@_alg_small_bool,
 %    \end{macrocode}
@@ -3059,18 +3078,19 @@
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-    style / en-cjk-font          = false,
-    style / language             = zh,
-    style / bib-backend          = biblatex,
-    style / biblatex-option      = { },
-    style / ref-add-space        = false,
-    style / caption-label-sep    = { 0.75em },
-    style / table-small-font     = true,
-    style / algorithm-small-font = true,
-    style / before-skip          = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
-    style / after-skip           = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
-    style / symmetric-margin     = false,
-    style / page-vertical-align  = { 顶部对齐 }
+    style / en-cjk-font             = false,
+    style / language                = zh,
+    style / bib-backend             = biblatex,
+    style / biblatex-option         = { },
+    style / ref-add-space           = false,
+    style / caption-label-sep       = { 0.75em },
+    style / table-small-font        = true,
+    style / algorithm-small-caption = true,
+    style / algorithm-small-font    = true,
+    style / before-skip             = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
+    style / after-skip              = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
+    style / symmetric-margin        = false,
+    style / page-vertical-align     = { 顶部对齐 }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4344,7 +4364,8 @@
 %    \begin{macrocode}
 \RequirePackage { caption }
 \DeclareCaptionLabelSeparator { customskip } { \hskip \l_@@_cap_label_sep_tl }
-\DeclareCaptionFont { customfont } { \@@_rm_family: \zihao { 5 } }
+\DeclareCaptionFont { customfont   } { \@@_rm_family: \zihao { 5  } }
+\DeclareCaptionFont { customfontii } { \@@_rm_family: \zihao { -4 } }
 \captionsetup
   {
     labelsep = customskip,
@@ -4355,19 +4376,35 @@
 % \begin{macro}{\captionsetup}
 % \changes{v1.0.4.0}{2022/04/15}{设置\pkgx{algorithm}算法标签与标题字体字号及标签与后面标题之间的间距}
 % \changes{v1.1.3.0}{2022/04/15}{修正\pkgx{algorithm}算法标签字体系列}
+% \changes{v2.6.0.0}{2022/06/25}{设置\pkgx{algorithm}算法Caption字号是否为五号}
 % 设置\pkgx{algorithm}算法标签与标题字体字号及标签与后面标题之间的间距。
 %    \begin{macrocode}
-\captionsetup [ algorithm ]
+\ctex_at_end_preamble:n
   {
-    labelsep  = customskip,
-    labelfont = customfont,
-    font      = customfont
+    \bool_if:NTF \l_@@_alg_small_cap_bool
+      {
+        \captionsetup [ algorithm ]
+          {
+            labelsep  = customskip,
+            labelfont = customfont,
+            font      = customfont
+          }
+      }
+      {
+        \captionsetup [ algorithm ]
+          {
+            labelsep  = customskip,
+            labelfont = customfontii,
+            font      = customfontii
+          }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\SetAlgoCaptionSeparator,\SetAlCapNameFnt,\SetAlCapFnt}
 % \changes{v1.0.0.0}{2022/04/14}{修正\pkgx{algorithm2e}算法标签与后面标题之间的间距}
 % \changes{v1.0.4.0}{2022/04/15}{修正\pkgx{algorithm2e}算法标签与标题字体字号}
+% \changes{v2.6.0.0}{2022/06/25}{设置\pkgx{algorithm2e}算法Caption字号是否为五号}
 % 设置\pkgx{algorithm2e}算法标签与标题字体字号及标签与后面标题之间的间距。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
@@ -4375,8 +4412,15 @@
     \cs_if_exist:NT \thealgocf
       {
         \SetAlgoCaptionSeparator { \hbox_to_wd:nn { \l_@@_cap_label_sep_tl } { } }
-        \SetAlCapNameFnt         { \@@_rm_family: \zihao { 5 } }
-        \SetAlCapFnt             { \@@_rm_family: \zihao { 5 } }
+        \bool_if:NTF \l_@@_alg_small_cap_bool
+          {
+            \SetAlCapNameFnt         { \@@_rm_family: \zihao { 5  } }
+            \SetAlCapFnt             { \@@_rm_family: \zihao { 5  } }
+          }
+          {
+            \SetAlCapNameFnt         { \@@_rm_family: \zihao { -4 } }
+            \SetAlCapFnt             { \@@_rm_family: \zihao { -4 } }
+          }
         \SetAlCapSty             { }
       }
   }
