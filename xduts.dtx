@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/24 v2.2.3.0 Xidian University TeX Suite]
+[2022/06/24 v2.2.4.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/24}{2.2.3.0}
+%<class|sty>  {2022/06/24}{2.2.4.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2854}
+% \CheckSum{2857}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4562,6 +4562,7 @@
 % \changes{v1.13.6.0}{2022/05/09}{移除\pkgx{natbib}宏包显式调用}
 % \changes{v1.14.0.0}{2022/05/10}{为\bibtex{}提供\tnx{parencite}命令}
 % \changes{v1.14.1.0}{2022/05/10}{使用\tnx{PassOptionsToPackage}传递\pkgx{gbt7714}和\pkgx{biblatex}宏包参数}
+% \changes{v2.2.4.0}{2022/06/24}{修改参考文献\bibtex{}标签右对齐}
 % 参考文献。
 %    \begin{macrocode}
 \PassOptionsToPackage { sort&compress       } { gbt7714  }
@@ -4572,6 +4573,7 @@
       {
         \RequirePackage { gbt7714 }
         \bibliographystyle { gbt7714-numerical }
+        \cs_set:Npn \@biblabel #1 { \hfill [ #1 ] }
         \NewDocumentCommand \parencite { m }
           { \group_begin: \citestyle { numbers } \cite { #1 } \group_end: }
       }
