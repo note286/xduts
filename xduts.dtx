@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/24 v2.2.4.0 Xidian University TeX Suite]
+[2022/06/24 v2.2.5.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/24}{2.2.4.0}
+%<class|sty>  {2022/06/24}{2.2.5.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2857}
+% \CheckSum{2843}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4563,6 +4563,7 @@
 % \changes{v1.14.0.0}{2022/05/10}{为\bibtex{}提供\tnx{parencite}命令}
 % \changes{v1.14.1.0}{2022/05/10}{使用\tnx{PassOptionsToPackage}传递\pkgx{gbt7714}和\pkgx{biblatex}宏包参数}
 % \changes{v2.2.4.0}{2022/06/24}{修改参考文献\bibtex{}标签右对齐}
+% \changes{v2.2.5.0}{2022/06/24}{修改\bibtex{}和\pkgx{biblatex}字体配置方式}
 % 参考文献。
 %    \begin{macrocode}
 \PassOptionsToPackage { sort&compress       } { gbt7714  }
@@ -4574,6 +4575,8 @@
         \RequirePackage { gbt7714 }
         \bibliographystyle { gbt7714-numerical }
         \cs_set:Npn \@biblabel #1 { \hfill [ #1 ] }
+        \cs_set:Npn \bibsection { }
+        \dim_set:Nn \bibsep { 0pt }
         \NewDocumentCommand \parencite { m }
           { \group_begin: \citestyle { numbers } \cite { #1 } \group_end: }
       }
@@ -4581,6 +4584,19 @@
         \PassOptionsToPackage { \l_@@_biblatex_option_tl } { biblatex }
         \RequirePackage { biblatex }
         \clist_map_inline:Nn \l_@@_bib_file_clist { \addbibresource { #1 } }
+        \defbibheading { bibliography } [ ] { }
+        \dim_set:Nn \biblabelsep { 1ex }
+        \dim_set:Nn \bibitemsep { 0pt }
+      }
+%    \end{macrocode}
+% \bibtex{}和\pkgx{biblatex}通用字体字号配置。
+%    \begin{macrocode}
+    \cs_set:Npn \bibfont
+      {
+%<xdupgthesis>        \rmfamily
+%<xduugthesis>        \@@_rm_family:
+        \zihao { 5 }
+%<xdupgthesis>        \dim_set:Nn \baselineskip { 20pt }
       }
   }
 %    \end{macrocode}
@@ -6227,23 +6243,17 @@
 % \changes{v1.4.1.0}{2022/04/27}{修复bibtex产生的多余参考文献列表章节}
 % \changes{v2.2.2.0}{2022/06/24}{修正本科生毕业设计参考文献行间距}
 % \changes{v2.2.3.0}{2022/06/24}{修改本科生毕业设计参考文献\bibtex{}字体字号设置方式}
+% \changes{v2.2.5.0}{2022/06/24}{修改本科生毕业设计参考文献标签与文献内容的间距}
 %    \begin{macrocode}
     \cs_set:Npn \bibname { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
     \@@_n_chapter_head_toc:n { \bibname }
     \group_begin:
       \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
         {
-          \cs_set:Npn \bibsection { }
-          \dim_set:Nn \bibsep { 0pt }
-          \cs_set:Npn \bibfont { \@@_rm_family: \zihao { 5 } }
+          \dim_set:Nn \labelsep { 1ex }
           \bibliography { \l_@@_bib_file_clist }
         }
-        {
-          \defbibheading { bibliography } [ ] { }
-          \dim_set:Nn \bibitemsep { 0pt }
-          \cs_set:Npn \bibfont { \@@_rm_family: \zihao { 5 } }
-          \printbibliography
-        }
+        { \printbibliography }
     \group_end:
   }
 %    \end{macrocode}
@@ -6327,6 +6337,7 @@
 % \changes{v1.25.0.0}{2022/06/05}{研究生学位论文参考文献}
 % \changes{v2.2.2.0}{2022/06/24}{修正研究生学位论文参考文献行间距}
 % \changes{v2.2.3.0}{2022/06/24}{修改研究生学位论文参考文献\bibtex{}字体字号设置方式}
+% \changes{v2.2.5.0}{2022/06/24}{修改研究生学位论文参考文献标签与文献内容的间距}
 % 参考文献。
 %    \begin{macrocode}
     \cs_set:Npn \bibname { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
@@ -6335,25 +6346,10 @@
     \group_begin:
       \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
         {
-          \cs_set:Npn \bibsection { }
-          \dim_set:Nn \bibsep { 0pt }
-          \cs_set:Npn \bibfont
-            {
-              \rmfamily \zihao { 5 }
-              \dim_set:Nn \baselineskip { 20pt }
-            }
+          \dim_set:Nn \labelsep { 1ex }
           \bibliography { \l_@@_bib_file_clist }
         }
-        {
-          \defbibheading { bibliography } [ ] { }
-          \dim_set:Nn \bibitemsep { 0pt }
-          \cs_set:Npn \bibfont
-            {
-              \rmfamily \zihao { 5 }
-              \dim_set:Nn \baselineskip { 20pt }
-            }
-          \printbibliography
-        }
+        { \printbibliography }
     \group_end:
 %    \end{macrocode}
 % \changes{v1.24.0.0}{2022/06/05}{研究生学位论文致谢}
