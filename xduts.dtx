@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/23 v2.2.1.1 Xidian University TeX Suite]
+[2022/06/24 v2.2.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/23}{2.2.1.1}
+%<class|sty>  {2022/06/24}{2.2.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2842}
+% \CheckSum{2850}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -6223,6 +6223,7 @@
 % \changes{v0.5.2.0}{2022/04/07}{修正参考文献列表字体字号}
 % \changes{v1.3.1.0}{2022/04/21}{修复参考文献列表字体字号}
 % \changes{v1.4.1.0}{2022/04/27}{修复bibtex产生的多余参考文献列表章节}
+% \changes{v2.2.2.0}{2022/06/24}{修正本科生毕业设计参考文献行间距}
 %    \begin{macrocode}
     \cs_set:Npn \bibname { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
     \@@_n_chapter_head_toc:n { \bibname }
@@ -6230,11 +6231,13 @@
       \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
         {
           \cs_set:Npn \bibsection { }
+          \dim_set:Nn \bibsep { 0pt }
           \@@_rm_family: \zihao { 5 }
           \bibliography { \l_@@_bib_file_clist }
         }
         {
           \defbibheading { bibliography } [ ] { }
+          \dim_set:Nn \bibitemsep { 0pt }
           \cs_set:Npn \bibfont { \@@_rm_family: \zihao { 5 } }
           \printbibliography
         }
@@ -6319,6 +6322,7 @@
       }
 %    \end{macrocode}
 % \changes{v1.25.0.0}{2022/06/05}{研究生学位论文参考文献}
+% \changes{v2.2.2.0}{2022/06/24}{修正研究生学位论文参考文献行间距}
 % 参考文献。
 %    \begin{macrocode}
     \cs_set:Npn \bibname { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
@@ -6328,12 +6332,14 @@
       \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
         {
           \cs_set:Npn \bibsection { }
+          \dim_set:Nn \bibsep { 0pt }
           \rmfamily \zihao { 5 }
           \dim_set:Nn \baselineskip { 20pt }
           \bibliography { \l_@@_bib_file_clist }
         }
         {
           \defbibheading { bibliography } [ ] { }
+          \dim_set:Nn \bibitemsep { 0pt }
           \cs_set:Npn \bibfont
             {
               \rmfamily \zihao { 5 }
