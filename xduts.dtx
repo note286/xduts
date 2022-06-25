@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/25 v2.6.1.0 Xidian University TeX Suite]
+[2022/06/26 v2.7.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/25}{2.6.1.0}
+%<class|sty>  {2022/06/26}{2.7.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2865}
+% \CheckSum{2971}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1439,6 +1439,20 @@
 % \end{itemize}
 % \end{itemize}
 % \setlength\parindent{2em}
+% \subsection{页面移除}
+% \label{页面移除}
+% \begin{function}[added=2022-06-26]{style/remove-page}
+%   \begin{syntax}
+%     \optx{style/remove-page}=\metax{封面|提名页|声明页|摘要|索引|对照表|目录|附录|参考文献|致谢|作者简介}
+%   \end{syntax}
+% 设置移除的页面，可多选，多个值之间需要使用英文半角逗号隔开。
+% \end{function}
+% \begin{optdesc}
+%   \item[提名页] 中英文提名页。
+%   \item[摘要] 中英文摘要。
+%   \item[索引] 图片索引和表格索引。
+%   \item[对照表] 符号对照表和缩略语对照表。
+% \end{optdesc}
 % \subsection{额外命令}
 % \label{额外命令}
 % \subsubsection{\tn{noauxwrite}}
@@ -2900,6 +2914,125 @@
   }
 %    \end{macrocode}
 % \end{variable}
+% \changes{v2.7.0.0}{2022/06/26}{页面移除开关}
+% \subsection{页面移除开关}
+% \label{页面移除开关}
+% \begin{variable}{\l_@@_rm_page_clist}
+% 页面移除开关。
+%    \begin{macrocode}
+\clist_new:N \l_@@_rm_page_clist
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\keys_define:nn}
+% 定义样式键值。
+%    \begin{macrocode}
+\keys_define:nn { xdu / style }
+  {
+%    \end{macrocode}
+% 设置页面移除开关。
+%    \begin{macrocode}
+    remove-page .clist_set:N = \l_@@_rm_page_clist
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\keys_set:nn}
+% 初始设置。
+%    \begin{macrocode}
+\keys_set:nn { xdu }
+  {
+    style / remove-page = { }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{variable}
+%   {
+%     \l_@@_rm_cover_bool,
+%     \l_@@_rm_title_page_bool,
+%     \l_@@_rm_statement_bool,
+%     \l_@@_rm_abstract_bool,
+%     \l_@@_rm_loft_bool,
+%     \l_@@_rm_losa_bool,
+%     \l_@@_rm_toc_bool,
+%     \l_@@_rm_appendix_bool,
+%     \l_@@_rm_ref_bool,
+%     \l_@@_rm_ack_bool,
+%     \l_@@_rm_bio_bool
+%   }
+% 封面。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_cover_bool
+%    \end{macrocode}
+% 中英文提名页。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_title_page_bool
+%    \end{macrocode}
+% 声明页。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_statement_bool
+%    \end{macrocode}
+% 中英文摘要。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_abstract_bool
+%    \end{macrocode}
+% 索引。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_loft_bool
+%    \end{macrocode}
+% 符号对照表和缩略语对照表。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_losa_bool
+%    \end{macrocode}
+% 目录。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_toc_bool
+%    \end{macrocode}
+% 附录。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_appendix_bool
+%    \end{macrocode}
+% 参考文献。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_ref_bool
+%    \end{macrocode}
+% 致谢。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_ack_bool
+%    \end{macrocode}
+% 作者简介。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_bio_bool
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\clist_if_in:NnT,\bool_set_true:N}
+% 设置页面移除开关布尔值。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \clist_if_in:NnT \l_@@_rm_page_clist { 封面 }
+      { \bool_set_true:N \l_@@_rm_cover_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 提名页 }
+      { \bool_set_true:N \l_@@_rm_title_page_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 声明页 }
+      { \bool_set_true:N \l_@@_rm_statement_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 摘要 }
+      { \bool_set_true:N \l_@@_rm_abstract_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 索引 }
+      { \bool_set_true:N \l_@@_rm_loft_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 对照表 }
+      { \bool_set_true:N \l_@@_rm_losa_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 目录 }
+      { \bool_set_true:N \l_@@_rm_toc_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 附录 }
+      { \bool_set_true:N \l_@@_rm_appendix_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 参考文献 }
+      { \bool_set_true:N \l_@@_rm_ref_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 致谢 }
+      { \bool_set_true:N \l_@@_rm_ack_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 作者简介 }
+      { \bool_set_true:N \l_@@_rm_bio_bool }
+  }
+%    \end{macrocode}
+% \end{macro}
 %    \begin{macrocode}
 %</xdupgthesis>
 %<*thesis>
@@ -4633,6 +4766,15 @@
         \dim_set:Nn \bibitemsep { 0pt }
       }
 %    \end{macrocode}
+% \changes{v2.7.0.0}{2022/06/26}{\bibtex{}下允许不生成文献列表}
+% \bibtex{}下允许不生成文献列表。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \bool_if:NT \l_@@_rm_ref_bool
+      { \RequirePackage { bibentry } }
+  }
+%    \end{macrocode}
 % \bibtex{}和\pkgx{biblatex}通用字体字号配置。
 %    \begin{macrocode}
     \cs_set:Npn \bibfont
@@ -4670,9 +4812,22 @@
     \BODY
   }
 %    \end{macrocode}
-% \end{macro}
 %    \begin{macrocode}
 %</thesis>
+%<*xdupgthesis>
+%    \end{macrocode}
+% \changes{v2.7.0.0}{2022/06/26}{研究生学位论文支持移除附录}
+% 研究生学位论文支持移除附录。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \bool_if:NT \l_@@_rm_appendix_bool
+      { \RenewEnviron { appendixes } { } }
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</xdupgthesis>
 %<*xduugthesis>
 %    \end{macrocode}
 % \changes{v1.26.7.1}{2022/06/12}{整理代码结构}
@@ -6090,6 +6245,7 @@
 % \changes{v1.5.0.0}{2022/05/01}{设置封面页边距}
 % \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
 % \changes{v1.16.0.0}{2022/05/22}{绘制研究生封面}
+% \changes{v2.7.0.0}{2022/06/26}{研究生学位论文支持移除前言部分页面}
 % 排版前言部分。
 %    \begin{macrocode}
 \renewcommand { \frontmatter }
@@ -6098,48 +6254,57 @@
     \pagestyle    { empty }
     \dim_set:Nn \parindent { 0pt }
     \dim_set:Nn \baselineskip { 20pt }
-    \@@_add_bookmark:n { \@@_lang_switch:nn { 封面 } { Cover } }
+    \bool_if:NF \l_@@_rm_cover_bool
+      {
+        \@@_add_bookmark:n { \@@_lang_switch:nn { 封面 } { Cover } }
 %    \end{macrocode}
 % \changes{v1.18.1.0}{2022/05/30}{不拆分研究生封面标题}
 % 封面标题。
 %    \begin{macrocode}
-    \vbox:n { }
-    \skip_vertical:n { 435pt }
-    \vbox_to_ht:nn { 120pt }
-      {
-        \rmfamily \zihao { 2 } \bfseries \centering
-        \dim_set:Nn \baselineskip { 30pt }
-        \l_@@_title_str
-      }
+        \vbox:n { }
+        \skip_vertical:n { 435pt }
+        \vbox_to_ht:nn { 120pt }
+          {
+            \rmfamily \zihao { 2 } \bfseries \centering
+            \dim_set:Nn \baselineskip { 30pt }
+            \l_@@_title_str
+          }
 %    \end{macrocode}
 % 封面底部作者信息。
 %    \begin{macrocode}
-    \@@_cover_author_info:
-    \cleardoublepage
+        \@@_cover_author_info:
+        \cleardoublepage
+      }
 %    \end{macrocode}
 % 中英文提名页。
 %    \begin{macrocode}
-    \@@_lang_switch:nn
-      { \@@_zh_title_page: \@@_en_title_page: }
-      { \@@_en_title_page: \@@_zh_title_page: }
+    \bool_if:NF \l_@@_rm_title_page_bool
+      {
+        \@@_lang_switch:nn
+          { \@@_zh_title_page: \@@_en_title_page: }
+          { \@@_en_title_page: \@@_zh_title_page: }
+      }
 %    \end{macrocode}
 % 声明页。
 %    \begin{macrocode}
-    \file_if_exist:nTF { \l_@@_statement_scan_str }
+    \bool_if:NF \l_@@_rm_statement_bool
       {
-        \loadgeometry { nomargin }
-        \vbox_to_ht:nn { \textheight }
+        \file_if_exist:nTF { \l_@@_statement_scan_str }
           {
-            \vfil
-            \centering
-            \includegraphics
-              [ width = \textwidth, height = \textheight, keepaspectratio ]
-              { \l_@@_statement_scan_str }
-            \vfil
+            \loadgeometry { nomargin }
+            \vbox_to_ht:nn { \textheight }
+              {
+                \vfil
+                \centering
+                \includegraphics
+                  [ width = \textwidth, height = \textheight, keepaspectratio ]
+                  { \l_@@_statement_scan_str }
+                \vfil
+              }
+            \cleardoublepage
           }
-        \cleardoublepage
+          { \@@_statement: }
       }
-      { \@@_statement: }
 %    \end{macrocode}
 % 更改页面样式。
 %    \begin{macrocode}
@@ -6150,40 +6315,52 @@
 %    \end{macrocode}
 % 中英文摘要。
 %    \begin{macrocode}
-    \@@_lang_switch:nn
-      { \@@_zh_abstract_keywords: \@@_en_abstract_keywords: }
-      { \@@_en_abstract_keywords: \@@_zh_abstract_keywords: }
+    \bool_if:NF \l_@@_rm_abstract_bool
+      {
+        \@@_lang_switch:nn
+          { \@@_zh_abstract_keywords: \@@_en_abstract_keywords: }
+          { \@@_en_abstract_keywords: \@@_zh_abstract_keywords: }
+      }
 %    \end{macrocode}
 % 图表索引。
 %    \begin{macrocode}
-    \@@_list_of_figure:
-    \@@_list_of_table:
+    \bool_if:NF \l_@@_rm_loft_bool
+      {
+        \@@_list_of_figure:
+        \@@_list_of_table:
+      }
 %    \end{macrocode}
 % 符号对照表和缩略语对照表。
 %    \begin{macrocode}
-    \@@_symbols_list:
-    \@@_abbreviations_list:
+    \bool_if:NF \l_@@_rm_losa_bool
+      {
+        \@@_symbols_list:
+        \@@_abbreviations_list:
+      }
 %    \end{macrocode}
 % \changes{v1.23.0.0}{2022/06/05}{研究生学位论文目录}
 % \changes{v1.28.0.0}{2022/06/18}{设置研究生学位论文目录深度}
 % 目录。
 %    \begin{macrocode}
-    \setcounter { tocdepth } { 2 }
-    \@@_n_chapter_head:nn
-      { \@@_lang_switch:nn { 目录            } { Contents } }
-      { \@@_lang_switch:nn { 目 { \quad } 录 } { Contents } }
-    \@starttoc { toc }
-    \cleardoublepage
+    \bool_if:NF \l_@@_rm_toc_bool
+      {
+        \setcounter { tocdepth } { 2 }
+        \@@_n_chapter_head:nn
+          { \@@_lang_switch:nn { 目录            } { Contents } }
+          { \@@_lang_switch:nn { 目 { \quad } 录 } { Contents } }
+        \@starttoc { toc }
+        \cleardoublepage
 %    \end{macrocode}
 % \changes{v1.30.0.0}{2022/06/20}{英文研究生学位论文中文目录}
 % 英文研究生学位论文中文目录。
 %    \begin{macrocode}
-    \@@_lang_switch:nn { }
-      {
-        \setcounter { tocdepth } { 2 }
-        \@@_n_chapter_head:nn { 目录 } { \@@_sf_family: 目 { \quad } 录 }
-        \@starttoc { zh.toc }
-        \cleardoublepage
+        \@@_lang_switch:nn { }
+          {
+            \setcounter { tocdepth } { 2 }
+            \@@_n_chapter_head:nn { 目录 } { \@@_sf_family: 目 { \quad } 录 }
+            \@starttoc { zh.toc }
+            \cleardoublepage
+          }
       }
   }
 %    \end{macrocode}
@@ -6366,6 +6543,7 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \changes{v2.7.0.0}{2022/06/26}{研究生学位论文支持移除后记部分页面}
 % \begin{macro}{\backmatter}
 % 排版后记部分。
 %    \begin{macrocode}
@@ -6389,64 +6567,80 @@
 % \changes{v2.6.1.0}{2022/06/25}{修正研究生学位论文参考文献斜杠符号字体}
 % 参考文献。
 %    \begin{macrocode}
-    \cs_set:Npn \bibname { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
-    \@@_n_chapter_head_toc:n { \bibname }
-    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 参考文献 } }
+    \bool_if:NF \l_@@_rm_ref_bool
+      {
+        \cs_set:Npn \bibname { \@@_lang_switch:nn { 参考文献 } { Bibliography } }
+        \@@_n_chapter_head_toc:n { \bibname }
+        \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 参考文献 } }
+      }
     \group_begin:
       \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
         {
-          \dim_set:Nn \labelsep { 1ex }
-          \bibliography { \l_@@_bib_file_clist }
+          \bool_if:NTF \l_@@_rm_ref_bool
+            { \nobibliography { \l_@@_bib_file_clist } }
+            {
+              \dim_set:Nn \labelsep { 1ex }
+              \bibliography { \l_@@_bib_file_clist }
+            }
         }
         {
-          \cs_set:Npn \texttt { }
-          \printbibliography
+          \bool_if:NF \l_@@_rm_ref_bool
+            {
+              \cs_set:Npn \texttt { }
+              \printbibliography
+            }
         }
     \group_end:
 %    \end{macrocode}
 % \changes{v1.24.0.0}{2022/06/05}{研究生学位论文致谢}
 % 致谢。
 %    \begin{macrocode}
-    \@@_n_chapter_head_toc:nn
-      { \@@_lang_switch:nn { 致谢            } { Acknowledgements } }
-      { \@@_lang_switch:nn { 致 { \quad } 谢 } { Acknowledgements } }
-    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 致谢 } }
-    \group_begin:
-      \dim_set:Nn \parindent { 2 \ccwd }
-      \rmfamily \zihao { -4 }
-      \dim_set:Nn \baselineskip { 20pt }
-      \file_if_exist_input:n { \l_@@_ack_tl }
-    \group_end:
+    \bool_if:NF \l_@@_rm_ack_bool
+      {
+        \@@_n_chapter_head_toc:nn
+          { \@@_lang_switch:nn { 致谢            } { Acknowledgements } }
+          { \@@_lang_switch:nn { 致 { \quad } 谢 } { Acknowledgements } }
+        \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 致谢 } }
+        \group_begin:
+          \dim_set:Nn \parindent { 2 \ccwd }
+          \rmfamily \zihao { -4 }
+          \dim_set:Nn \baselineskip { 20pt }
+          \file_if_exist_input:n { \l_@@_ack_tl }
+        \group_end:
+      }
 %    \end{macrocode}
 % \changes{v1.26.0.0}{2022/06/07}{研究生学位论文作者简介}
 % \changes{v1.28.4.0}{2022/06/18}{移除研究生学位论文目录中作者简介二三级标题}
 % 作者简介。
 %    \begin{macrocode}
-    \@@_n_chapter_head_toc:n
-      { \@@_lang_switch:nn { 作者简介 } { Author~Biography } }
-    \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 作者简介 } }
-    \group_begin:
-      \dim_set:Nn \parindent { 2 \ccwd }
-      \rmfamily \zihao { -4 }
-      \dim_set:Nn \baselineskip { 20pt }
+    \bool_if:NF \l_@@_rm_bio_bool
+      {
+        \@@_n_chapter_head_toc:n
+          { \@@_lang_switch:nn { 作者简介 } { Author~Biography } }
+        \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 作者简介 } }
+        \group_begin:
+          \dim_set:Nn \parindent { 2 \ccwd }
+          \rmfamily \zihao { -4 }
+          \dim_set:Nn \baselineskip { 20pt }
 %    \end{macrocode}
 % 配置作者简介部分标题样式。
 %    \begin{macrocode}
-      \ctexset
-        {
-            section    / number = { \arabic { section } . },
-            section    / format = { \rmfamily \zihao { -3 } \bfseries \raggedright },
-            subsection / number = { \arabic { section } . \arabic { subsection } },
-            subsection / format = { \rmfamily \zihao { 4 } \bfseries \raggedright },
-            subsection / indent = { \l_@@_bio_indent_dim }
-        }
-      \setcounter { section } { 0 }
-      \addtocontents { toc } { \setcounter { tocdepth } { 0 } }
+          \ctexset
+            {
+                section    / number = { \arabic { section } . },
+                section    / format = { \rmfamily \zihao { -3 } \bfseries \raggedright },
+                subsection / number = { \arabic { section } . \arabic { subsection } },
+                subsection / format = { \rmfamily \zihao { 4 } \bfseries \raggedright },
+                subsection / indent = { \l_@@_bio_indent_dim }
+            }
+          \setcounter { section } { 0 }
+          \addtocontents { toc } { \setcounter { tocdepth } { 0 } }
 %    \end{macrocode}
 % 作者简介文件。
 %    \begin{macrocode}
-      \file_if_exist_input:n { \l_@@_bio_str }
-    \group_end:
+          \file_if_exist_input:n { \l_@@_bio_str }
+        \group_end:
+      }
   }
 %    \end{macrocode}
 % \end{macro}
