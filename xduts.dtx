@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/26 v2.9.1.0 Xidian University TeX Suite]
+[2022/06/26 v2.10.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/26}{2.9.1.0}
+%<class|sty>  {2022/06/26}{2.10.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2980}
+% \CheckSum{2989}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -297,6 +297,7 @@
 % 作者简介配置见\secrefx{作者简介配置}。
 % 如需附录，请使用附录环境，具体见\secrefx{附录环境}。
 % 支持的信息录入选项见\secrefx{信息录入}。
+% 页面和信息移除见\secrefx{页面和信息移除}。
 % \par
 % 学会以上用法后即可使用\clsx{xdupgthesis}文档类。
 % 另外，在\secrefx{额外命令}中提供了部分额外命令来增强排版。
@@ -1439,8 +1440,8 @@
 % \end{itemize}
 % \end{itemize}
 % \setlength\parindent{2em}
-% \subsection{页面移除}
-% \label{页面移除}
+% \subsection{页面和信息移除}
+% \label{页面和信息移除}
 % \begin{function}[added=2022-06-26]{style/remove-page}
 %   \begin{syntax}
 %     \optx{style/remove-page}=\metax{封面|提名页|声明页|摘要|索引|对照表|目录|附录|参考文献|致谢|作者简介}
@@ -1455,15 +1456,21 @@
 % \end{optdesc}
 % \begin{function}[added=2022-06-26]{style/remove-header}
 %   \begin{syntax}
-%     \optx{remove-header}=\metax{true|(false)}
+%     \optx{style/remove-header}=\metax{true|(false)}
 %   \end{syntax}
 % 设置是否移除页眉。
 % \end{function}
 % \begin{function}[added=2022-06-26]{style/remove-footer}
 %   \begin{syntax}
-%     \optx{remove-footer}=\metax{true|(false)}
+%     \optx{style/remove-footer}=\metax{true|(false)}
 %   \end{syntax}
 % 设置是否移除页脚。
+% \end{function}
+% \begin{function}[added=2022-06-26]{style/anonymous}
+%   \begin{syntax}
+%     \optx{anonymous}=\metax{true|(false)}
+%   \end{syntax}
+% 设置是否开启匿名，与\secrefx{额外命令}中的\tnx{anon}搭配使用。
 % \end{function}
 % \subsection{额外命令}
 % \label{额外命令}
@@ -1498,6 +1505,20 @@
 %   \paragraph{This Is Paragraph}
 %   \subparagraph{This Is Subparagraph}
 % \end{latexexample}
+% \end{function}
+% \subsubsection{匿名命令}
+% \label{匿名命令}
+% \begin{function}[added=2022-06-26]{\anon}
+%   \begin{syntax}
+%     \tn{anon}\oarg{匿名内容}\marg{非匿名内容}
+%   \end{syntax}
+% 根据\optx{style/anonymous}的状态来显示相应的\metax{匿名内容}和\metax{非匿名内容}。
+% 其中\oargx{匿名内容}为可选参数，默认为XXX。
+% 一个简单的例子如下所示：
+% \begin{latexexample}[moretexcs={\anon}]
+%   \anon[XX]{张三}
+% \end{latexexample}
+% 当\optx{style/anonymous}为\valuex{true}，输出张三；当\optx{style/anonymous}为\valuex{false}，输出XX。
 % \end{function}
 % \subsection{隐藏功能}
 % \changes{v1.26.11.1}{2022/06/17}{带教导师与挂名导师}
@@ -3059,6 +3080,46 @@
       { \bool_set_true:N \l_@@_rm_ack_bool }
     \clist_if_in:NnT \l_@@_rm_page_clist { 作者简介 }
       { \bool_set_true:N \l_@@_rm_bio_bool }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \changes{v2.10.0.0}{2022/06/26}{匿名命令}
+% \subsection{匿名操作}
+% \label{匿名操作}
+% \begin{variable}{\l_@@_anon_bool}
+% 匿名开关。
+%    \begin{macrocode}
+\bool_new:N \l_@@_anon_bool
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\keys_define:nn}
+% 定义样式键值。
+%    \begin{macrocode}
+\keys_define:nn { xdu / style }
+  {
+%    \end{macrocode}
+% 匿名操作。
+%    \begin{macrocode}
+    anonymous .bool_set:N = \l_@@_anon_bool
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\keys_set:nn}
+% 初始设置。
+%    \begin{macrocode}
+\keys_set:nn { xdu }
+  {
+    style / anonymous = { false }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\anon}
+% 匿名命令。
+%    \begin{macrocode}
+\NewDocumentCommand \anon { O { XXX } m }
+  {
+    \bool_if:NTF \l_@@_anon_bool
+      { #1 } { #2 }
   }
 %    \end{macrocode}
 % \end{macro}
