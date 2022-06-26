@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/26 v2.8.0.0 Xidian University TeX Suite]
+[2022/06/26 v2.9.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/26}{2.8.0.0}
+%<class|sty>  {2022/06/26}{2.9.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2975}
+% \CheckSum{2976}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -1458,6 +1458,12 @@
 %     \optx{remove-header}=\metax{true|(false)}
 %   \end{syntax}
 % 设置是否移除页眉。
+% \end{function}
+% \begin{function}[added=2022-06-26]{style/remove-footer}
+%   \begin{syntax}
+%     \optx{remove-footer}=\metax{true|(false)}
+%   \end{syntax}
+% 设置是否移除页脚。
 % \end{function}
 % \subsection{额外命令}
 % \label{额外命令}
@@ -2926,7 +2932,8 @@
 % \begin{variable}
 %   {
 %     \l_@@_rm_page_clist,
-%     \l_@@_rm_header_bool
+%     \l_@@_rm_header_bool,
+%     \l_@@_rm_footer_bool
 %   }
 % 页面移除开关。
 %    \begin{macrocode}
@@ -2935,6 +2942,10 @@
 % 页眉移除开关。
 %    \begin{macrocode}
 \bool_new:N \l_@@_rm_header_bool
+%    \end{macrocode}
+% 页脚移除开关。
+%    \begin{macrocode}
+\bool_new:N \l_@@_rm_footer_bool
 %    \end{macrocode}
 % \end{variable}
 % \begin{macro}{\keys_define:nn}
@@ -2946,7 +2957,8 @@
 % 设置页面移除开关。
 %    \begin{macrocode}
     remove-page .clist_set:N = \l_@@_rm_page_clist,
-    remove-header .bool_set:N = \l_@@_rm_header_bool
+    remove-header .bool_set:N = \l_@@_rm_header_bool,
+    remove-footer .bool_set:N = \l_@@_rm_footer_bool
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2956,7 +2968,8 @@
 \keys_set:nn { xdu }
   {
     style / remove-page   = { },
-    style / remove-header = { false }
+    style / remove-header = { false },
+    style / remove-footer = { false }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3882,6 +3895,7 @@
 % \changes{v1.7.0.0}{2022/05/02}{设置页眉}
 % \changes{v1.26.9.0}{2022/06/13}{修正页眉文字和双横线高度}
 % \changes{v2.8.0.0}{2022/06/26}{研究生学位论文支持移除页眉}
+% \changes{v2.9.0.0}{2022/06/26}{研究生学位论文支持移除页脚}
 % 设置正文页眉页脚。
 % \begin{description}
 % \item[本科生] 页眉：宋体五号，居中排列。左面页眉为论文题目，右面页眉为章次和章标题。页眉底划线的宽度为0.75磅。页码：宋体小五号，排在页眉行的最外侧，不加任何修饰。
@@ -3905,8 +3919,9 @@
         \fancyhead [ CE ] { \@@_rm_family: \zihao { 5  } \l_@@_header_str     }
         \fancyhead [ CO ] { \@@_rm_family: \zihao { 5  } \leftmark            }
       }
-    \fancyfoot [ CE ] { \@@_rm_family: \zihao { -5 } \thepage             }
-    \fancyfoot [ CO ] { \@@_rm_family: \zihao { -5 } \thepage             }
+    \bool_if:NTF \l_@@_rm_footer_bool
+      { \fancyfoot [ C ] { } }
+      { \fancyfoot [ C ] { \@@_rm_family: \zihao { -5 } \thepage } }
     \cs_set:Npn \headrulewidth { 0.5pt }
     \cs_set:Npn \headrule
       {
@@ -3923,8 +3938,9 @@
 \fancypagestyle { front }
   {
     \pagestyle { plain }
-    \fancyfoot [ CE ] { \rmfamily \zihao { -5 } \thepage }
-    \fancyfoot [ CO ] { \rmfamily \zihao { -5 } \thepage }
+    \bool_if:NTF \l_@@_rm_footer_bool
+      { \fancyfoot [ C ] { } }
+      { \fancyfoot [ C ] { \rmfamily \zihao { -5 } \thepage } }
   }
 %</xdupgthesis>
 %    \end{macrocode}
