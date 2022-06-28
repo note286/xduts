@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/26 v2.10.1.1 Xidian University TeX Suite]
+[2022/06/28 v2.10.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/26}{2.10.1.1}
+%<class|sty>  {2022/06/28}{2.10.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{2988}
+% \CheckSum{3000}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -6185,6 +6185,15 @@
   }
 %    \end{macrocode}
 % \end{macro}
+% \begin{variable}{\l_@@_losa_add_skip_dim}
+% \changes{v2.10.2.0}{2022/06/28}{对照表行间距补偿值}
+% 对照表行间距补偿值：
+% $20pt-12bp\times(72.27/72)pt/bp\times1.2\times1.3=1.2098pt$。
+%    \begin{macrocode}
+\dim_new:N \l_@@_losa_add_skip_dim
+\dim_set:Nn \l_@@_losa_add_skip_dim { 1.2098pt }
+%    \end{macrocode}
+% \end{variable}
 % \begin{macro}{\@@_symbols_list:}
 % \changes{v1.22.0.0}{2022/06/05}{符号对照表}
 % \changes{v1.26.2.0}{2022/06/09}{修复符号对照表列格式解析错误}
@@ -6193,6 +6202,7 @@
 % \changes{v1.28.1.0}{2022/06/18}{添加符号对照表至目录}
 % \changes{v1.29.1.0}{2022/06/19}{修复符号对照表引起的章节段前段后间距错误}
 % \changes{v2.2.1.0}{2022/06/23}{移除表格索引中生成的符号对照表}
+% \changes{v2.10.2.0}{2022/06/28}{修正符号对照表行内行间距}
 % 符号对照表。
 %    \begin{macrocode}
 \cs_new:Npn \@@_symbols_list:
@@ -6240,13 +6250,15 @@
                 colspec = { \exp_not:V \l_@@_colspec_los_tl },
                 \exp_not:n
                   {
-                    rowhead = \int_compare:nNnTF
-                                { \value { rowcount } } > { 1 }
-                                { \l_@@_los_rowhead_tl } { 0 },
-                    rows    = { font = \rmfamily \zihao { -4 } },
-                    stretch = 0,
-                    rowsep  = { 3pt },
-                    rows    = { ht = 14pt }
+                    rowhead  = \int_compare:nNnTF
+                                 { \value { rowcount } } > { 1 }
+                                 { \l_@@_los_rowhead_tl } { 0 },
+                    cells    = {
+                                 font = \rmfamily \zihao { -4 }
+                                 \dim_add:Nn \baselineskip { \l_@@_losa_add_skip_dim }
+                               },
+                    abovesep = 0pt,
+                    belowsep = \l_@@_losa_add_skip_dim
                   }
               }
           }
@@ -6266,6 +6278,7 @@
 % \changes{v1.28.1.0}{2022/06/18}{添加缩略语对照表至目录}
 % \changes{v1.29.1.0}{2022/06/19}{修复缩略语对照表引起的章节段前段后间距错误}
 % \changes{v2.2.1.0}{2022/06/23}{移除表格索引中生成的缩略语对照表}
+% \changes{v2.10.2.0}{2022/06/28}{修正缩略语对照表行内行间距}
 % 缩略语对照表。
 %    \begin{macrocode}
 \cs_new:Npn \@@_abbreviations_list:
@@ -6319,13 +6332,15 @@
                 colspec = { \exp_not:V \l_@@_colspec_loa_tl },
                 \exp_not:n
                   {
-                    rowhead = \int_compare:nNnTF
-                                { \value { rowcount } } > { 1 }
-                                { \l_@@_loa_rowhead_tl } { 0 },
-                    rows    = { font = \rmfamily \zihao { -4 } },
-                    stretch = 0,
-                    rowsep  = { 3pt },
-                    rows    = { ht = 14pt }
+                    rowhead  = \int_compare:nNnTF
+                                 { \value { rowcount } } > { 1 }
+                                 { \l_@@_loa_rowhead_tl } { 0 },
+                    cells    = {
+                                 font = \rmfamily \zihao { -4 }
+                                 \dim_add:Nn \baselineskip { \l_@@_losa_add_skip_dim }
+                               },
+                    abovesep = 0pt,
+                    belowsep = \l_@@_losa_add_skip_dim
                   }
               }
           }
