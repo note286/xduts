@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/28 v2.10.2.0 Xidian University TeX Suite]
+[2022/06/28 v2.10.2.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/28}{2.10.2.0}
+%<class|sty>  {2022/06/28}{2.10.2.1}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -784,14 +784,15 @@
 %   $\mathbb{R}$ & 实数   \\
 % \end{latexexample}
 % \end{optdesc}
-% \begin{function}[added=2022-06-05]{style/colspec-los,style/colspec-loa}
+% \changes{v2.10.2.1}{2022/06/28}{修改对照表默认列格式}
+% \begin{function}[added=2022-06-05,updated=2022-06-28]{style/colspec-los,style/colspec-loa}
 %   \begin{syntax}
 %     \optx{style/colspec-los}=\argx{符号对照表列格式}
 %     \optx{style/colspec-loa}=\argx{缩略语对照表列格式}
 %   \end{syntax}
 % 设置符号对照表和缩略语对照表列格式，
-% 符号对照表列格式默认值为\valuex{Q[l,m]X[l,m]}。
-% 缩略语对照表列格式默认值为\valuex{Q[l,m]X[l,m]X[l,m]}。
+% 符号对照表列格式默认值为\valuex{Q[l,h]X[l,h]}。
+% 缩略语对照表列格式默认值为\valuex{Q[l,h]X[l,h]X[l,h]}。
 % 语法参考\pkgx{tabularray}宏包\cmdx{colspec}选项。
 % 仅在\optx{style/customize-los}和\optx{style/customize-loa}等于\valuex{false}时有效。
 % \end{function}
@@ -3407,8 +3408,8 @@
   {
     style / customize-los = { true               },
     style / customize-loa = { true               },
-    style / colspec-los   = { Q[l,m]X[l,m]       },
-    style / colspec-loa   = { Q[l,m]X[l,m]X[l,m] },
+    style / colspec-los   = { Q[l,h]X[l,h]       },
+    style / colspec-loa   = { Q[l,h]X[l,h]X[l,h] },
     style / title-row-los = { false              },
     style / title-row-loa = { false              }
   }
