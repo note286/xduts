@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/28 v2.10.3.0 Xidian University TeX Suite]
+[2022/06/30 v2.11.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/28}{2.10.3.0}
+%<class|sty>  {2022/06/30}{2.11.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{3008}
+% \CheckSum{3012}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -4503,6 +4503,19 @@
 \renewcommand { \theequation } { \thechapter - \arabic { equation } }
 %    \end{macrocode}
 % \end{macro}
+% \subsection{浮动体}
+% \begin{variable}
+%   {
+%     \topfraction,
+%     \floatpagefraction
+%   }
+% \changes{v2.11.0.0}{2022/06/30}{限制浮动环境占用大小}
+% 限制浮动环境占用大小。
+%    \begin{macrocode}
+\cs_set:Npn \topfraction       { .8 }
+\cs_set:Npn \floatpagefraction { .8 }
+%    \end{macrocode}
+% \end{variable}
 % \subsection{算法}
 % \begin{macro}{\ALG@name,\algorithmcfname}
 % \changes{v1.1.1.0}{2022/04/15}{汉化算法标签名称}
