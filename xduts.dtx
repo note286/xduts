@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/06/30 v2.11.0.0 Xidian University TeX Suite]
+[2022/07/01 v2.12.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/06/30}{2.11.0.0}
+%<class|sty>  {2022/07/01}{2.12.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,7 +155,7 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{3012}
+% \CheckSum{3057}
 % \CharacterTable
 %  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
 %   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
@@ -642,6 +642,26 @@
 %   \item[分散对齐] 页面高度均匀地填满，使每一页的底部直接对齐。
 %   \item[顶部对齐] 页面中的内容保持它的自然高度，每一页的页面底部用空白填满。
 % \end{optdesc}
+% \subsection{文件配置}
+% \begin{function}[added=2022-07-01]{style/file-search-path}
+%   \begin{syntax}
+%     \optx{style/file-search-path}=\argx{路径}
+%   \end{syntax}
+% 设置文件搜索路径，可用于\tnx{input}、\tnx{include}和\tnx{includegraphics}，
+% 多个路径之间需要使用英文半角逗号隔开。
+% 设置后\tnx{input}、\tnx{include}和\tnx{includegraphics}仅需填写文件名。
+% \end{function}
+% \begin{function}[added=2022-07-01]{style/fix-input,style/fix-include,style/fix-includegraphics}
+%   \begin{syntax}
+%     \optx{style/fix-input}=\metax{true|(false)}
+%     \optx{style/fix-include}=\metax{true|(false)}
+%     \optx{style/fix-includegraphics}=\metax{true|(false)}
+%   \end{syntax}
+% TEXMF树搜索优先级高于用户自定义的文件搜索路径，
+% 如果在TEXMF树内存在同名文件，则会导致错误的文件被加载。
+% 通过为\tnx{input}、\tnx{include}和\tnx{includegraphics}命令打补丁可以避免该问题。
+% 如果用户的\TeX{}或图片等文件不与TEXMF树内文件同名，或与\TeX{}主文件在同一目录，则无需打补丁。
+% \end{function}
 % \subsection{交叉引用配置}
 % \label{交叉引用配置}
 % \begin{function}[added=2022-04-16,updated=2022-05-08]{style/ref-add-space}
@@ -3163,6 +3183,11 @@
 %     \l_@@_lang_tl,
 %     \l_@@_bib_tool_tl,
 %     \l_@@_biblatex_option_tl,
+%     \l_@@_file_search_path_clist,
+%     \l_@@_fix_input_bool,
+%     \l_@@_fix_include_bool,
+%     \l_@@_fix_includegraphics_bool,
+%     \l_@@_ref_add_space_bool,
 %     \l_@@_cap_label_sep_tl,
 %     \l_@@_tab_small_bool,
 %     \l_@@_alg_small_cap_bool,
@@ -3194,9 +3219,19 @@
 %    \begin{macrocode}
 \tl_new:N \l_@@_biblatex_option_tl
 %    \end{macrocode}
+% 设置文件搜索路径。
+%    \begin{macrocode}
+\clist_new:N \l_@@_file_search_path_clist
+%    \end{macrocode}
+% 是否修复文件导入命令。
+%    \begin{macrocode}
+\bool_new:N \l_@@_fix_input_bool
+\bool_new:N \l_@@_fix_include_bool
+\bool_new:N \l_@@_fix_includegraphics_bool
+%    \end{macrocode}
 % 是否在\tnx{ref}和\tnx{pageref}两侧自动调整中英文间空白。
 %    \begin{macrocode}
-\tl_new:N \l_@@_ref_add_space
+\tl_new:N \l_@@_ref_add_space_bool
 %    \end{macrocode}
 % 标签与后面标题之间的间距。
 %    \begin{macrocode}
@@ -3261,9 +3296,19 @@
 %    \begin{macrocode}
     biblatex-option .tl_set:N = \l_@@_biblatex_option_tl,
 %    \end{macrocode}
+% 设置文件搜索路径。
+%    \begin{macrocode}
+    file-search-path .clist_set:N = \l_@@_file_search_path_clist,
+%    \end{macrocode}
+% 是否修复文件导入命令。
+%    \begin{macrocode}
+    fix-input .bool_set:N = \l_@@_fix_input_bool,
+    fix-include .bool_set:N = \l_@@_fix_include_bool,
+    fix-includegraphics .bool_set:N = \l_@@_fix_includegraphics_bool,
+%    \end{macrocode}
 % 是否在\tnx{ref}和\tnx{pageref}两侧自动调整中英文间空白。
 %    \begin{macrocode}
-    ref-add-space .bool_set:N = \l_@@_ref_add_space,
+    ref-add-space .bool_set:N = \l_@@_ref_add_space_bool,
 %    \end{macrocode}
 % 标签与后面标题之间的间距。
 %    \begin{macrocode}
@@ -3317,6 +3362,10 @@
     style / language                = zh,
     style / bib-backend             = biblatex,
     style / biblatex-option         = { },
+    style / file-search-path        = { },
+    style / fix-input               = false,
+    style / fix-include             = false,
+    style / fix-includegraphics     = false,
     style / ref-add-space           = false,
     style / caption-label-sep       = { 0.75em },
     style / table-small-font        = true,
@@ -4496,6 +4545,48 @@
 %</xdupgthesis>
 %<*thesis>
 %    \end{macrocode}
+% \subsection{文件配置}
+% \begin{macro}
+%   {
+%     \input,
+%     \include,
+%     \includegraphics
+%   }
+% \changes{v2.12.0.0}{2022/07/01}{配置文件搜索路径}
+% 配置文件搜索路径。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \seq_if_empty:NF \l_@@_file_search_path_clist
+      {
+        \clist_map_inline:Nn \l_@@_file_search_path_clist
+          { \seq_put_right:Nn \l_file_search_path_seq { #1 } }
+      }
+    \bool_if:NT \l_@@_fix_input_bool
+      {
+        \cs_new_eq:NN \@@_org_input:n \input
+        \RenewDocumentCommand { \input } { m }
+          { \@@_org_input:n { ./ #1 } }
+      }
+    \bool_if:NT \l_@@_fix_include_bool
+      {
+        \cs_new_eq:NN \@@_org_include:n \include
+        \RenewDocumentCommand { \include } { m }
+          { \@@_org_include:n { ./ #1 } }
+      }
+    \bool_if:NT \l_@@_fix_includegraphics_bool
+      {
+        \cs_new_eq:NN \@@_org_includegraphics:n \includegraphics
+        \RenewDocumentCommand { \includegraphics } { o m }
+          {
+            \IfNoValueTF { #1 }
+              { \@@_org_includegraphics:n        { ./ #2 } }
+              { \@@_org_includegraphics:n [ #1 ] { ./ #2 } }
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \subsection{公式}
 % \begin{macro}{\theequation}
 % 重定义公式编号样式。
@@ -4822,7 +4913,7 @@
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
-    \bool_if:NT \l_@@_ref_add_space
+    \bool_if:NT \l_@@_ref_add_space_bool
       {
         \str_if_eq:NNT { \l_@@_lang_tl } { zh }
           {
