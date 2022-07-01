@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/07/01 v2.12.0.1 Xidian University TeX Suite]
+[2022/07/01 v2.12.0.2 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/07/01}{2.12.0.1}
+%<class|sty>  {2022/07/01}{2.12.0.2}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -3188,10 +3188,10 @@
 %     \l_@@_lang_tl,
 %     \l_@@_bib_tool_tl,
 %     \l_@@_biblatex_option_tl,
-%     \l_@@_file_search_path_clist,
+%     \l_@@_search_path_clist,
 %     \l_@@_fix_input_bool,
 %     \l_@@_fix_include_bool,
-%     \l_@@_fix_includegraphics_bool,
+%     \l_@@_fix_graphics_bool,
 %     \l_@@_ref_add_space_bool,
 %     \l_@@_cap_label_sep_tl,
 %     \l_@@_tab_small_bool,
@@ -3208,6 +3208,7 @@
 %     \l_@@_sym_mgn_bool,
 %     \l_@@_page_v_align_tl
 %   }
+% \changes{v2.12.0.2}{2022/07/01}{精简变量名称}
 % 英文是否使用中文字体。
 %    \begin{macrocode}
 \bool_new:N \l_@@_en_cjk_font_bool
@@ -3226,13 +3227,13 @@
 %    \end{macrocode}
 % 设置文件搜索路径。
 %    \begin{macrocode}
-\clist_new:N \l_@@_file_search_path_clist
+\clist_new:N \l_@@_search_path_clist
 %    \end{macrocode}
 % 是否修复文件导入命令。
 %    \begin{macrocode}
 \bool_new:N \l_@@_fix_input_bool
 \bool_new:N \l_@@_fix_include_bool
-\bool_new:N \l_@@_fix_includegraphics_bool
+\bool_new:N \l_@@_fix_graphics_bool
 %    \end{macrocode}
 % 是否在\tnx{ref}和\tnx{pageref}两侧自动调整中英文间空白。
 %    \begin{macrocode}
@@ -3303,13 +3304,13 @@
 %    \end{macrocode}
 % 设置文件搜索路径。
 %    \begin{macrocode}
-    file-search-path .clist_set:N = \l_@@_file_search_path_clist,
+    file-search-path .clist_set:N = \l_@@_search_path_clist,
 %    \end{macrocode}
 % 是否修复文件导入命令。
 %    \begin{macrocode}
     fix-input .bool_set:N = \l_@@_fix_input_bool,
     fix-include .bool_set:N = \l_@@_fix_include_bool,
-    fix-includegraphics .bool_set:N = \l_@@_fix_includegraphics_bool,
+    fix-includegraphics .bool_set:N = \l_@@_fix_graphics_bool,
 %    \end{macrocode}
 % 是否在\tnx{ref}和\tnx{pageref}两侧自动调整中英文间空白。
 %    \begin{macrocode}
@@ -3473,16 +3474,16 @@
 % \subsection{作者简介样式配置}
 % \begin{variable}
 %   {
-%     \l_@@_customize_edubg_bool,
-%     \l_@@_customize_resresult_bool
+%     \l_@@_cust_edubg_bool,
+%     \l_@@_cust_resresult_bool
 %   }
 % 是否完全自定义作者简介中教育背景。
 %    \begin{macrocode}
-\bool_new:N \l_@@_customize_edubg_bool
+\bool_new:N \l_@@_cust_edubg_bool
 %    \end{macrocode}
 % 是否完全自定义作者简介中攻读硕士学位期间的研究成果。
 %    \begin{macrocode}
-\bool_new:N \l_@@_customize_resresult_bool
+\bool_new:N \l_@@_cust_resresult_bool
 %    \end{macrocode}
 % \end{variable}
 % \begin{macro}{\keys_define:nn}
@@ -3493,11 +3494,11 @@
 %    \end{macrocode}
 % 是否完全自定义作者简介中教育背景。
 %    \begin{macrocode}
-    customize-edubg .bool_set:N = \l_@@_customize_edubg_bool,
+    customize-edubg .bool_set:N = \l_@@_cust_edubg_bool,
 %    \end{macrocode}
 % 是否完全自定义作者简介中攻读硕士学位期间的研究成果。
 %    \begin{macrocode}
-    customize-resresult .bool_set:N = \l_@@_customize_resresult_bool
+    customize-resresult .bool_set:N = \l_@@_cust_resresult_bool
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4562,9 +4563,9 @@
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
-    \seq_if_empty:NF \l_@@_file_search_path_clist
+    \seq_if_empty:NF \l_@@_search_path_clist
       {
-        \clist_map_inline:Nn \l_@@_file_search_path_clist
+        \clist_map_inline:Nn \l_@@_search_path_clist
           { \seq_put_right:Nn \l_file_search_path_seq { #1 } }
       }
     \bool_if:NT \l_@@_fix_input_bool
@@ -4579,7 +4580,7 @@
         \RenewDocumentCommand { \include } { m }
           { \@@_org_include:n { ./ #1 } }
       }
-    \bool_if:NT \l_@@_fix_includegraphics_bool
+    \bool_if:NT \l_@@_fix_graphics_bool
       {
         \cs_new_eq:NN \@@_org_includegraphics:n \includegraphics
         \RenewDocumentCommand { \includegraphics } { o m }
@@ -4885,7 +4886,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \subsection{超链接和PDF元数据}
-% \begin{macro}{\hyperref}
+% \begin{macro}{\hypersetup}
 % \changes{v0.5.0.0}{2022/04/05}{添加PDF主题元数据}
 % \changes{v1.10.0.0}{2022/05/04}{添加PDF应用程序元数据}
 % 配置超链接和PDF元数据。
@@ -6742,7 +6743,7 @@
 %    \end{macrocode}
 % 定义教育背景表格环境。
 %    \begin{macrocode}
-    \bool_if:NF \l_@@_customize_edubg_bool
+    \bool_if:NF \l_@@_cust_edubg_bool
       {
         \RequirePackage { tabularray }
         \newenvironment { edubg }
@@ -6762,7 +6763,7 @@
 %    \end{macrocode}
 % 定义研究成果列表。
 %    \begin{macrocode}
-    \bool_if:NF \l_@@_customize_resresult_bool
+    \bool_if:NF \l_@@_cust_resresult_bool
       {
         \RequirePackage { enumitem }
         \SetEnumitemKey { resresult }
