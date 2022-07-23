@@ -61,7 +61,7 @@ xetex xduts.ins
 Run command below to get the documentation.
 
 ```shell
-l3build ctan
+l3build doc
 ```
 
 ## Note
