@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/07/03 v2.12.1.0 Xidian University TeX Suite]
+[2022/07/28 v2.12.1.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/07/03}{2.12.1.0}
+%<class|sty>  {2022/07/28}{2.12.1.1}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -155,22 +155,6 @@
 \end{document}
 %</driver>
 % \fi
-% \CheckSum{3056}
-% \CharacterTable
-%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
-%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
-%   Digits        \0\1\2\3\4\5\6\7\8\9
-%   Exclamation   \!     Double quote  \"     Hash (number) \#
-%   Dollar        \$     Percent       \%     Ampersand     \&
-%   Acute accent  \'     Left paren    \(     Right paren   \)
-%   Asterisk      \*     Plus          \+     Comma         \,
-%   Minus         \-     Point         \.     Solidus       \/
-%   Colon         \:     Semicolon     \;     Less than     \<
-%   Equals        \=     Greater than  \>     Question mark \?
-%   Commercial at \@     Left bracket  \[     Backslash     \\
-%   Right bracket \]     Circumflex    \^     Underscore    \_
-%   Grave accent  \`     Left brace    \{     Vertical bar  \|
-%   Right brace   \}     Tilde         \~}
 % \GetFileInfo{\jobname.dtx}
 % \title{\bfseries\xduts{}手册}
 % \author{\href{https://github.com/note286/}{note286}}
@@ -197,6 +181,8 @@
 % \end{enumerate}
 % \end{abstract}
 % \clearpage
+% \begin{documentation}
+% \changes{v2.12.1.1}{2022/07/28}{使用\clsx{l3doc}文档和实现环境}
 % \section*{\contentsname\markright{目录}}
 % \makeatletter
 % \@starttoc{toc}
@@ -225,7 +211,6 @@
 % 如确定\xduts{}存在bug，
 % 可以在GitHub Issues\footurl{https://github.com/note286/xduts/issues/}
 % 具体描述。另外，\textbf{不接受任何Pull Requests}。
-% \StopEventually{}
 % \section{使用说明}
 % \label{使用说明}
 % 《一份（不太）简短的\LaTeXe{}介绍》\footctan{info/lshort/chinese/lshort-zh-cn.pdf}
@@ -1585,6 +1570,9 @@
 % 提供了很大帮助。
 % 在文档的编写过程中，参考了\filex{ctex.dtx}、\filex{fduthesis.dtx}、\filex{njuthesis.dtx}和\filex{thuthesis.dtx}。
 % \clearpage
+% \end{documentation}
+% \begin{implementation}
+% \addtocontents{toc}{\protect\value{tocdepth}=5}
 % \section{代码实现}
 % \changes{v0.1.0.0}{2022/04/03}{基本完成本科毕业设计论文模板}
 % \setlength\parindent{0pt}
@@ -6885,5 +6873,4 @@
 %    \begin{macrocode}
 %<@@=>
 %    \end{macrocode}
-% \Finale
-\endinput
+% \end{implementation}
