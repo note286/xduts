@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/07/28 v2.12.1.1 Xidian University TeX Suite]
+[2022/08/15 v2.12.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/07/28}{2.12.1.1}
+%<class|sty>  {2022/08/15}{2.12.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -4972,6 +4972,10 @@
         \cs_set_eq:NN \SlashFont \rmfamily
       }
 %    \end{macrocode}
+%    \begin{macrocode}
+%<*xdupgthesis>
+%    \end{macrocode}
+% \changes{v2.12.2.0}{2022/08/15}{修正本科毕业设计参考文献列表编译错误}
 % \changes{v2.7.0.0}{2022/06/26}{\bibtex{}下允许不生成文献列表}
 % \bibtex{}下允许不生成文献列表。
 %    \begin{macrocode}
@@ -4980,6 +4984,9 @@
     \bool_if:NT \l_@@_rm_ref_bool
       { \RequirePackage { bibentry } }
   }
+%    \end{macrocode}
+%    \begin{macrocode}
+%</xdupgthesis>
 %    \end{macrocode}
 % \bibtex{}和\pkgx{biblatex}通用字体字号配置。
 %    \begin{macrocode}
