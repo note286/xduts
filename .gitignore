@@ -16,6 +16,7 @@
 *.sty
 *.sublime-project
 *.sublime-workspace
+*.synctex
 *.synctex(busy)
 *.tex
 *.toc
