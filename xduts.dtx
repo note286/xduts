@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/21 v2.13.0.0 Xidian University TeX Suite]
+[2022/11/21 v2.14.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/21}{2.13.0.0}
+%<class|sty>  {2022/11/21}{2.14.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -1542,6 +1542,15 @@
 % 作者简介部分的信息匿名请参考\secrefx{匿名命令}。
 % 用户根据学校和学院的具体要求，
 % 组合使用以上两种操作来生成符合相似性检测、盲审和抽查评估要求的论文。
+% \changes{v2.14.0.0}{2022/11/21}{隐藏部分索引和对照表}
+% \subsubsection{隐藏部分索引和对照表}
+% 由于存在插图索引、表格索引、符号对照表或缩略语对照表为空的情况，
+% 故支持隐藏插图索引、表格索引、符号对照表或缩略语对照表，例如：
+% \begin{latexexample}[morekeywords={\xdusetup},emph={[1]style,remove-page}]
+%   \xdusetup{
+%     style / remove-page = { 插图索引, 符号对照表 }
+%   }
+% \end{latexexample}
 % \section{贡献者}
 % \xduts{}的开发过程中，唯一维护者为
 % \href{https://github.com/note286/}{\ttfamily @note286}。
@@ -3016,8 +3025,10 @@
 %     \l_@@_rm_title_page_bool,
 %     \l_@@_rm_statement_bool,
 %     \l_@@_rm_abstract_bool,
-%     \l_@@_rm_loft_bool,
-%     \l_@@_rm_losa_bool,
+%     \l_@@_rm_lof_bool,
+%     \l_@@_rm_lot_bool,
+%     \l_@@_rm_los_bool,
+%     \l_@@_rm_loa_bool,
 %     \l_@@_rm_toc_bool,
 %     \l_@@_rm_appendix_bool,
 %     \l_@@_rm_ref_bool,
@@ -3042,11 +3053,13 @@
 %    \end{macrocode}
 % 索引。
 %    \begin{macrocode}
-\bool_new:N \l_@@_rm_loft_bool
+\bool_new:N \l_@@_rm_lof_bool
+\bool_new:N \l_@@_rm_lot_bool
 %    \end{macrocode}
 % 符号对照表和缩略语对照表。
 %    \begin{macrocode}
-\bool_new:N \l_@@_rm_losa_bool
+\bool_new:N \l_@@_rm_los_bool
+\bool_new:N \l_@@_rm_loa_bool
 %    \end{macrocode}
 % 目录。
 %    \begin{macrocode}
@@ -3083,9 +3096,23 @@
     \clist_if_in:NnT \l_@@_rm_page_clist { 摘要 }
       { \bool_set_true:N \l_@@_rm_abstract_bool }
     \clist_if_in:NnT \l_@@_rm_page_clist { 索引 }
-      { \bool_set_true:N \l_@@_rm_loft_bool }
+      {
+        \bool_set_true:N \l_@@_rm_lof_bool
+        \bool_set_true:N \l_@@_rm_lot_bool
+      }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 插图索引 }
+      { \bool_set_true:N \l_@@_rm_lof_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 表格索引 }
+      { \bool_set_true:N \l_@@_rm_lot_bool }
     \clist_if_in:NnT \l_@@_rm_page_clist { 对照表 }
-      { \bool_set_true:N \l_@@_rm_losa_bool }
+      {
+        \bool_set_true:N \l_@@_rm_los_bool
+        \bool_set_true:N \l_@@_rm_loa_bool
+      }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 符号对照表 }
+      { \bool_set_true:N \l_@@_rm_los_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 缩略语对照表 }
+      { \bool_set_true:N \l_@@_rm_loa_bool }
     \clist_if_in:NnT \l_@@_rm_page_clist { 目录 }
       { \bool_set_true:N \l_@@_rm_toc_bool }
     \clist_if_in:NnT \l_@@_rm_page_clist { 附录 }
@@ -6544,19 +6571,17 @@
 %    \end{macrocode}
 % 图表索引。
 %    \begin{macrocode}
-    \bool_if:NF \l_@@_rm_loft_bool
-      {
-        \@@_list_of_figure:
-        \@@_list_of_table:
-      }
+    \bool_if:NF \l_@@_rm_lof_bool
+      { \@@_list_of_figure: }
+    \bool_if:NF \l_@@_rm_lot_bool
+      { \@@_list_of_table: }
 %    \end{macrocode}
 % 符号对照表和缩略语对照表。
 %    \begin{macrocode}
-    \bool_if:NF \l_@@_rm_losa_bool
-      {
-        \@@_symbols_list:
-        \@@_abbreviations_list:
-      }
+    \bool_if:NF \l_@@_rm_los_bool
+      { \@@_symbols_list: }
+    \bool_if:NF \l_@@_rm_loa_bool
+      { \@@_abbreviations_list: }
 %    \end{macrocode}
 % \changes{v1.23.0.0}{2022/06/05}{研究生学位论文目录}
 % \changes{v1.28.0.0}{2022/06/18}{设置研究生学位论文目录深度}
