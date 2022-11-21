@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/21 v2.14.0.0 Xidian University TeX Suite]
+[2022/11/21 v2.14.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/21}{2.14.0.0}
+%<class|sty>  {2022/11/21}{2.14.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -3862,6 +3862,7 @@
 % \subsection{页面设置}
 % \subsubsection{页面尺寸}
 % \begin{macro}{\geometry,\newgeometry,\savegeometry}
+% \changes{v2.14.1.0}{2022/11/21}{支持多行页眉}
 % \changes{v1.5.1.0}{2022/05/01}{修正页脚高度}
 % \changes{v1.5.2.0}{2022/05/02}{修正底部页边距高度}
 % \changes{v1.26.8.0}{2022/06/13}{修正研究生页眉高度}
@@ -3889,7 +3890,7 @@
     inner         = 2.5cm,
     outer         = 2.5cm,
     bindingoffset = 0.5cm,
-    headheight    = 20pt,
+    headheight    = 60pt,
     headsep       = 10pt,
     foot          = 0.75cm
 %</xdupgthesis>
@@ -3919,7 +3920,7 @@
     bottom     = 2.5cm,
     inner      = 2.75cm,
     outer      = 2.75cm,
-    headheight = 20pt,
+    headheight = 60pt,
     headsep    = 10pt,
     foot       = 0.75cm
 %</xdupgthesis>
