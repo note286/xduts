@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/20 v2.12.2.1 Xidian University TeX Suite]
+[2022/11/21 v2.13.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/20}{2.12.2.1}
+%<class|sty>  {2022/11/21}{2.13.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -520,6 +520,7 @@
 % |fira|             & Fira Math             \\
 % |garamond|         & Garamond Math         \\
 % |lm|               & Latin Modern Math     \\
+% |erewhon|          & Erewhon Math          \\
 % |libertinus|       & Libertinus Math       \\
 % |stix|             & STIX Math             \\
 % |bonum|            & TeX Gyre Bonum Math   \\
@@ -1709,7 +1710,7 @@
     math-font .choices:nn =
       {
         asana, cambria, cm, fira, garamond, lm, libertinus, stix,
-        bonum, dejavu, pagella, schola, termes, xits, none
+        bonum, dejavu, pagella, schola, termes, xits, erewhon, none
       }
       { \tl_set_eq:NN \l_@@_math_font_tl \l_keys_choice_tl },
     unicode-math .tl_set:N = \l_@@_unicode_math_tl,
@@ -2362,6 +2363,7 @@
 % \end{macro}
 % \begin{macro}{\@@_define_math_font:nn}
 % 批量定义数学字体配置。
+% \changes{v2.13.0.0}{2022/11/21}{增加Erewhon Math数学字体}
 % \changes{v0.2.0.0}{2022/04/04}{增加Garamond Math数学字体}
 % \changes{v0.5.1.0}{2022/04/06}{适配macOS平台MacTeX内置数学字体}
 % \begin{arguments}
@@ -2383,6 +2385,7 @@
     { fira       } { FiraMath-Regular.otf       },
     { garamond   } { Garamond-Math.otf          },
     { lm         } { latinmodern-math.otf       },
+    { erewhon    } { Erewhon-Math.otf           },
     { libertinus } { LibertinusMath-Regular.otf },
     { stix       } { STIXMath-Regular.otf       },
     { bonum      } { texgyrebonum-math.otf      },
