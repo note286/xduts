@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/22 v2.14.1.1 Xidian University TeX Suite]
+[2022/11/23 v2.14.1.2 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/22}{2.14.1.1}
+%<class|sty>  {2022/11/23}{2.14.1.2}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -100,11 +100,12 @@
 \renewcommand{\fps@table}{htbp}
 \makeatother
 % listings
+\changes{v2.14.1.2}{2022/11/23}{修改示例代码缩进}
 \changes{v2.14.1.1}{2022/11/22}{修改示例代码样式}
 \usepackage{listings}
 \lstset{
 language        = [LaTeX]TeX,
-gobble          = 3,
+gobble          = 1,
 basewidth       = 0.5em,
 breaklines      = true,
 basicstyle      = \small\ttfamily,
@@ -126,7 +127,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
                   {\}}{{\textcolor{purple3}{\}}}}{1}
                   {=}{{\textcolor{purple3}{=}}}{1}
                   {\&}{{\textcolor{purple3}{\&}}}{1}
+                  {\\\\}{{\textcolor{purple3}{\textbackslash{}\textbackslash{}}}}{2}
 }
+\changes{v2.14.1.2}{2022/11/23}{增加示例代码换行符高亮}
+\makeatletter
+\lst@AddToHook{SelectCharTable}
+{\ifx\lst@literate\@empty\else\expandafter\lst@Literate\lst@literate{}\relax\z@\fi}
+\makeatother
 \begin{document}
 \DocInput{\jobname.dtx}
 \IndexLayout
@@ -213,13 +220,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \par
 % \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置，具体的配置选项见\secrefx{字体选项}。\pkgx{xdufont}可以搭配任意文档类进行使用，例如：
 % \begin{lstlisting}
-%   \documentclass{article}
-%   \usepackage{xdufont}
-%   \xdusetup{}
-%   \begin{document}
-%   宋体\textbf{加粗}\textsl{加斜}
-%   \textsf{黑体}\textbf{\textsf{加粗}}\textsl{\textsf{加斜}}
-%   \end{document}
+% \documentclass{article}
+% \usepackage{xdufont}
+% \xdusetup{}
+% \begin{document}
+% 宋体\textbf{加粗}\textsl{加斜}
+% \textsf{黑体}\textbf{\textsf{加粗}}\textsl{\textsf{加斜}}
+% \end{document}
 % \end{lstlisting}
 % \par
 % 学会以上用法后即可使用\pkgx{xdufont}宏包。
@@ -235,15 +242,15 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \par
 % 典型的\clsx{xdupgthesis}主文件结构如下所示：
 % \begin{lstlisting}
-%   \documentclass{xdupgthesis}
-%   \xdusetup{}
-%   \begin{document}
-%   \frontmatter
-%   \mainmatter
-%   \chapter{欢迎}
-%   使用\LaTeX{}！
-%   \backmatter
-%   \end{document}
+% \documentclass{xdupgthesis}
+% \xdusetup{}
+% \begin{document}
+% \frontmatter
+% \mainmatter
+% \chapter{欢迎}
+% 使用\LaTeX{}！
+% \backmatter
+% \end{document}
 % \end{lstlisting}
 % \par
 % \secrefx{编译}介绍了如何编译，
@@ -277,15 +284,15 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \par
 % 典型的\clsx{xduugthesis}主文件结构如下所示：
 % \begin{lstlisting}
-%   \documentclass{xduugthesis}
-%   \xdusetup{}
-%   \begin{document}
-%   \frontmatter
-%   \mainmatter
-%   \chapter{欢迎}
-%   使用\LaTeX{}！
-%   \backmatter
-%   \end{document}
+% \documentclass{xduugthesis}
+% \xdusetup{}
+% \begin{document}
+% \frontmatter
+% \mainmatter
+% \chapter{欢迎}
+% 使用\LaTeX{}！
+% \backmatter
+% \end{document}
 % \end{lstlisting}
 % \par
 % \changes{v1.30.0.1}{2022/06/20}{移除info录入示例}
@@ -364,28 +371,28 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 它们可以按如下两种等价方式来设定：
 % \end{function}
 % \begin{lstlisting}
-%   \xdusetup{
-%     style = { cjk-font = fandol, latin-font = gyre },
-%     info  = {
-%       title      = {论如何让用户\\认真阅读文档},
-%       author     = {张三},
-%       department = {排版学院},
-%       abstract   = {chapters/abstract-zh.tex},
-%       keywords*  = {Dummy,Keywords,Here,it is}
-%     }
+% \xdusetup{
+%   style = { cjk-font = fandol, latin-font = gyre },
+%   info  = {
+%     title      = {论如何让用户\\认真阅读文档},
+%     author     = {张三},
+%     department = {排版学院},
+%     abstract   = {chapters/abstract-zh.tex},
+%     keywords*  = {Dummy,Keywords,Here,it is}
 %   }
+% }
 % \end{lstlisting}
 % 或者
 % \begin{lstlisting}
-%   \xdusetup{
-%     style / cjk-font   = fandol,
-%     style / latin-font = gyre,
-%     info  / title      = {论如何让用户\\认真阅读文档},
-%     info  / author     = {张三},
-%     info  / department = {排版学院},
-%     info  / abstract   = {chapters/abstract-zh.tex},
-%     info  / keywords*  = {Dummy,Keywords,Here,it is}
-%   }
+% \xdusetup{
+%   style / cjk-font   = fandol,
+%   style / latin-font = gyre,
+%   info  / title      = {论如何让用户\\认真阅读文档},
+%   info  / author     = {张三},
+%   info  / department = {排版学院},
+%   info  / abstract   = {chapters/abstract-zh.tex},
+%   info  / keywords*  = {Dummy,Keywords,Here,it is}
+% }
 % \end{lstlisting}
 % \subsection{字体选项}
 % \label{字体选项}
@@ -582,9 +589,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 修改\pkgx{biblatex}默认选项，具体配置参考\filex{biblatex-gb7714-2015.pdf}，
 % 仅在\optx{style/bib-backend}等于|biblatex|时有效。例如：
 % \begin{lstlisting}
-%   \xdusetup{
-%     style / biblatex-option = { gbnamefmt=quanpin }
-%   }
+% \xdusetup{
+%   style / biblatex-option = { gbnamefmt=quanpin }
+% }
 % \end{lstlisting}
 % \end{function}
 % \begin{function}[added=2022-04-02]{style/bib-resource}
@@ -761,18 +768,18 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \item[true] 完全自定义符号对照表和缩略语对照表，对照表由用户自行排版。
 % 在\secrefx{信息录入}中提及的\optx{info/los}和\optx{info/loa}中对应的文件中可以通过表格或列表等方式实现对照表，例如：
 % \begin{lstlisting}
-%   \begin{tabular}{ll}
-%     符号         & 符号名称 \\
-%     $\pi$        & 圆周率   \\
-%     $\mathbb{R}$ & 实数     \\
-%   \end{tabular}
+% \begin{tabular}{ll}
+% 符号         & 符号名称 \\
+% $\pi$        & 圆周率   \\
+% $\mathbb{R}$ & 实数     \\
+% \end{tabular}
 % \end{lstlisting}
 %   \item[false] 使用内置的基于\envx{longtblr}环境（\pkgx{tabularray}宏包）实现的
 % 符号对照表和缩略语对照表样式。
 % 在\secrefx{信息录入}中提及的\optx{info/los}和\optx{info/loa}中对应的文件仅需填写相应列数的内容即可，例如：
 % \begin{lstlisting}
-%   $\pi$        & 圆周率 \\
-%   $\mathbb{R}$ & 实数   \\
+% $\pi$        & 圆周率 \\
+% $\mathbb{R}$ & 实数   \\
 % \end{lstlisting}
 % \end{optdesc}
 % \changes{v2.10.2.1}{2022/06/28}{修改对照表默认列格式}
@@ -815,51 +822,51 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 在\secrefx{信息录入}中提及的\optx{info/bio}中对应的文件中
 % 可以通过段落、表格或列表等方式排版教育背景和攻读硕士学位期间的研究成果，例如：
 % \begin{lstlisting}
-%   \section{基本情况}
-%   张三，男，陕西西安人，1982年8月出生，西安电子科技大学XX学院XX专业2008级硕士研究生。
-%   \section{教育背景}
-%   2001.08～2005.07 西安电子科技大学，本科，专业：电子信息工程
-%   \par
-%   2008.08～ 西安电子科技大学，硕士研究生，专业：电磁场与微波技术
-%   \section{攻读硕士学位期间的研究成果}
-%   \subsection{发表学术论文}
-%   [1] XXX, XXX, XXX. Rapid development technique for drip irrigation emitters[J]. RP Journal,UK.,2003,9(2): 104-110.(SCI: 672CZ, EI: 03187452127)
-%   \par
-%   [2] XXX, XXX, XXX. 基于快速成型制造的滴管快速制造技术研究[J]. 西安交通大学学报, 2001, 15(9): 935-939. (EI: 02226959521)
-%   \subsection{申请（授权）专利}
-%   [1] XXX, XXX, XXX等. 专利名称: 国别,专利号[P]. 出版日期.
-%   \subsection{参与科研项目及获奖}
-%   [1] XXX项目, 项目名称, 起止时间, 完成情况, 作者贡献。
-%   \par
-%   [2] XXX, XXX, XXX等. 科研项目名称. 陕西省科技进步三等奖, 获奖日期.
+% \section{基本情况}
+% 张三，男，陕西西安人，1982年8月出生，西安电子科技大学XX学院XX专业2008级硕士研究生。
+% \section{教育背景}
+% 2001.08～2005.07 西安电子科技大学，本科，专业：电子信息工程
+% \par
+% 2008.08～ 西安电子科技大学，硕士研究生，专业：电磁场与微波技术
+% \section{攻读硕士学位期间的研究成果}
+% \subsection{发表学术论文}
+% [1] XXX, XXX, XXX. Rapid development technique for drip irrigation emitters[J]. RP Journal,UK.,2003,9(2): 104-110.(SCI: 672CZ, EI: 03187452127)
+% \par
+% [2] XXX, XXX, XXX. 基于快速成型制造的滴管快速制造技术研究[J]. 西安交通大学学报, 2001, 15(9): 935-939. (EI: 02226959521)
+% \subsection{申请（授权）专利}
+% [1] XXX, XXX, XXX等. 专利名称: 国别,专利号[P]. 出版日期.
+% \subsection{参与科研项目及获奖}
+% [1] XXX项目, 项目名称, 起止时间, 完成情况, 作者贡献。
+% \par
+% [2] XXX, XXX, XXX等. 科研项目名称. 陕西省科技进步三等奖, 获奖日期.
 % \end{lstlisting}
 %   \item[false] 使用内置的基于\envx{tblr}环境（\pkgx{tabularray}宏包）实现的
 % 教育背景表格环境\envx{edubg}和基于\envx{enumerate}环境（\pkgx{enumitem}宏包）实现的
 % 攻读硕士学位期间的研究成果列表环境\envx{resresult}。
 % 在\secrefx{信息录入}中提及的\optx{info/bio}中对应的文件中使用\envx{edubg}和\envx{resresult}环境即可，例如：
 % \begin{lstlisting}
-%   \section{基本情况}
-%   张三，男，陕西西安人，1982年8月出生，西安电子科技大学XX学院XX专业2008级硕士研究生。
-%   \section{教育背景}
-%   \begin{edubg}
-%   2001.08～2005.07 & 西安电子科技大学，本科，专业：电子信息工程\\
-%   2008.08～ & 西安电子科技大学，硕士研究生，专业：电磁场与微波技术\\
-%   \end{edubg}
-%   \section{攻读硕士学位期间的研究成果}
-%   \subsection{发表学术论文}
-%   \begin{resresult}
-%   \item XXX, XXX, XXX. Rapid development technique for drip irrigation emitters[J]. RP Journal,UK.,2003,9(2): 104-110.(SCI: 672CZ, EI: 03187452127)
-%   \item XXX, XXX, XXX. 基于快速成型制造的滴管快速制造技术研究[J]. 西安交通大学学报, 2001, 15(9): 935-939. (EI: 02226959521)
-%   \end{resresult}
-%   \subsection{申请（授权）专利}
-%   \begin{resresult}
-%   \item XXX, XXX, XXX等. 专利名称: 国别,专利号[P]. 出版日期.
-%   \end{resresult}
-%   \subsection{参与科研项目及获奖}
-%   \begin{resresult}
-%   \item XXX项目, 项目名称, 起止时间, 完成情况, 作者贡献。
-%   \item XXX, XXX, XXX等. 科研项目名称. 陕西省科技进步三等奖, 获奖日期.
-%   \end{resresult}
+% \section{基本情况}
+% 张三，男，陕西西安人，1982年8月出生，西安电子科技大学XX学院XX专业2008级硕士研究生。
+% \section{教育背景}
+% \begin{edubg}
+% 2001.08～2005.07 & 西安电子科技大学，本科，专业：电子信息工程\\
+% 2008.08～ & 西安电子科技大学，硕士研究生，专业：电磁场与微波技术\\
+% \end{edubg}
+% \section{攻读硕士学位期间的研究成果}
+% \subsection{发表学术论文}
+% \begin{resresult}
+% \item XXX, XXX, XXX. Rapid development technique for drip irrigation emitters[J]. RP Journal,UK.,2003,9(2): 104-110.(SCI: 672CZ, EI: 03187452127)
+% \item XXX, XXX, XXX. 基于快速成型制造的滴管快速制造技术研究[J]. 西安交通大学学报, 2001, 15(9): 935-939. (EI: 02226959521)
+% \end{resresult}
+% \subsection{申请（授权）专利}
+% \begin{resresult}
+% \item XXX, XXX, XXX等. 专利名称: 国别,专利号[P]. 出版日期.
+% \end{resresult}
+% \subsection{参与科研项目及获奖}
+% \begin{resresult}
+% \item XXX项目, 项目名称, 起止时间, 完成情况, 作者贡献。
+% \item XXX, XXX, XXX等. 科研项目名称. 陕西省科技进步三等奖, 获奖日期.
+% \end{resresult}
 % \end{lstlisting}
 % \end{optdesc}
 % \subsection{附录环境}
@@ -868,21 +875,21 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \begin{function}[added=2022-04-04,updated=2022-06-19]{appendixes}
 % 本科生毕业设计附录位于参考文献后，即在\tnx{backmatter}后。
 % \begin{lstlisting}
-%   \chapter{这是正文章节}
-%   \backmatter
-%   \begin{appendixes}
-%       \chapter{这是一个附录}
-%       \chapter{这是另一个附录}
-%   \end{appendixes}
+% \chapter{这是正文章节}
+% \backmatter
+% \begin{appendixes}
+%   \chapter{这是一个附录}
+%   \chapter{这是另一个附录}
+% \end{appendixes}
 % \end{lstlisting}
 % 研究生学位论文附录位于参考文献前，即在\tnx{backmatter}前。
 % \begin{lstlisting}
-%   \chapter{这是正文章节}
-%   \begin{appendixes}
-%       \chapter{这是一个附录}
-%       \chapter{这是另一个附录}
-%   \end{appendixes}
-%   \backmatter
+% \chapter{这是正文章节}
+% \begin{appendixes}
+%   \chapter{这是一个附录}
+%   \chapter{这是另一个附录}
+% \end{appendixes}
+% \backmatter
 % \end{lstlisting}
 % \end{function}
 % \subsection{信息录入}
@@ -1465,7 +1472,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \tnx{noauxwrite}允许添加不影响现有引用列表顺序的引用。
 % 一个简单的例子如下所示：
 % \begin{lstlisting}
-%   \caption{本文与文献\noauxwrite{\parencite{某文献}}计算开销对比}
+% \caption{本文与文献\noauxwrite{\parencite{某文献}}计算开销对比}
 % \end{lstlisting}
 % \end{function}
 % \changes{v1.30.0.0}{2022/06/20}{英文研究生学位论文双语标题}
@@ -1480,12 +1487,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 在英文研究生学位论文中一二三级标题为中英双语，其他级别标题为英文。
 % 一个简单的例子如下所示：
 % \begin{lstlisting}
-%   \chapter{This Is Chapter}{这是一级标题}
-%   \section{This Is Section}{这是二级标题}
-%   \subsection{This Is Subsection}{这是三级标题}
-%   \subsubsection{This Is Subsubsection}
-%   \paragraph{This Is Paragraph}
-%   \subparagraph{This Is Subparagraph}
+% \chapter{This Is Chapter}{这是一级标题}
+% \section{This Is Section}{这是二级标题}
+% \subsection{This Is Subsection}{这是三级标题}
+% \subsubsection{This Is Subsubsection}
+% \paragraph{This Is Paragraph}
+% \subparagraph{This Is Subparagraph}
 % \end{lstlisting}
 % \end{function}
 % \subsubsection{匿名命令}
@@ -1498,7 +1505,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 其中\oargx{匿名内容}为可选参数，默认为XXX。
 % 一个简单的例子如下所示：
 % \begin{lstlisting}
-%   \anon[XX]{张三}
+% \anon[XX]{张三}
 % \end{lstlisting}
 % 当\optx{style/anonymous}为\valuex{true}，输出张三；当\optx{style/anonymous}为\valuex{false}，输出XX。
 % \end{function}
@@ -1527,9 +1534,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 由于存在插图索引、表格索引、符号对照表或缩略语对照表为空的情况，
 % 故支持隐藏插图索引、表格索引、符号对照表或缩略语对照表，例如：
 % \begin{lstlisting}
-%   \xdusetup{
-%     style / remove-page = { 插图索引, 符号对照表 }
-%   }
+% \xdusetup{
+%   style / remove-page = { 插图索引, 符号对照表 }
+% }
 % \end{lstlisting}
 % \section{贡献者}
 % \xduts{}的开发过程中，唯一维护者为
