@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/23 v2.14.1.2 Xidian University TeX Suite]
+[2022/11/23 v2.14.1.3 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/23}{2.14.1.2}
+%<class|sty>  {2022/11/23}{2.14.1.3}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -175,19 +175,20 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \@starttoc{toc}
 % \makeatother
 % \clearpage
+% \changes{v2.14.1.3}{2022/11/23}{修改文档措辞}
 % \section{介绍}
 % \xduts{} (Xidian University \TeX{} Suite)
 % 是为了帮助西安电子科技大学本科生/研究生撰写开题报告/学位论文及其他文档
 % 而编写的\LaTeXiii{}文档类和宏包套装，目前有：
 % \begin{itemize}
-% \item \pkgx{xdufont}，中/英/数学字体配置宏包。
-% \item \clsx{xdupgthesis}，研究生学位论文。
-% \item \clsx{xduugthesis}，本科毕业设计论文。
+% \item \pkgx{xdufont.sty}，中/英/数学字体配置宏包。
+% \item \clsx{xdupgthesis.cls}，研究生学位论文文档类。
+% \item \clsx{xduugthesis.cls}，本科毕业设计论文文档类。
 % \end{itemize}
 % 即将支持：
 % \begin{itemize}
-% \item \clsx{xdupgtp}，研究生学位论文开题报告表。
-% \item \clsx{xduugtp}，本科毕业设计论文开题报告表。
+% \item \clsx{xdupgtp.cls}，研究生学位论文开题报告表文档类。
+% \item \clsx{xduugtp.cls}，本科毕业设计论文开题报告表文档类。
 % \end{itemize}
 % \par
 % \changes{v1.2.0.1}{2022/04/19}{增加GitHub Discussions}
@@ -213,12 +214,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \par
 % 请在最新版\LaTeX{}环境中使用最新版\xduts{}，
 % 认真阅读相应文档类/宏包使用说明章节即可使用\xduts{}。
-% \subsection{xdufont}
-% \pkgx{xdufont}宏包基于\pkgx{xeCJK}和\pkgx{unicode-math}，
+% \subsection{\pkgx{xdufont}宏包}
+% \pkgx{xdufont}宏包基于\pkgx{xeCJK}宏包和\pkgx{unicode-math}宏包，
 % 在中文字体配置方面相较于\pkgx{ctex}宏包的主要优势为默认支持宋体粗体、斜体，
 % 内置多种字体配置，可任意搭配中/英/数学字体，更加符合校内各种文档的撰写要求。
 % \par
-% \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置，具体的配置选项见\secrefx{字体选项}。\pkgx{xdufont}可以搭配任意文档类进行使用，例如：
+% \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置，具体的配置选项见\secrefx{字体选项}。
+% \pkgx{xdufont}宏包可以搭配任意文档类进行使用，例如：
 % \begin{lstlisting}
 % \documentclass{article}
 % \usepackage{xdufont}
@@ -233,14 +235,14 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.4.0.0}{2022/04/26}{新增研究生学位论文}
 % \changes{v1.30.0.2}{2022/06/20}{研究生学位论文文档}
 % \changes{v2.2.1.1}{2022/06/23}{移除研究生学位论文中关于章节配置的文档}
-% \subsection{xdupgthesis}
-% \pkgx{xdupgthesis}基于\clsx{ctexbook}文档类，
+% \subsection{\pkgx{xdupgthesis}文档类}
+% \pkgx{xdupgthesis}文档类基于\clsx{ctexbook}文档类，
 % 提供多种字体配置，部分样式可自定义，信息录入便捷。
-% 请在阅读《西安电子科技大学研究生学位论文模板（2015年修订版）-2019.03修订》后再使用\pkgx{xdupgthesis}。
+% 请在阅读《西安电子科技大学研究生学位论文模板（2015年修订版）-2019.03修订》后再使用\pkgx{xdupgthesis}文档类。
 % 专业学位硕士请额外阅读《西安电子科技大学专业学位硕士学位论文封面及中英文题名页模板（2015年版）-2019.03修订》，
 % 撰写英文学位论文请额外阅读《西安电子科技大学英文学位论文撰写相关规定》。
 % \par
-% 典型的\clsx{xdupgthesis}主文件结构如下所示：
+% 一个典型的使用\clsx{xdupgthesis}文档类的\filex{.tex}主文件结构如下所示：
 % \begin{lstlisting}
 % \documentclass{xdupgthesis}
 % \xdusetup{}
@@ -274,15 +276,14 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 页面和信息移除见\secrefx{页面和信息移除}。
 % \par
 % 学会以上用法后即可使用\clsx{xdupgthesis}文档类。
-% 另外，在\secrefx{额外命令}中提供了部分额外命令来增强排版。
-% \subsection{xduugthesis}
-% \pkgx{xduugthesis}基于\clsx{ctexbook}文档类，
+% 另外，在\secrefx{额外命令}中提供了部分额外命令来增强排版效果。
+% \subsection{\pkgx{xduugthesis}文档类}
+% \pkgx{xduugthesis}文档类基于\clsx{ctexbook}文档类，
 % 提供多种字体配置，部分样式可自定义，信息录入便捷。
 % \changes{v1.3.1.1}{2022/04/26}{英文本科生毕业设计规范参考说明}
-% 论文语言为英文时，部分格式符合《外国语学院学士论文写作手册》。
-% 请在阅读《本科生毕业设计（论文）工作手册》后再使用\pkgx{xduugthesis}。
+% 请在阅读《本科生毕业设计（论文）工作手册》后再使用\pkgx{xduugthesis}文档类。
 % \par
-% 典型的\clsx{xduugthesis}主文件结构如下所示：
+% 一个典型的使用\clsx{xduugthesis}文档类的\filex{.tex}主文件结构如下所示：
 % \begin{lstlisting}
 % \documentclass{xduugthesis}
 % \xdusetup{}
@@ -314,7 +315,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 支持的信息录入选项见\secrefx{信息录入}。
 % \par
 % 学会以上用法后即可使用\clsx{xduugthesis}文档类。
-% 另外，在\secrefx{额外命令}和\secrefx{额外功能}中提供了部分额外命令和功能来增强排版。
+% 另外，在\secrefx{额外命令}和\secrefx{额外功能}中提供了部分额外命令和功能来增强排版效果。
 % \changes{v1.3.0.1}{2022/04/20}{增加兼容性说明}
 % \section{兼容性说明}
 % \label{兼容性说明}
