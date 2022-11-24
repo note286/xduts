@@ -15,6 +15,15 @@ In the future, we plan to add the following document classes, including
 - `xduugtp.cls`, Xidian University Undergraduate Thesis Proposal document class
 - `xdupgtp.cls`, Xidian University Postgraduate Thesis Proposal document class
 
+## Preparation
+
+If using TeX Live/MacTeX, TeX Live/MacTeX 2022+ is recommended, and update all packages to the latest version by running command below. If on Windows, it may be necessary to start a Command Prompt as an Administrator. If on macOS or GNU/Linux, it may be necessary to run the command with `sudo`.
+
+```shell
+tlmgr option repository https://mirrors.cloud.tencent.com/CTAN/systems/texlive/tlnet/
+tlmgr update --all --self
+```
+
 ## Installation
 
 You can install XDUTS from either CTAN or GitHub by following the instructions below. 
@@ -23,13 +32,7 @@ You can install XDUTS from either CTAN or GitHub by following the instructions b
 
 #### TeX Live/MacTeX
 
-Make sure the latest version of TeX Live/MacTeX is installed. Then, you can install XDUTS by running command below. If on Windows, it may be necessary to start a Command Prompt as an Administrator. If on macOS or GNU/Linux, please run the command with `sudo`.
-
-```shell
-tlmgr update --self xduts
-```
-
-Run command below to open the documentation in TeX Live/MacTeX.
+After completing the preparation, XDUTS is already contained in TeX Live/MacTeX. Run command below to open the documentation.
 
 ```shell
 texdoc xduts
@@ -52,7 +55,7 @@ texdoc xduts
 
 ### GitHub
 
-Generally speaking, CTAN updates XDUTS slowly. If you want to use the latest version of XDUTS, download this repository and run the following command to get the document class/package files.
+Generally speaking, CTAN updates XDUTS slowly. If you want to use the latest version of XDUTS, [download this repository](https://github.com/note286/xduts/archive/refs/heads/main.zip) and run the following command to get the document class/package files.
 
 ```shell
 xetex xduts.ins
