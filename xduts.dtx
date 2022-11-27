@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/27 v2.16.1.0 Xidian University TeX Suite]
+[2022/11/27 v2.16.1.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/27}{2.16.1.0}
+%<class|sty>  {2022/11/27}{2.16.1.1}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -407,31 +407,35 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置中文字体，具体配置见\tabrefx{tab:cjk-font}。
 % \end{function}
 % \begin{optdesc}
+%   \item[adobe] \filex{adobesongstd-light.otf}、\filex{adobekaitistd-regular.otf}、\filex{adobeheitistd-regular.otf}和\filex{Adobe-Fangsong-Std-R-Font.otf}。
+%   \item[founder] \filex{FZShuSong-Z01.ttf}、\filex{FZKai-Z03.ttf}、\filex{FZHei-B01.ttf}和\filex{FZFSK.TTF}。
+%   \item[sinotype] \filex{STSONG.TTF}、\filex{STKAITI.TTF}、\filex{STXIHEI.TTF}、\filex{STHeiti.ttf}和\filex{STFANGSO.TTF}。
+%   \item[win] \filex{simsun.ttc}、\filex{simkai.ttf}、\filex{simhei.ttf}和\filex{simfang.ttf}。
 %   \item[none] 关闭内置中文字体配置，需自行配置中文字体。
 % \end{optdesc}
+% \changes{v2.16.1.1}{2022/11/27}{修改中文字体配置表文档样式}
 % \begin{table}
-% \begin{threeparttable}
 % \caption{中文字体配置}
 % \label{tab:cjk-font}
-% \centering
-% \begin{tabularx}{\linewidth}{cccc}
-% \toprule
-% \strong{选项名称}   & \strong{罗马字体族}           & \strong{无衬线字体族} & \strong{打字机字体族} \\
-% \midrule
-% |adobe|\tnote{1}    & Adobe 宋体 Std/Adobe 楷体 Std & Adobe 黑体 Std        & Adobe 仿宋 Std        \\
-% |fandol|            & FandolSong/FandolKai          & FandolHei             & FandolFang            \\
-% |founder|\tnote{2}  & 方正书宋_GBK/方正楷体_GBK     & 方正黑体_GBK          & 方正仿宋_GBK          \\
-% |sinotype|\tnote{3} & 华文宋体/华文楷体             & 华文细黑/华文黑体     & 华文仿宋              \\
-% |win|\tnote{4}      & 中易宋体/中易楷体             & 中易黑体              & 中易仿宋              \\
-% \bottomrule
-% \end{tabularx}
-% \begin{tablenotes}
-% \item [1] \filex{adobesongstd-light.otf}、\filex{adobekaitistd-regular.otf}、\filex{adobeheitistd-regular.otf}和\filex{Adobe-Fangsong-Std-R-Font.otf}。
-% \item [2] \filex{FZShuSong-Z01.ttf}、\filex{FZKai-Z03.ttf}、\filex{FZHei-B01.ttf}和\filex{FZFSK.TTF}。
-% \item [3] \filex{STSONG.TTF}、\filex{STKAITI.TTF}、\filex{STXIHEI.TTF}、\filex{STHeiti.ttf}和\filex{STFANGSO.TTF}。
-% \item [4] \filex{simsun.ttc}、\filex{simkai.ttf}、\filex{simhei.ttf}和\filex{simfang.ttf}。
-% \end{tablenotes}
-% \end{threeparttable}
+% \begin{tblr}
+% {
+% width          = \linewidth,
+% colspec        = {cX[c]X[c]X[1.2,c]X[c]},
+% hline{1,3,Z}   = {.08em},
+% hline{2}       = {2-3}{.08em,leftpos=-1,rightpos=-1,endpos},
+% row{odd[3-Z]}  = {gray9!40},
+% cell{1}{2}     = {c=2}{},
+% cell{1}{1,4,5} = {r=2}{},
+% row{1}         = {cmd=\strong}
+% }
+% 选项名称   & 罗马族         &                & 无衬线族          & 打字机族       \\
+%            & 直立/倾斜形状  & 意大利形状     &                   &                \\
+% |adobe|    & Adobe 宋体 Std & Adobe 楷体 Std & Adobe 黑体 Std    & Adobe 仿宋 Std \\
+% |fandol|   & FandolSong     & FandolKai      & FandolHei         & FandolFang     \\
+% |founder|  & 方正书宋\_GBK  & 方正楷体\_GBK  & 方正黑体\_GBK     & 方正仿宋\_GBK  \\
+% |sinotype| & 华文宋体       & 华文楷体       & 华文细黑/华文黑体 & 华文仿宋       \\
+% |win|      & 中易宋体       & 中易楷体       & 中易黑体          & 中易仿宋       \\
+% \end{tblr}
 % \end{table}
 % \begin{function}[added=2022-04-01]{style/cjk-fake-bold}
 %   \begin{syntax}
@@ -452,29 +456,29 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置英文字体，具体配置见\tabrefx{tab:latin-font}。
 % \end{function}
 % \begin{optdesc}
+%   \item[tac] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{arial.ttf}、\filex{arialbd.ttf}、\filex{ariali.ttf}、\filex{arialbi.ttf}、\filex{consola.ttf}、\filex{consolab.ttf}、\filex{consolai.ttf}和\filex{consolaz.ttf}。
+%   \item[tacn] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{arial.ttf}、\filex{arialbd.ttf}、\filex{ariali.ttf}、\filex{arialbi.ttf}、\filex{cour.ttf}、\filex{courbd.ttf}、\filex{couri.ttf}和\filex{courbi.ttf}。
+%   \item[thcs] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{Helvetica.ttf}、\filex{Helvetica~Bold.ttf}、\filex{Helvetica~Oblique.ttf}、\filex{Helvetica~Bold~Oblique.ttf}、\filex{CourierStd.otf}、\filex{CourierStd-Bold.otf}、\filex{CourierStd-Oblique.otf}和\filex{CourierStd-BoldOblique.otf}。
 %   \item[none] 关闭内置英文字体配置，需自行配置英文字体。
 % \end{optdesc}
+% \changes{v2.16.1.1}{2022/11/27}{修改英文字体配置表文档样式}
 % \begin{table}
-% \begin{threeparttable}
 % \caption{英文字体配置}
 % \label{tab:latin-font}
-% \centering
-% \begin{tabularx}{\linewidth}{cYYY}
-% \toprule
-% \strong{选项名称} & \strong{罗马字体族} & \strong{无衬线字体族} & \strong{打字机字体族} \\
-% \midrule
-% |tac|\tnote{1}    & Times New Roman     & Arial                 & Consolas              \\
-% |tacn|\tnote{2}   & Times New Roman     & Arial                 & Courier New           \\
-% |thcs|\tnote{3}   & Times New Roman     & Helvetica             & Courier Std           \\
-% |gyre|            & TeX Gyre Termes     & TeX Gyre Heros        & TeX Gyre Cursor       \\
-% \bottomrule
-% \end{tabularx}
-% \begin{tablenotes}
-% \item [1] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{arial.ttf}、\filex{arialbd.ttf}、\filex{ariali.ttf}、\filex{arialbi.ttf}、\filex{consola.ttf}、\filex{consolab.ttf}、\filex{consolai.ttf}和\filex{consolaz.ttf}。
-% \item [2] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{arial.ttf}、\filex{arialbd.ttf}、\filex{ariali.ttf}、\filex{arialbi.ttf}、\filex{cour.ttf}、\filex{courbd.ttf}、\filex{couri.ttf}和\filex{courbi.ttf}。
-% \item [3] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{Helvetica.ttf}、\filex{Helvetica~Bold.ttf}、\filex{Helvetica~Oblique.ttf}、\filex{Helvetica~Bold~Oblique.ttf}、\filex{CourierStd.otf}、\filex{CourierStd-Bold.otf}、\filex{CourierStd-Oblique.otf}和\filex{CourierStd-BoldOblique.otf}。
-% \end{tablenotes}
-% \end{threeparttable}
+% \begin{tblr}
+% {
+% width          = \linewidth,
+% colspec        = {cX[c]X[c]X[c]},
+% hline{1,2,Z}   = {.08em},
+% row{even[2-Z]} = {gray9!40},
+% row{1}         = {cmd=\strong}
+% }
+% 选项名称 & 罗马族          & 无衬线族       & 打字机族        \\
+% |tac|    & Times New Roman & Arial          & Consolas        \\
+% |tacn|   & Times New Roman & Arial          & Courier New     \\
+% |thcs|   & Times New Roman & Helvetica      & Courier Std     \\
+% |gyre|   & TeX Gyre Termes & TeX Gyre Heros & TeX Gyre Cursor \\
+% \end{tblr}
 % \end{table}
 % \begin{function}[added=2022-03-06,updated=2022-03-09]{style/math-font}
 %   \begin{syntax}
@@ -482,20 +486,27 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \end{syntax}
 % 设置数学字体，具体配置见\tabrefx{tab:math-font}。除Computer Modern字体外，均使用\pkgx{unicode-math}宏包调用字体。
 % \end{function}
+% \changes{v2.16.1.1}{2022/11/27}{修改数学字体配置表文档样式}
 % \changes{v0.1.4.1}{2022/04/04}{数学字体风格介绍}
 % \begin{optdesc}
-%   \item[cambria] Microsoft Office预装的数学字体。
+%   \item[cambria] \filex{cambria.ttc}。
 %   \item[none] 关闭内置数学字体配置，需自行配置数学字体。
 % \end{optdesc}
-% \begin{table}
-% \begin{threeparttable}
-% \caption{数学字体配置}
-% \label{tab:math-font}
-% \centering
-% \begin{tabularx}{\linewidth}{cY}
-% \toprule
-% \strong{选项名称}  & \strong{字体名称}        \\
-% \midrule
+% \begin{tblr}
+% [
+% long,
+% caption = {数学字体配置},
+% label   = {tab:math-font}
+% ]
+% {
+% width          = \linewidth,
+% colspec        = {cX[c]},
+% hline{1,2,Z}   = {.08em},
+% row{even[2-Z]} = {gray9!40},
+% row{1}         = {cmd=\strong},
+% rowhead        = 1
+% }
+% 选项名称           & 字体名称                 \\
 % |asana|            & Asana Math               \\
 % |cambria|\tnote{1} & Cambria Math             \\
 % |cm|               & Computer Modern          \\
@@ -518,13 +529,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % |pagella|          & TeX Gyre Pagella Math    \\
 % |schola|           & TeX Gyre Schola Math     \\
 % |termes|           & TeX Gyre Termes Math     \\
-% \bottomrule
-% \end{tabularx}
-% \begin{tablenotes}
-% \item [1] \filex{cambria.ttc}。
-% \end{tablenotes}
-% \end{threeparttable}
-% \end{table}
+% \end{tblr}
 % \begin{function}[added=2022-03-14]{style/unicode-math}
 %   \begin{syntax}
 %     \optx{style/unicode-math}=\argx{unicode-math宏包选项}
@@ -896,6 +901,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{function}
 % \subsection{信息录入}
 % \label{信息录入}
+% \changes{v2.16.1.1}{2022/11/27}{修改信息录入选项分类表文档样式}
 % \changes{v1.9.0.0}{2022/05/03}{增加信息录入选项分类表}
 % \changes{v1.10.3.1}{2022/05/04}{移除专业博士校外导师信息录入}
 % 用户根据\tabrefx{tblr:info}选择相应的选项并使用\secrefx{参数设置}中的方式进行信息录入。
@@ -903,23 +909,21 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % [
 % long,
 % caption = {信息录入选项分类},
-% label = {tblr:info}
+% label   = {tblr:info}
 % ]
 % {
-% width      = \linewidth,
-% colspec    = lX[c]X[c]X[c]X[c]X[c]X[c],
-% cell{1}{1} = {r = 2}{},
-% cell{1}{2} = {c = 2}{},
-% cell{1}{4} = {c = 2}{},
-% cell{1}{6} = {c = 2}{},
-% hline{1,Z} = {.08em},
-% hline{2} = {2-3}{.08em, leftpos = -1, rightpos = -1, endpos},
-% hline{2} = {4-5}{.08em, leftpos = -1, rightpos = -1, endpos},
-% hline{2} = {6-7}{.08em, leftpos = -1, rightpos = -1, endpos},
-% hline{3} = {.08em},
-% cell{odd[3-Z]}{1-Z} = {gray9},
-% cell{3-Z}{1} = {cmd = \texttt},
-% rowhead = 2
+% width          = \linewidth,
+% colspec        = lX[c]X[c]X[c]X[c]X[c]X[c],
+% cell{1}{1}     = {r=2}{},
+% cell{1}{2,4,6} = {c=2}{},
+% hline{1,Z}     = {.08em},
+% hline{2}       = {2-3}{.08em,leftpos=-1,rightpos=-1,endpos},
+% hline{2}       = {4-5}{.08em,leftpos=-1,rightpos=-1,endpos},
+% hline{2}       = {6-7}{.08em,leftpos=-1,rightpos=-1,endpos},
+% hline{3}       = {.08em},
+% row{odd[3-Z]}  = {gray9!40},
+% cell{3-Z}{1}   = {cmd=\texttt},
+% rowhead        = 2
 % }
 %                              & 本科   &        & 硕士   &        & 博士   &        \\
 %                              & 校内   & 校外   & 学术   & 专业   & 学术   & 专业   \\
