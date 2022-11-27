@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/26 v2.15.0.1 Xidian University TeX Suite]
+[2022/11/27 v2.16.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/26}{2.15.0.1}
+%<class|sty>  {2022/11/27}{2.16.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -499,13 +499,19 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % |asana|            & Asana Math               \\
 % |cambria|\tnote{1} & Cambria Math             \\
 % |cm|               & Computer Modern          \\
+% |concrete|         & Concrete Math            \\
 % |erewhon|          & Erewhon Math             \\
+% |euler|            & Euler Math               \\
 % |fira|             & Fira Math                \\
 % |garamond|         & Garamond Math            \\
+% |gfsneohellenic|   & GFS Neohellenic Math     \\
+% |kp|               & KpMath                   \\
 % |libertinus|       & Libertinus Math          \\
 % |lm|               & Latin Modern Math        \\
 % |newcm|            & New Computer Modern Math \\
+% |stix2|            & STIX Two Math            \\
 % |stix|             & STIX Math                \\
+% |xcharter|         & XCharter Math            \\
 % |xits|             & XITS Math                \\
 % |bonum|            & TeX Gyre Bonum Math      \\
 % |dejavu|           & TeX Gyre DejaVu Math     \\
@@ -1711,8 +1717,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
     math-font .choices:nn =
       {
-        asana, bonum, cambria, cm, dejavu, erewhon, fira, garamond,
-        libertinus, lm, newcm, pagella, schola, stix, termes, xits, none
+        asana, bonum, cambria, cm, concrete, dejavu, erewhon, euler,
+        fira, garamond, gfsneohellenic, kp, libertinus, lm, newcm,
+        pagella, schola, stix, stix2, termes, xcharter, xits, none
       }
       { \tl_set_eq:NN \l_@@_math_font_tl \l_keys_choice_tl },
     unicode-math .tl_set:N = \l_@@_unicode_math_tl,
@@ -2365,6 +2372,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \begin{macro}{\@@_define_math_font:nn}
 % 批量定义数学字体配置。
+% \changes{v2.16.0.0}{2022/11/27}{增加若干数学字体}
 % \changes{v2.15.0.0}{2022/11/26}{增加New Computer Modern Math数学字体}
 % \changes{v2.13.0.0}{2022/11/21}{增加Erewhon Math数学字体}
 % \changes{v0.2.0.0}{2022/04/04}{增加Garamond Math数学字体}
@@ -2384,19 +2392,25 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 \clist_map_inline:nn
   {
-    { asana      } { Asana-Math.otf             },
-    { erewhon    } { Erewhon-Math.otf           },
-    { fira       } { FiraMath-Regular.otf       },
-    { garamond   } { Garamond-Math.otf          },
-    { libertinus } { LibertinusMath-Regular.otf },
-    { lm         } { latinmodern-math.otf       },
-    { newcm      } { NewCMMath-Regular.otf      },
-    { stix       } { STIXMath-Regular.otf       },
-    { bonum      } { texgyrebonum-math.otf      },
-    { dejavu     } { texgyredejavu-math.otf     },
-    { pagella    } { texgyrepagella-math.otf    },
-    { schola     } { texgyreschola-math.otf     },
-    { termes     } { texgyretermes-math.otf     }
+    { asana          } { Asana-Math.otf             },
+    { concrete       } { Concrete-Math.otf          },
+    { erewhon        } { Erewhon-Math.otf           },
+    { euler          } { Euler-Math.otf             },
+    { fira           } { FiraMath-Regular.otf       },
+    { garamond       } { Garamond-Math.otf          },
+    { gfsneohellenic } { GFSNeohellenicMath.otf     },
+    { kp             } { KpMath-Regular.otf         },
+    { libertinus     } { LibertinusMath-Regular.otf },
+    { lm             } { latinmodern-math.otf       },
+    { newcm          } { NewCMMath-Regular.otf      },
+    { stix           } { STIXMath-Regular.otf       },
+    { stix2          } { STIXTwoMath-Regular.otf    },
+    { xcharter       } { XCharter-Math.otf          },
+    { bonum          } { texgyrebonum-math.otf      },
+    { dejavu         } { texgyredejavu-math.otf     },
+    { pagella        } { texgyrepagella-math.otf    },
+    { schola         } { texgyreschola-math.otf     },
+    { termes         } { texgyretermes-math.otf     }
   }
   { \@@_define_math_font:nn #1 }
 %    \end{macrocode}
