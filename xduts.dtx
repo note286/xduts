@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/27 v2.16.1.1 Xidian University TeX Suite]
+[2022/11/27 v2.16.1.2 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/27}{2.16.1.1}
+%<class|sty>  {2022/11/27}{2.16.1.2}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -54,6 +54,7 @@
 % 交叉引用
 \newcommand{\secrefx}[1]{第\xspace\ref{#1}\xspace 节}
 \newcommand{\tabrefx}[1]{\tablename\xspace\ref{#1}\xspace}
+\newcommand{\figrefx}[1]{\figurename\xspace\ref{#1}\xspace}
 % 文档类选项
 \newcommand{\optx}[1]{\xspace{\ttfamily\seqsplit{#1}}\xspace}
 % \name LaTeX3控制序列
@@ -1561,13 +1562,14 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 和《Good things come in little packages: An introduction to writing .ins and .dtx files》\footurl{https://www.tug.org/TUGboat/tb29-2/tb92pakin.pdf}
 % 提供了很大帮助。
 % 在文档的编写过程中，参考了\filex{ctex.dtx}、\filex{fduthesis.dtx}、\filex{njuthesis.dtx}和\filex{thuthesis.dtx}。
+% \changes{v2.16.1.2}{2022/11/27}{修正文档中图片引用间距}
 % \changes{v2.15.0.1}{2022/11/26}{增加赞助二维码}
 % \section{赞助}
-% 如果觉得\xduts{}对您有所帮助，可以扫描\figurename~\ref{fig:zanzhu}中的二维码来赞助这个项目，赞助主要用于给作者补充营养。
+% 如果觉得\xduts{}对您有所帮助，可以扫描\figrefx{fig:zanzhu}中的二维码来赞助\xduts{}，赞助主要用于给作者补充营养。
 % \begin{figure}[h]
 % \centering
 % \subcaptionbox{支付宝}{\textcolor[RGB]{22,120,255}{\qrcode[height=4cm]{https://qr.alipay.com/fkx159591dqeuttcwbaurb5}}}\qquad\qquad
-% \subcaptionbox{微信}{\textcolor[RGB]{7,193,96}{\qrcode[height=4cm]{wxp://f2f0Pkqu8eK5cgsln6RSPWFQi4SGT\_bM8hMuuIp2vk7Y0Zc}}}
+% \subcaptionbox{微信支付}{\textcolor[RGB]{7,193,96}{\qrcode[height=4cm]{wxp://f2f0Pkqu8eK5cgsln6RSPWFQi4SGT\_bM8hMuuIp2vk7Y0Zc}}}
 % \caption{赞助二维码}
 % \label{fig:zanzhu}
 % \end{figure}
