@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/27 v2.16.0.0 Xidian University TeX Suite]
+[2022/11/27 v2.16.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/27}{2.16.0.0}
+%<class|sty>  {2022/11/27}{2.16.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -1752,30 +1752,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_if_platform_macos:FT}
 % \changes{v0.5.1.0}{2022/04/06}{判断操作系统是否是macOS}
-% 判断操作系统是否是macOS。
-% \begin{arguments}
-%   \item 非macOS。
-%   \item macOS。
-% \end{arguments}
-%    \begin{macrocode}
-\cs_new:Npn \@@_if_platform_macos:FT #1#2
-  { \file_if_exist:nTF { /System/Library/Fonts/Menlo.ttc } { #2 } { #1 } }
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\@@_texmf_font:nn}
 % \changes{v0.5.1.0}{2022/04/06}{加载字体时自动判断是否为macOS平台}
-% 调用TEXMF中的字体时根据操作系统是否是macOS自动选择调用字体名或文件名。
-% \begin{arguments}
-%   \item 字体名。
-%   \item 文件名。
-% \end{arguments}
-%    \begin{macrocode}
-\cs_new:Npn \@@_texmf_font:nn #1#2
-  { \@@_if_platform_macos:FT { #1 } { #2 } }
-%    \end{macrocode}
-% \end{macro}
 % \begin{macro}{\@@_select_font:nn}
 % 自动选择字体文件名称或字体名称。
 % \begin{arguments}
@@ -2372,6 +2350,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \begin{macro}{\@@_define_math_font:nn}
 % 批量定义数学字体配置。
+% \changes{v2.16.1.0}{2022/11/27}{修改XITS Math数学字体调用方式}
 % \changes{v2.16.0.0}{2022/11/27}{增加若干数学字体}
 % \changes{v2.15.0.0}{2022/11/26}{增加New Computer Modern Math数学字体}
 % \changes{v2.13.0.0}{2022/11/21}{增加Erewhon Math数学字体}
@@ -2406,6 +2385,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     { stix           } { STIXMath-Regular.otf       },
     { stix2          } { STIXTwoMath-Regular.otf    },
     { xcharter       } { XCharter-Math.otf          },
+    { xits           } { XITSMath-Regular.otf       },
     { bonum          } { texgyrebonum-math.otf      },
     { dejavu         } { texgyredejavu-math.otf     },
     { pagella        } { texgyrepagella-math.otf    },
@@ -2415,24 +2395,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   { \@@_define_math_font:nn #1 }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_load_math_font_xits:}
 % \changes{v0.5.1.0}{2022/04/06}{适配macOS平台MacTeX内置XITSMath数学字体}
 % \changes{v2.12.1.0}{2022/07/03}{移除XITSMath数学字体冗余语句}
-% 数学字体配置\valuex{xits}。
-%    \begin{macrocode}
-\cs_new:Npn \@@_load_math_font_xits:
-  {
-    \@@_load_unicode_math_pkg:
-    \@@_if_platform_macos:FT
-      { \setmathfont { XITS~Math } }
-      {
-        \setmathfont { XITSMath-Regular.otf }
-        \setmathfont { XITSMath-Bold.otf    }
-          [ range= { bfup -> up, bfit -> it } ]
-      }
-  }
-%    \end{macrocode}
-% \end{macro}
 % \begin{macro}{\@@_load_math_font_cm:}
 % 数学字体配置\valuex{cm}。
 %    \begin{macrocode}
