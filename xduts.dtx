@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/27 v2.16.3.0 Xidian University TeX Suite]
+[2022/11/28 v2.17.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/27}{2.16.3.0}
+%<class|sty>  {2022/11/28}{2.17.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -273,7 +273,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v2.12.0.1}{2022/07/01}{研究生学位论文增加文件配置}
 % 文件配置见\secrefx{文件配置}，
 % 交叉引用配置见\secrefx{交叉引用配置}，
-% Caption配置见\secrefx{Caption配置}，
+% caption配置见\secrefx{caption配置}，
 % 表格配置见\secrefx{表格配置}，
 % 算法配置见\secrefx{算法配置}，
 % 对照表配置见\secrefx{对照表配置}，
@@ -314,7 +314,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v2.12.0.1}{2022/07/01}{本科生毕业设计增加文件配置}
 % 文件配置见\secrefx{文件配置}，
 % 交叉引用配置见\secrefx{交叉引用配置}，
-% Caption配置见\secrefx{Caption配置}，
+% caption配置见\secrefx{caption配置}，
 % 表格配置见\secrefx{表格配置}，
 % 算法配置见\secrefx{算法配置}，
 % 章节配置见\secrefx{章节配置}，
@@ -667,13 +667,24 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \item[false] 保持原始\tnx{ref}和\tnx{pageref}命令效果。
 % \end{optdesc}
 % \subsection{Caption配置}
-% \label{Caption配置}
+% \label{caption配置}
 % \changes{v1.0.0.0}{2022/04/14}{设置图、表、算法标签与后面标题之间的间距}
 % \begin{function}[added=2022-04-14]{style/caption-label-sep}
 %   \begin{syntax}
 %     \optx{style/caption-label-sep}=\argx{间距}
 %   \end{syntax}
 % 设置图、表、算法标签与后面标题之间的间距，默认值为\valuex{0.75em}。
+% \end{function}
+% \changes{v2.17.0.0}{2022/11/28}{设置图、表、算法caption格式}
+% \begin{function}[added=2022-11-28]{style/caption-format}
+%   \begin{syntax}
+%     \optx{style/caption-format}=\metax{plain|(hang)}
+%   \end{syntax}
+% 设置图、表、算法caption的对齐方式。
+% \begin{optdesc}
+%   \item[plain] 无缩进。
+%   \item[hang] 悬挂缩进。
+% \end{optdesc}
 % \end{function}
 % \begin{function}[added=2022-04-03]{style/fig-label-sep}
 % 已弃用。
@@ -697,7 +708,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \optx{style/algorithm-small-caption}=\metax{(true)|false}
 %   \end{syntax}
-% 设置算法Caption字号是否为五号。
+% 设置算法caption字号是否为五号。
 % \end{function}
 % \begin{optdesc}
 %   \item[true] 五号。
@@ -3182,6 +3193,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \l_@@_fix_graphics_bool,
 %     \l_@@_ref_add_space_bool,
 %     \l_@@_cap_label_sep_tl,
+%     \l_@@_cap_format_tl,
 %     \l_@@_tab_small_bool,
 %     \l_@@_alg_small_cap_bool,
 %     \l_@@_alg_small_bool,
@@ -3230,6 +3242,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 标签与后面标题之间的间距。
 %    \begin{macrocode}
 \tl_new:N \l_@@_cap_label_sep_tl
+%    \end{macrocode}
+% 图、表、算法caption格式。
+%    \begin{macrocode}
+\tl_new:N \l_@@_cap_format_tl
 %    \end{macrocode}
 % 设置表格字号是否为五号。
 %    \begin{macrocode}
@@ -3308,6 +3324,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
     caption-label-sep .tl_set:N = \l_@@_cap_label_sep_tl,
 %    \end{macrocode}
+% 图、表、算法caption格式。
+%    \begin{macrocode}
+    caption-format .choices:nn = { plain, hang }
+      { \tl_set_eq:NN \l_@@_cap_format_tl \l_keys_choice_tl },
+%    \end{macrocode}
 % 设置表格字号是否为五号。
 %    \begin{macrocode}
     table-small-font .bool_set:N = \l_@@_tab_small_bool,
@@ -3362,6 +3383,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     style / fix-includegraphics     = false,
     style / ref-add-space           = false,
     style / caption-label-sep       = { 0.75em },
+    style / caption-format          = { hang },
     style / table-small-font        = true,
     style / algorithm-small-caption = true,
     style / algorithm-small-font    = true,
@@ -4704,6 +4726,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \subsection{Caption}
 % \begin{macro}{\DeclareCaptionLabelSeparator,\DeclareCaptionFont,\captionsetup}
+% \changes{v2.17.0.0}{2022/11/28}{设置图、表caption格式}
 % \changes{v0.1.2.0}{2022/04/03}{设置图片标签与后面标题之间的间距}
 % \changes{v0.1.3.0}{2022/04/03}{设置图片标签与标题字体字号}
 % \changes{v2.10.1.0}{2022/06/26}{修复算法标签与标题字体字号警告}
@@ -4724,9 +4747,15 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     labelsep = customskip,
     font     = customfont
   }
+\ctex_at_end_preamble:n
+  {
+    \tl_if_eq:NnTF \l_@@_cap_format_tl { hang }
+      { \captionsetup { format = hang } } { }
+  }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\captionsetup}
+% \changes{v2.17.0.0}{2022/11/28}{设置算法caption格式}
 % \changes{v1.0.4.0}{2022/04/15}{设置\pkgx{algorithm}算法标签与标题字体字号及标签与后面标题之间的间距}
 % \changes{v1.1.3.0}{2022/04/15}{修正\pkgx{algorithm}算法标签字体系列}
 % \changes{v2.6.0.0}{2022/06/25}{设置\pkgx{algorithm}算法Caption字号是否为五号}
@@ -4738,9 +4767,15 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     labelfont = algcustomfont,
     font      = algcustomfont
   }
+\ctex_at_end_preamble:n
+  {
+    \tl_if_eq:NnTF \l_@@_cap_format_tl { hang }
+      { \captionsetup [ algorithm ] { format = hang } } { }
+  }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\SetAlgoCaptionSeparator,\SetAlCapNameFnt,\SetAlCapFnt}
+% \changes{v2.17.0.0}{2022/11/28}{设置\pkgx{algorithm2e}算法caption格式}
 % \changes{v1.0.0.0}{2022/04/14}{修正\pkgx{algorithm2e}算法标签与后面标题之间的间距}
 % \changes{v1.0.4.0}{2022/04/15}{修正\pkgx{algorithm2e}算法标签与标题字体字号}
 % \changes{v2.6.0.0}{2022/06/25}{设置\pkgx{algorithm2e}算法Caption字号是否为五号}
@@ -4760,7 +4795,33 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
             \SetAlCapNameFnt         { \@@_rm_family: \zihao { -4 } }
             \SetAlCapFnt             { \@@_rm_family: \zihao { -4 } }
           }
-        \SetAlCapSty             { }
+        \SetAlCapSty { }
+%    \end{macrocode}
+% 设置\pkgx{algorithm2e}算法caption格式。
+%    \begin{macrocode}
+        \box_new:N \l_@@_algtwoe_capt_box
+        \RenewDocumentCommand { \algocf@makecaption } { mm }
+          {
+            \hbox_set:Nn \l_@@_algtwoe_capt_box
+              { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2 }
+            \dim_compare:nNnTF { \box_wd:N \l_@@_algtwoe_capt_box } > { \hsize }
+              {
+                \tl_if_eq:NnTF \l_@@_cap_format_tl { hang }
+                  {
+                    \makebox { \AlCapFnt #1 \algocf@capseparator }
+                    \makebox { \parbox [ t ] { \hsize } { \AlCapNameFnt #2 } }
+                  }
+                  {
+                    \parbox { \columnwidth }
+                      { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2}
+                  }
+              }
+              { \makebox [ \columnwidth ] { \box_use:N \l_@@_algtwoe_capt_box } }
+          }
+      \RenewDocumentCommand { \algocf@makecaption@ruled } { mm }
+        { \global \sbox \algocf@capbox { \algocf@makecaption { #1 } { #2 } } }
+      \RenewDocumentCommand { \algocf@makecaption@boxed } { mm }
+        { \global \sbox \algocf@capbox { \algocf@makecaption { #1 } { #2 } } }
       }
   }
 %    \end{macrocode}
@@ -4774,6 +4835,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\SetTblrStyle,\DefTblrTemplate}
+% \changes{v2.17.0.0}{2022/11/28}{设置\pkgx{tabularray}中\envx{longtblr}环境caption格式}
 % \changes{v2.16.3.0}{2022/11/27}{适配不同语言下的\envx{longtblr}环境中标题和尾部的续表文本}
 % \changes{v2.16.2.0}{2022/11/27}{修正\envx{longtblr}环境caption宽度}
 % \changes{v1.11.0.0}{2022/05/06}{适配\pkgx{tabularray}宏包caption样式}
@@ -4786,10 +4848,19 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \SetTblrStyle { head } { font = \@@_rm_family: \zihao { 5 } }
         \DefTblrTemplate { caption-sep } { default }
           { \hskip \l_@@_cap_label_sep_tl }
-        \DefTblrTemplate { firsthead } { default }
-          { \@@_tblr_caption_box:n { \UseTblrTemplate { caption  } { default } } }
-        \DefTblrTemplate { middlehead, lasthead } { default }
-          { \@@_tblr_caption_box:n { \UseTblrTemplate { capcont  } { default } } }
+        \tl_if_eq:NnTF \l_@@_cap_format_tl { hang }
+          {
+            \DefTblrTemplate { firsthead } { default }
+              { \@@_tblr_caption_box:n { \UseTblrTemplate { caption  } { default } } }
+            \DefTblrTemplate { middlehead, lasthead } { default }
+              { \@@_tblr_caption_box:n { \UseTblrTemplate { capcont  } { default } } }
+          }
+          {
+            \DefTblrTemplate { firsthead } { default }
+              { \@@_tblr_caption_box:n { \UseTblrTemplate { caption  } { plain } } }
+            \DefTblrTemplate { middlehead, lasthead } { default }
+              { \@@_tblr_caption_box:n { \UseTblrTemplate { capcont  } { plain } } }
+          }
         \DefTblrTemplate { firstfoot, middlefoot } { default }
           { \@@_tblr_caption_box:n { \UseTblrTemplate { contfoot } { default } } }
         \DefTblrTemplate { lastfoot } { default }
