@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/28 v2.17.0.0 Xidian University TeX Suite]
+[2022/11/29 v2.18.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/28}{2.17.0.0}
+%<class|sty>  {2022/11/29}{2.18.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -723,6 +723,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \begin{optdesc}
 %   \item[true] 五号。
 %   \item[false] 小四号。
+% \end{optdesc}
+% \begin{function}[added=2022-11-29]{style/algorithm-caption-align}
+%   \begin{syntax}
+%     \optx{style/algorithm-caption-align}=\metax{(left)|centering}
+%   \end{syntax}
+% 设置算法caption对齐方式。
+% \end{function}
+% \begin{optdesc}
+%   \item[left] 左对齐。
+%   \item[centering] 居中，此时\optx{style/caption-format}中的设置对算法caption无效。
 % \end{optdesc}
 % \subsection{章节配置}
 % \label{章节配置}
@@ -3197,6 +3207,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \l_@@_tab_small_bool,
 %     \l_@@_alg_small_cap_bool,
 %     \l_@@_alg_small_bool,
+%     \l_@@_alg_capt_align_tl,
 %     \l_@@_before_skip_clist,
 %     \l_@@_after_skip_clist,
 %     \l_@@_chap_tl,
@@ -3258,6 +3269,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置算法内容字号是否为五号。
 %    \begin{macrocode}
 \bool_new:N \l_@@_alg_small_bool
+%    \end{macrocode}
+% 设置算法caption对齐方式。
+%    \begin{macrocode}
+\tl_new:N \l_@@_alg_capt_align_tl
 %    \end{macrocode}
 % 设置章节标题前后的垂直间距。
 %    \begin{macrocode}
@@ -3340,6 +3355,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置算法内容字号是否为五号。
 %    \begin{macrocode}
     algorithm-small-font .bool_set:N = \l_@@_alg_small_bool,
+%    \end{macrocode}
+% 设置算法caption对齐方式。
+%    \begin{macrocode}
+    algorithm-caption-align .choices:nn = { left, centering }
+      { \tl_set_eq:NN \l_@@_alg_capt_align_tl \l_keys_choice_tl },
 %    \end{macrocode}
 % 设置章节标题前的垂直间距。
 %    \begin{macrocode}
@@ -4755,6 +4775,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\captionsetup}
+% \changes{v2.18.0.0}{2022/11/28}{设置算法caption对齐方式}
 % \changes{v2.17.0.0}{2022/11/28}{设置算法caption格式}
 % \changes{v1.0.4.0}{2022/04/15}{设置\pkgx{algorithm}算法标签与标题字体字号及标签与后面标题之间的间距}
 % \changes{v1.1.3.0}{2022/04/15}{修正\pkgx{algorithm}算法标签字体系列}
@@ -4769,12 +4790,17 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 \ctex_at_end_preamble:n
   {
-    \tl_if_eq:NnTF \l_@@_cap_format_tl { hang }
-      { \captionsetup [ algorithm ] { format = hang } } { }
+    \tl_if_eq:NnTF \l_@@_alg_capt_align_tl { left }
+      {
+        \tl_if_eq:NnTF \l_@@_cap_format_tl { hang }
+          { \captionsetup [ algorithm ] { format = hang } } { }
+      }
+      { \captionsetup [ algorithm ] { justification = centering } }
   }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\SetAlgoCaptionSeparator,\SetAlCapNameFnt,\SetAlCapFnt}
+% \changes{v2.18.0.0}{2022/11/29}{设置\pkgx{algorithm2e}算法caption对齐方式}
 % \changes{v2.17.0.0}{2022/11/28}{设置\pkgx{algorithm2e}算法caption格式}
 % \changes{v1.0.0.0}{2022/04/14}{修正\pkgx{algorithm2e}算法标签与后面标题之间的间距}
 % \changes{v1.0.4.0}{2022/04/15}{修正\pkgx{algorithm2e}算法标签与标题字体字号}
@@ -4797,26 +4823,36 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
           }
         \SetAlCapSty { }
 %    \end{macrocode}
-% 设置\pkgx{algorithm2e}算法caption格式。
+% 设置\pkgx{algorithm2e}算法caption格式及对齐方式。
 %    \begin{macrocode}
-        \box_new:N \l_@@_algtwoe_capt_box
-        \RenewDocumentCommand { \algocf@makecaption } { mm }
+        \tl_if_eq:NnTF \l_@@_alg_capt_align_tl { left }
           {
-            \hbox_set:Nn \l_@@_algtwoe_capt_box
-              { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2 }
-            \dim_compare:nNnTF { \box_wd:N \l_@@_algtwoe_capt_box } > { \hsize }
+            \box_new:N \l_@@_algtwoe_capt_box
+            \RenewDocumentCommand { \algocf@makecaption } { mm }
               {
-                \tl_if_eq:NnTF \l_@@_cap_format_tl { hang }
+                \hbox_set:Nn \l_@@_algtwoe_capt_box
+                  { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2 }
+                \dim_compare:nNnTF { \box_wd:N \l_@@_algtwoe_capt_box } > { \hsize }
                   {
-                    \makebox { \AlCapFnt #1 \algocf@capseparator }
-                    \makebox { \parbox [ t ] { \hsize } { \AlCapNameFnt #2 } }
+                    \tl_if_eq:NnTF \l_@@_cap_format_tl { hang }
+                      {
+                        \makebox { \AlCapFnt #1 \algocf@capseparator }
+                        \makebox { \parbox [ t ] { \hsize } { \AlCapNameFnt #2 } }
+                      }
+                      {
+                        \parbox { \columnwidth }
+                          { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2}
+                      }
                   }
-                  {
-                    \parbox { \columnwidth }
-                      { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2}
-                  }
+                  { \makebox [ \columnwidth ] { \box_use:N \l_@@_algtwoe_capt_box } }
               }
-              { \makebox [ \columnwidth ] { \box_use:N \l_@@_algtwoe_capt_box } }
+          }
+          {
+            \RenewDocumentCommand { \algocf@makecaption } { mm }
+              {
+                 \parbox { \columnwidth }
+                   { \centering \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2 }
+              }
           }
       \RenewDocumentCommand { \algocf@makecaption@ruled } { mm }
         { \global \sbox \algocf@capbox { \algocf@makecaption { #1 } { #2 } } }
