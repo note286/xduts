@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/11/29 v2.18.0.0 Xidian University TeX Suite]
+[2022/12/01 v2.18.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/11/29}{2.18.0.0}
+%<class|sty>  {2022/12/01}{2.18.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -926,6 +926,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{function}
 % \subsection{信息录入}
 % \label{信息录入}
+% \changes{v2.18.1.0}{2022/12/01}{增加专业博士校外导师和英文学位类别信息录入}
 % \changes{v2.16.1.1}{2022/11/27}{修改信息录入选项分类表文档样式}
 % \changes{v1.9.0.0}{2022/05/03}{增加信息录入选项分类表}
 % \changes{v1.10.3.1}{2022/05/04}{移除专业博士校外导师信息录入}
@@ -955,7 +956,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % graduate-type                &        &        & \cmark & \cmark & \cmark & \cmark \\
 % degree-type                  &        &        & \cmark & \cmark & \cmark & \cmark \\
 % degree                       &        &        & \cmark & \cmark & \cmark & \cmark \\
-% degree*                      &        &        &        & \cmark &        &        \\
+% degree*                      &        &        &        & \cmark &        & \cmark \\
 % title                        & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % title*                       &        &        & \cmark & \cmark & \cmark & \cmark \\
 % department                   & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
@@ -968,13 +969,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % supervisor                   & \cmark &        & \cmark & \cmark & \cmark & \cmark \\
 % supervisor*                  &        &        & \cmark & \cmark & \cmark & \cmark \\
 % supervisor-department        & \cmark &        &        &        &        &        \\
-% supervisor-enterprise        &        & \cmark &        & \cmark &        &        \\
-% supervisor-enterprise*       &        &        &        & \cmark &        &        \\
+% supervisor-enterprise        &        & \cmark &        & \cmark &        & \cmark \\
+% supervisor-enterprise*       &        &        &        & \cmark &        & \cmark \\
 % supervisor-school            &        & \cmark &        &        &        &        \\
 % supervisor-title             &        &        & \cmark & \cmark & \cmark & \cmark \\
 % supervisor-title*            &        &        & \cmark & \cmark & \cmark & \cmark \\
-% supervisor-enterprise-title  &        &        &        & \cmark &        &        \\
-% supervisor-enterprise-title* &        &        &        & \cmark &        &        \\
+% supervisor-enterprise-title  &        &        &        & \cmark &        & \cmark \\
+% supervisor-enterprise-title* &        &        &        & \cmark &        & \cmark \\
 % class-id                     & \cmark & \cmark &        &        &        &        \\
 % student-id                   & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % clc                          &        &        & \cmark & \cmark & \cmark & \cmark \\
@@ -1207,17 +1208,19 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \end{syntax}
 % 设置作者简介文件路径，文件内容可参考\secrefx{作者简介配置}中的示例。
 % \end{function}
+% \changes{v2.18.1.0}{2022/12/01}{增加专业博士信息录入推荐值来源}
 % \changes{v2.12.2.1}{2022/11/20}{调整研究生信息推荐值展示样式}
 % \changes{v1.26.11.2}{2022/06/18}{研究生信息推荐值}
 % \subsubsection{研究生信息推荐值}
 % \label{研究生信息推荐值}
 % 以下研究生信息推荐值均来自
-% 《西安电子科技大学研究生学位论文模板（2015年修订版）-2019.03修订》
-% 和《西安电子科技大学专业学位硕士学位论文封面及中英文题名页模板（2015年版）-2019.03修订》，
+% 《西安电子科技大学研究生学位论文模板（2015年修订版）-2019.03修订》、
+% 《西安电子科技大学专业学位硕士学位论文封面及中英文题名页模板（2015年版）-2019.03修订》和
+% 《西安电子科技大学专业学位博士学位论文封面及中英文题名页模板-2019.03》，
 % 无任何修改，仅供参考。
 % \setlength\parindent{0pt}
 % \begin{itemize}
-% \item \optx{degree} (非专业硕士)
+% \item \optx{degree} (学术硕士、学术博士)
 % \par
 % 工学硕士,
 % 工学博士,
@@ -1240,7 +1243,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 工程硕士,
 % 工商管理硕士,
 % 公共管理硕士
-% \item \optx{degree*}
+% \item \optx{degree} (专业博士)
+% \par
+% 工程博士
+% \item \optx{degree*} (专业硕士)
 % \par
 % Finance,
 % Applied Statistics,
@@ -1248,6 +1254,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % Engineering,
 % Business Administration,
 % Public Administration
+% \item \optx{degree*} (专业博士)
+% \par
+% Engineering
 % \item \optx{department}
 % \par
 % 通信工程学院,
@@ -1419,7 +1428,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 空间科学仪器与电磁实验技术,
 % 飞行器测控与导航制导,
 % 智能检测与新型传感器
-% \item \optx{domain}
+% \item \optx{domain} (专业硕士)
 % \par
 % 金融,
 % 应用统计,
@@ -1439,6 +1448,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 物流工程,
 % 工商管理,
 % 公共管理
+% \item \optx{domain} (专业博士)
+% \par
+% 电子与信息,
+% 先进制造
 % \item \optx{supervisor-title}
 % \par
 % 教授,
@@ -5469,24 +5482,17 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \paragraph{封面}
 % \begin{variable}
 %   {
-%     \l_@@_ac_master,
-%     \l_@@_pro_master,
-%     \l_@@_ac_phd,
-%     \l_@@_pro_phd,
 %     \l_@@_phd,
 %     \l_@@_master,
 %     \l_@@_ac,
 %     \l_@@_pro
 %   }
+% \changes{v2.18.1.0}{2022/12/01}{移除部分研究生类型布尔变量}
 % \changes{v1.16.0.0}{2022/05/22}{研究生类别}
 % \changes{v1.17.0.0}{2022/05/28}{增加学术和专业研究生布尔变量}
 % \changes{v1.18.0.0}{2022/05/29}{增加硕士和博士研究生布尔变量}
 % 研究生类别。
 %    \begin{macrocode}
-\bool_new:N \l_@@_ac_master
-\bool_new:N \l_@@_pro_master
-\bool_new:N \l_@@_ac_phd
-\bool_new:N \l_@@_pro_phd
 \bool_new:N \l_@@_phd
 \bool_new:N \l_@@_master
 \bool_new:N \l_@@_ac
@@ -5494,18 +5500,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 \ctex_at_end_preamble:n
   {
     \tl_if_eq:NnTF \l_@@_gr_type_tl { 硕士 }
-      {
-        \bool_set_true:N \l_@@_master
-        \tl_if_eq:NnTF \l_@@_degree_type_tl { 学术 }
-          { \bool_set_true:N \l_@@_ac_master  }
-          { \bool_set_true:N \l_@@_pro_master }
-      }
-      {
-        \bool_set_true:N \l_@@_phd
-        \tl_if_eq:NnTF \l_@@_degree_type_tl { 学术 }
-          { \bool_set_true:N \l_@@_ac_phd  }
-          { \bool_set_true:N \l_@@_pro_phd }
-      }
+      { \bool_set_true:N \l_@@_master }
+      { \bool_set_true:N \l_@@_phd }
     \tl_if_eq:NnTF \l_@@_degree_type_tl { 学术 }
       { \bool_set_true:N \l_@@_ac  }
       { \bool_set_true:N \l_@@_pro }
@@ -5691,6 +5687,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_cover_author_info:}
+% \changes{v2.18.1.0}{2022/12/01}{修正专业博士封面和提名页信息}
 % \changes{v1.26.4.0}{2022/06/10}{研究生封面底部作者信息}
 % 研究生封面底部作者信息。
 %    \begin{macrocode}
@@ -5703,7 +5700,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \dim_new:N \l_@@_cover_author_info_dim
     \dim_set:Nn \l_@@_cover_author_info_dim { 7em }
     \@@_str_max_dim:Nn \l_@@_cover_author_info_dim { \l_@@_author_str }
-    \bool_if:NTF \l_@@_pro_master
+    \bool_if:NTF \l_@@_pro
       {
         \@@_str_max_dim:Nn \l_@@_cover_author_info_dim
           { \l_@@_supv_str \enskip \l_@@_supv_t_str }
@@ -5732,7 +5729,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \@@_cover_ii:nnnn { 4em } { 作者姓名 }
       { \l_@@_cover_author_info_dim }
       { \l_@@_author_str }
-    \bool_if:NTF \l_@@_pro_master
+    \bool_if:NTF \l_@@_pro
       {
         \@@_cover_ii:nnnn { 9em } { 学校导师姓名、职称 }
           { \l_@@_cover_author_info_dim }
@@ -5792,7 +5789,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       }
       \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
         { 学位类别：\l_@@_degree_str }
-    \bool_if:NTF \l_@@_pro_master
+    \bool_if:NTF \l_@@_pro
       {
         \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
           { 学校导师姓名、职称：\l_@@_supv_str \enskip \l_@@_supv_t_str }
@@ -5844,7 +5841,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
           }
         \par
         { \bfseries 学位类别： } \l_@@_degree_str
-        \bool_if:NTF \l_@@_pro_master
+        \bool_if:NTF \l_@@_pro
           {
             \par
             { \bfseries 学校导师姓名、职称： }
@@ -5953,7 +5950,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \dim_set:Nn \l_@@_supv_max_dim
           { \dim_max:nn { \l_@@_supv_dim } { \l_@@_supv_max_dim } }
       }
-    \bool_if:NT \l_@@_pro_master
+    \bool_if:NT \l_@@_pro
       {
         \hbox_set:Nn \l_@@_supv_box { \l_@@_supv_ent_en_str }
         \dim_set:Nn \l_@@_supv_dim { \box_wd:N \l_@@_supv_box }
@@ -5986,7 +5983,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \dim_set:Nn \l_@@_supv_t_max_dim
           { \dim_max:nn { \l_@@_supv_t_dim } { \l_@@_supv_t_max_dim } }
       }
-    \bool_if:NT \l_@@_pro_master
+    \bool_if:NT \l_@@_pro
       {
         \hbox_set:Nn \l_@@_supv_t_box { \l_@@_supv_ent_t_en_str }
         \dim_set:Nn \l_@@_supv_t_dim { \box_wd:N \l_@@_supv_t_box }
@@ -6026,7 +6023,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         for~the~degree~of
         \bool_if:NTF \l_@@_master { ~Master\\ } { ~Doctor~of~Philosophy\\ }
         in
-        \bool_if:NTF \l_@@_pro_master
+        \bool_if:NTF \l_@@_pro
           { ~\l_@@_degree_en_str\\ }
           { ~\l_@@_major_en_str\\  }
       }
@@ -6046,7 +6043,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
             \phantom { Supervisor:~ } \@@_en_title_supv:n { \l_@@_supv_ii_en_str }
             \phantom { Title:~ } \@@_en_title_supv_t:n { \l_@@_supv_ii_t_en_str } \\
           }
-        \bool_if:NT \l_@@_pro_master
+        \bool_if:NT \l_@@_pro
           {
             Supervisor:~ \@@_en_title_supv:n { \l_@@_supv_ent_en_str }
             Title:~ \@@_en_title_supv_t:n { \l_@@_supv_ent_t_en_str } \\
