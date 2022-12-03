@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/12/01 v2.18.1.1 Xidian University TeX Suite]
+[2022/12/03 v3.0.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/12/01}{2.18.1.1}
+%<class|sty>  {2022/12/03}{3.0.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -276,7 +276,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 文件配置见\secrefx{文件配置}，
 % 交叉引用配置见\secrefx{交叉引用配置}，
 % caption配置见\secrefx{caption配置}，
-% 表格配置见\secrefx{表格配置}，
+% 图表配置见\secrefx{图表配置}，
 % 算法配置见\secrefx{算法配置}，
 % 对照表配置见\secrefx{对照表配置}，
 % 作者简介配置见\secrefx{作者简介配置}。
@@ -317,7 +317,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 文件配置见\secrefx{文件配置}，
 % 交叉引用配置见\secrefx{交叉引用配置}，
 % caption配置见\secrefx{caption配置}，
-% 表格配置见\secrefx{表格配置}，
+% 图表配置见\secrefx{图表配置}，
 % 算法配置见\secrefx{算法配置}，
 % 章节配置见\secrefx{章节配置}，
 % 附录配置见\secrefx{附录环境}，
@@ -679,20 +679,36 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{function}
 % \changes{v2.17.0.0}{2022/11/28}{设置图、表、算法caption格式}
 % \begin{function}[added=2022-11-28]{style/caption-format}
-%   \begin{syntax}
-%     \optx{style/caption-format}=\metax{plain|(hang)}
-%   \end{syntax}
-% 设置图、表、算法caption的对齐方式。
-% \begin{optdesc}
-%   \item[plain] 无缩进。
-%   \item[hang] 悬挂缩进。
-% \end{optdesc}
+% 已弃用。
 % \end{function}
 % \begin{function}[added=2022-04-03]{style/fig-label-sep}
 % 已弃用。
 % \end{function}
-% \subsection{表格配置}
-% \label{表格配置}
+% \subsection{图表配置}
+% \label{图表配置}
+% \changes{v3.0.0.0}{2022/12/03}{设置图表caption格式}
+% \begin{function}[added=2022-12-03]{style/ft-caption-format}
+%   \begin{syntax}
+%     \optx{style/ft-caption-format}=\metax{plain|(hang)}
+%   \end{syntax}
+% 设置图表caption格式。
+% \begin{optdesc}
+%   \item[plain] 无缩进，即自然段落。
+%   \item[hang] 悬挂缩进。
+% \end{optdesc}
+% \end{function}
+% \changes{v3.0.0.0}{2022/12/03}{设置图表caption对齐方式}
+% \begin{function}[added=2022-12-03]{style/ft-caption-align}
+%   \begin{syntax}
+%     \optx{style/ft-caption-align}=\metax{left|centering|(centering-left)}
+%   \end{syntax}
+% 设置图表caption对齐方式。
+% \begin{optdesc}
+%   \item[left] 左对齐。
+%   \item[centering] 居中。
+%   \item[centering-left] 只有一行时居中，多行时左对齐。
+% \end{optdesc}
+% \end{function}
 % \changes{v0.10.0.1}{2022/04/13}{补充表格内容字号文档说明}
 % \begin{function}[added=2022-04-13,updated=2022-04-15]{style/table-small-font}
 %   \begin{syntax}
@@ -726,16 +742,32 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \item[true] 五号。
 %   \item[false] 小四号。
 % \end{optdesc}
-% \begin{function}[added=2022-11-29]{style/algorithm-caption-align}
+% \changes{v3.0.0.0}{2022/12/03}{设置算法caption格式}
+% \begin{function}[added=2022-12-03]{style/alg-caption-format}
 %   \begin{syntax}
-%     \optx{style/algorithm-caption-align}=\metax{(left)|centering}
+%     \optx{style/alg-caption-format}=\metax{plain|(hang)}
+%   \end{syntax}
+% 设置算法caption格式。
+% \begin{optdesc}
+%   \item[plain] 无缩进，即自然段落。
+%   \item[hang] 悬挂缩进。
+% \end{optdesc}
+% \end{function}
+% \changes{v3.0.0.0}{2022/12/03}{设置算法caption对齐方式}
+% \begin{function}[added=2022-12-03]{style/alg-caption-align}
+%   \begin{syntax}
+%     \optx{style/alg-caption-align}=\metax{(left)|centering|centering-left}
 %   \end{syntax}
 % 设置算法caption对齐方式。
-% \end{function}
 % \begin{optdesc}
 %   \item[left] 左对齐。
-%   \item[centering] 居中，此时\optx{style/caption-format}中的设置对算法caption无效。
+%   \item[centering] 居中。
+%   \item[centering-left] 只有一行时居中，多行时左对齐。
 % \end{optdesc}
+% \end{function}
+% \begin{function}[added=2022-11-29]{style/algorithm-caption-align}
+% 已弃用。
+% \end{function}
 % \subsection{章节配置}
 % \label{章节配置}
 % \begin{function}[added=2022-04-05]{style/before-skip}
@@ -3219,11 +3251,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \l_@@_fix_graphics_bool,
 %     \l_@@_ref_add_space_bool,
 %     \l_@@_cap_label_sep_tl,
-%     \l_@@_cap_format_tl,
+%     \l_@@_ft_cap_format_tl,
+%     \l_@@_alg_cap_format_tl,
+%     \l_@@_ft_cap_align_tl,
+%     \l_@@_alg_cap_align_tl,
 %     \l_@@_tab_small_bool,
 %     \l_@@_alg_small_cap_bool,
 %     \l_@@_alg_small_bool,
-%     \l_@@_alg_capt_align_tl,
 %     \l_@@_before_skip_clist,
 %     \l_@@_after_skip_clist,
 %     \l_@@_chap_tl,
@@ -3272,7 +3306,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % 图、表、算法caption格式。
 %    \begin{macrocode}
-\tl_new:N \l_@@_cap_format_tl
+\tl_new:N \l_@@_ft_cap_format_tl
+\tl_new:N \l_@@_alg_cap_format_tl
+%    \end{macrocode}
+% 图、表、算法caption对齐方式。
+%    \begin{macrocode}
+\tl_new:N \l_@@_ft_cap_align_tl
+\tl_new:N \l_@@_alg_cap_align_tl
 %    \end{macrocode}
 % 设置表格字号是否为五号。
 %    \begin{macrocode}
@@ -3285,10 +3325,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置算法内容字号是否为五号。
 %    \begin{macrocode}
 \bool_new:N \l_@@_alg_small_bool
-%    \end{macrocode}
-% 设置算法caption对齐方式。
-%    \begin{macrocode}
-\tl_new:N \l_@@_alg_capt_align_tl
 %    \end{macrocode}
 % 设置章节标题前后的垂直间距。
 %    \begin{macrocode}
@@ -3357,8 +3393,17 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % 图、表、算法caption格式。
 %    \begin{macrocode}
-    caption-format .choices:nn = { plain, hang }
-      { \tl_set_eq:NN \l_@@_cap_format_tl \l_keys_choice_tl },
+    ft-caption-format .choices:nn = { plain, hang }
+      { \tl_set_eq:NN \l_@@_ft_cap_format_tl \l_keys_choice_tl },
+    alg-caption-format .choices:nn = { plain, hang }
+      { \tl_set_eq:NN \l_@@_alg_cap_format_tl \l_keys_choice_tl },
+%    \end{macrocode}
+% 图、表、算法caption对齐方式。
+%    \begin{macrocode}
+    ft-caption-align .choices:nn = { left, centering, centering-left }
+      { \tl_set_eq:NN \l_@@_ft_cap_align_tl \l_keys_choice_tl },
+    alg-caption-align .choices:nn = { left, centering, centering-left }
+      { \tl_set_eq:NN \l_@@_alg_cap_align_tl \l_keys_choice_tl },
 %    \end{macrocode}
 % 设置表格字号是否为五号。
 %    \begin{macrocode}
@@ -3371,11 +3416,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置算法内容字号是否为五号。
 %    \begin{macrocode}
     algorithm-small-font .bool_set:N = \l_@@_alg_small_bool,
-%    \end{macrocode}
-% 设置算法caption对齐方式。
-%    \begin{macrocode}
-    algorithm-caption-align .choices:nn = { left, centering }
-      { \tl_set_eq:NN \l_@@_alg_capt_align_tl \l_keys_choice_tl },
 %    \end{macrocode}
 % 设置章节标题前的垂直间距。
 %    \begin{macrocode}
@@ -3419,7 +3459,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     style / fix-includegraphics     = false,
     style / ref-add-space           = false,
     style / caption-label-sep       = { 0.75em },
-    style / caption-format          = { hang },
+    style / ft-caption-format       = { hang },
+    style / alg-caption-format      = { hang },
+    style / ft-caption-align        = { centering-left },
+    style / alg-caption-align       = { left },
     style / table-small-font        = true,
     style / algorithm-small-caption = true,
     style / algorithm-small-font    = true,
@@ -4762,22 +4805,17 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \subsection{Caption}
 % \begin{macro}{\DeclareCaptionLabelSeparator,\DeclareCaptionFont,\captionsetup}
+% \changes{v3.0.0.0}{2022/12/03}{设置图、表caption格式}
 % \changes{v2.17.0.0}{2022/11/28}{设置图、表caption格式}
 % \changes{v0.1.2.0}{2022/04/03}{设置图片标签与后面标题之间的间距}
 % \changes{v0.1.3.0}{2022/04/03}{设置图片标签与标题字体字号}
 % \changes{v2.10.1.0}{2022/06/26}{修复算法标签与标题字体字号警告}
 % 设置图表标签与后面标题之间的间距及caption字体字号。
 %    \begin{macrocode}
+\PassOptionsToPackage { ruled } { caption }
 \RequirePackage { caption }
 \DeclareCaptionLabelSeparator { customskip } { \hskip \l_@@_cap_label_sep_tl }
 \DeclareCaptionFont { customfont   } { \@@_rm_family: \zihao { 5 } }
-\DeclareCaptionFont { algcustomfont }
-  {
-    \@@_rm_family:
-    \bool_if:NTF \l_@@_alg_small_cap_bool
-      { \zihao { 5  } }
-      { \zihao { -4 } }
-  }
 \captionsetup
   {
     labelsep = customskip,
@@ -4785,12 +4823,21 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 \ctex_at_end_preamble:n
   {
-    \tl_if_eq:NnTF \l_@@_cap_format_tl { hang }
-      { \captionsetup { format = hang } } { }
+    \tl_if_eq:NnTF \l_@@_ft_cap_format_tl { hang }
+      { \captionsetup { format = hang  } }
+      { \captionsetup { format = plain } }
+    \tl_if_eq:NnTF \l_@@_ft_cap_align_tl { left }
+      { \captionsetup { singlelinecheck = false, justification = justified } }
+      {
+        \tl_if_eq:NnTF \l_@@_ft_cap_align_tl { centering }
+          { \captionsetup { singlelinecheck = false, justification = centerlast } }
+          { \captionsetup { singlelinecheck = true, justification = justified   } }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\captionsetup}
+% \begin{macro}{\DeclareCaptionFont,\captionsetup*}
+% \changes{v3.0.0.0}{2022/12/03}{设置算法caption格式}
 % \changes{v2.18.0.0}{2022/11/28}{设置算法caption对齐方式}
 % \changes{v2.17.0.0}{2022/11/28}{设置算法caption格式}
 % \changes{v1.0.4.0}{2022/04/15}{设置\pkgx{algorithm}算法标签与标题字体字号及标签与后面标题之间的间距}
@@ -4798,7 +4845,14 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v2.6.0.0}{2022/06/25}{设置\pkgx{algorithm}算法Caption字号是否为五号}
 % 设置\pkgx{algorithm}算法标签与标题字体字号及标签与后面标题之间的间距。
 %    \begin{macrocode}
-\captionsetup [ algorithm ]
+\DeclareCaptionFont { algcustomfont }
+  {
+    \@@_rm_family:
+    \bool_if:NTF \l_@@_alg_small_cap_bool
+      { \zihao { 5  } }
+      { \zihao { -4 } }
+  }
+\captionsetup* [ algorithm ]
   {
     labelsep  = customskip,
     labelfont = algcustomfont,
@@ -4806,12 +4860,28 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 \ctex_at_end_preamble:n
   {
-    \tl_if_eq:NnTF \l_@@_alg_capt_align_tl { left }
+    \tl_if_eq:NnTF \l_@@_alg_cap_format_tl { hang }
+      { \captionsetup* [ algorithm ] { format = hang  } }
+      { \captionsetup* [ algorithm ] { format = plain } }
+    \captionsetup* [ ruled ] { strut = 0 }
+    \tl_if_eq:NnTF \l_@@_ft_cap_align_tl { left }
       {
-        \tl_if_eq:NnTF \l_@@_cap_format_tl { hang }
-          { \captionsetup [ algorithm ] { format = hang } } { }
+        \captionsetup* [ algorithm ]
+          { singlelinecheck = false, justification = justified }
       }
-      { \captionsetup [ algorithm ] { justification = centering } }
+      {
+        \tl_if_eq:NnTF \l_@@_ft_cap_align_tl { centering }
+          {
+            \captionsetup* [ algorithm ]
+              { singlelinecheck = false, justification = centerlast }
+          }
+          {
+            \cs_set_eq:NN \floatc@ruled \floatc@plain
+            \captionsetup* [ ruled ] { slc = 1 }
+            \captionsetup* [ algorithm ]
+              { singlelinecheck = true, justification = justified }
+          }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4841,33 +4911,51 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % 设置\pkgx{algorithm2e}算法caption格式及对齐方式。
 %    \begin{macrocode}
-        \tl_if_eq:NnTF \l_@@_alg_capt_align_tl { left }
+        \RenewDocumentCommand { \algocf@makecaption } { mm }
           {
-            \box_new:N \l_@@_algtwoe_capt_box
-            \RenewDocumentCommand { \algocf@makecaption } { mm }
+            \box_clear_new:N \l_@@_algiie_capt_box
+            \hbox_set:Nn \l_@@_algiie_capt_box
+              { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2 }
+            \dim_compare:nNnTF { \box_wd:N \l_@@_algiie_capt_box } > { \hsize }
               {
-                \hbox_set:Nn \l_@@_algtwoe_capt_box
-                  { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2 }
-                \dim_compare:nNnTF { \box_wd:N \l_@@_algtwoe_capt_box } > { \hsize }
+                \tl_if_eq:NnTF \l_@@_alg_cap_format_tl { hang }
                   {
-                    \tl_if_eq:NnTF \l_@@_cap_format_tl { hang }
+                    \tl_if_eq:NnTF \l_@@_alg_cap_align_tl { centering }
+                      {
+                        \makebox { \AlCapFnt #1 \algocf@capseparator }
+                        \makebox
+                          {
+                            \parbox [ t ] { \hsize }
+                              { \centering \AlCapNameFnt #2 }
+                          }
+                      }
                       {
                         \makebox { \AlCapFnt #1 \algocf@capseparator }
                         \makebox { \parbox [ t ] { \hsize } { \AlCapNameFnt #2 } }
+                      }
+                  }
+                  {
+                    \tl_if_eq:NnTF \l_@@_alg_cap_align_tl { centering }
+                      {
+                        \parbox { \columnwidth }
+                          { \centering \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2}
                       }
                       {
                         \parbox { \columnwidth }
                           { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2}
                       }
                   }
-                  { \makebox [ \columnwidth ] { \box_use:N \l_@@_algtwoe_capt_box } }
               }
-          }
-          {
-            \RenewDocumentCommand { \algocf@makecaption } { mm }
               {
-                 \parbox { \columnwidth }
-                   { \centering \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2 }
+                \tl_if_eq:NnTF \l_@@_alg_cap_align_tl { left }
+                  {
+                    \parbox { \columnwidth }
+                      { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2 }
+                  }
+                  {
+                    \parbox { \columnwidth }
+                      { \centering \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2 }
+                  }
               }
           }
       \RenewDocumentCommand { \algocf@makecaption@ruled } { mm }
@@ -4933,12 +5021,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \subsection{图片}
-% \begin{macro}{\PassOptionsToPackage,\captionsetup}
+% \begin{macro}{\PassOptionsToPackage,\captionsetup*}
 % \changes{v0.4.2.0}{2022/04/05}{设置子图标签与标题字体字号}
 % 设置子图标签与标题字体字号，支持\pkgx{subfig}和\pkgx{subcaption}宏包。
 %    \begin{macrocode}
 \PassOptionsToPackage { font = small } { subfig }
-\captionsetup [ sub ] { font = customfont }
+\captionsetup* [ sub ] { font = customfont }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\captionsetup}
