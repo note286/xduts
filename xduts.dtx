@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/12/04 v3.1.1.0 Xidian University TeX Suite]
+[2022/12/04 v3.1.1.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/12/04}{3.1.1.0}
+%<class|sty>  {2022/12/04}{3.1.1.1}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -141,6 +141,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 \makeatother
 \RenewDocumentCommand{\floatpagefraction}{}{.8}
 \usepackage[nolinks]{qrcode}
+\changes{v3.1.1.1}{2022/12/04}{手册首页增加水印}
+\usepackage[firstpageonly=true]{draftwatermark}
+\DraftwatermarkOptions{angle=45,fontsize=40pt,color={gray9!25}}
+\ExplSyntaxOn
+\SetWatermarkText{\prg_replicate:nn{18}{\prg_replicate:nn{6}{\xduts{}~}\xduts\\[30pt]}}
+\ExplSyntaxOff
 \begin{document}
 \changes{v2.18.1.1}{2022/12/01}{隐藏源码、版本和索引}
 \OnlyDescription
