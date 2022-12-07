@@ -53,6 +53,10 @@ Run command below to open the documentation.
 texdoc xduts
 ```
 
+#### Overleaf/TeXPage
+
+If you have installed LaTeX distribution locally, you can get the document class/package files and the documentation according to the [description below](#github). Otherwise, you need to download [the document class/package files](https://mirrors.cloud.tencent.com/CTAN/systems/texlive/tlnet/archive/xduts.tar.xz) and [the documentation](https://mirrors.cloud.tencent.com/CTAN/systems/texlive/tlnet/archive/xduts.doc.tar.xz) from CTAN. Finally, upload the document class/package files to the project on Overleaf/TeXPage.
+
 ### GitHub
 
 Generally speaking, CTAN updates XDUTS slowly. If you want to use the latest version of XDUTS, [download this repository](https://github.com/note286/xduts/archive/refs/heads/main.zip) and run the following command to get the document class/package files.
