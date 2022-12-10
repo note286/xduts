@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/12/06 v3.1.1.2 Xidian University TeX Suite]
+[2022/12/10 v3.1.1.3 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/12/06}{3.1.1.2}
+%<class|sty>  {2022/12/10}{3.1.1.3}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -141,6 +141,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 \makeatother
 \RenewDocumentCommand{\floatpagefraction}{}{.8}
 \usepackage[nolinks]{qrcode}
+\usepackage{fontawesome5}
+\usepackage{tikz}
 \changes{v3.1.1.1}{2022/12/04}{手册首页增加水印}
 \usepackage[firstpageonly=true]{draftwatermark}
 \DraftwatermarkOptions{angle=45,fontsize=40pt,color={gray9!25}}
@@ -1650,19 +1652,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 和《Good things come in little packages: An introduction to writing .ins and .dtx files》\footurl{https://www.tug.org/TUGboat/tb29-2/tb92pakin.pdf}
 % 提供了很大帮助。
 % 在文档的编写过程中，参考了\filex{ctex.dtx}、\filex{fduthesis.dtx}、\filex{njuthesis.dtx}和\filex{thuthesis.dtx}。
+% \changes{v3.1.1.3}{2022/12/10}{二维码增加图标}
 % \changes{v3.1.1.2}{2022/12/06}{增加QQ支付二维码}
 % \changes{v2.16.1.2}{2022/11/27}{修正文档中图片引用间距}
 % \changes{v2.15.0.1}{2022/11/26}{增加赞助二维码}
 % \section{赞助}
 % 如果觉得\xduts{}对您有所帮助，可以扫描\figrefx{fig:zanzhu}中的二维码来赞助\xduts{}，赞助主要用于给作者补充营养。
 % \ExplSyntaxOn
-% \str_set_convert:Nnnn \l_xduts_qq_qr_str {%
-% 68747470733A2F2F692E7169616E62616F2E71712E636F6D2F77616C6C65742F737172636F64%
-% 652E68746D3F6D3D74656E70617926613D3126753D313138333133313434372661633D434145%
-% 517438365574415159343457366E415934414549675A4755775A6D51314D6A55784E3249354E%
-% 32566A4D4455794E445A684D32457A4D6A45325A6A55314E7A512533445F7878785F7369676E%
-% 266E3D4361726F6C26663D77616C6C6574 } { utf8/hex } { }
-% \newcommand{\qqqr}{\str_use:N \l_xduts_qq_qr_str}
 % \str_set_convert:Nnnn \l_xduts_alipay_qr_str {%
 % 68747470733A2F2F71722E616C697061792E636F6D2F666B7831353935393164716575747463%
 % 77626175726235} { utf8/hex } { }
@@ -1671,13 +1667,29 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 7778703A2F2F6632663074504D4D506D3161616467483665396162527030446E317746337344%
 % 6C6468764350382D66765346424577} { utf8/hex } { }
 % \newcommand{\wxpqr}{\str_use:N \l_xduts_wxp_qr_str}
+% \str_set_convert:Nnnn \l_xduts_qq_qr_str {%
+% 68747470733A2F2F692E7169616E62616F2E71712E636F6D2F77616C6C65742F737172636F64%
+% 652E68746D3F6D3D74656E70617926613D3126753D313138333133313434372661633D434145%
+% 517438365574415159343457366E415934414549675A4755775A6D51314D6A55784E3249354E%
+% 32566A4D4455794E445A684D32457A4D6A45325A6A55314E7A512533445F7878785F7369676E%
+% 266E3D4361726F6C26663D77616C6C6574 } { utf8/hex } { }
+% \newcommand{\qqqr}{\str_use:N \l_xduts_qq_qr_str}
 % \ExplSyntaxOff
+% \definecolor{alipayc}{RGB}{22,120,255}
+% \definecolor{weixinc}{RGB}{7,193,96}
+% \definecolor{qqc}{RGB}{18,184,246}
+% \NewDocumentCommand{\qrcodex}{mmm}{
+% \begin{tikzpicture}
+% \node at (0,0) {\textcolor{#3!30}{\qrcode[height=4cm]{#1}}};
+% \node at (current bounding box.center) {\textcolor{#3}{\scalebox{3}{\faIcon{#2}}}};
+% \end{tikzpicture}
+% }
 % \begin{figure}[h]
 % \centering
 % \mbox{}\hfill
-% \subcaptionbox{支付宝}{\textcolor[RGB]{22,120,255}{\qrcode[height=4cm]{\alipayqr}}}\hfill
-% \subcaptionbox{微信支付}{\textcolor[RGB]{7,193,96}{\qrcode[height=4cm]{\wxpqr}}}\hfill
-% \subcaptionbox{QQ支付}{\textcolor[RGB]{18,184,246}{\qrcode[height=4cm]{\qqqr}}}
+% \subcaptionbox{支付宝}{\qrcodex{\alipayqr}{alipay}{alipayc}}\hfill
+% \subcaptionbox{微信支付}{\qrcodex{\wxpqr}{weixin}{weixinc}}\hfill
+% \subcaptionbox{QQ支付}{\qrcodex{\qqqr}{qq}{qqc}}
 % \hfill\mbox{}
 % \caption{赞助二维码}
 % \label{fig:zanzhu}
