@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/12/10 v3.1.1.3 Xidian University TeX Suite]
+[2022/12/11 v4.0.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/12/10}{3.1.1.3}
+%<class|sty>  {2022/12/11}{4.0.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -125,7 +125,7 @@ texcs           = [1]{documentclass,usepackage},
 texcs           = [2]{begin,end},
 texcs           = [3]{part,chapter,section,subsection,subsubsection,paragraph,subparagraph},
 texcs           = [4]{xdusetup,anon,noauxwrite},
-texcs           = [5]{textbf,textsl,textsf,frontmatter,mainmatter,backmatter,par,item,caption,parencite},
+texcs           = [5]{textbf,textsl,textsf,par,item,caption,parencite},
 emph            = [6]{document,tabular,edubg,resresult,appendixes},
 literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
                   {\{}{{\textcolor{purple3}{\{}}}{1}
@@ -230,7 +230,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 用户可以结合学校规范并参考\secrefx{功能说明}功能说明自行修改。
 % \par
 % 请在最新版\LaTeX{}环境中使用最新版\xduts{}，
-% 认真阅读相应文档类/宏包使用说明章节即可使用\xduts{}。
+% 认真阅读相应文档类/宏包使用说明章节后即可使用\xduts{}。
 % \subsection{\pkgx{xdufont}宏包}
 % \pkgx{xdufont}宏包基于\pkgx{xeCJK}宏包和\pkgx{unicode-math}宏包，
 % 在中文字体配置方面相较于\pkgx{ctex}宏包的主要优势为默认支持宋体粗体、斜体，
@@ -259,16 +259,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 专业学位硕士请额外阅读《西安电子科技大学专业学位硕士学位论文封面及中英文题名页模板（2015年版）-2019.03修订》，
 % 撰写英文学位论文请额外阅读《西安电子科技大学英文学位论文撰写相关规定》。
 % \par
-% 一个典型的使用\clsx{xdupgthesis}文档类的\filex{.tex}主文件结构如下所示：
+% 使用\clsx{xdupgthesis}文档类的最小示例如下所示：
 % \begin{lstlisting}
 % \documentclass{xdupgthesis}
 % \xdusetup{}
 % \begin{document}
-% \frontmatter
-% \mainmatter
 % \chapter{欢迎}
 % 使用\LaTeX{}！
-% \backmatter
 % \end{document}
 % \end{lstlisting}
 % \par
@@ -288,7 +285,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 算法配置见\secrefx{算法配置}，
 % 对照表配置见\secrefx{对照表配置}，
 % 作者简介配置见\secrefx{作者简介配置}。
-% 如需附录，请使用附录环境，具体见\secrefx{附录环境}。
 % 支持的信息录入选项见\secrefx{信息录入}。
 % 页面和信息移除见\secrefx{页面和信息移除}。
 % \par
@@ -300,16 +296,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.3.1.1}{2022/04/26}{英文本科生毕业设计规范参考说明}
 % 请在阅读《本科生毕业设计（论文）工作手册》后再使用\pkgx{xduugthesis}文档类。
 % \par
-% 一个典型的使用\clsx{xduugthesis}文档类的\filex{.tex}主文件结构如下所示：
+% 使用\clsx{xduugthesis}文档类的最小示例如下所示：
 % \begin{lstlisting}
 % \documentclass{xduugthesis}
 % \xdusetup{}
 % \begin{document}
-% \frontmatter
-% \mainmatter
 % \chapter{欢迎}
 % 使用\LaTeX{}！
-% \backmatter
 % \end{document}
 % \end{lstlisting}
 % \par
@@ -328,7 +321,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 图表配置见\secrefx{图表配置}，
 % 算法配置见\secrefx{算法配置}，
 % 章节配置见\secrefx{章节配置}，
-% 附录配置见\secrefx{附录环境}，
 % 支持的信息录入选项见\secrefx{信息录入}。
 % \par
 % 学会以上用法后即可使用\clsx{xduugthesis}文档类。
@@ -958,24 +950,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{附录环境}
 % \changes{v1.29.0.0}{2022/06/19}{研究生学位论文附录环境}
 % \begin{function}[added=2022-04-04,updated=2022-06-19]{appendixes}
-% 本科生毕业设计附录位于参考文献后，即在\tnx{backmatter}后。
-% \begin{lstlisting}
-% \chapter{这是正文章节}
-% \backmatter
-% \begin{appendixes}
-%   \chapter{这是一个附录}
-%   \chapter{这是另一个附录}
-% \end{appendixes}
-% \end{lstlisting}
-% 研究生学位论文附录位于参考文献前，即在\tnx{backmatter}前。
-% \begin{lstlisting}
-% \chapter{这是正文章节}
-% \begin{appendixes}
-%   \chapter{这是一个附录}
-%   \chapter{这是另一个附录}
-% \end{appendixes}
-% \backmatter
-% \end{lstlisting}
+% 已弃用。
 % \end{function}
 % \subsection{信息录入}
 % \label{信息录入}
@@ -1043,6 +1018,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % los                          &        &        & \cmark & \cmark & \cmark & \cmark \\
 % loa                          &        &        & \cmark & \cmark & \cmark & \cmark \\
 % bib-resource                 & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+% appendix                     & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % acknowledgements             & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
 % bio                          &        &        & \cmark & \cmark & \cmark & \cmark \\
 % \end{tblr}
@@ -1248,6 +1224,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \optx{info/bib-resource}=\argx{参考文献文件路径}
 %   \end{syntax}
 % 设置参考文献\filex{.bib}文件路径，多个文件之间需要使用英文半角逗号隔开。
+% \end{function}
+% \changes{v4.0.0.0}{2022/12/11}{增加附录文件接口}
+% \begin{function}[added=2022-12-11]{info/appendix}
+%   \begin{syntax}
+%     \optx{info/appendix}=\argx{附录文件路径}
+%   \end{syntax}
+% 设置附录文件路径，多个文件之间需要使用英文半角逗号隔开。
 % \end{function}
 % \begin{function}[added=2022-04-02]{info/acknowledgements}
 %   \begin{syntax}
@@ -1684,7 +1667,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \node at (current bounding box.center) {\textcolor{#3}{\scalebox{3}{\faIcon{#2}}}};
 % \end{tikzpicture}
 % }
-% \begin{figure}[h]
+% \begin{figure}[htbp]
 % \centering
 % \mbox{}\hfill
 % \subcaptionbox{支付宝}{\qrcodex{\alipayqr}{alipay}{alipayc}}\hfill
@@ -2575,6 +2558,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \l_@@_keywords_zh_clist,
 %     \l_@@_keywords_en_clist,
 %     \l_@@_bib_file_clist,
+%     \l_@@_appendix_clist,
 %     \l_@@_ack_tl
 %   }
 % 论文标题。
@@ -2626,6 +2610,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 参考文献文件。
 %    \begin{macrocode}
 \clist_new:N \l_@@_bib_file_clist
+%    \end{macrocode}
+% 附录。
+%    \begin{macrocode}
+\clist_new:N \l_@@_appendix_clist
 %    \end{macrocode}
 % 致谢。
 %    \begin{macrocode}
@@ -2686,6 +2674,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
     bib-resource .clist_set:N = \l_@@_bib_file_clist,
 %    \end{macrocode}
+% 附录。
+%    \begin{macrocode}
+    appendix .clist_set:N = \l_@@_appendix_clist,
+%    \end{macrocode}
 % 致谢。
 %    \begin{macrocode}
     acknowledgements .tl_set:N = \l_@@_ack_tl
@@ -2709,6 +2701,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     info / keywords              = { },
     info / keywords*             = { },
     info / bib-resource          = { },
+    info / appendix              = { },
     info / acknowledgements      = { }
   }
 %    \end{macrocode}
@@ -5335,7 +5328,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \subsection{附录}
-% \begin{macro}{appendixes}
+% \begin{macro}{\@@_appendix:}
 % 附录环境。
 % \changes{v0.3.0.0}{2022/04/04}{新增附录环境}
 % \changes{v0.3.1.0}{2022/04/04}{修正附录中图表编号样式}
@@ -5343,8 +5336,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v0.10.4.0}{2022/04/14}{修正附录中\pkgx{algorithm2e}算法编号样式}
 % \changes{v1.2.2.0}{2022/04/20}{修正英文附录编号}
 %    \begin{macrocode}
-\RequirePackage { environ }
-\NewEnviron { appendixes }
+\cs_new:Npn \@@_appendix:
   {
     \cs_set:Npn \appendixname { \@@_lang_switch:nn { 附录 } { Appendix } }
     \tl_set_eq:NN \l_@@_chaptername \appendixname
@@ -5356,25 +5348,25 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       { \cs_set:Npn \thealgorithm { \thechapter \arabic { algorithm } } }
     \cs_if_exist:NT \thealgocf
       { \cs_set:Npn \thealgocf { \thechapter \arabic { algocf } } }
-    \BODY
+    \bool_if_exist:NTF \l_@@_rm_appendix_bool
+      {
+        \bool_if:NF \l_@@_rm_appendix_bool
+          {
+            \clist_map_inline:Nn \l_@@_appendix_clist
+              { \file_if_exist_input:n { ##1 } }
+          }
+      }
+      {
+        \clist_map_inline:Nn \l_@@_appendix_clist
+          { \file_if_exist_input:n { ##1 } }
+      }
   }
 %    \end{macrocode}
 %    \begin{macrocode}
 %</thesis>
-%<*xdupgthesis>
-%    \end{macrocode}
-% \changes{v2.7.0.0}{2022/06/26}{研究生学位论文支持移除附录}
-% 研究生学位论文支持移除附录。
-%    \begin{macrocode}
-\ctex_at_end_preamble:n
-  {
-    \bool_if:NT \l_@@_rm_appendix_bool
-      { \RenewEnviron { appendixes } { } }
-  }
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
-%</xdupgthesis>
 %<*xduugthesis>
 %    \end{macrocode}
 % \changes{v1.26.7.1}{2022/06/12}{整理代码结构}
@@ -5504,12 +5496,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{\tn{frontmatter}}
-% \begin{macro}{\frontmatter}
+% \paragraph{重定义\tn{frontmatter}}
+% \begin{macro}{\frontmatter,\@@_frontmatter:}
 % \changes{v1.9.1.0}{2022/05/04}{修正封面元素位置及尺寸}
 % 排版前言部分。
 %    \begin{macrocode}
-\renewcommand { \frontmatter }
+\RenewDocumentCommand { \frontmatter } { } { }
+\cs_new:Npn \@@_frontmatter:
   {
     \loadgeometry { cover }
     \pagestyle    { empty }
@@ -6786,15 +6779,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{\tn{frontmatter}}
-% \begin{macro}{\frontmatter}
+% \paragraph{重定义\tn{frontmatter}}
+% \begin{macro}{\frontmatter,\@@_frontmatter:}
 % \changes{v1.5.0.0}{2022/05/01}{设置封面页边距}
 % \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
 % \changes{v1.16.0.0}{2022/05/22}{绘制研究生封面}
 % \changes{v2.7.0.0}{2022/06/26}{研究生学位论文支持移除前言部分页面}
 % 排版前言部分。
 %    \begin{macrocode}
-\renewcommand { \frontmatter }
+\RenewDocumentCommand { \frontmatter } { } { }
+\cs_new:Npn \@@_frontmatter:
   {
     \loadgeometry { cover }
     \pagestyle    { empty }
@@ -6915,11 +6909,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \subsection{正文部分}
 % \subsubsection{本科生}
-% \begin{macro}{\mainmatter}
+% \begin{macro}{\mainmatter,\@@_mainmatter:}
 % \changes{v0.8.0.0}{2022/04/12}{支持对称页边距}
 % 排版正文部分。
 %    \begin{macrocode}
-\renewcommand { \mainmatter }
+\RenewDocumentCommand { \mainmatter } { } { }
+\cs_new:Npn \@@_mainmatter:
   {
     \@@_load_main_geometry:
     \pagestyle     { plain  }
@@ -6934,14 +6929,15 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %<*xdupgthesis>
 %    \end{macrocode}
 % \subsubsection{研究生}
-% \begin{macro}{\mainmatter}
+% \begin{macro}{\mainmatter,\@@_mainmatter:}
 % \changes{v1.5.0.0}{2022/05/01}{设置正文页边距}
 % \changes{v1.6.0.0}{2022/05/02}{设置页脚页码}
 % \changes{v1.23.1.0}{2022/06/05}{设置正文字号和行间距}
 % \changes{v2.10.3.0}{2022/06/28}{修正公式与正文间距}
 % 排版正文部分。
 %    \begin{macrocode}
-\renewcommand { \mainmatter }
+\RenewDocumentCommand { \mainmatter } { } { }
+\cs_new:Npn \@@_mainmatter:
   {
     \@@_load_main_geometry:
     \pagestyle     { plain  }
@@ -6991,10 +6987,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \subsection{后记部分}
 % \subsubsection{本科生}
-% \begin{macro}{\backmatter}
+% \begin{macro}{\backmatter,\@@_backmatter:}
 % 排版后记部分。
 %    \begin{macrocode}
-\renewcommand { \backmatter }
+\RenewDocumentCommand { \backmatter } { } { }
+\cs_new:Npn \@@_backmatter:
   {
 %    \end{macrocode}
 % \changes{v1.1.4.0}{2022/04/16}{为致谢章节标题增加间距}
@@ -7029,6 +7026,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         }
         { \printbibliography }
     \group_end:
+%    \end{macrocode}
+% 本科生毕业设计附录。
+%    \begin{macrocode}
+    \@@_appendix:
   }
 %    \end{macrocode}
 % \end{macro}
@@ -7093,11 +7094,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \changes{v2.7.0.0}{2022/06/26}{研究生学位论文支持移除后记部分页面}
-% \begin{macro}{\backmatter}
+% \begin{macro}{\backmatter,\@@_backmatter:}
 % 排版后记部分。
 %    \begin{macrocode}
-\renewcommand { \backmatter }
+\RenewDocumentCommand { \backmatter } { } { }
+\cs_new:Npn \@@_backmatter:
   {
+%    \end{macrocode}
+% 研究生学位论文附录。
+%    \begin{macrocode}
+    \@@_appendix:
 %    \end{macrocode}
 % \changes{v1.30.0.0}{2022/06/20}{恢复英文研究生学位论文后记一二三级标题命令}
 % 恢复英文研究生学位论文后记一二三级标题命令。
@@ -7192,6 +7198,17 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 %    \begin{macrocode}
 %</xdupgthesis>
+%<*thesis>
+%    \end{macrocode}
+% \section{前言、正文和后记部分}
+% \changes{v4.0.0.0}{2022/12/11}{本科生毕业设计和研究生学位论文添加前言、正文和后记部分}
+% 本科生毕业设计和研究生学位论文添加前言、正文和后记部分。
+%    \begin{macrocode}
+\ctex_after_end_preamble:n { \@@_frontmatter: \@@_mainmatter: }
+\AtEndDocument             { \@@_backmatter:                  }
+%    \end{macrocode}
+%    \begin{macrocode}
+%</thesis>
 %    \end{macrocode}
 %    \begin{macrocode}
 %<@@=>
