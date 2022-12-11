@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/12/11 v4.0.0.0 Xidian University TeX Suite]
+[2022/12/11 v4.0.0.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/12/11}{4.0.0.0}
+%<class|sty>  {2022/12/11}{4.0.0.1}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -89,7 +89,7 @@
 \newcommand{\cmdx}[1]{\xspace{\ttfamily\seqsplit{#1}}\xspace}
 % 链接
 \newcommand{\footurl}[1]{\footnote{\url{#1}}}
-\newcommand{\ctanurl}[1]{\href{https://mirrors.ustc.edu.cn/CTAN/#1}{\ttfamily CTAN://#1}}
+\newcommand{\ctanurl}[1]{\href{https://mirrors.cloud.tencent.com/CTAN/#1}{\ttfamily CTAN://#1}}
 \newcommand{\footctan}[1]{\footnote{\ctanurl{#1}}}
 % logo
 \newcommand{\xduts}{{\bfseries\ffmfamily XDUTS}}
@@ -220,8 +220,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{使用说明}
 % 《一份（不太）简短的\LaTeXe{}介绍》\footctan{info/lshort/chinese/lshort-zh-cn.pdf}
 % 中提及的内容本文档将不再赘述。
+% 此外，在\secrefx{使用建议}中给出了部分使用建议。
 % \xduts{}中的所有文档类和宏包仅内置了实现功能所需的宏包，
-% 对于常用的宏包如\pkgx{subfig}、\pkgx{algpseudocodex}、
+% 对于常用的宏包如\pkgx{subcaption}、\pkgx{algpseudocodex}、
 % \pkgx{amsmath}、\pkgx{amsthm}和\pkgx{siunitx}等\textbf{均未内置}，
 % 用户可以参考\secrefx{兼容性说明}后，视需求自行加载。
 % 相应格式规范均已实现，用户仅需要撰写文章内容即可，请勿随意添加格式修改命令。
@@ -346,6 +347,29 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 包括所有使用\envx{table}浮动体的表格、
 % \pkgx{tabularray}宏包提供的\envx{tblr}、\envx{longtblr}环境
 % 和\pkgx{longtable}宏包提供的\envx{longtable}环境。
+% \changes{v4.0.0.1}{2022/12/11}{增加使用建议}
+% \section{使用建议}
+% \label{使用建议}
+% 本节主要针对\pkgx{xduugthesis}和\pkgx{xduugthesis}文档类提出使用建议，
+% 用户仍可不遵守本节的建议并根据自己的偏好进行使用。
+% \par
+% 宏包方面，在\secrefx{兼容性说明}中提到已适配多种宏包。
+% 但是，由于各种原因，部分宏包已不建议使用。
+% 推荐使用\pkgx{algorithm}和\pkgx{algpseudocodex}宏包排版算法；
+% 推荐使用\pkgx{subcaption}宏包排版子图；
+% 推荐使用\pkgx{tabularray}宏包排版\textbf{所有的表格}；
+% 推荐使用\pkgx{siunitx}宏包排版单位；
+% 推荐使用\pkgx{xurl}宏包实现链接自动折行。
+% 另外，不要加载任何与参考文献相关的宏包。
+% 使用宏包提供的功能时，\textbf{请阅读相应的宏包文档}。
+% \par
+% 字体方面，中文、英文和数学字体均提供了多种配置。
+% 对于中英文字体，用户可以根据自己的喜好选择合适的配置，
+% 部分配置对应的字体可能需要自行购买并安装。
+% 对于数学字体，强烈建议用户选择一个与中英文字体搭配的数学字体。
+% 注意，当使用非Computer Modern字体时，
+% 部分命令（例如，加粗等）可能与传统方式不同，
+% 请自行阅读\pkgx{unicode-math}文档。
 % \section{功能说明}
 % \label{功能说明}
 % 请根据\secrefx{使用说明}中相应文档类/宏包的说明来选择性地阅读本节内容。
