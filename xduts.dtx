@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/12/11 v4.0.1.0 Xidian University TeX Suite]
+[2022/12/12 v4.0.1.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/12/11}{4.0.1.0}
+%<class|sty>  {2022/12/12}{4.0.1.1}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -1659,13 +1659,19 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 和《Good things come in little packages: An introduction to writing .ins and .dtx files》\footurl{https://www.tug.org/TUGboat/tb29-2/tb92pakin.pdf}
 % 提供了很大帮助。
 % 在文档的编写过程中，参考了\filex{ctex.dtx}、\filex{fduthesis.dtx}、\filex{njuthesis.dtx}和\filex{thuthesis.dtx}。
+% \changes{v4.0.1.1}{2022/12/12}{增加支付宝红包二维码}
 % \changes{v3.1.1.3}{2022/12/10}{二维码增加图标}
 % \changes{v3.1.1.2}{2022/12/06}{增加QQ支付二维码}
 % \changes{v2.16.1.2}{2022/11/27}{修正文档中图片引用间距}
 % \changes{v2.15.0.1}{2022/11/26}{增加赞助二维码}
 % \section{赞助}
-% 如果觉得\xduts{}对您有所帮助，可以扫描\figrefx{fig:zanzhu}中的二维码来赞助\xduts{}，赞助主要用于给作者补充营养。
+% 如果\xduts{}对您有所帮助，
+% 可以扫描\figrefx{fig:zanzhu}中的二维码来赞助\xduts{}。
 % \ExplSyntaxOn
+% \str_set_convert:Nnnn \l_xduts_alipay_red_packet_qr_str {%
+% 68747470733A2F2F71722E616C697061792E636F6D2F31317731333035336232617236757438%
+% 71386C6A323062} { utf8/hex } { }
+% \newcommand{\alipayredpacketqr}{\str_use:N \l_xduts_alipay_red_packet_qr_str}
 % \str_set_convert:Nnnn \l_xduts_alipay_qr_str {%
 % 68747470733A2F2F71722E616C697061792E636F6D2F666B7831353935393164716575747463%
 % 77626175726235} { utf8/hex } { }
@@ -1682,18 +1688,20 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 266E3D4361726F6C26663D77616C6C6574 } { utf8/hex } { }
 % \newcommand{\qqqr}{\str_use:N \l_xduts_qq_qr_str}
 % \ExplSyntaxOff
+% \definecolor{alipayredpacketc}{RGB}{198,48,56}
 % \definecolor{alipayc}{RGB}{22,120,255}
 % \definecolor{weixinc}{RGB}{7,193,96}
 % \definecolor{qqc}{RGB}{18,184,246}
 % \NewDocumentCommand{\qrcodex}{mmm}{
 % \begin{tikzpicture}
-% \node at (0,0) {\textcolor{#3!30}{\qrcode[height=4cm]{#1}}};
-% \node at (current bounding box.center) {\textcolor{#3}{\scalebox{3}{\faIcon{#2}}}};
+% \node at (0,0) {\textcolor{#3!30}{\qrcode[height=.21\textwidth]{#1}}};
+% \node at (current bounding box.center) {\textcolor{#3}{\scalebox{2.1}{\faIcon{#2}}}};
 % \end{tikzpicture}
 % }
 % \begin{figure}[htbp]
 % \centering
 % \mbox{}\hfill
+% \subcaptionbox{扫码领红包}{\qrcodex{\alipayredpacketqr}{alipay}{alipayredpacketc}}\hfill
 % \subcaptionbox{支付宝}{\qrcodex{\alipayqr}{alipay}{alipayc}}\hfill
 % \subcaptionbox{微信支付}{\qrcodex{\wxpqr}{weixin}{weixinc}}\hfill
 % \subcaptionbox{QQ支付}{\qrcodex{\qqqr}{qq}{qqc}}
