@@ -1,14 +1,14 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/12/12 v4.0.1.1 Xidian University TeX Suite]
+[2022/12/26 v4.0.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/12/12}{4.0.1.1}
+%<class|sty>  {2022/12/26}{4.0.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
@@ -187,7 +187,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \clearpage
 % \begin{documentation}
 % \changes{v2.12.1.1}{2022/07/28}{使用\clsx{l3doc}文档和实现环境}
-% \section*{\contentsname\markright{目录}}
+% \section*{\contentsname\markright{\contentsname}}
 % \makeatletter
 % \@starttoc{toc}
 % \makeatother
@@ -3788,6 +3788,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{variable}
+% \changes{v4.0.2.0}{2022/12/26}{移除本科生毕业设计标题自动换行功能}
 % \begin{macro}{\@@_split_title:Nn,\@@_split_title:NV}
 % 拆分标题。
 % \begin{arguments}
@@ -3803,10 +3804,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \seq_set_split:Nnn \l_@@_title_seq { \\ } { #2 }
         \clist_set_from_seq:NN #1 \l_@@_title_seq
       }
-      {
-        \clist_put_right:Nx #1 { \tl_range:nnn { #2 } { 1  } { 14 } }
-        \clist_put_right:Nx #1 { \tl_range:nnn { #2 } { 15 } { -1 } }
-      }
+      { \clist_set:Nx #1 { #2 } }
   }
 \cs_generate_variant:Nn \@@_split_title:Nn { NV }
 %    \end{macrocode}
