@@ -7,12 +7,12 @@ XDUTS (Xidian University TeX Suite) is a LaTeX3 document class and package suite
 XDUTS currently includes:
 
 - `xdufont.sty`, Xidian University Font package
+- `xduugtp.cls`, Xidian University Undergraduate Thesis Proposal document class
 - `xdupgthesis.cls`, Xidian University Postgraduate Thesis document class
 - `xduugthesis.cls`, Xidian University Undergraduate Thesis document class
 
 In the future, we plan to add the following document classes, including 
 
-- `xduugtp.cls`, Xidian University Undergraduate Thesis Proposal document class
 - `xdupgtp.cls`, Xidian University Postgraduate Thesis Proposal document class
 
 ## Preparation
