@@ -1,15 +1,17 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/12/26 v4.0.2.0 Xidian University TeX Suite]
+[2022/12/31 v4.1.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
 %<xdufont>\ProvidesExplPackage{xdufont}
+%<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/12/26}{4.0.2.0}
+%<class|sty>  {2022/12/31}{4.1.0.0}
 %<xdufont>  {Xidian University Font package}
+%<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
 %<xduugthesis>  {Xidian University Undergraduate Thesis document class}
 %<*driver>
@@ -199,13 +201,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 而编写的\LaTeXiii{}文档类和宏包套装，目前有：
 % \begin{itemize}
 % \item \pkgx{xdufont.sty}，中/英/数学字体配置宏包。
+% \item \clsx{xduugtp.cls}，本科生毕业设计论文开题报告文档类。
 % \item \clsx{xdupgthesis.cls}，研究生学位论文文档类。
-% \item \clsx{xduugthesis.cls}，本科毕业设计论文文档类。
+% \item \clsx{xduugthesis.cls}，本科生毕业设计论文文档类。
 % \end{itemize}
 % 即将支持：
 % \begin{itemize}
-% \item \clsx{xdupgtp.cls}，研究生学位论文开题报告表文档类。
-% \item \clsx{xduugtp.cls}，本科毕业设计论文开题报告表文档类。
+% \item \clsx{xdupgtp.cls}，研究生学位论文开题报告文档类。
 % \end{itemize}
 % \par
 % \changes{v1.2.0.1}{2022/04/19}{增加GitHub Discussions}
@@ -250,6 +252,35 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{lstlisting}
 % \par
 % 学会以上用法后即可使用\pkgx{xdufont}宏包。
+% \subsection{\pkgx{xduugtp}文档类}
+% \pkgx{xduugtp}文档类基于\clsx{ctexart}文档类，
+% 提供多种字体配置，信息录入便捷。
+% 请在阅读《西安电子科技大学本科毕设设计（论文）开题报告》后再使用\pkgx{xduugtp}文档类。
+% \par
+% 使用\clsx{xduugtp}文档类的最小示例如下所示：
+% \begin{lstlisting}
+% \documentclass{xduugtp}
+% \xdusetup{}
+% \begin{document}
+% \section{论文名称及项目来源}
+% \section{研究目的和意义}
+% \section{国内外研究现状和发展趋势}
+% \section{主要研究内容、要解决的问题及本文的初步方案}
+% \section{工作的主要阶段、进度和完成时间}
+% \section{已进行的前期准备工作}
+% \section{指导教师意见}
+% \section{学院审核意见}
+% \end{document}
+% \end{lstlisting}
+% \par
+% \secrefx{编译}介绍了如何编译，
+% \secrefx{参考文献引用}介绍了如何引用参考文献，
+% \secrefx{参数设置}介绍了如何自定义配置。
+% 其中，字体选项见\secrefx{字体选项}，
+% 参考文献配置见\secrefx{参考文献配置}，
+% 支持的信息录入选项见\secrefx{信息录入}。
+% \par
+% 学会以上用法后即可使用\clsx{xduugtp}文档类。
 % \changes{v1.4.0.0}{2022/04/26}{新增研究生学位论文}
 % \changes{v1.30.0.2}{2022/06/20}{研究生学位论文文档}
 % \changes{v2.2.1.1}{2022/06/23}{移除研究生学位论文中关于章节配置的文档}
@@ -329,7 +360,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.3.0.1}{2022/04/20}{增加兼容性说明}
 % \section{兼容性说明}
 % \label{兼容性说明}
-% \xduts{}对部分常见宏包进行了针对性地适配，
+% \pkgx{xduugthesis}和\pkgx{xduugthesis}文档类对部分常见宏包进行了针对性地适配，
 % 需要注意的是，这些宏包仍需用户视需求自行加载。
 % \subsection{算法}
 % 主要适配算法内容字号和默认浮动位置。
@@ -631,9 +662,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % }
 % \end{lstlisting}
 % \end{function}
-% \begin{function}[added=2022-04-02]{style/bib-resource}
-% 已弃用，请使用\secrefx{信息录入}中的\optx{info/bib-resource}。
-% \end{function}
 % \subsection{页面配置}
 % \label{页面配置}
 % \begin{function}[added=2022-04-12]{style/symmetric-margin}
@@ -700,13 +728,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \optx{style/caption-label-sep}=\argx{间距}
 %   \end{syntax}
 % 设置图、表、算法标签与后面标题之间的间距，默认值为\valuex{0.75em}。
-% \end{function}
-% \changes{v2.17.0.0}{2022/11/28}{设置图、表、算法caption格式}
-% \begin{function}[added=2022-11-28]{style/caption-format}
-% 已弃用。
-% \end{function}
-% \begin{function}[added=2022-04-03]{style/fig-label-sep}
-% 已弃用。
 % \end{function}
 % \subsection{图表配置}
 % \label{图表配置}
@@ -799,9 +820,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \item[true] 增加。
 %   \item[false] 不增加。
 % \end{optdesc}
-% \end{function}
-% \begin{function}[added=2022-11-29]{style/algorithm-caption-align}
-% 已弃用。
 % \end{function}
 % \subsection{章节配置}
 % \label{章节配置}
@@ -970,12 +988,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{resresult}
 % \end{lstlisting}
 % \end{optdesc}
-% \subsection{附录环境}
-% \label{附录环境}
-% \changes{v1.29.0.0}{2022/06/19}{研究生学位论文附录环境}
-% \begin{function}[added=2022-04-04,updated=2022-06-19]{appendixes}
-% 已弃用。
-% \end{function}
 % \subsection{信息录入}
 % \label{信息录入}
 % \changes{v2.18.1.0}{2022/12/01}{增加专业博士校外导师和英文学位类别信息录入}
@@ -991,60 +1003,69 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % ]
 % {
 % width          = \linewidth,
-% colspec        = lX[c]X[c]X[c]X[c]X[c]X[c],
-% cell{1}{1}     = {r=2}{},
-% cell{1}{2,4,6} = {c=2}{},
-% hline{1,Z}     = {.08em},
-% hline{2}       = {2-3}{.08em,leftpos=-1,rightpos=-1,endpos},
-% hline{2}       = {4-5}{.08em,leftpos=-1,rightpos=-1,endpos},
-% hline{2}       = {6-7}{.08em,leftpos=-1,rightpos=-1,endpos},
-% hline{3}       = {.08em},
-% row{odd[3-Z]}  = {gray9!40},
-% cell{3-Z}{1}   = {cmd=\texttt},
-% rowhead        = 2
+% colspec        = lX[c]X[c]X[c]X[c]X[c]X[c]X[c],
+% cell{1}{3}     = {c=2}{},
+% cell{1}{5}     = {c=4}{},
+% cell{2}{2}     = {r=2}{},
+% cell{2}{3,5,7} = {c=2}{},
+% hline{1,4,Z}   = {.08em},
+% hline{2}       = {2-2}{.08em,leftpos=-1,rightpos=-1,endpos},
+% hline{2}       = {3-4}{.08em,leftpos=-1,rightpos=-1,endpos},
+% hline{2}       = {5-8}{.08em,leftpos=-1,rightpos=-1,endpos},
+% hline{3}       = {3-4}{.08em,leftpos=-1,rightpos=-1,endpos},
+% hline{3}       = {5-6}{.08em,leftpos=-1,rightpos=-1,endpos},
+% hline{3}       = {7-8}{.08em,leftpos=-1,rightpos=-1,endpos},
+% row{odd[4-Z]}  = {gray9!40},
+% cell{4-Z}{1}   = {cmd=\texttt},
+% rowhead        = 3
 % }
-%                              & 本科   &        & 硕士   &        & 博士   &        \\
-%                              & 校内   & 校外   & 学术   & 专业   & 学术   & 专业   \\
-% graduate-type                &        &        & \cmark & \cmark & \cmark & \cmark \\
-% degree-type                  &        &        & \cmark & \cmark & \cmark & \cmark \\
-% degree                       &        &        & \cmark & \cmark & \cmark & \cmark \\
-% degree*                      &        &        &        & \cmark &        & \cmark \\
-% title                        & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
-% title*                       &        &        & \cmark & \cmark & \cmark & \cmark \\
-% department                   & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
-% major                        & \cmark & \cmark & \cmark &        & \cmark &        \\
-% major*                       &        &        & \cmark &        & \cmark &        \\
-% sub-major                    &        &        & \cmark &        & \cmark &        \\
-% domain                       &        &        &        & \cmark &        & \cmark \\
-% author                       & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
-% author*                      &        &        & \cmark & \cmark & \cmark & \cmark \\
-% supervisor                   & \cmark &        & \cmark & \cmark & \cmark & \cmark \\
-% supervisor*                  &        &        & \cmark & \cmark & \cmark & \cmark \\
-% supervisor-department        & \cmark &        &        &        &        &        \\
-% supervisor-enterprise        &        & \cmark &        & \cmark &        & \cmark \\
-% supervisor-enterprise*       &        &        &        & \cmark &        & \cmark \\
-% supervisor-school            &        & \cmark &        &        &        &        \\
-% supervisor-title             &        &        & \cmark & \cmark & \cmark & \cmark \\
-% supervisor-title*            &        &        & \cmark & \cmark & \cmark & \cmark \\
-% supervisor-enterprise-title  &        &        &        & \cmark &        & \cmark \\
-% supervisor-enterprise-title* &        &        &        & \cmark &        & \cmark \\
-% class-id                     & \cmark & \cmark &        &        &        &        \\
-% student-id                   & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
-% clc                          &        &        & \cmark & \cmark & \cmark & \cmark \\
-% secret-level                 &        &        & \cmark & \cmark & \cmark & \cmark \\
-% secret-year                  &        &        & \cmark & \cmark & \cmark & \cmark \\
-% submit-date                  &        &        & \cmark & \cmark & \cmark & \cmark \\
-% statement-scan               &        &        & \cmark & \cmark & \cmark & \cmark \\
-% abstract                     & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
-% abstract*                    & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
-% keywords                     & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
-% keywords*                    & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
-% los                          &        &        & \cmark & \cmark & \cmark & \cmark \\
-% loa                          &        &        & \cmark & \cmark & \cmark & \cmark \\
-% bib-resource                 & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
-% appendix                     & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
-% acknowledgements             & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
-% bio                          &        &        & \cmark & \cmark & \cmark & \cmark \\
+%                              & 开题   & 毕业设计 &        & 学位论文 &        &        &        \\
+%                              & 本科   & 本科     &        & 硕士     &        & 博士   &        \\
+%                              &        & 校内     & 校外   & 学术     & 专业   & 学术   & 专业   \\
+% graduate-type                &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% degree-type                  &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% degree                       &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% degree*                      &        &          &        &          & \cmark &        & \cmark \\
+% title                        &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% title*                       &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% department                   & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% major                        & \cmark & \cmark   & \cmark & \cmark   &        & \cmark &        \\
+% major*                       &        &          &        & \cmark   &        & \cmark &        \\
+% sub-major                    &        &          &        & \cmark   &        & \cmark &        \\
+% domain                       &        &          &        &          & \cmark &        & \cmark \\
+% author                       & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% author*                      &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% supervisor                   & \cmark & \cmark   &        & \cmark   & \cmark & \cmark & \cmark \\
+% supervisor*                  &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% supervisor-department        &        & \cmark   &        &          &        &        &        \\
+% supervisor-enterprise        &        &          & \cmark &          & \cmark &        & \cmark \\
+% supervisor-enterprise*       &        &          &        &          & \cmark &        & \cmark \\
+% supervisor-school            &        &          & \cmark &          &        &        &        \\
+% supervisor-title             &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% supervisor-title*            &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% supervisor-enterprise-title  &        &          &        &          & \cmark &        & \cmark \\
+% supervisor-enterprise-title* &        &          &        &          & \cmark &        & \cmark \\
+% class                        & \cmark &          &        &          &        &        &        \\
+% class-id                     &        & \cmark   & \cmark &          &        &        &        \\
+% student-id                   & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% clc                          &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% secret-level                 &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% secret-year                  &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% submit-date                  & \cmark &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% statement-scan               &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% statement-sign               &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% sign                         & \cmark &          &        &          &        &        &        \\
+% date                         & \cmark &          &        &          &        &        &        \\
+% abstract                     &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% abstract*                    &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% keywords                     &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% keywords*                    &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% los                          &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% loa                          &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% bib-resource                 & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% appendix                     &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% acknowledgements             &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% bio                          &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
 % \end{tblr}
 % \changes{v1.9.0.0}{2022/05/03}{增加研究生信息录入选项文档}
 % \begin{function}[added=2022-05-02,updated=2022-05-03]{info/graduate-type}
@@ -1154,6 +1175,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \end{syntax}
 % 设置校外导师职称。
 % \end{function}
+% \begin{function}[added=2022-12-31]{info/class}
+%   \begin{syntax}
+%     \optx{info/class}=\argx{界}
+%   \end{syntax}
+% 设置界，即毕业年份。
+% \end{function}
 % \begin{function}[added=2022-04-01]{info/class-id}
 %   \begin{syntax}
 %     \optx{info/class-id}=\argx{作者班级号}
@@ -1185,11 +1212,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置保密年限，仅在\optx{secret-level}等于|秘密|时有效。
 % \end{function}
 % \changes{v1.17.0.1}{2022/05/29}{研究生学位论文提交日期格式}
-% \begin{function}[added=2022-05-03,updated=2022-05-29]{info/submit-date}
+% \begin{function}[added=2022-05-03,updated=2022-12-31]{info/submit-date}
 %   \begin{syntax}
 %     \optx{info/submit-date}=\argx{yyyy-mm}
+%     \optx{info/submit-date}=\argx{yyyy-mm-dd}
 %   \end{syntax}
-% 设置提交日期，如果留空，则自动使用编译当天年份和月份。
+% 设置提交日期，如果留空，则自动使用编译当天日期。
 % \end{function}
 % \changes{v2.1.0.0}{2022/06/22}{声明页扫描文件路径}
 % \begin{function}[added=2022-06-22]{info/statement-scan}
@@ -1213,6 +1241,27 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \item[文件路径4] 关于论文使用授权的说明日期文件路径。
 %   \item[文件路径5] 关于论文使用授权的说明导师签名文件路径。
 %   \item[文件路径6] 关于论文使用授权的说明日期文件路径。
+% \end{optdesc}
+% \begin{function}[added=2022-12-31]{info/sign}
+%   \begin{syntax}
+%     \optx{info/sign}=\argx{文件路径1,文件路径2}
+%   \end{syntax}
+% 设置开题报告签名文件路径。
+% 文件支持格式与\tnx{includegraphics}一致，建议文件为透明背景且仅有黑色，并尽量减少边距。
+% \end{function}
+% \begin{optdesc}
+%   \item[文件路径1] 指导教师意见签名文件路径。
+%   \item[文件路径2] 学院审核意见签名文件路径。
+% \end{optdesc}
+% \begin{function}[added=2022-12-31]{info/date}
+%   \begin{syntax}
+%     \optx{info/date}=\argx{日期1,日期2}
+%   \end{syntax}
+% 设置开题报告签名日期，格式为\argx{yyyy-mm-dd}，如果留空，则自动使用编译当天日期。
+% \end{function}
+% \begin{optdesc}
+%   \item[日期1] 指导教师意见签名日期。
+%   \item[日期2] 学院审核意见签名日期。
 % \end{optdesc}
 % \begin{function}[added=2022-04-02]{info/abstract,info/abstract*}
 %   \begin{syntax}
@@ -1741,7 +1790,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v0.3.2.0}{2022/04/04}{修正行间距为1.5倍}
 % \changes{v1.8.1.0}{2022/05/03}{修正页面尺寸}
 % \changes{v1.9.2.0}{2022/05/04}{修正行间距为1.625倍}
-% 加载\clsx{ctexbook}文档类。
+% 加载\clsx{ctexbook}或\clsx{ctexart}文档类。
 % \\
 % \LaTeX{}中基本行距是字号大小的1.2倍，Microsoft Word中基本行距是字号大小的1.3倍，
 % Microsoft Word中1.5倍行距，相当于LaTeX中$1.5\times\frac{1.3}{1.2}=1.625$倍行距。
@@ -1754,8 +1803,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %<xduugthesis>    linespread = 1.625,
     fontset    = none
   }
-  { ctexbook }
-\LoadClass { ctexbook }
+%<thesis>  { ctexbook }
+%<tp>  { ctexart }
+%<thesis>\LoadClass { ctexbook }
+%<tp>\LoadClass { ctexart }
 %    \end{macrocode}
 % \end{macro}
 % 设置纸张尺寸为A4。
@@ -2570,7 +2621,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 %    \begin{macrocode}
 %</class|xdufont>
-%<*thesis>
+%<*thesis|tp>
 %    \end{macrocode}
 % \subsection{信息录入}
 % \changes{v1.8.0.0}{2022/05/02}{拆分信息录入选项}
@@ -2756,7 +2807,72 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{variable}
 %    \begin{macrocode}
-%</thesis>
+%</thesis|tp>
+%<*xduugtp>
+%    \end{macrocode}
+% \subsubsection{本科生开题报告}
+% \begin{variable}
+%   {
+%     \l_@@_class_str,
+%     \l_@@_submit_date_str,
+%     \l_@@_sign_clist,
+%     \l_@@_date_clist
+%   }
+% 界。
+%    \begin{macrocode}
+\str_new:N \l_@@_class_str
+%    \end{macrocode}
+% 提交日期。
+%    \begin{macrocode}
+\str_new:N \l_@@_submit_date_str
+%    \end{macrocode}
+% 签名文件路径。
+%    \begin{macrocode}
+\clist_new:N \l_@@_sign_clist
+%    \end{macrocode}
+% 签名日期。
+%    \begin{macrocode}
+\clist_new:N \l_@@_date_clist
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\keys_define:nn}
+% 定义信息键值。
+%    \begin{macrocode}
+\keys_define:nn { xdu / info }
+  {
+%    \end{macrocode}
+% 界。
+%    \begin{macrocode}
+    class .tl_set:N = \l_@@_class_str,
+%    \end{macrocode}
+% 提交日期。
+%    \begin{macrocode}
+    submit-date .tl_set:N = \l_@@_submit_date_str,
+%    \end{macrocode}
+% 签名文件路径。
+%    \begin{macrocode}
+    sign .clist_set:N = \l_@@_sign_clist,
+%    \end{macrocode}
+% 签名日期。
+%    \begin{macrocode}
+    date .clist_set:N = \l_@@_date_clist
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\keys_set:nn}
+% 初始设置。
+%    \begin{macrocode}
+\keys_set:nn { xdu }
+  {
+    info / class       = { },
+    info / submit-date = { },
+    info / sign        = { },
+    info / date        = { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</xduugtp>
 %<*xduugthesis>
 %    \end{macrocode}
 % \subsubsection{本科生}
@@ -3294,7 +3410,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 %    \begin{macrocode}
 %</xdupgthesis>
-%<*thesis>
+%<*thesis|xduugtp>
 %    \end{macrocode}
 % \subsection{标签宏配置}
 % \label{标签宏配置}
@@ -3559,7 +3675,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
-%</thesis>
+%</thesis|xduugtp>
 %<*xdupgthesis>
 %    \end{macrocode}
 % \changes{v1.22.0.0}{2022/06/05}{对照表样式配置}
@@ -3990,6 +4106,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</thesis>
+%<*thesis|xduugtp>
+%    \end{macrocode}
 % \begin{macro}{\@@_str_max_dim:Nn}
 % \changes{v1.26.4.0}{2022/06/10}{计算字符串多大长度}
 % 计算字符串多大长度。
@@ -4008,6 +4128,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</thesis|xduugtp>
+%<*thesis>
+%    \end{macrocode}
 % \subsection{额外命令}
 % \begin{macro}{\noauxwrite}
 % \changes{v1.15.0.0}{2022/05/13}{\tnx{noauxwrite}允许添加不影响现有引用列表顺序的引用}
@@ -4126,6 +4250,32 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %</xdupgthesis>
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</thesis>
+%<*tp>
+%    \end{macrocode}
+% \changes{v4.1.0.0}{2022/12/31}{设置本科生毕业设计开题报告页边距}
+% \begin{macro}{\newgeometry,\savegeometry,\loadgeometry}
+% 设置本科生毕业设计开题报告页边距。
+%    \begin{macrocode}
+\newgeometry
+  {
+    left       = 3.17cm,
+    right      = 3.17cm,
+    top        = 2.54cm,
+    bottom     = 2.54cm,
+    footskip   = 0cm,
+    headsep    = 0cm,
+    headheight = 0cm
+  }
+\savegeometry { main }
+\loadgeometry { main }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</tp>
+%<*thesis>
+%    \end{macrocode}
 % \begin{macro}{\@@_load_main_geometry:}
 % \changes{v0.8.0.0}{2022/04/12}{根据用户配置加载正文页边距配置}
 % 根据用户配置加载正文页边距配置。
@@ -5040,11 +5190,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
                     \tl_if_eq:NnTF \l_@@_alg_cap_align_tl { centering }
                       {
                         \parbox { \columnwidth }
-                          { \centering \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2}
+                          { \centering \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2 }
                       }
                       {
                         \parbox { \columnwidth }
-                          { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2}
+                          { \AlCapFnt #1 \algocf@capseparator \AlCapNameFnt #2 }
                       }
                   }
               }
@@ -5229,6 +5379,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</thesis>
+%<*thesis|tp>
+%    \end{macrocode}
 % \subsection{超链接和PDF元数据}
 % \begin{macro}{\hypersetup}
 % \changes{v0.5.0.0}{2022/04/05}{添加PDF主题元数据}
@@ -5245,7 +5399,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   {
     \hypersetup
       {
-        pdftitle   = \l_@@_pure_title_str,
+%<thesis>        pdftitle   = \l_@@_pure_title_str,
+%<xduugtp>        pdfsubject = { 西安电子科技大学本科生毕业论文（设计）开题报告 },
+%<xduugtp>        pdfcreator = { XeLaTeX~with~xduugtp~class~in~XDUTS },
 %<xduugthesis>        pdfsubject = { 西安电子科技大学本科毕业设计论文 },
 %<xduugthesis>        pdfcreator = { XeLaTeX~with~xduugthesis~class~in~XDUTS },
 %<xdupgthesis>        pdfsubject = \l_@@_header_str,
@@ -5255,6 +5411,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</thesis|tp>
+%<*thesis>
+%    \end{macrocode}
 % \subsection{交叉引用}
 % \begin{macro}{\ref,\pageref}
 % \changes{v1.2.0.0}{2022/04/16}{优化中文环境下\tnx{ref}两侧中英文间空白}
@@ -5288,6 +5448,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</thesis>
+%<*thesis|tp>
+%    \end{macrocode}
 % \subsection{参考文献}
 % \begin{macro}{\@@_begin_document:n}
 % 钩子。
@@ -5351,12 +5515,17 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       {
 %<xdupgthesis>        \rmfamily
 %<xduugthesis>        \@@_rm_family:
-        \zihao { 5 }
+%<thesis>        \zihao { 5 }
+%<tp>        \zihao { -4 }
 %<xdupgthesis>        \dim_set:Nn \baselineskip { 20pt }
       }
   }
 %    \end{macrocode}
 % \end{macro}
+%    \begin{macrocode}
+%</thesis|tp>
+%<*thesis>
+%    \end{macrocode}
 % \subsection{附录}
 % \begin{macro}{\@@_appendix:}
 % 附录环境。
@@ -7231,7 +7400,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %</xdupgthesis>
 %<*thesis>
 %    \end{macrocode}
-% \section{前言、正文和后记部分}
+% \subsection{前言、正文和后记部分}
 % \changes{v4.0.0.0}{2022/12/11}{本科生毕业设计和研究生学位论文添加前言、正文和后记部分}
 % 本科生毕业设计和研究生学位论文添加前言、正文和后记部分。
 %    \begin{macrocode}
@@ -7240,6 +7409,391 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 %    \begin{macrocode}
 %</thesis>
+%<*xduugtp>
+%    \end{macrocode}
+% \changes{v4.1.0.0}{2022/12/31}{新增本科生毕业设计开题报告}
+% \subsection{本科生毕业设计开题报告}
+% \begin{macro}{\tcbset}
+% 自定义线框样式。
+%    \begin{macrocode}
+\PassOptionsToPackage { breakable } { tcolorbox }
+\RequirePackage       { tcolorbox }
+\dim_new:N \l_@@_box_margin_dim
+\dim_set:Nn \l_@@_box_margin_dim { 5pt }
+\dim_new:N \l_@@_box_rule_dim
+\dim_set:Nn \l_@@_box_rule_dim { 0.5pt }
+\tcbset
+  {
+    standard~jigsaw,
+    sharp~corners    = all,
+    colframe         = black,
+    opacityback      = 0,
+    boxsep           = 0pt,
+    boxrule          = \l_@@_box_rule_dim,
+    top              = \l_@@_box_margin_dim,
+    bottom           = \l_@@_box_margin_dim,
+    left             = \l_@@_box_margin_dim,
+    right            = \l_@@_box_margin_dim,
+    beforeafter~skip = 0pt,
+    before~upper     =
+      {
+        \dim_set:Nn \parindent    { 2em  }
+        \dim_set:Nn \baselineskip { 20pt }
+      }
+  }
+\tcbset
+  {
+    tpboxi/.style =
+      {
+        breakable        = true,
+        height~fixed~for = first~and~middle
+      },
+    tpboxii/.style =
+      {
+        breakable        = true,
+        height~fixed~for = all,
+        height~fill      = maximum
+      },
+    tpboxiii/.style =
+      {
+        height           = .5\textheight + .5\l_@@_box_rule_dim,
+        space~to~upper   = true,
+        lower~separated  = false,
+        halign~lower     = flush~right
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{tpbox}
+% 自定义\envx{tpbox}环境，便于实现用户正文输入为空亦可编译。
+%    \begin{macrocode}
+\RequirePackage { graphicx }
+\int_new:N \l_@@_sign_no_int
+\int_set:Nn \l_@@_sign_no_int { 1 }
+\NewDocumentEnvironment { tpbox } { oo }
+  { \IfNoValueF { #1 } { \begin { tcolorbox } [ #1 ] } }
+  {
+    \IfNoValueF { #1 }
+      {
+        \IfNoValueF { #2 }
+          {
+            \tcblower
+            签名
+            \clist_if_empty:NTF \l_@@_sign_clist
+              { \skip_horizontal:n { 6em } \hbox:n { } }
+              {
+                \skip_horizontal:n { 1em }
+                \includegraphics [ width = 10em, height = 25pt, keepaspectratio ]
+                  {
+                    \str_if_eq:nnTF { #2 } { 指导教师意见 }
+                      { \clist_item:Nn \l_@@_sign_clist { 1 } }
+                      { \clist_item:Nn \l_@@_sign_clist { 2 } }
+                  }
+              }
+            \\
+            \clist_if_empty:NTF \l_@@_date_clist
+              { \@@_zh_today: }
+              {
+                \str_if_eq:nnTF { #2 } { 指导教师意见 }
+                  { \clist_item:Nn \l_@@_zh_date_clist { 1 } }
+                  { \clist_item:Nn \l_@@_zh_date_clist { 2 } }
+              }
+          }
+        \end { tcolorbox }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_bib:}
+%    \begin{macrocode}
+\cs_new:Npn \@@_bib:
+  {
+    \cs_set:Npn \bibname { 参考文献 }
+    \subsection* { \bibname }
+    \group_begin:
+      \tl_if_eq:NnTF \l_@@_bib_tool_tl { bibtex }
+        {
+          \dim_set:Nn \labelsep { 1ex }
+          \bibliography { \l_@@_bib_file_clist }
+        }
+        { \printbibliography }
+    \group_end:
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\section}
+% 重定义\csx{section}命令。
+%    \begin{macrocode}
+\cs_new_eq:NN \@@_org_sec:n \section
+\RenewDocumentCommand \section { m }
+  {
+    \str_case:nnTF { #1 }
+      {
+        { 论文名称及项目来源 }
+          {
+            \end   { tpbox }
+            \begin { tpbox } [tpboxi]
+          }
+        { 研究目的和意义 }
+          {
+            \end   { tpbox }
+            \skip_vertical:n { -\l_@@_box_rule_dim }
+            \skip_vertical:n { \z@skip }
+            \begin { tpbox } [ tpboxii ]
+          }
+        { 国内外研究现状和发展趋势 }
+          {
+            \end   { tpbox }
+            \begin { tpbox } [ tpboxii ]
+          }
+        { 主要研究内容、要解决的问题及本文的初步方案 }
+          {
+            \@@_bib:
+            \end   { tpbox }
+            \begin { tpbox } [ tpboxii ]
+          }
+        { 工作的主要阶段、进度和完成时间 }
+          {
+            \end   { tpbox }
+            \begin { tpbox } [ tpboxi ]
+          }
+        { 已进行的前期准备工作 }
+          {
+            \end   { tpbox }
+            \skip_vertical:n { -\l_@@_box_rule_dim }
+            \skip_vertical:n { \z@skip }
+            \begin { tpbox } [ tpboxii ]
+          }
+        { 指导教师意见 }
+          {
+            \end   { tpbox }
+            \begin { tpbox } [ tpboxiii ] [ 指导教师意见 ]
+          }
+        { 学院审核意见 }
+          {
+            \end   { tpbox }
+            \skip_vertical:n { -\l_@@_box_rule_dim }
+            \skip_vertical:n { \z@skip }
+            \begin { tpbox } [ tpboxiii ] [ 学院审核意见 ]
+          }
+      }
+      { \@@_org_sec:n { #1 } }
+      { }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\pagestyle}
+% 移除页码。
+%    \begin{macrocode}
+\pagestyle { empty }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\ctexset}
+% 设置标题样式。
+%    \begin{macrocode}
+\ctexset
+  {
+    section       / name       = { ,、   },
+    subsection    / name       = { （,） },
+    subsubsection / name       = { （,） },
+    section       / number     = { \chinese { section       } },
+    subsection    / number     = { \chinese { subsection    } },
+    subsubsection / number     = { \arabic  { subsubsection } },
+    section       / format     = { \raggedright \zihao { -4 } },
+    subsection    / format     = { \raggedright \zihao { -4 } },
+    subsubsection / format     = { \raggedright \zihao { -4 } },
+    section       / aftername  = { },
+    subsection    / aftername  = { },
+    subsubsection / aftername  = { },
+    section       / beforeskip = { 0pt },
+    subsection    / beforeskip = { 8pt },
+    subsubsection / beforeskip = { 8pt },
+    section       / afterskip  = { 0pt },
+    subsection    / afterskip  = { 0pt },
+    subsubsection / afterskip  = { 0pt },
+    section       / indent     = { 0em },
+    subsection    / indent     = { 0em },
+    subsubsection / indent     = { 2em },
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_uline:n,\@@_uline:nn}
+% 下划线。
+%    \begin{macrocode}
+\RequirePackage { xeCJKfntef }
+\cs_new:Npn \@@_uline:n #1
+  { \CJKunderline [ thickness = 1pt ] { #1 } }
+\cs_new:Npn \@@_uline:nn #1#2
+  { \CJKunderline [ thickness = 1pt ] { \hbox_to_wd:nn { #1 } { \hfil #2 \hfil } } }
+%    \end{macrocode}
+% \end{macro}
+% \begin{variable}{\l_@@_cover_author_info_dim}
+% 获取封面作者信息最大宽度。
+%    \begin{macrocode}
+\dim_new:N \l_@@_cover_author_info_dim
+\dim_set:Nn \l_@@_cover_author_info_dim { 5em }
+\ctex_at_end_preamble:n
+  {
+    \rmfamily \zihao { -3 }
+    \@@_str_max_dim:Nn \l_@@_cover_author_info_dim { \l_@@_author_str     }
+    \@@_str_max_dim:Nn \l_@@_cover_author_info_dim { \l_@@_major_str      }
+    \@@_str_max_dim:Nn \l_@@_cover_author_info_dim { \l_@@_student_id_str }
+    \@@_str_max_dim:Nn \l_@@_cover_author_info_dim { \l_@@_supv_str       }
+    \dim_add:Nn \l_@@_cover_author_info_dim { 2em }
+  }
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\@@_cover_author_info:nn}
+% 绘制封面作者信息。
+%    \begin{macrocode}
+\cs_new:Npn \@@_cover_author_info:nn #1#2
+  {
+    \vbox_to_ht:nn { 31pt }
+      {
+        \mode_leave_vertical:
+        \hfil
+        \hbox:n
+          {
+            \rmfamily \zihao { -3 }
+            \hbox_to_wd:nn { 4em } { #1 }
+            \skip_horizontal:n { 0.5em }
+            \@@_uline:nn { \l_@@_cover_author_info_dim } { #2 }
+          }
+        \hfil
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{variable}{\l_@@_pure_dept_str}
+% 移除末尾的学院二字。
+%    \begin{macrocode}
+\cs_generate_variant:Nn \str_if_eq:nnTF { xnTF }
+\ctex_at_end_preamble:n
+  {
+    \str_new:N \l_@@_pure_dept_str
+    \str_if_eq:xnTF { \str_range:Nnn \l_@@_dept_str { -2 } { -1 } } { 学院 }
+      { \str_set:Nx \l_@@_pure_dept_str { \str_range:Nnn \l_@@_dept_str { 1 } { -3 } } }
+      { \str_set:NV \l_@@_pure_dept_str \l_@@_dept_str }
+  }
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\@@_zh_today:}
+% 今日年月日。
+%    \begin{macrocode}
+\cs_new:Npn \@@_zh_today:
+  {
+    \int_use:N \c_sys_year_int  年
+    \int_use:N \c_sys_month_int 月
+    \int_use:N \c_sys_day_int   日
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_split_submit_date:N}
+% 拆分提交日期为年、月和日。
+%    \begin{macrocode}
+\seq_new:N \l_@@_submit_date_seq
+\cs_new:Npn \@@_split_submit_date:N #1
+  {
+    \seq_set_split:NnV \l_@@_submit_date_seq { - } \l_@@_submit_date_str
+    \clist_set_from_seq:NN #1 \l_@@_submit_date_seq
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_zh_submit_date:}
+% \changes{v1.17.0.0}{2022/05/28}{中文提交日期}
+% 中文提交日期。
+%    \begin{macrocode}
+\clist_new:N \l_@@_submit_date_clist
+\cs_new:Npn \@@_zh_submit_date:
+  {
+    \str_if_empty:NTF \l_@@_submit_date_str
+      { \@@_zh_today: }
+      {
+        \@@_split_submit_date:N \l_@@_submit_date_clist
+        \clist_item:Nn \l_@@_submit_date_clist { 1 } 年
+        \clist_item:Nn \l_@@_submit_date_clist { 2 } 月
+        \clist_item:Nn \l_@@_submit_date_clist { 3 } 日
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{variable}
+%   {
+%     \l_@@_zh_date_clist,
+%     \l_@@_zh_date_one_clist,
+%     \l_@@_date_seq
+%   }
+% 格式化开题签名日期。
+%    \begin{macrocode}
+\clist_new:N \l_@@_zh_date_clist
+\clist_new:N \l_@@_zh_date_one_clist
+\seq_new:N \l_@@_date_seq
+\ctex_at_end_preamble:n
+  {
+    \clist_map_inline:Nn \l_@@_date_clist
+      {
+        \seq_set_split:Nnn \l_@@_date_seq { - } { #1 }
+        \clist_set_from_seq:NN \l_@@_zh_date_one_clist \l_@@_date_seq
+        \clist_put_right:Nx \l_@@_zh_date_clist
+          {
+            \clist_item:Nn \l_@@_zh_date_one_clist { 1 } 年
+            \clist_item:Nn \l_@@_zh_date_one_clist { 2 } 月
+            \clist_item:Nn \l_@@_zh_date_one_clist { 3 } 日
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{variable}
+% \begin{macro}{\@@_cover:,\ctex_after_end_preamble:n}
+% 绘制封面。
+%    \begin{macrocode}
+\cs_new:Npn \@@_cover:
+  {
+    \vbox:n { }
+    \skip_vertical:n { -5pt }
+    \vbox_to_ht:nn { 85pt }
+      {
+        \rmfamily \zihao { -2 } \centering
+        西安电子科技大学 \@@_uline:n { \l_@@_pure_dept_str } 学院
+      }
+    \vbox_to_ht:nn { 32.5pt }
+      {
+        \sffamily \zihao { 2 } \centering
+        本科生毕业论文（设计）开题报告
+      }
+    \vbox_to_ht:nn { 171pt }
+      {
+        \CJKfamily+ { sf } \zihao { -3 } \centering
+        （\l_@@_class_str{} 届）
+      }
+    \@@_cover_author_info:nn { 学生姓名 } { \l_@@_author_str     }
+    \@@_cover_author_info:nn { 专业     } { \l_@@_major_str      }
+    \@@_cover_author_info:nn { 学号     } { \l_@@_student_id_str }
+    \@@_cover_author_info:nn { 指导教师 } { \l_@@_supv_str       }
+    \skip_vertical:n { 92pt }
+    \vbox_to_ht:nn { 81.5pt }
+      {
+        \rmfamily \zihao { 4 } \centering
+        \@@_zh_submit_date:
+      }
+    \vbox:n
+      {
+        \rmfamily \zihao { 5 } \centering
+        （本表一式三份，学生、指导教师、学院各一份）
+      }
+  }
+\ctex_after_end_preamble:n { \@@_cover: \clearpage }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\ctex_after_end_preamble:n,\AtEndDocument}
+% 实现用户正文为空可编译。
+%    \begin{macrocode}
+\ctex_after_end_preamble:n { \begin { tpbox } }
+\AtEndDocument             { \end   { tpbox } }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+%</xduugtp>
 %    \end{macrocode}
 %    \begin{macrocode}
 %<@@=>
