@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2022/12/31 v4.1.0.0 Xidian University TeX Suite]
+[2023/01/16 v4.1.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2022/12/31}{4.1.0.0}
+%<class|sty>  {2023/01/16}{4.1.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -378,6 +378,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 包括所有使用\envx{table}浮动体的表格、
 % \pkgx{tabularray}宏包提供的\envx{tblr}、\envx{longtblr}环境
 % 和\pkgx{longtable}宏包提供的\envx{longtable}环境。
+% \changes{v4.1.1.0}{2023/01/16}{适配子表样式}
+% 以及适配子表caption字体字号和子表引用样式，
+% 包括\pkgx{subfig}宏包和\pkgx{subcaption}宏包。
 % \changes{v4.0.0.1}{2022/12/11}{增加使用建议}
 % \section{使用建议}
 % \label{使用建议}
@@ -487,7 +490,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % row{odd[3-Z]}  = {gray9!40},
 % cell{1}{2}     = {c=2}{},
 % cell{1}{1,4,5} = {r=2}{},
-% row{1-2}         = {cmd=\strong}
+% row{1-2}       = {cmd=\strong}
 % }
 % 选项名称   & 罗马族         &                & 无衬线族          & 打字机族       \\
 %            & 直立/倾斜形状  & 意大利形状     &                   &                \\
@@ -5308,15 +5311,19 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesubfigure}
+% \changes{v4.1.1.0}{2023/01/16}{适配子表样式}
 % \changes{v1.13.5.0}{2022/05/08}{设置\pkgx{subcaption}宏包子图引用样式}
 % \changes{v1.20.1.0}{2022/05/30}{修复\pkgx{subcaption}宏包子图标签样式}
-% 设置\pkgx{subcaption}宏包子图引用样式。
+% 设置\pkgx{subcaption}宏包子图子表引用样式。
 %    \begin{macrocode}
 \PassOptionsToPackage { labelformat = simple } { subcaption }
 \ctex_at_end_preamble:n
   {
     \@ifpackageloaded { subcaption }
-      { \cs_set:Npn \thesubfigure { ( \alph { subfigure } ) } }
+      {
+        \cs_set:Npn \thesubfigure { ( \alph { subfigure } ) }
+        \cs_set:Npn \thesubtable  { ( \alph { subtable  } ) }
+      }
       { }
   }
 %    \end{macrocode}
