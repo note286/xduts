@@ -11,22 +11,31 @@ XDUTS currently includes:
 - `xdupgthesis.cls`, Xidian University Postgraduate Thesis document class
 - `xduugthesis.cls`, Xidian University Undergraduate Thesis document class
 
-In the future, we plan to add the following document classes, including 
+In the future, we plan to add the following document class, including
 
 - `xdupgtp.cls`, Xidian University Postgraduate Thesis Proposal document class
 
 ## Preparation
 
-If using TeX Live/MacTeX, TeX Live/MacTeX 2022+ is recommended, and update all packages to the latest version by running command below. If on Windows, it may be necessary to start a Command Prompt as an Administrator. If on macOS or GNU/Linux, it may be necessary to run the command with `sudo`.
+### TeX Live/MacTeX
+
+If using TeX Live/MacTeX, make sure that the latest version of TeX Live/MacTeX is installed. Then update all packages by running command below. If on Windows, it may be necessary to start a Command Prompt as an Administrator. If on macOS or GNU/Linux, it may be necessary to run the command with `sudo`.
 
 ```shell
-tlmgr option repository https://mirrors.cloud.tencent.com/CTAN/systems/texlive/tlnet/
 tlmgr update --all --self
+```
+
+### MiKTeX
+
+If using MiKTeX, update all installed packages by running command below.
+
+```shell
+miktex packages update
 ```
 
 ## Installation
 
-You can install XDUTS from either CTAN or GitHub by following the instructions below. 
+You can install XDUTS from either CTAN or GitHub by following the instructions below. Generally speaking, CTAN updates XDUTS slowly. If you want to use the latest version of XDUTS, get XDUTS from GitHub.
 
 ### CTAN
 
@@ -40,14 +49,7 @@ texdoc xduts
 
 #### MiKTeX
 
-You can install/update XDUTS by running command below.
-
-```shell
-miktex packages install xduts
-miktex packages update xduts
-```
-
-Run command below to open the documentation.
+After completing the preparation, run command below to open the documentation.
 
 ```shell
 texdoc xduts
@@ -59,17 +61,16 @@ If you have installed LaTeX distribution locally, you can get the document class
 
 ### GitHub
 
-Generally speaking, CTAN updates XDUTS slowly. If you want to use the latest version of XDUTS, [download this repository](https://github.com/note286/xduts/archive/refs/heads/main.zip) and run the following command to get the document class/package files.
+After completing the preparation, download this [repository](https://github.com/note286/xduts/archive/refs/heads/main.zip) and run the following commands in the downloaded folder to get the document class/package files and the documentation.
 
 ```shell
 xetex xduts.ins
-```
-
-Run command below to get the documentation.
-
-```shell
 l3build doc
 ```
+
+## Usage
+
+Be sure to read the documentation (i.e., `xduts.pdf`) from the beginning in order to use XDUTS better.
 
 ## Note
 
