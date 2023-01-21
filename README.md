@@ -39,15 +39,7 @@ You can install XDUTS from either CTAN or GitHub by following the instructions b
 
 ### CTAN
 
-#### TeX Live/MacTeX
-
-After completing the preparation, XDUTS is already contained in TeX Live/MacTeX. Run command below to open the documentation.
-
-```shell
-texdoc xduts
-```
-
-#### MiKTeX
+#### TeX Live/MacTeX/MiKTeX
 
 After completing the preparation, run command below to open the documentation.
 
