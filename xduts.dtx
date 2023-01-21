@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/01/16 v4.1.1.0 Xidian University TeX Suite]
+[2023/01/21 v4.1.1.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/01/16}{4.1.1.0}
+%<class|sty>  {2023/01/21}{4.1.1.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -40,7 +40,6 @@
 \setcounter{tocdepth}{5}
 \ctexset{punct=quanjiao}
 \usepackage{hologo}
-\usepackage{fetamont}
 \usepackage{xurl}
 \usepackage{xspace}
 \xspaceaddexceptions{。？！，、；：“”‘’—….－-～·《》<>＿}
@@ -94,7 +93,9 @@
 \newcommand{\ctanurl}[1]{\href{https://mirrors.cloud.tencent.com/CTAN/#1}{\ttfamily CTAN://#1}}
 \newcommand{\footctan}[1]{\footnote{\ctanurl{#1}}}
 % logo
-\newcommand{\xduts}{{\bfseries\ffmfamily XDUTS}}
+\changes{v4.1.1.1}{2023/01/21}{修正LOGO字形高度}
+\newfontfamily{\ffmfamily}[Scale=MatchUppercase]{ffmb10.otf}
+\newcommand{\xduts}{{\ffmfamily XDUTS}}
 \newcommand{\texlive}{\TeX{} Live}
 \newcommand{\mactex}{Mac\TeX{}}
 \newcommand{\miktex}{\xspace\hologo{MiKTeX}\xspace}
