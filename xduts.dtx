@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/01/28 v4.2.0.0 Xidian University TeX Suite]
+[2023/01/28 v4.3.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/01/28}{4.2.0.0}
+%<class|sty>  {2023/01/28}{4.3.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -545,6 +545,18 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % |gyre|   & TeX Gyre Termes & TeX Gyre Heros & TeX Gyre Cursor \\
 % \end{tblr}
 % \end{table}
+% \begin{function}[added=2023-01-28]{style/latin-sans-scale,style/latin-mono-scale}
+%   \begin{syntax}
+%     \optx{style/latin-sans-scale}=\metax{upper|lower|(off)}
+%     \optx{style/latin-mono-scale}=\metax{upper|lower|(off)}
+%   \end{syntax}
+% 匹配无衬线族和打字机族字符高度。
+% \end{function}
+% \begin{optdesc}
+%   \item[upper] 按大写字母的高度缩放以匹配罗马族字体。
+%   \item[lower] 按小写字母的高度缩放以匹配罗马族字体。
+%   \item[off] 不缩放。
+% \end{optdesc}
 % \begin{function}[added=2022-03-06,updated=2022-03-09]{style/math-font}
 %   \begin{syntax}
 %     \optx{style/math-font}=\metax{asana|cambria|(cm)|fira|garamond|lm|...|termes|xits|none}
@@ -1847,6 +1859,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \l_@@_fake_bold_tl,
 %     \l_@@_fake_slant_tl,
 %     \l_@@_latin_font_tl,
+%     \l_@@_latin_sans_scale_tl,
+%     \l_@@_latin_mono_scale_tl,
 %     \l_@@_math_font_tl,
 %     \l_@@_unicode_math_tl,
 %     \l_@@_font_type_tl,
@@ -1868,6 +1882,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 英文字体配置名称。
 %    \begin{macrocode}
 \tl_new:N \l_@@_latin_font_tl
+%    \end{macrocode}
+% 匹配无衬线族和打字机族字符高度。
+%    \begin{macrocode}
+\tl_new:N \l_@@_latin_sans_scale_tl
+\tl_new:N \l_@@_latin_mono_scale_tl
 %    \end{macrocode}
 % 数学字体配置名称。
 %    \begin{macrocode}
@@ -1906,6 +1925,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
     cjk-fake-slant .tl_set:N = \l_@@_fake_slant_tl,
 %    \end{macrocode}
+% 匹配无衬线族和打字机族字符高度。
+%    \begin{macrocode}
+    latin-sans-scale .choices:nn = { upper, lower, off }
+      { \tl_set_eq:NN \l_@@_latin_sans_scale_tl \l_keys_choice_tl },
+    latin-mono-scale .choices:nn = { upper, lower, off }
+      { \tl_set_eq:NN \l_@@_latin_mono_scale_tl \l_keys_choice_tl },
+%    \end{macrocode}
 % 英文字体配置。
 %    \begin{macrocode}
     latin-font .choices:nn = { tac, tacn, thcs, gyre, none }
@@ -1939,14 +1965,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-    style / cjk-font       = fandol,
-    style / cjk-fake-bold  = 3,
-    style / cjk-fake-slant = 0.2,
-    style / latin-font     = gyre,
-    style / math-font      = cm,
-    style / unicode-math   = { },
-    style / font-type      = font,
-    style / font-path      = fonts
+    style / cjk-font         = fandol,
+    style / cjk-fake-bold    = 3,
+    style / cjk-fake-slant   = 0.2,
+    style / latin-font       = gyre,
+    style / latin-sans-scale = off,
+    style / latin-mono-scale = off,
+    style / math-font        = cm,
+    style / unicode-math     = { },
+    style / font-type        = font,
+    style / font-path        = fonts
   }
 %    \end{macrocode}
 % \end{macro}
@@ -2284,12 +2312,28 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_off_latin_ligatures:}
+% \begin{macro}{\@@_set_latin_sans_scale:,\@@_set_latin_mono_scale:}
+% \changes{v4.3.0.0}{2023/01/28}{匹配无衬线族和打字机族字符高度}
 % \changes{v0.8.3.0}{2022/04/13}{匹配小写字母字符高度}
-% 匹配小写字母字符高度。
+% 匹配无衬线族和打字机族字符高度。
 %    \begin{macrocode}
-\cs_new:Npn \@@_set_latin_scale:
-  { Scale = MatchLowercase , }
+\cs_new:Npn \@@_set_latin_sans_scale: { }
+\cs_new:Npn \@@_set_latin_mono_scale: { }
+\ctex_at_end_preamble:n
+  {
+    \tl_if_eq:NnTF \l_@@_latin_sans_scale_tl { upper }
+      { \cs_set:Npn \@@_set_latin_sans_scale: { Scale = MatchUppercase , } }
+      {
+        \tl_if_eq:NnT \l_@@_latin_sans_scale_tl { lower }
+          { \cs_set:Npn \@@_set_latin_sans_scale: { Scale = MatchLowercase , } }
+      }
+    \tl_if_eq:NnTF \l_@@_set_latin_mono_scale { upper }
+      { \cs_set:Npn \@@_set_latin_mono_scale: { Scale = MatchUppercase , } }
+      {
+        \tl_if_eq:NnT \l_@@_set_latin_mono_scale { lower }
+          { \cs_set:Npn \@@_set_latin_mono_scale: { Scale = MatchLowercase , } }
+      }
+  }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_off_latin_ligatures:}
@@ -2338,12 +2382,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 \cs_new:Npn \@@_set_latin_sans_font:nnnnn #1#2#3#4#5
   {
     \str_if_eq:NNTF { \l_@@_font_type_tl } { font }
-      { \setsansfont { #1 } [ \@@_set_latin_scale: ] }
+      { \setsansfont { #1 } [ \@@_set_latin_sans_scale: ] }
       {
         \setsansfont { #2 }
           [
             \@@_font_path:
-            \@@_set_latin_scale:
+            \@@_set_latin_sans_scale:
             \@@_set_latin_font:nnn { #3 } { #4 } { #5 }
           ]
       }
@@ -2364,12 +2408,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 \cs_new:Npn \@@_set_latin_mono_font:nnnnn #1#2#3#4#5
   {
     \str_if_eq:NNTF { \l_@@_font_type_tl } { font }
-      { \setmonofont { #1 } [ \@@_set_latin_scale: \@@_off_latin_ligatures: ] }
+      { \setmonofont { #1 } [ \@@_set_latin_mono_scale: \@@_off_latin_ligatures: ] }
       {
         \setmonofont { #2 }
           [
             \@@_font_path:
-            \@@_set_latin_scale:
+            \@@_set_latin_mono_scale:
             \@@_off_latin_ligatures:
             \@@_set_latin_font:nnn { #3 } { #4 } { #5 }
           ]
@@ -2410,7 +2454,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   {
     \setsansfont { #1 }
       [
-        \@@_set_latin_scale:
+        \@@_set_latin_sans_scale:
         \@@_set_latin_font:nnn { #2 } { #3 } { #4 }
       ]
   }
@@ -2430,7 +2474,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   {
     \setmonofont { #1 }
       [
-        \@@_set_latin_scale:
+        \@@_set_latin_mono_scale:
         \@@_off_latin_ligatures:
         \@@_set_latin_font:nnn { #2 } { #3 } { #4 }
       ]
