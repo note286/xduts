@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/01/21 v4.1.1.1 Xidian University TeX Suite]
+[2023/01/28 v4.2.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/01/21}{4.1.1.1}
+%<class|sty>  {2023/01/28}{4.2.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -43,8 +43,6 @@
 \usepackage{xurl}
 \usepackage{xspace}
 \xspaceaddexceptions{。？！，、；：“”‘’—….－-～·《》<>＿}
-\newcolumntype{Y}{>{\centering\arraybackslash}X}
-\usepackage{multirow}
 \usepackage{pifont}
 \newcommand{\cmark}{\ding{51}}
 \usepackage{subcaption}
@@ -133,6 +131,8 @@ emph            = [6]{document,tabular,edubg,resresult,appendixes},
 literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
                   {\{}{{\textcolor{purple3}{\{}}}{1}
                   {\}}{{\textcolor{purple3}{\}}}}{1}
+                  {[}{{\textcolor{purple3}{[}}}{1}
+                  {]}{{\textcolor{purple3}{]}}}{1}
                   {=}{{\textcolor{purple3}{=}}}{1}
                   {\&}{{\textcolor{purple3}{\&}}}{1}
                   {\\\\}{{\textcolor{purple3}{\textbackslash{}\textbackslash{}}}}{2}
@@ -1635,18 +1635,18 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.30.0.0}{2022/06/20}{英文研究生学位论文双语标题}
 % \subsubsection{英文研究生学位论文双语标题}
 % \label{英文研究生学位论文双语标题}
-% \begin{function}[added=2022-06-20]{\chapter,\section,\subsection}
+% \begin{function}[added=2022-06-20,updated=2023-01-28]{\chapter,\section,\subsection}
 %   \begin{syntax}
-%     \tn{chapter}\marg{英文标题}\marg{中文标题}
-%     \tn{section}\marg{英文标题}\marg{中文标题}
-%     \tn{subsection}\marg{英文标题}\marg{中文标题}
+%     \tn{chapter}\marg{英文标题}\oarg{中文标题}
+%     \tn{section}\marg{英文标题}\oarg{中文标题}
+%     \tn{subsection}\marg{英文标题}\oarg{中文标题}
 %   \end{syntax}
 % 在英文研究生学位论文中一二三级标题为中英双语，其他级别标题为英文。
 % 一个简单的例子如下所示：
 % \begin{lstlisting}
-% \chapter{This Is Chapter}{这是一级标题}
-% \section{This Is Section}{这是二级标题}
-% \subsection{This Is Subsection}{这是三级标题}
+% \chapter{This Is Chapter}[这是一级标题]
+% \section{This Is Section}[这是二级标题]
+% \subsection{This Is Subsection}[这是三级标题]
 % \subsubsection{This Is Subsubsection}
 % \paragraph{This Is Paragraph}
 % \subparagraph{This Is Subparagraph}
@@ -7153,29 +7153,35 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \rmfamily \zihao { -4 }
     \dim_set:Nn \baselineskip { 20pt }
 %    \end{macrocode}
+% \changes{v4.2.0.0}{2023/01/28}{修改英文研究生学位论文标题命令参数格式}
 % \changes{v1.30.0.0}{2022/06/20}{英文研究生学位论文目录中正文一二三级中英双语标题}
 % 英文研究生学位论文目录中正文一二三级中英双语标题。
 %    \begin{macrocode}
     \@@_lang_switch:nn { }
       {
         \cs_new_eq:NN \@@_org_chapter:n \chapter
-        \RenewDocumentCommand { \chapter } { m m }
+        \RenewDocumentCommand { \chapter } { m o }
           {
             \@@_org_chapter:n { ##1 }
             \@@_add_zh_toc:nn { chapter }
-              { \numberline { 第 \chinese { chapter } 章 \hspace { .3em } } ##2 }
+              {
+                \numberline { 第 \chinese { chapter } 章 \hspace { .3em } }
+                \IfNoValueTF { ##2 } { ##1 } { ##2 }
+              }
           }
         \cs_new_eq:NN \@@_org_section:n \section
-        \RenewDocumentCommand { \section } { m m }
+        \RenewDocumentCommand { \section } { m o }
           {
             \@@_org_section:n { ##1 }
-            \@@_add_zh_toc:nn { section } { \numberline { \thesection } ##2 }
+            \@@_add_zh_toc:nn { section }
+              { \numberline { \thesection } \IfNoValueTF { ##2 } { ##1 } { ##2 } }
           }
         \cs_new_eq:NN \@@_org_subsection:n \subsection
-        \RenewDocumentCommand { \subsection } { m m }
+        \RenewDocumentCommand { \subsection } { m o }
           {
             \@@_org_subsection:n { ##1 }
-            \@@_add_zh_toc:nn { subsection } { \numberline { \thesubsection } ##2 }
+            \@@_add_zh_toc:nn { subsection }
+              { \numberline { \thesubsection } \IfNoValueTF { ##2 } { ##1 } { ##2 } }
           }
       }
 %    \end{macrocode}
