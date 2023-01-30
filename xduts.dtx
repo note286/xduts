@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/01/28 v4.3.0.0 Xidian University TeX Suite]
+[2023/01/30 v4.3.0.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/01/28}{4.3.0.0}
+%<class|sty>  {2023/01/30}{4.3.0.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -39,7 +39,6 @@
 }
 \setcounter{tocdepth}{5}
 \ctexset{punct=quanjiao}
-\usepackage{hologo}
 \usepackage{xurl}
 \usepackage{xspace}
 \xspaceaddexceptions{。？！，、；：“”‘’—….－-～·《》<>＿}
@@ -94,11 +93,8 @@
 \changes{v4.1.1.1}{2023/01/21}{修正LOGO字形高度}
 \newfontfamily{\ffmfamily}[Scale=MatchUppercase]{ffmb10.otf}
 \newcommand{\xduts}{{\ffmfamily XDUTS}}
-\newcommand{\texlive}{\TeX{} Live}
-\newcommand{\mactex}{Mac\TeX{}}
-\newcommand{\miktex}{\xspace\hologo{MiKTeX}\xspace}
 \newcommand{\bibtex}{\xspace\hologo{BibTeX}\xspace}
-\newcommand{\biber}{\xspace\hologo{biber}\xspace\xspace}
+\newcommand{\biblatex}{\xspace Bib\LaTeX\xspace}
 % arguments list
 \setlist[arguments]{label=\texttt{\#\arabic*}\,:}
 % 浮动体默认设置
@@ -171,7 +167,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \begin{abstract}
 % \xduts{}是面向西安电子科技大学本科生/研究生的\LaTeXiii{}文档类和宏包套装，
 % 仅支持\XeLaTeX{}，
-% 仅支持\texlive{}、\mactex{}、\miktex{}，
+% 仅支持\TeXLive{}、Mac\TeX{}、\MiKTeX{}，
 % 支持Windows、macOS、GNU/Linux、Overleaf和TeXPage。
 % \end{abstract}
 % \renewcommand{\abstractname}{免责声明}
@@ -373,7 +369,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.13.5.1}{2022/05/08}{补充子图引用样式文档}
 % 主要适配子图caption字体字号和子图引用样式，
 % \changes{v1.4.1.1}{2022/04/27}{修正子图适配宏包名称}
-% 包括\pkgx{subfig}宏包和\pkgx{subcaption}宏包。
+% 包括\pkgx{subcaption}宏包和\pkgx{subfig}宏包。
 % \subsection{表格}
 % 主要适配表格内容字号，
 % 包括所有使用\envx{table}浮动体的表格、
@@ -381,7 +377,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 和\pkgx{longtable}宏包提供的\envx{longtable}环境。
 % \changes{v4.1.1.0}{2023/01/16}{适配子表样式}
 % 以及适配子表caption字体字号和子表引用样式，
-% 包括\pkgx{subfig}宏包和\pkgx{subcaption}宏包。
+% 包括\pkgx{subcaption}宏包和\pkgx{subfig}宏包。
 % \changes{v4.0.0.1}{2022/12/11}{增加使用建议}
 % \section{使用建议}
 % \label{使用建议}
@@ -391,7 +387,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 宏包方面，在\secrefx{兼容性说明}中提到已适配多种宏包。
 % 但是，由于各种原因，部分宏包已不建议使用。
 % 推荐使用\pkgx{algorithm}和\pkgx{algpseudocodex}宏包排版算法；
-% 推荐使用\pkgx{subcaption}宏包排版子图；
+% 推荐使用\pkgx{subcaption}宏包排版子图和子表；
 % 推荐使用\pkgx{tabularray}宏包排版\textbf{所有的表格}；
 % 推荐使用\pkgx{siunitx}宏包排版单位；
 % 推荐使用\pkgx{xurl}宏包实现链接自动折行。
@@ -412,12 +408,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{编译}
 % \changes{v0.5.1.2}{2022/04/07}{增加编译说明}
 % \LaTeX{}本身是命令行程序，通过不同的命令调用所需的编译引擎，编辑器提供的快捷按钮实际只是做了包装。
-% \xduts{}仅支持\XeLaTeX{}，参考文献默认使用\biber{}，也可以切换为\bibtex{}。
+% \xduts{}仅支持\XeLaTeX{}，参考文献后端程序默认为\cmdx{biber}，也可以切换为\cmdx{bibtex}。
 % \subsection{参考文献引用}
 % \label{参考文献引用}
+% \changes{v4.3.0.1}{2023/01/30}{修改文档中关于参考文献的描述}
 % \xduts{}提供了两种参考文献处理方式，
-% 一种是\pkgx{natbib}和\pkgx{gbt7714}宏包组合，搭配\cmdx{bibtex}命令；
-% 另一种是\pkgx{biblatex}宏包，搭配\cmdx{biber}命令。
+% 一种是\pkgx{natbib}宏包搭配\pkgx{gbt7714}宏包，后端程序为\cmdx{bibtex}；
+% 另一种是\pkgx{biblatex}宏包，后端程序为\cmdx{biber}。
 % 引用参考文献时，\tnx{cite}为上标样式，\tnx{parencite}为非上标样式。
 % \subsection{参数设置}
 % \label{参数设置}
@@ -662,8 +659,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置参考文献支持方式。
 % \end{function}
 % \begin{optdesc}
-%   \item[bibtex] 使用\bibtex{}处理文献，样式由\pkgx{natbib}宏包负责。
-%   \item[biblatex] 使用\biber{}处理文献，样式由\pkgx{biblatex}宏包负责。
+%   \item[bibtex] 使用\bibtex{}处理参考文献，后端程序为\cmdx{bibtex}。
+%   \item[biblatex] 使用\biblatex{}处理参考文献，后端程序为\cmdx{biber}。
 % \end{optdesc}
 % \changes{v1.31.0.0}{2022/06/21}{修改\pkgx{biblatex}默认选项}
 % \begin{function}[added=2022-06-21]{style/biblatex-option}
