@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/03 v4.3.1.0 Xidian University TeX Suite]
+[2023/02/03 v4.4.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/03}{4.3.1.0}
+%<class|sty>  {2023/02/03}{4.4.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -307,6 +307,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \secrefx{参数设置}介绍了如何自定义配置。
 % 其中，字体选项见\secrefx{字体选项}，
 % 部分英文字体切换见\secrefx{英文字体}，
+% 标题数学字体配置见\secrefx{标题数学字体配置}，
 % 语言配置见\secrefx{语言配置}，
 % 参考文献配置见\secrefx{参考文献配置}，
 % 页面配置见\secrefx{页面配置}，
@@ -345,6 +346,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \secrefx{参数设置}介绍了如何自定义配置。
 % 其中，字体选项见\secrefx{字体选项}，
 % 部分英文字体切换见\secrefx{英文字体}，
+% 标题数学字体配置见\secrefx{标题数学字体配置}，
 % 参考文献配置见\secrefx{参考文献配置}，
 % 页面配置见\secrefx{页面配置}，
 % \changes{v2.12.0.1}{2022/07/01}{本科生毕业设计增加文件配置}
@@ -641,6 +643,22 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \begin{optdesc}
 %   \item[true] 英文使用相对应字体族的中文字体。
 %   \item[false] 英文使用相对应字体族的英文字体。
+% \end{optdesc}
+% \subsection{标题数学字体配置}
+% \label{标题数学字体配置}
+% \begin{function}[added=2023-02-03]{style/title-bold-math}
+%   \begin{syntax}
+%     \optx{style/title-bold-math}=\metax{true|(false)}
+%   \end{syntax}
+% 是否自动加粗如下位置中的数学字体：
+% 中文研究生学位论文中，封面和提名页中英文标题，正文所有级别标题和目录一级标题；
+% 英文研究生学位论文中，封面和提名页中英文标题，正文二三四五六级标题和中文目录一级标题；
+% 本科生毕业设计论文中，封面标题，中英文关键词，目录一级标题和正文一级标题。
+% 目前仅支持Computer Modern数学字体。
+% \end{function}
+% \begin{optdesc}
+%   \item[true] 加粗。
+%   \item[false] 不加粗。
 % \end{optdesc}
 % \subsection{语言配置}
 % \label{语言配置}
@@ -3481,6 +3499,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \subsection{样式配置}
 % \begin{variable}
 %   {
+%     \l_@@_title_bold_math_bool,
 %     \l_@@_en_cjk_font_bool,
 %     \l_@@_lang_tl,
 %     \l_@@_bib_tool_tl,
@@ -3510,6 +3529,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \l_@@_sym_mgn_bool,
 %     \l_@@_page_v_align_tl
 %   }
+% 标题数学字体是否加粗。
+%    \begin{macrocode}
+\bool_new:N \l_@@_title_bold_math_bool
+%    \end{macrocode}
 % \changes{v2.12.0.2}{2022/07/01}{精简变量名称}
 % 英文是否使用中文字体。
 %    \begin{macrocode}
@@ -3599,6 +3622,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 \keys_define:nn { xdu / style }
   {
+%    \end{macrocode}
+% 标题数学字体是否加粗。
+%    \begin{macrocode}
+    title-bold-math .bool_set:N = \l_@@_title_bold_math_bool,
 %    \end{macrocode}
 % 英文是否使用中文字体。
 %    \begin{macrocode}
@@ -3698,6 +3725,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
+    style / title-bold-math         = false,
     style / en-cjk-font             = false,
     style / language                = zh,
     style / bib-backend             = biblatex,
@@ -3720,6 +3748,22 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     style / after-skip              = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
     style / symmetric-margin        = false,
     style / page-vertical-align     = { 顶部对齐 }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \changes{v4.4.0.0}{2023/02/03}{标题数学字体配置}
+% \subsection{标题数学字体配置}
+% \begin{macro}{\@@_bold_math:}
+% 自定义数学字体加粗命令。
+%    \begin{macrocode}
+\cs_new:Npn \@@_bold_math: { }
+\ctex_at_end_preamble:n
+  {
+    \bool_if:NT \l_@@_title_bold_math_bool
+      {
+        \tl_if_eq:NnT \l_@@_math_font_tl { cm }
+          { \cs_set_eq:NN \@@_bold_math: \boldmath }
+      }
   }
 %    \end{macrocode}
 % \end{macro}
@@ -4549,6 +4593,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_en_t:nnn}
+% \changes{v4.4.0.0}{2023/02/03}{本科生英文毕业设计所有级别标题中数学字体加粗}
 % \changes{v1.2.1.0}{2022/04/19}{英文章节样式增加位置参数}
 % 设置英文章节名字和随后的标题内容格式。
 % \begin{arguments}
@@ -4560,7 +4605,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   {
     \rmfamily
     \zihao { \use:c { l_@@_ #1 _tl } }
-    \bfseries
+    \bfseries \@@_bold_math:
     \str_if_eq:ccTF { #2 } { c }
       { \centering   }
       { \raggedright }
@@ -4568,6 +4613,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\ctexset}
+% \changes{v4.4.0.0}{2023/02/03}{本科生毕业设计一级标题中数学字体加粗}
 % \changes{v0.7.0.0}{2022/04/11}{自定义章节标题字号}
 % 设置章节名字和随后的标题内容格式。
 %    \begin{macrocode}
@@ -4583,7 +4629,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \@@_tl_set_if_empty:Nn \l_@@_subpara_tl   { 4 }
         \ctexset
           {
-            chapter       / format = { \@@_zh_t:nnn { sf } { chap      } { c } },
+            chapter       / format = { \@@_zh_t:nnn { sf } { chap      } { c } \@@_bold_math: },
             section       / format = { \@@_zh_t:nnn { rm } { sec       } { c } },
             subsection    / format = { \@@_zh_t:nnn { rm } { subsec    } { l } },
             subsubsection / format = { \@@_zh_t:nnn { rm } { subsubsec } { l } },
@@ -4701,13 +4747,25 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \@@_sec_format_iii:,
 %     \ctexset
 %   }
+% \changes{v4.4.0.0}{2023/02/03}{研究生学位论文标题中数学字体加粗}
 % \changes{v1.29.2.0}{2022/06/19}{修正英文研究生学位论文一级标题字体}
 % 设置章节名字和随后的标题内容格式。
 %    \begin{macrocode}
 \cs_new:Npn \@@_sec_format_i:n #1
-  { \@@_rm_family: \bfseries \zihao { #1 } \dim_set:Nn \baselineskip { 20pt } }
+  {
+    \@@_rm_family:
+    \bfseries \@@_bold_math:
+    \zihao { #1 }
+    \dim_set:Nn \baselineskip { 20pt }
+  }
 \cs_new:Npn \@@_sec_format_ii:
-  { \@@_sf_family: \centering \zihao { 3 } \dim_set:Nn \baselineskip { 20pt } }
+  {
+    \@@_sf_family:
+    \centering
+    \@@_bold_math:
+    \zihao { 3 }
+    \dim_set:Nn \baselineskip { 20pt }
+  }
 \cs_new:Npn \@@_sec_format_iii:
   { \@@_rm_family: \centering \zihao { 3 } \dim_set:Nn \baselineskip { 20pt } }
 \ctex_at_end_preamble:n
@@ -4818,6 +4876,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \cftchapfont,
 %     \cftchappagefont
 %   }
+% \changes{v4.4.0.0}{2023/02/03}{本科生毕业设计目录一级标题中数学字体加粗}
 % 设置一级标题及相应页码字体字号。
 %    \begin{macrocode}
 \clist_map_inline:nn
@@ -4825,7 +4884,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \cftchapfont,
     \cftchappagefont
   }
-  { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } \bfseries } }
+  { \renewcommand { #1 } { \@@_rm_family: \zihao { -4 } \bfseries \@@_bold_math: } }
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}
@@ -4888,13 +4947,14 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{variable}
 % \begin{variable}{\cftchapfont}
+% \changes{v4.4.0.0}{2023/02/03}{中文研究生学位论文目录中一级标题中数学字体加粗}
 % \changes{v1.29.2.0}{2022/06/19}{修正英文研究生学位论文目录中一级标题字体}
 % 设置一级标题字体字号。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
     \@@_lang_switch:nn
-      { \cs_set:Npn \cftchapfont { \@@_sf_family: \zihao { -4 } } }
+      { \cs_set:Npn \cftchapfont { \@@_sf_family: \@@_bold_math: \zihao { -4 } } }
       { \cs_set:Npn \cftchapfont { \@@_rm_family: \zihao { -4 } } }
   }
 %    \end{macrocode}
@@ -5787,6 +5847,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
     \@@_cover_ii:nnn { 140pt } { 120pt } { icon }
 %    \end{macrocode}
+% \changes{v4.4.0.0}{2023/02/03}{本科毕设论文标题中公式字体加粗}
 % \changes{v4.3.1.0}{2023/02/03}{修复本科毕设论文标题公式显示}
 % 拆分论文标题并排版。
 %    \begin{macrocode}
@@ -5794,9 +5855,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \@@_split_title:NV \l_@@_title_clist \l_@@_title_tl
     \tl_set:Nx \l_@@_title_i_tl  { \clist_item:Nn  \l_@@_title_clist { 1 } }
     \tl_set:Nx \l_@@_title_ii_tl { \clist_item:Nn  \l_@@_title_clist { 2 } }
-    \@@_cover_iii:nnnn { 题目 } { sf } { 3 } { \l_@@_title_i_tl }
+    \@@_cover_iii:nnnn { 题目 } { sf } { 3 } { \@@_bold_math: \l_@@_title_i_tl }
     \tl_if_blank:VF \l_@@_title_ii_tl
-      { \@@_cover_iii:nnnn { } { sf } { 3 } { \l_@@_title_ii_tl } }
+      { \@@_cover_iii:nnnn { } { sf } { 3 } { \@@_bold_math: \l_@@_title_ii_tl } }
 %    \end{macrocode}
 % 排版学院、专业、学生姓名。
 %    \begin{macrocode}
@@ -5863,10 +5924,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
     \cs_new:Npn \@@_keywords_space: { \hspace { 2em plus 1em minus 1em } }
 %    \end{macrocode}
+% \changes{v4.4.0.0}{2023/02/03}{本科生毕业设计中文关键词中数学字体加粗}
 % 中文关键词，黑体小四号。
 %    \begin{macrocode}
     \group_begin:
-      \sffamily \zihao { -4 } \par
+      \sffamily \@@_bold_math: \zihao { -4 } \par
       \@@_typeout_keywords:nNn
         { 关键词： } { \l_@@_keywords_zh_clist } { \@@_keywords_space: }
     \group_end:
@@ -5883,10 +5945,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       \file_if_exist_input:n { \l_@@_abstract_en_tl }
     \group_end:
 %    \end{macrocode}
+% \changes{v4.4.0.0}{2023/02/03}{本科生毕业设计英文关键词中数学字体加粗}
 % 英文关键词，Times New Roman字体加粗，小四号。
 %    \begin{macrocode}
     \group_begin:
-      \rmfamily \zihao { -4 } \bfseries \par
+      \rmfamily \zihao { -4 } \bfseries \@@_bold_math: \par
       \@@_typeout_keywords:nNn
         { Keywords： } { \l_@@_keywords_en_clist } { \@@_keywords_space: }
     \group_end:
@@ -6338,13 +6401,14 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \@@_cover_i:nnnnn { 100pt  } { sf } { 1  } { bf } { 西安电子科技大学   }
     \@@_cover_i:nnnnn { 85pt   } { rm } { -1 } { bf } { \l_@@_gr_type_tl 学位论文 }
 %    \end{macrocode}
+% \changes{v4.4.0.0}{2023/02/03}{研究生中文提名页标题中数学字体加粗}
 % \changes{v1.18.1.0}{2022/05/30}{不拆分研究生中文提名页标题}
 % 论文标题。
 %    \begin{macrocode}
     \skip_vertical:n { 87.5pt }
     \vbox_to_ht:nn { 150pt }
       {
-        \rmfamily \zihao { 2 } \bfseries \centering
+        \rmfamily \zihao { 2 } \bfseries \@@_bold_math: \centering
         \dim_set:Nn \baselineskip { 30pt }
         \l_@@_title_tl
       }
@@ -6426,6 +6490,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_en_title_page:}
+% \changes{v4.4.0.0}{2023/02/03}{研究生英文提名页标题中数学字体加粗}
 % \changes{v1.18.0.0}{2022/05/29}{英文提名页}
 % \changes{v1.26.1.0}{2022/06/07}{修复作者拼音为空无法编译}
 % \changes{v1.26.11.0}{2022/06/17}{修复非专业硕士英文提名页英文一级学科}
@@ -6438,7 +6503,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \dim_set:Nn \baselineskip { 30pt }
     \vbox_to_ht:nn { 170pt }
       {
-        \rmfamily \zihao { 2 } \bfseries \centering
+        \rmfamily \zihao { 2 } \bfseries \@@_bold_math: \centering
         \dim_set:Nn \baselineskip { 30pt }
         \l_@@_title_en_str
       }
@@ -7023,12 +7088,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_add_zh_toc:nn}
+% \changes{v4.4.0.0}{2023/02/03}{中文目录一级标题数学字体加粗}
 % \changes{v1.30.0.0}{2022/06/20}{添加章节至中文目录}
 %    \begin{macrocode}
 \cs_new:Npn \@@_add_zh_toc:nn #1#2
   {
     \str_if_eq:NNTF { #1 } { chapter }
-      { \phantomsection \addcontentsline { zh.toc } { #1 } { \@@_sf_family: #2 } }
+      {
+        \phantomsection \addcontentsline { zh.toc }
+          { #1 } { \@@_sf_family: \@@_bold_math: #2 }
+      }
       { \phantomsection \addcontentsline { zh.toc } { #1 } { #2 } }
   }
 %    \end{macrocode}
@@ -7052,6 +7121,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       {
         \@@_add_bookmark:n { \@@_lang_switch:nn { 封面 } { Cover } }
 %    \end{macrocode}
+% \changes{v4.4.0.0}{2023/02/03}{研究生封面标题中数学字体加粗}
 % \changes{v1.18.1.0}{2022/05/30}{不拆分研究生封面标题}
 % 封面标题。
 %    \begin{macrocode}
@@ -7059,7 +7129,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \skip_vertical:n { 435pt }
         \vbox_to_ht:nn { 120pt }
           {
-            \rmfamily \zihao { 2 } \bfseries \centering
+            \rmfamily \zihao { 2 } \bfseries \@@_bold_math: \centering
             \dim_set:Nn \baselineskip { 30pt }
             \l_@@_title_tl
           }
