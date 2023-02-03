@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/01/30 v4.3.0.2 Xidian University TeX Suite]
+[2023/02/03 v4.3.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/01/30}{4.3.0.2}
+%<class|sty>  {2023/02/03}{4.3.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -2676,9 +2676,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.8.0.0}{2022/05/02}{拆分信息录入选项}
 % \begin{variable}
 %   {
-%     \l_@@_title_str,
-%     \l_@@_title_i_str,
-%     \l_@@_title_ii_str,
+%     \l_@@_title_tl,
+%     \l_@@_title_i_tl,
+%     \l_@@_title_ii_tl,
 %     \l_@@_dept_str,
 %     \l_@@_major_str,
 %     \l_@@_author_str,
@@ -2695,9 +2695,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   }
 % 论文标题。
 %    \begin{macrocode}
-\str_new:N \l_@@_title_str
-\str_new:N \l_@@_title_i_str
-\str_new:N \l_@@_title_ii_str
+\tl_new:N \l_@@_title_tl
+\tl_new:N \l_@@_title_i_tl
+\tl_new:N \l_@@_title_ii_tl
 %    \end{macrocode}
 % 院系名称。
 %    \begin{macrocode}
@@ -2760,7 +2760,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % 论文标题。
 %    \begin{macrocode}
-    title .tl_set:N = \l_@@_title_str,
+    title .tl_set:N = \l_@@_title_tl,
 %    \end{macrocode}
 % 院系名称。
 %    \begin{macrocode}
@@ -3942,14 +3942,15 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   { \bool_if:NTF \l_@@_en_cjk_font_bool { \CJKfamily+ { tt } } { \ttfamily } }
 %    \end{macrocode}
 % \end{macro}
-% \begin{variable}{\l_@@_pure_title_str}
+% \changes{v4.3.1.0}{2023/02/03}{修复本科毕设论文页眉公式显示}
+% \begin{variable}{\l_@@_pure_title_tl}
 % 移除标题中换行符。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
-    \str_new:N \l_@@_pure_title_str
-    \str_set_eq:NN \l_@@_pure_title_str \l_@@_title_str
-    \str_remove_all:Nn \l_@@_pure_title_str { \\ }
+    \tl_new:N \l_@@_pure_title_tl
+    \tl_set_eq:NN \l_@@_pure_title_tl \l_@@_title_tl
+    \tl_remove_all:Nn \l_@@_pure_title_tl { \\ }
   }
 %    \end{macrocode}
 % \end{variable}
@@ -4408,7 +4409,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \pagestyle { fancy }
     \fancyhf { }
 %<*xduugthesis>
-    \fancyhead [ CE ] { \@@_rm_family: \zihao { 5  } \l_@@_pure_title_str }
+    \fancyhead [ CE ] { \@@_rm_family: \zihao { 5  } \l_@@_pure_title_tl }
     \fancyhead [ CO ] { \@@_rm_family: \zihao { 5  } \leftmark            }
     \fancyhead [ LE ] { \@@_rm_family: \zihao { -5 } \thepage             }
     \fancyhead [ RO ] { \@@_rm_family: \zihao { -5 } \thepage             }
@@ -5452,7 +5453,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   {
     \hypersetup
       {
-%<thesis>        pdftitle   = \l_@@_pure_title_str,
+%<thesis>        pdftitle   = \l_@@_pure_title_tl,
 %<xduugtp>        pdfsubject = { 西安电子科技大学本科生毕业论文（设计）开题报告 },
 %<xduugtp>        pdfcreator = { XeLaTeX~with~xduugtp~class~in~XDUTS },
 %<xduugthesis>        pdfsubject = { 西安电子科技大学本科毕业设计论文 },
@@ -5786,15 +5787,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
     \@@_cover_ii:nnn { 140pt } { 120pt } { icon }
 %    \end{macrocode}
+% \changes{v4.3.1.0}{2023/02/03}{修复本科毕设论文标题公式显示}
 % 拆分论文标题并排版。
 %    \begin{macrocode}
     \clist_new:N \l_@@_title_clist
-    \@@_split_title:NV \l_@@_title_clist \l_@@_title_str
-    \str_set:Nx \l_@@_title_i_str  { \clist_item:Nn  \l_@@_title_clist { 1 } }
-    \str_set:Nx \l_@@_title_ii_str { \clist_item:Nn  \l_@@_title_clist { 2 } }
-    \@@_cover_iii:nnnn { 题目 } { sf } { 3 } { \l_@@_title_i_str }
-    \tl_if_blank:VF \l_@@_title_ii_str
-      { \@@_cover_iii:nnnn { } { sf } { 3 } { \l_@@_title_ii_str } }
+    \@@_split_title:NV \l_@@_title_clist \l_@@_title_tl
+    \tl_set:Nx \l_@@_title_i_tl  { \clist_item:Nn  \l_@@_title_clist { 1 } }
+    \tl_set:Nx \l_@@_title_ii_tl { \clist_item:Nn  \l_@@_title_clist { 2 } }
+    \@@_cover_iii:nnnn { 题目 } { sf } { 3 } { \l_@@_title_i_tl }
+    \tl_if_blank:VF \l_@@_title_ii_tl
+      { \@@_cover_iii:nnnn { } { sf } { 3 } { \l_@@_title_ii_tl } }
 %    \end{macrocode}
 % 排版学院、专业、学生姓名。
 %    \begin{macrocode}
@@ -6344,7 +6346,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       {
         \rmfamily \zihao { 2 } \bfseries \centering
         \dim_set:Nn \baselineskip { 30pt }
-        \l_@@_title_str
+        \l_@@_title_tl
       }
 %    \end{macrocode}
 % 底部信息。
@@ -7059,7 +7061,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
           {
             \rmfamily \zihao { 2 } \bfseries \centering
             \dim_set:Nn \baselineskip { 30pt }
-            \l_@@_title_str
+            \l_@@_title_tl
           }
 %    \end{macrocode}
 % 封面底部作者信息。
