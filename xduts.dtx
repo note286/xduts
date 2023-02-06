@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/03 v4.4.0.0 Xidian University TeX Suite]
+[2023/02/06 v4.4.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/03}{4.4.0.0}
+%<class|sty>  {2023/02/06}{4.4.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -5227,6 +5227,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
+% \changes{v4.4.1.0}{2023/02/06}{修正\pkgx{algorithm}算法三线间距配置}
 % \changes{v3.1.0.0}{2022/12/03}{设置\pkgx{algorithm}算法三线间距}
 % \begin{macro}{\ctex_at_end_preamble:n}
 % 设置\pkgx{algorithm}算法三线间距。
@@ -5235,14 +5236,18 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   {
     \bool_if:NT \l_@@_add_alg_rule_vspace_bool
       {
-        \cs_set:Npn \fs@ruled
+        \@ifpackageloaded { algorithm }
           {
-            \cs_set_eq:NN \@fs@capt \floatc@plain
-            \cs_set:Npn   \@fs@pre  { \hrule height .8pt depth 0pt \kern 5pt }
-            \cs_set:Npn   \@fs@post { \kern 5pt \hrule \relax                }
-            \cs_set:Npn   \@fs@mid  { \kern 5pt \hrule \kern 5pt             }
-            \cs_set_eq:NN \@fs@iftopcapt \iftrue
+            \cs_set:Npn \fs@ruled
+              {
+                \cs_set_eq:NN \@fs@capt \floatc@plain
+                \cs_set:Npn   \@fs@pre  { \hrule height .8pt depth 0pt \kern 5pt }
+                \cs_set:Npn   \@fs@post { \kern 5pt \hrule \relax                }
+                \cs_set:Npn   \@fs@mid  { \kern 5pt \hrule \kern 5pt             }
+                \cs_set_eq:NN \@fs@iftopcapt \iftrue
+              }
           }
+          { }
       }
   }
 %    \end{macrocode}
@@ -5257,7 +5262,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
-    \cs_if_exist:NT \thealgocf
+    \@ifpackageloaded { algorithm2e }
       {
         \SetAlgoCaptionSeparator { \hbox_to_wd:nn { \l_@@_cap_label_sep_tl } { } }
         \bool_if:NTF \l_@@_alg_small_cap_bool
@@ -5320,14 +5325,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
                   }
               }
           }
-      \RenewDocumentCommand { \algocf@makecaption@ruled } { mm }
-        { \global \sbox \algocf@capbox { \algocf@makecaption { #1 } { #2 } } }
-      \RenewDocumentCommand { \algocf@makecaption@boxed } { mm }
-        { \global \sbox \algocf@capbox { \algocf@makecaption { #1 } { #2 } } }
+        \RenewDocumentCommand { \algocf@makecaption@ruled } { mm }
+          { \global \sbox \algocf@capbox { \algocf@makecaption { #1 } { #2 } } }
+        \RenewDocumentCommand { \algocf@makecaption@boxed } { mm }
+          { \global \sbox \algocf@capbox { \algocf@makecaption { #1 } { #2 } } }
       }
+      { }
   }
 %    \end{macrocode}
 % \end{macro}
+% \changes{v4.4.1.0}{2023/02/06}{修正\pkgx{algorithm2e}算法三线间距配置}
 % \changes{v3.1.0.0}{2022/12/03}{设置\pkgx{algorithm2e}算法三线间距}
 % \begin{macro}{\ctex_at_end_preamble:n}
 % 设置\pkgx{algorithm2e}算法三线间距。
@@ -5336,8 +5343,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   {
     \bool_if:NT \l_@@_add_alg_rule_vspace_bool
       {
-        \dim_set:Nn \interspacetitleruled { 5pt }
-        \dim_set:Nn \interspacealgoruled  { 5pt }
+        \@ifpackageloaded { algorithm2e }
+          {
+            \dim_set:Nn \interspacetitleruled { 5pt }
+            \dim_set:Nn \interspacealgoruled  { 5pt }
+          }
+          { }
       }
   }
 %    \end{macrocode}
