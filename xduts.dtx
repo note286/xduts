@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/06 v4.4.2.0 Xidian University TeX Suite]
+[2023/02/08 v4.4.2.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/06}{4.4.2.0}
+%<class|sty>  {2023/02/08}{4.4.2.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -424,11 +424,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 引用参考文献时，\tnx{cite}为上标样式，\tnx{parencite}为非上标样式。
 % \subsection{参数设置}
 % \label{参数设置}
+% \changes{v4.4.2.1}{2023/02/08}{修正接口文档说明样式}
 % \changes{v0.5.1.1}{2022/04/06}{增加xdusetup配置文档}
 % \changes{v1.30.0.1}{2022/06/20}{修改xdusetup配置文档}
 % \begin{function}[added=2022-03-07]{\xdusetup}
 %   \begin{syntax}
-%     \tnx{xdusetup}=\argx{键值列表}
+%     \tn{xdusetup}\marg{键值列表}
 %   \end{syntax}
 % \xduts{}提供了一系列选项，可自行配置。
 % 载入文档类/宏包之后，以下所有选项均可通过统一的命令\tnx{xdusetup}来设置。
@@ -470,7 +471,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{字体选项}
 % \begin{function}[added=2022-03-06]{style/cjk-font}
 %   \begin{syntax}
-%     \optx{style/cjk-font}=\metax{adobe|(fandol)|founder|sinotype|win|none}
+%     \opt{style/cjk-font} = adobe|(fandol)|founder|sinotype|win|none
 %   \end{syntax}
 % 设置中文字体，具体配置见\tabrefx{tab:cjk-font}。
 % \end{function}
@@ -507,19 +508,19 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{table}
 % \begin{function}[added=2022-04-01]{style/cjk-fake-bold}
 %   \begin{syntax}
-%     \optx{style/cjk-fake-bold}=\metax{伪粗体粗细程度}
+%     \opt{style/cjk-fake-bold} = \meta{伪粗体粗细程度}
 %   \end{syntax}
 % 设置中文字体伪粗体粗细程度。默认为\valuex{3}，对于部分存在对应粗体字体的中文字体，如FandolSong和FandolHei等，该选项不生效。
 % \end{function}
 % \begin{function}[added=2022-04-01]{style/cjk-fake-slant}
 %   \begin{syntax}
-%     \optx{style/cjk-fake-slant}=\metax{伪斜体倾斜程度}
+%     \opt{style/cjk-fake-slant} = \meta{伪斜体倾斜程度}
 %   \end{syntax}
 % 设置中文字体伪斜体倾斜程度。默认为\valuex{0.2}。
 % \end{function}
 % \begin{function}[added=2022-03-06,updated=2022-05-06]{style/latin-font}
 %   \begin{syntax}
-%     \optx{style/latin-font}=\metax{tac|tacn|thcs|(gyre)|none}
+%     \opt{style/latin-font} = tac|tacn|thcs|(gyre)|none
 %   \end{syntax}
 % 设置英文字体，具体配置见\tabrefx{tab:latin-font}。
 % \end{function}
@@ -550,8 +551,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{table}
 % \begin{function}[added=2023-01-28]{style/latin-sans-scale,style/latin-mono-scale}
 %   \begin{syntax}
-%     \optx{style/latin-sans-scale}=\metax{upper|lower|(off)}
-%     \optx{style/latin-mono-scale}=\metax{upper|lower|(off)}
+%     \opt{style/latin-sans-scale} = upper|lower|(off)
+%     \opt{style/latin-mono-scale} = upper|lower|(off)
 %   \end{syntax}
 % 匹配无衬线族和打字机族字符高度。
 % \end{function}
@@ -562,7 +563,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{optdesc}
 % \begin{function}[added=2022-03-06,updated=2022-03-09]{style/math-font}
 %   \begin{syntax}
-%     \optx{style/math-font}=\metax{asana|cambria|(cm)|fira|garamond|lm|...|termes|xits|none}
+%     \opt{style/math-font} = asana|cambria|(cm)|fira|garamond|lm|...|termes|xits|none
 %   \end{syntax}
 % 设置数学字体，具体配置见\tabrefx{tab:math-font}。除Computer Modern字体外，均使用\pkgx{unicode-math}宏包调用字体。
 % \end{function}
@@ -612,13 +613,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{tblr}
 % \begin{function}[added=2022-03-14]{style/unicode-math}
 %   \begin{syntax}
-%     \optx{style/unicode-math}=\argx{unicode-math宏包选项}
+%     \opt{style/unicode-math} = \marg{unicode-math宏包选项}
 %   \end{syntax}
 % 修改\pkgx{unicode-math}默认选项，具体配置参考\pkgx{unicode-math}宏包文档，仅在数学字体不为Computer Modern时有效。
 % \end{function}
 % \begin{function}[added=2022-03-07]{style/font-type}
 %   \begin{syntax}
-%     \optx{style/font-type}=\metax{(font)|file}
+%     \opt{style/font-type} = (font)|file
 %   \end{syntax}
 % 设置字体调用方式。
 % \end{function}
@@ -628,7 +629,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{optdesc}
 % \begin{function}[added=2022-03-07]{style/font-path}
 %   \begin{syntax}
-%     \optx{style/font-path}=\argx{路径}
+%     \opt{style/font-path} = \marg{路径}
 %   \end{syntax}
 % 设置字体文件路径，即\metax{路径}目录内存储全部所需中文、英文和数学字体文件，仅在\optx{font-type}等于|file|时有效，默认值为\valuex{fonts}。
 % \end{function}
@@ -636,7 +637,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{英文字体}
 % \begin{function}[added=2022-04-01]{style/en-cjk-font}
 %   \begin{syntax}
-%     \optx{style/en-cjk-font}=\metax{true|(false)}
+%     \opt{style/en-cjk-font} = true|(false)
 %   \end{syntax}
 % 切换字体族时，英文是否使用中文字体。主要作用于封面、章节标题、caption、页眉页脚、参考文献列表等。
 % \end{function}
@@ -648,7 +649,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{标题数学字体配置}
 % \begin{function}[added=2023-02-03]{style/title-bold-math}
 %   \begin{syntax}
-%     \optx{style/title-bold-math}=\metax{true|(false)}
+%     \opt{style/title-bold-math} = true|(false)
 %   \end{syntax}
 % 是否自动加粗如下位置中的数学字体：
 % 中文研究生学位论文中，封面和提名页中英文标题，正文所有级别标题和目录一级标题；
@@ -664,7 +665,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{语言配置}
 % \begin{function}[added=2022-03-29]{style/language}
 %   \begin{syntax}
-%     \optx{style/language}=\metax{(zh)|en}
+%     \opt{style/language} = (zh)|en
 %   \end{syntax}
 % 设置论文语言。
 % \end{function}
@@ -676,7 +677,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{参考文献配置}
 % \begin{function}[added=2022-04-02,updated=2022-04-03]{style/bib-backend}
 %   \begin{syntax}
-%     \optx{style/bib-backend}=\metax{bibtex|(biblatex)}
+%     \opt{style/bib-backend} = bibtex|(biblatex)
 %   \end{syntax}
 % 设置参考文献支持方式。
 % \end{function}
@@ -687,7 +688,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.31.0.0}{2022/06/21}{修改\pkgx{biblatex}默认选项}
 % \begin{function}[added=2022-06-21]{style/biblatex-option}
 %   \begin{syntax}
-%     \optx{style/biblatex-option}=\argx{biblatex宏包选项}
+%     \opt{style/biblatex-option} = \marg{biblatex宏包选项}
 %   \end{syntax}
 % 修改\pkgx{biblatex}默认选项，具体配置参考\filex{biblatex-gb7714-2015.pdf}，
 % 仅在\optx{style/bib-backend}等于|biblatex|时有效。例如：
@@ -701,7 +702,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{页面配置}
 % \begin{function}[added=2022-04-12]{style/symmetric-margin}
 %   \begin{syntax}
-%     \optx{style/symmetric-margin}=\metax{true|(false)}
+%     \opt{style/symmetric-margin} = true|(false)
 %   \end{syntax}
 % 设置左右页边距是否对称。
 % \end{function}
@@ -711,7 +712,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{optdesc}
 % \begin{function}[added=2022-05-08]{style/page-vertical-align}
 %   \begin{syntax}
-%     \optx{style/page-vertical-align}=\metax{分散对齐|(顶部对齐)}
+%     \opt{style/page-vertical-align} = 分散对齐|(顶部对齐)
 %   \end{syntax}
 % 设置页面垂直方向的对齐方式。
 % \end{function}
@@ -723,7 +724,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{文件配置}
 % \begin{function}[added=2022-07-01]{style/file-search-path}
 %   \begin{syntax}
-%     \optx{style/file-search-path}=\argx{路径}
+%     \opt{style/file-search-path} = \marg{路径}
 %   \end{syntax}
 % 设置文件搜索路径，可用于\tnx{input}、\tnx{include}和\tnx{includegraphics}，
 % 多个路径之间需要使用英文半角逗号隔开。
@@ -731,9 +732,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{function}
 % \begin{function}[added=2022-07-01]{style/fix-input,style/fix-include,style/fix-includegraphics}
 %   \begin{syntax}
-%     \optx{style/fix-input}=\metax{true|(false)}
-%     \optx{style/fix-include}=\metax{true|(false)}
-%     \optx{style/fix-includegraphics}=\metax{true|(false)}
+%     \opt{style/fix-input} = true|(false)
+%     \opt{style/fix-include} = true|(false)
+%     \opt{style/fix-includegraphics} = true|(false)
 %   \end{syntax}
 % TEXMF树搜索优先级高于用户自定义的文件搜索路径，
 % 如果在TEXMF树内存在同名文件，则会导致错误的文件被加载。
@@ -744,7 +745,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{交叉引用配置}
 % \begin{function}[added=2022-04-16,updated=2022-05-08]{style/ref-add-space}
 %   \begin{syntax}
-%     \optx{style/ref-add-space}=\metax{true|(false)}
+%     \opt{style/ref-add-space} = true|(false)
 %   \end{syntax}
 % 是否自动调整\tnx{ref}和\tnx{pageref}两侧中英文间空白。
 % \end{function}
@@ -760,7 +761,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.0.0.0}{2022/04/14}{设置图、表、算法标签与后面标题之间的间距}
 % \begin{function}[added=2022-04-14]{style/caption-label-sep}
 %   \begin{syntax}
-%     \optx{style/caption-label-sep}=\argx{间距}
+%     \opt{style/caption-label-sep} = \meta{间距}
 %   \end{syntax}
 % 设置图、表、算法标签与后面标题之间的间距，默认值为\valuex{0.75em}。
 % \end{function}
@@ -769,7 +770,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v3.0.0.0}{2022/12/03}{设置图表caption格式}
 % \begin{function}[added=2022-12-03]{style/ft-caption-format}
 %   \begin{syntax}
-%     \optx{style/ft-caption-format}=\metax{plain|(hang)}
+%     \opt{style/ft-caption-format} = plain|(hang)
 %   \end{syntax}
 % 设置图表caption格式。
 % \begin{optdesc}
@@ -780,7 +781,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v3.0.0.0}{2022/12/03}{设置图表caption对齐方式}
 % \begin{function}[added=2022-12-03]{style/ft-caption-align}
 %   \begin{syntax}
-%     \optx{style/ft-caption-align}=\metax{left|centering|(centering-left)}
+%     \opt{style/ft-caption-align} = left|centering|(centering-left)
 %   \end{syntax}
 % 设置图表caption对齐方式。
 % \begin{optdesc}
@@ -792,7 +793,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v0.10.0.1}{2022/04/13}{补充表格内容字号文档说明}
 % \begin{function}[added=2022-04-13,updated=2022-04-15]{style/table-small-font}
 %   \begin{syntax}
-%     \optx{style/table-small-font}=\metax{(true)|false}
+%     \opt{style/table-small-font} = (true)|false
 %   \end{syntax}
 % 设置表格内容字号是否为五号。
 % \end{function}
@@ -804,7 +805,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{算法配置}
 % \begin{function}[added=2022-06-25]{style/algorithm-small-caption}
 %   \begin{syntax}
-%     \optx{style/algorithm-small-caption}=\metax{(true)|false}
+%     \opt{style/algorithm-small-caption} = (true)|false
 %   \end{syntax}
 % 设置算法caption字号是否为五号。
 % \end{function}
@@ -814,7 +815,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{optdesc}
 % \begin{function}[added=2022-04-15]{style/algorithm-small-font}
 %   \begin{syntax}
-%     \optx{style/algorithm-small-font}=\metax{(true)|false}
+%     \opt{style/algorithm-small-font} = (true)|false
 %   \end{syntax}
 % 设置算法内容字号是否为五号。
 % \end{function}
@@ -825,7 +826,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v3.0.0.0}{2022/12/03}{设置算法caption格式}
 % \begin{function}[added=2022-12-03]{style/alg-caption-format}
 %   \begin{syntax}
-%     \optx{style/alg-caption-format}=\metax{plain|(hang)}
+%     \opt{style/alg-caption-format} = plain|(hang)
 %   \end{syntax}
 % 设置算法caption格式。
 % \begin{optdesc}
@@ -836,7 +837,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v3.0.0.0}{2022/12/03}{设置算法caption对齐方式}
 % \begin{function}[added=2022-12-03]{style/alg-caption-align}
 %   \begin{syntax}
-%     \optx{style/alg-caption-align}=\metax{(left)|centering|centering-left}
+%     \opt{style/alg-caption-align} = (left)|centering|centering-left
 %   \end{syntax}
 % 设置算法caption对齐方式。
 % \begin{optdesc}
@@ -848,7 +849,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v3.1.0.0}{2022/12/03}{设置算法三线间距}
 % \begin{function}[added=2022-12-03]{style/add-alg-rule-vspace}
 %   \begin{syntax}
-%     \optx{style/add-alg-rule-vspace}=\metax{true|(false)}
+%     \opt{style/add-alg-rule-vspace} = true|(false)
 %   \end{syntax}
 % 设置是否为ruled样式的算法环境的三条横线增加纵向间距。
 % \begin{optdesc}
@@ -860,13 +861,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{章节配置}
 % \begin{function}[added=2022-04-05]{style/before-skip}
 %   \begin{syntax}
-%     \optx{style/before-skip}=\argx{间距列表}
+%     \opt{style/before-skip} = \marg{间距列表}
 %   \end{syntax}
 % 设置章节标题前的垂直间距，默认值为\valuex{\{24pt, 18pt, 12pt, 12pt, 12pt, 12pt\}}，分别对应\tnx{chapter}、\tnx{section}、\tnx{subsection}、\tnx{subsubsection}、\tnx{paragraph}和\tnx{subparagraph}。
 % \end{function}
 % \begin{function}[added=2022-04-05]{style/after-skip}
 %   \begin{syntax}
-%     \optx{style/after-skip}=\argx{间距列表}
+%     \opt{style/after-skip} = \marg{间距列表}
 %   \end{syntax}
 % 设置章节标题后的垂直间距，默认值为\valuex{\{18pt, 12pt, 6pt, 6pt, 6pt, 6pt\}}，分别对应\tnx{chapter}、\tnx{section}、\tnx{subsection}、\tnx{subsubsection}、\tnx{paragraph}和\tnx{subparagraph}。
 % \end{function}
@@ -880,12 +881,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     style/subpara-zihao
 %   }
 %   \begin{syntax}
-%     \optx{style/chap-zihao}=\metax{0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8}
-%     \optx{style/sec-zihao}=\metax{0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8}
-%     \optx{style/subsec-zihao}=\metax{0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8}
-%     \optx{style/subsubsec-zihao}=\metax{0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8}
-%     \optx{style/para-zihao}=\metax{0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8}
-%     \optx{style/subpara-zihao}=\metax{0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8}
+%     \opt{style/chap-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
+%     \opt{style/sec-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
+%     \opt{style/subsec-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
+%     \opt{style/subsubsec-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
+%     \opt{style/para-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
+%     \opt{style/subpara-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
 %   \end{syntax}
 % 设置章节标题字号。
 % 当论文语言为中文时，默认值分别为\valuex{3}、\valuex{4}、\valuex{4}、\valuex{4}、\valuex{4}、\valuex{4}。
@@ -913,8 +914,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{对照表配置}
 % \begin{function}[added=2022-06-05]{style/customize-los,style/customize-loa}
 %   \begin{syntax}
-%     \optx{style/customize-los}=\metax{(true)|false}
-%     \optx{style/customize-loa}=\metax{(true)|false}
+%     \opt{style/customize-los} = (true)|false
+%     \opt{style/customize-loa} = (true)|false
 %   \end{syntax}
 % 是否完全自定义符号对照表和缩略语对照表。
 % \end{function}
@@ -939,8 +940,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v2.10.2.1}{2022/06/28}{修改对照表默认列格式}
 % \begin{function}[added=2022-06-05,updated=2022-06-28]{style/colspec-los,style/colspec-loa}
 %   \begin{syntax}
-%     \optx{style/colspec-los}=\argx{符号对照表列格式}
-%     \optx{style/colspec-loa}=\argx{缩略语对照表列格式}
+%     \opt{style/colspec-los} = \marg{符号对照表列格式}
+%     \opt{style/colspec-loa} = \marg{缩略语对照表列格式}
 %   \end{syntax}
 % 设置符号对照表和缩略语对照表列格式，
 % 符号对照表列格式默认值为\valuex{Q[l,h]X[l,h]}。
@@ -950,8 +951,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{function}
 % \begin{function}[added=2022-06-05]{style/title-row-los,style/title-row-loa}
 %   \begin{syntax}
-%     \optx{style/title-row-los}=\metax{true|(false)}
-%     \optx{style/title-row-loa}=\metax{true|(false)}
+%     \opt{style/title-row-los} = true|(false)
+%     \opt{style/title-row-loa} = true|(false)
 %   \end{syntax}
 % 是否每页均显示符号对照表和缩略语对照表标题行。
 % 仅在\optx{style/customize-los}和\optx{style/customize-loa}等于\valuex{false}时有效。
@@ -966,8 +967,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.28.4.1}{2022/06/19}{修正作者简介示例}
 % \begin{function}[added=2022-06-07]{style/customize-edubg,style/customize-resresult}
 %   \begin{syntax}
-%     \optx{style/customize-edubg}=\metax{(true)|false}
-%     \optx{style/customize-resresult}=\metax{(true)|false}
+%     \opt{style/customize-edubg} = (true)|false
+%     \opt{style/customize-resresult} = (true)|false
 %   \end{syntax}
 % 是否完全自定义作者简介中教育背景和攻读硕士学位期间的研究成果。
 % \end{function}
@@ -1105,7 +1106,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.9.0.0}{2022/05/03}{增加研究生信息录入选项文档}
 % \begin{function}[added=2022-05-02,updated=2022-05-03]{info/graduate-type}
 %   \begin{syntax}
-%     \optx{info/graduate-type}=\metax{(硕士)|博士}
+%     \opt{info/graduate-type} = (硕士)|博士
 %   \end{syntax}
 % 设置研究生类型。
 % \end{function}
@@ -1115,7 +1116,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{optdesc}
 % \begin{function}[added=2022-05-03]{info/degree-type}
 %   \begin{syntax}
-%     \optx{info/degree-type}=\metax{(学术)|专业}
+%     \opt{info/degree-type} = (学术)|专业
 %   \end{syntax}
 % 设置研究生学位类型。
 % \end{function}
@@ -1125,146 +1126,146 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{optdesc}
 % \begin{function}[added=2022-05-03]{info/degree,info/degree*}
 %   \begin{syntax}
-%     \optx{info/degree}=\argx{研究生学位类别中文名称}
-%     \optx{info/degree*}=\argx{研究生学位类别英文名称}
+%     \opt{info/degree} = \meta{研究生学位类别中文名称}
+%     \opt{info/degree*} = \meta{研究生学位类别英文名称}
 %   \end{syntax}
 % 设置研究生学位类别。
 % \end{function}
 % \begin{function}[added=2022-04-01,updated=2022-05-30]{info/title,info/title*}
 %   \begin{syntax}
-%     \optx{info/title}=\argx{论文中文标题}
-%     \optx{info/title*}=\argx{论文英文标题}
+%     \opt{info/title} = \meta{论文中文标题}
+%     \opt{info/title*} = \meta{论文英文标题}
 %   \end{syntax}
 % 设置论文标题。建议使用换行控制符（|\\|）手动制定换行位点，
 % 本科毕业设计论文最多两行，研究生学位论文无限制。
 % \end{function}
 % \begin{function}[added=2022-04-01]{info/department}
 %   \begin{syntax}
-%     \optx{info/department}=\argx{院系名称}
+%     \opt{info/department} = \meta{院系名称}
 %   \end{syntax}
 % 设置院系名称。
 % \end{function}
 % \begin{function}[added=2022-04-01,updated=2022-05-03]{info/major,info/major*}
 %   \begin{syntax}
-%     \optx{info/major}=\argx{专业名称/一级学科名称}
-%     \optx{info/major*}=\argx{一级学科英文名称}
+%     \opt{info/major} = \meta{专业名称/一级学科名称}
+%     \opt{info/major*} = \meta{一级学科英文名称}
 %   \end{syntax}
 % 设置专业名称/一级学科名称。
 % \end{function}
 % \begin{function}[added=2022-05-03]{info/sub-major}
 %   \begin{syntax}
-%     \optx{info/sub-major}=\argx{二级学科名称}
+%     \opt{info/sub-major} = \meta{二级学科名称}
 %   \end{syntax}
 % 设置二级学科名称。
 % \end{function}
 % \begin{function}[added=2022-05-03]{info/domain}
 %   \begin{syntax}
-%     \optx{info/domain}=\argx{领域}
+%     \opt{info/domain} = \meta{领域}
 %   \end{syntax}
 % 设置领域名称。
 % \end{function}
 % \begin{function}[added=2022-04-01,updated=2022-05-03]{info/author,info/author*}
 %   \begin{syntax}
-%     \optx{info/author}=\argx{作者姓名}
-%     \optx{info/author*}=\argx{作者姓名拼音}
+%     \opt{info/author} = \meta{作者姓名}
+%     \opt{info/author*} = \meta{作者姓名拼音}
 %   \end{syntax}
 % 设置作者姓名。
 % \end{function}
 % \begin{function}[added=2022-04-01,updated=2022-05-03]{info/supervisor,info/supervisor*}
 %   \begin{syntax}
-%     \optx{info/supervisor}=\argx{导师姓名}
-%     \optx{info/supervisor*}=\argx{导师姓名拼音}
+%     \opt{info/supervisor} = \meta{导师姓名}
+%     \opt{info/supervisor*} = \meta{导师姓名拼音}
 %   \end{syntax}
 % 设置导师姓名。
 % \end{function}
 % \begin{function}[added=2022-04-01]{info/supervisor-department}
 %   \begin{syntax}
-%     \optx{info/supervisor-department}=\argx{院内导师姓名}
+%     \opt{info/supervisor-department} = \meta{院内导师姓名}
 %   \end{syntax}
 % 设置院内导师姓名。
 % \end{function}
 % \begin{function}[added=2022-04-01,updated=2022-05-03]{info/supervisor-enterprise,info/supervisor-enterprise*}
 %   \begin{syntax}
-%     \optx{info/supervisor-enterprise}=\argx{校外导师姓名}
-%     \optx{info/supervisor-enterprise*}=\argx{校外导师姓名拼音}
+%     \opt{info/supervisor-enterprise} = \meta{校外导师姓名}
+%     \opt{info/supervisor-enterprise*} = \meta{校外导师姓名拼音}
 %   \end{syntax}
 % 设置校外导师姓名。
 % \end{function}
 % \begin{function}[added=2022-04-01]{info/supervisor-school}
 %   \begin{syntax}
-%     \optx{info/supervisor-school}=\argx{校内导师姓名}
+%     \opt{info/supervisor-school} = \meta{校内导师姓名}
 %   \end{syntax}
 % 设置校内导师姓名。
 % \end{function}
 % \begin{function}[added=2022-05-03]{info/supervisor-title,info/supervisor-title*}
 %   \begin{syntax}
-%     \optx{info/supervisor-title}=\argx{导师职称}
-%     \optx{info/supervisor-title*}=\argx{导师职称英文名称}
+%     \opt{info/supervisor-title} = \meta{导师职称}
+%     \opt{info/supervisor-title*} = \meta{导师职称英文名称}
 %   \end{syntax}
 % 设置导师职称。
 % \end{function}
 % \begin{function}[added=2022-05-03]{info/supervisor-enterprise-title,info/supervisor-enterprise-title*}
 %   \begin{syntax}
-%     \optx{info/supervisor-enterprise-title}=\argx{校外导师职称}
-%     \optx{info/supervisor-enterprise-title*}=\argx{校外导师职称英文名称}
+%     \opt{info/supervisor-enterprise-title} = \meta{校外导师职称}
+%     \opt{info/supervisor-enterprise-title*} = \meta{校外导师职称英文名称}
 %   \end{syntax}
 % 设置校外导师职称。
 % \end{function}
 % \begin{function}[added=2022-12-31]{info/class}
 %   \begin{syntax}
-%     \optx{info/class}=\argx{界}
+%     \opt{info/class} = \meta{界}
 %   \end{syntax}
 % 设置界，即毕业年份。
 % \end{function}
 % \begin{function}[added=2022-04-01]{info/class-id}
 %   \begin{syntax}
-%     \optx{info/class-id}=\argx{作者班级号}
+%     \opt{info/class-id} = \meta{作者班级号}
 %   \end{syntax}
 % 设置作者班级号。
 % \end{function}
 % \begin{function}[added=2022-04-01]{info/student-id}
 %   \begin{syntax}
-%     \optx{info/student-id}=\argx{作者学号}
+%     \opt{info/student-id} = \meta{作者学号}
 %   \end{syntax}
 % 设置作者学号。
 % \end{function}
 % \begin{function}[added=2022-05-03]{info/clc}
 %   \begin{syntax}
-%     \optx{info/clc}=\argx{中图分类号}
+%     \opt{info/clc} = \meta{中图分类号}
 %   \end{syntax}
 % 设置中图分类号。
 % \end{function}
 % \begin{function}[added=2022-05-03]{info/secret-level}
 %   \begin{syntax}
-%     \optx{info/secret-level}=\metax{秘密|(公开)}
+%     \opt{info/secret-level} = 秘密|(公开)
 %   \end{syntax}
 % 设置密级。
 % \end{function}
 % \begin{function}[added=2022-05-30]{info/secret-year}
 %   \begin{syntax}
-%     \optx{info/secret-year}=\argx{保密年限}
+%     \opt{info/secret-year} = \meta{保密年限}
 %   \end{syntax}
 % 设置保密年限，仅在\optx{secret-level}等于|秘密|时有效。
 % \end{function}
 % \changes{v1.17.0.1}{2022/05/29}{研究生学位论文提交日期格式}
 % \begin{function}[added=2022-05-03,updated=2022-12-31]{info/submit-date}
 %   \begin{syntax}
-%     \optx{info/submit-date}=\argx{yyyy-mm}
-%     \optx{info/submit-date}=\argx{yyyy-mm-dd}
+%     \opt{info/submit-date} = \meta{yyyy-mm}
+%     \opt{info/submit-date} = \meta{yyyy-mm-dd}
 %   \end{syntax}
 % 设置提交日期，如果留空，则自动使用编译当天日期。
 % \end{function}
 % \changes{v2.1.0.0}{2022/06/22}{声明页扫描文件路径}
 % \begin{function}[added=2022-06-22]{info/statement-scan}
 %   \begin{syntax}
-%     \optx{info/statement-scan}=\argx{学位论文独创性声明和关于论文使用授权的说明页扫描文件路径}
+%     \opt{info/statement-scan} = \marg{学位论文独创性声明和关于论文使用授权的说明页扫描文件路径}
 %   \end{syntax}
 % 设置学位论文独创性声明和关于论文使用授权的说明页扫描文件路径。
 % \end{function}
 % \changes{v2.2.0.0}{2022/06/23}{声明页签名文件路径}
 % \begin{function}[added=2022-06-23]{info/statement-sign}
 %   \begin{syntax}
-%     \optx{info/statement-sign}=\argx{文件路径1,文件路径2,文件路径3,文件路径4,文件路径5,文件路径6}
+%     \opt{info/statement-sign} = \marg{文件路径1,文件路径2,文件路径3,文件路径4,文件路径5,文件路径6}
 %   \end{syntax}
 % 设置声明页签名文件路径。
 % 文件支持格式与\tnx{includegraphics}一致，建议文件为透明背景且仅有黑色，并尽量减少边距。
@@ -1279,7 +1280,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{optdesc}
 % \begin{function}[added=2022-12-31]{info/sign}
 %   \begin{syntax}
-%     \optx{info/sign}=\argx{文件路径1,文件路径2}
+%     \opt{info/sign} = \marg{文件路径1,文件路径2}
 %   \end{syntax}
 % 设置开题报告签名文件路径。
 % 文件支持格式与\tnx{includegraphics}一致，建议文件为透明背景且仅有黑色，并尽量减少边距。
@@ -1290,7 +1291,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{optdesc}
 % \begin{function}[added=2022-12-31]{info/date}
 %   \begin{syntax}
-%     \optx{info/date}=\argx{日期1,日期2}
+%     \opt{info/date} = \marg{日期1,日期2}
 %   \end{syntax}
 % 设置开题报告签名日期，格式为\argx{yyyy-mm-dd}，如果留空，则自动使用编译当天日期。
 % \end{function}
@@ -1300,55 +1301,55 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{optdesc}
 % \begin{function}[added=2022-04-02]{info/abstract,info/abstract*}
 %   \begin{syntax}
-%     \optx{info/abstract}=\argx{中文摘要文件路径}
-%     \optx{info/abstract*}=\argx{英文摘要文件路径}
+%     \opt{info/abstract} = \marg{中文摘要文件路径}
+%     \opt{info/abstract*} = \marg{英文摘要文件路径}
 %   \end{syntax}
 % 设置摘要文件路径，相应文件内仅撰写摘要内容，无需任何环境。
 % \end{function}
 % \begin{function}[added=2022-04-02]{info/keywords,info/keywords*}
 %   \begin{syntax}
-%     \optx{info/keywords}=\argx{中文关键词}
-%     \optx{info/keywords*}=\argx{英文关键词}
+%     \opt{info/keywords} = \marg{中文关键词}
+%     \opt{info/keywords*} = \marg{英文关键词}
 %   \end{syntax}
 % 设置关键词，关键词之间需要使用英文半角逗号隔开。
 % \end{function}
 % \changes{v1.22.0.0}{2022/06/05}{符号对照表文件路径}
 % \begin{function}[added=2022-06-05]{info/los}
 %   \begin{syntax}
-%     \optx{info/los}=\argx{符号对照表文件路径}
+%     \opt{info/los} = \marg{符号对照表文件路径}
 %   \end{syntax}
 % 设置符号对照表文件路径。
 % \end{function}
 % \changes{v1.22.0.0}{2022/06/05}{缩略语对照表文件路径}
 % \begin{function}[added=2022-06-05]{info/loa}
 %   \begin{syntax}
-%     \optx{info/loa}=\argx{缩略语对照表文件路径}
+%     \opt{info/loa} = \marg{缩略语对照表文件路径}
 %   \end{syntax}
 % 设置缩略语对照表文件路径。
 % \end{function}
 % \changes{v2.0.0.0}{2022/06/21}{修改参考文献文件路径选项名称}
 % \begin{function}[added=2022-06-21]{info/bib-resource}
 %   \begin{syntax}
-%     \optx{info/bib-resource}=\argx{参考文献文件路径}
+%     \opt{info/bib-resource} = \marg{参考文献文件路径}
 %   \end{syntax}
 % 设置参考文献\filex{.bib}文件路径，多个文件之间需要使用英文半角逗号隔开。
 % \end{function}
 % \changes{v4.0.0.0}{2022/12/11}{增加附录文件接口}
 % \begin{function}[added=2022-12-11]{info/appendix}
 %   \begin{syntax}
-%     \optx{info/appendix}=\argx{附录文件路径}
+%     \opt{info/appendix} = \marg{附录文件路径}
 %   \end{syntax}
 % 设置附录文件路径，多个文件之间需要使用英文半角逗号隔开。
 % \end{function}
 % \begin{function}[added=2022-04-02]{info/acknowledgements}
 %   \begin{syntax}
-%     \optx{info/acknowledgements}=\argx{致谢文件路径}
+%     \opt{info/acknowledgements} = \marg{致谢文件路径}
 %   \end{syntax}
 % 设置致谢文件路径，相应文件内仅撰写致谢内容，无需任何环境。
 % \end{function}
 % \begin{function}[added=2022-06-07]{info/bio}
 %   \begin{syntax}
-%     \optx{info/bio}=\argx{作者简介路径}
+%     \opt{info/bio} = \marg{作者简介路径}
 %   \end{syntax}
 % 设置作者简介文件路径，文件内容可参考\secrefx{作者简介配置}中的示例。
 % \end{function}
@@ -1621,7 +1622,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v2.12.1.0}{2022/07/03}{页面和信息移除选项增加分组}
 % \begin{function}[added=2022-06-26]{style/remove-page}
 %   \begin{syntax}
-%     \optx{style/remove-page}=\argx{封面|提名页|声明页|摘要|索引|对照表|目录|附录|参考文献|致谢|作者简介}
+%     \opt{style/remove-page} = \marg{封面|提名页|声明页|摘要|索引|对照表|目录|附录|参考文献|致谢|作者简介}
 %   \end{syntax}
 % 设置移除的页面，可多选，多个值之间需要使用英文半角逗号隔开。
 % \end{function}
@@ -1633,19 +1634,19 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{optdesc}
 % \begin{function}[added=2022-06-26]{style/remove-header}
 %   \begin{syntax}
-%     \optx{style/remove-header}=\metax{true|(false)}
+%     \opt{style/remove-header} = true|(false)
 %   \end{syntax}
 % 设置是否移除页眉。
 % \end{function}
 % \begin{function}[added=2022-06-26]{style/remove-footer}
 %   \begin{syntax}
-%     \optx{style/remove-footer}=\metax{true|(false)}
+%     \opt{style/remove-footer} = true|(false)
 %   \end{syntax}
 % 设置是否移除页脚。
 % \end{function}
 % \begin{function}[added=2022-06-26]{style/anonymous}
 %   \begin{syntax}
-%     \optx{anonymous}=\metax{true|(false)}
+%     \opt{anonymous} = true|(false)
 %   \end{syntax}
 % 设置是否开启匿名，与\secrefx{额外命令}中的\tnx{anon}搭配使用。
 % \end{function}
