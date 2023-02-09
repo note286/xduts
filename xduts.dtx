@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/09 v4.4.4.0 Xidian University TeX Suite]
+[2023/02/09 v4.4.5.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/09}{4.4.4.0}
+%<class|sty>  {2023/02/09}{4.4.5.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -4051,11 +4051,15 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 \cs_generate_variant:Nn \@@_get_text_width:Nn { NV }
 %    \end{macrocode}
 % \end{macro}
+% \changes{v4.4.5.0}{2023/02/09}{修复书签中目录跳转异常}
 % \begin{macro}{\@@_add_bookmark:n}
 % 为当前位置添加书签。
 %    \begin{macrocode}
 \cs_new:Npn \@@_add_bookmark:n #1
-  { \currentpdfbookmark { #1 } { #1 } }
+  {
+    \cleardoublepage
+    \currentpdfbookmark { #1 } { #1 }
+  }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_add_toc:n}
@@ -5837,7 +5841,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \loadgeometry { cover }
     \pagestyle    { empty }
     \dim_set:Nn \parindent { 0pt }
-    \@@_add_bookmark:n { \@@_lang_switch:nn { 封面 } { Cover } }
 %    \end{macrocode}
 % 排版班级和学号。
 %    \begin{macrocode}
@@ -7136,7 +7139,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \dim_set:Nn \baselineskip { 20pt }
     \bool_if:NF \l_@@_rm_cover_bool
       {
-        \@@_add_bookmark:n { \@@_lang_switch:nn { 封面 } { Cover } }
 %    \end{macrocode}
 % \changes{v4.4.0.0}{2023/02/03}{研究生封面标题中数学字体加粗}
 % \changes{v1.18.1.0}{2022/05/30}{不拆分研究生封面标题}
