@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/09 v4.4.3.0 Xidian University TeX Suite]
+[2023/02/09 v4.4.4.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/09}{4.4.3.0}
+%<class|sty>  {2023/02/09}{4.4.4.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -5620,22 +5620,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \cs_set_eq:NN \SlashFont \rmfamily
       }
 %    \end{macrocode}
-%    \begin{macrocode}
-%<*xdupgthesis>
-%    \end{macrocode}
-% \changes{v2.12.2.0}{2022/08/15}{修正本科毕业设计参考文献列表编译错误}
-% \changes{v2.7.0.0}{2022/06/26}{\bibtex{}下允许不生成文献列表}
-% \bibtex{}下允许不生成文献列表。
-%    \begin{macrocode}
-\ctex_at_end_preamble:n
-  {
-    \bool_if:NT \l_@@_rm_ref_bool
-      { \RequirePackage { bibentry } }
-  }
-%    \end{macrocode}
-%    \begin{macrocode}
-%</xdupgthesis>
-%    \end{macrocode}
 % \bibtex{}和\pkgx{biblatex}通用字体字号配置。
 %    \begin{macrocode}
     \cs_set:Npn \bibfont
@@ -5647,6 +5631,26 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %<xdupgthesis>        \dim_set:Nn \baselineskip { 20pt }
       }
   }
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*xdupgthesis>
+%    \end{macrocode}
+% \changes{v4.4.4.0}{2023/02/09}{精简研究生学位论文移除参考文献列表宏包调用}
+% \changes{v2.12.2.0}{2022/08/15}{修正本科毕业设计参考文献列表编译错误}
+% \changes{v2.7.0.0}{2022/06/26}{\bibtex{}下允许不生成文献列表}
+% \bibtex{}下允许不生成文献列表。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \tl_if_eq:NnT \l_@@_bib_tool_tl { bibtex }
+      {
+        \bool_if:NT \l_@@_rm_ref_bool
+          { \RequirePackage { bibentry } }
+      }
+  }
+%    \end{macrocode}
+%    \begin{macrocode}
+%</xdupgthesis>
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
