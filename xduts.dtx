@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/11 v4.4.5.1 Xidian University TeX Suite]
+[2023/02/11 v4.4.5.2 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/11}{4.4.5.1}
+%<class|sty>  {2023/02/11}{4.4.5.2}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -161,12 +161,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \fi
 % \GetFileInfo{\jobname.dtx}
 % \title{\bfseries\xduts[]{}手册}
+% \hypersetup{pdftitle=XDUTS手册}
 % \author{\href{https://github.com/note286/}{note286}}
 % \date{\href{https://github.com/note286/xduts/releases/tag/\fileversion/}{\fileversion}~(\filedate)}
 % \maketitle
 % \thispagestyle{empty}
 % \begin{abstract}
-% \xduts[]{}是面向西安电子科技大学本科生/研究生的\LaTeXiii{}文档类和宏包套装，
+% \xduts[]{}是面向西安电子科技大学本科生/研究生的\LaTeXiii{}宏包和文档类套装，
 % 仅支持\XeLaTeX{}，
 % 仅支持\TeXLive{}、Mac\TeX{}、\MiKTeX{}，
 % 支持Windows、macOS、GNU/Linux、Overleaf和TeXPage。
@@ -179,7 +180,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \item \xduts[]{}的发布遵守
 % \LaTeX{} Project Public License\footurl{https://www.latex-project.org/lppl.txt}，
 % 使用前请认真阅读协议内容。
-% \item 任何个人或组织以\xduts{}为基础进行修改、扩展而生成的新的\LaTeX{}文档类/宏包，
+% \item 任何个人或组织以\xduts{}为基础进行修改或扩展生成新的\LaTeX{}宏包/文档类，
 % 请严格遵守\LaTeX{} Project Public License，
 % 由于违犯协议而引起的任何纠纷争端均与\xduts{}作者无关。
 % \end{enumerate}
@@ -192,16 +193,17 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \@starttoc{toc}
 % \makeatother
 % \clearpage
+% \changes{v4.4.5.2}{2023/02/11}{调整文档介绍顺序}
 % \changes{v2.14.1.3}{2022/11/23}{修改文档措辞}
 % \section{介绍}
 % \xduts[]{}(Xidian University \TeX{} Suite)
 % 是为了帮助西安电子科技大学本科生/研究生撰写开题报告/学位论文及其他文档
-% 而编写的\LaTeXiii{}文档类和宏包套装，目前有：
+% 而编写的\LaTeXiii{}宏包和文档类套装，目前有：
 % \begin{itemize}
 % \item \pkgx[]{xdufont.sty}[]，中/英/数学字体配置宏包。
 % \item \clsx[]{xduugtp.cls}[]，本科生毕业设计论文开题报告文档类。
-% \item \clsx[]{xdupgthesis.cls}[]，研究生学位论文文档类。
 % \item \clsx[]{xduugthesis.cls}[]，本科生毕业设计论文文档类。
+% \item \clsx[]{xdupgthesis.cls}[]，研究生学位论文文档类。
 % \end{itemize}
 % 即将支持：
 % \begin{itemize}
@@ -221,23 +223,22 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 《一份（不太）简短的\LaTeXe{}介绍》\footctan{info/lshort/chinese/lshort-zh-cn.pdf}
 % 中提及的内容本文档将不再赘述。
 % 此外，在\secrefx{使用建议}中给出了部分使用建议。
-% \xduts[]{}中的所有文档类和宏包仅内置了实现功能所需的宏包，
+% \xduts[]{}中的所有宏包和文档类仅内置了实现功能所需的宏包，
 % 对于常用的宏包如\pkgx{subcaption}[]、\pkgx[]{algpseudocodex}[]、
 % \pkgx[]{amsmath}[]、\pkgx[]{amsthm}和\pkgx{siunitx}等\textbf{均未内置}，
-% 用户可以参考\secrefx{兼容性说明}后，视需求自行加载。
+% 用户可以参考\secrefx{兼容性说明}视需求自行加载。
 % 相应格式规范均已实现，用户仅需要撰写文章内容即可，请勿随意添加格式修改命令。
 % \changes{v1.1.2.1}{2022/04/15}{增加默认值说明}
 % \textbf{部分样式的默认值并不严格符合学校规范}，
 % 用户可以结合学校规范并参考\secrefx{功能说明}功能说明自行修改。
 % \par
 % 请在最新版\LaTeX{}环境中使用最新版\xduts{}[]，
-% 认真阅读相应文档类/宏包使用说明章节后即可使用\xduts{}[]。
+% 认真阅读相应宏包/文档类使用说明章节后即可使用\xduts{}[]。
 % \subsection{\pkgx[]{xdufont}宏包}
 % \pkgx[]{xdufont}宏包基于\pkgx{xeCJK}宏包和\pkgx{unicode-math}宏包，
 % 在中文字体配置方面相较于\pkgx{ctex}宏包的主要优势为默认支持宋体粗体、斜体，
 % 内置多种字体配置，可任意搭配中/英/数学字体，更加符合校内各种文档的撰写要求。
 % \par
-% \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置，具体的配置选项见\secrefx{字体选项}。
 % \pkgx[]{xdufont}宏包可以搭配任意文档类进行使用，例如：
 % \begin{lstlisting}
 % \documentclass{article}
@@ -248,6 +249,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \textsf{黑体}\textbf{\textsf{加粗}}\textsl{\textsf{加斜}}
 % \end{document}
 % \end{lstlisting}
+% \par
+% \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置，具体的配置选项见\secrefx{字体选项}。
 % \par
 % 学会以上用法后即可使用\pkgx{xdufont}宏包。
 % \subsection{\clsx[]{xduugtp}文档类}
@@ -279,6 +282,41 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 支持的信息录入选项见\secrefx{信息录入}。
 % \par
 % 学会以上用法后即可使用\clsx{xduugtp}文档类。
+% \subsection{\clsx[]{xduugthesis}文档类}
+% \clsx[]{xduugthesis}文档类基于\clsx{ctexbook}文档类，
+% 提供多种字体配置，部分样式可自定义，信息录入便捷。
+% \changes{v1.3.1.1}{2022/04/26}{英文本科生毕业设计规范参考说明}
+% 请在阅读《本科生毕业设计（论文）工作手册》后再使用\clsx{xduugthesis}文档类。
+% \par
+% 使用\clsx{xduugthesis}文档类的最小示例如下所示：
+% \begin{lstlisting}
+% \documentclass{xduugthesis}
+% \xdusetup{}
+% \begin{document}
+% \chapter{欢迎}
+% 使用\LaTeX{}！
+% \end{document}
+% \end{lstlisting}
+% \par
+% \changes{v1.30.0.1}{2022/06/20}{移除info录入示例}
+% \secrefx{编译}介绍了如何编译，
+% \secrefx{参考文献引用}介绍了如何引用参考文献，
+% \secrefx{参数设置}介绍了如何自定义配置。
+% 其中，字体选项见\secrefx{字体选项}，
+% 部分英文字体切换见\secrefx{英文字体}，
+% 标题数学字体配置见\secrefx{标题数学字体配置}，
+% 参考文献配置见\secrefx{参考文献配置}，
+% 页面配置见\secrefx{页面配置}，
+% \changes{v2.12.0.1}{2022/07/01}{本科生毕业设计增加文件配置}
+% 文件配置见\secrefx{文件配置}，
+% 交叉引用配置见\secrefx{交叉引用配置}，
+% caption配置见\secrefx{caption配置}，
+% 图表配置见\secrefx{图表配置}，
+% 算法配置见\secrefx{算法配置}，
+% 章节配置见\secrefx{章节配置}，
+% 支持的信息录入选项见\secrefx{信息录入}。
+% \par
+% 学会以上用法后即可使用\clsx{xduugthesis}文档类。
 % \changes{v1.4.0.0}{2022/04/26}{新增研究生学位论文}
 % \changes{v1.30.0.2}{2022/06/20}{研究生学位论文文档}
 % \changes{v2.2.1.1}{2022/06/23}{移除研究生学位论文中关于章节配置的文档}
@@ -320,47 +358,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 页面和信息移除见\secrefx{页面和信息移除}。
 % \par
 % 学会以上用法后即可使用\clsx{xdupgthesis}文档类。
-% 另外，在\secrefx{额外命令}中提供了部分额外命令来增强排版效果。
-% \subsection{\clsx[]{xduugthesis}文档类}
-% \clsx[]{xduugthesis}文档类基于\clsx{ctexbook}文档类，
-% 提供多种字体配置，部分样式可自定义，信息录入便捷。
-% \changes{v1.3.1.1}{2022/04/26}{英文本科生毕业设计规范参考说明}
-% 请在阅读《本科生毕业设计（论文）工作手册》后再使用\clsx{xduugthesis}文档类。
-% \par
-% 使用\clsx{xduugthesis}文档类的最小示例如下所示：
-% \begin{lstlisting}
-% \documentclass{xduugthesis}
-% \xdusetup{}
-% \begin{document}
-% \chapter{欢迎}
-% 使用\LaTeX{}！
-% \end{document}
-% \end{lstlisting}
-% \par
-% \changes{v1.30.0.1}{2022/06/20}{移除info录入示例}
-% \secrefx{编译}介绍了如何编译，
-% \secrefx{参考文献引用}介绍了如何引用参考文献，
-% \secrefx{参数设置}介绍了如何自定义配置。
-% 其中，字体选项见\secrefx{字体选项}，
-% 部分英文字体切换见\secrefx{英文字体}，
-% 标题数学字体配置见\secrefx{标题数学字体配置}，
-% 参考文献配置见\secrefx{参考文献配置}，
-% 页面配置见\secrefx{页面配置}，
-% \changes{v2.12.0.1}{2022/07/01}{本科生毕业设计增加文件配置}
-% 文件配置见\secrefx{文件配置}，
-% 交叉引用配置见\secrefx{交叉引用配置}，
-% caption配置见\secrefx{caption配置}，
-% 图表配置见\secrefx{图表配置}，
-% 算法配置见\secrefx{算法配置}，
-% 章节配置见\secrefx{章节配置}，
-% 支持的信息录入选项见\secrefx{信息录入}。
-% \par
-% 学会以上用法后即可使用\clsx{xduugthesis}文档类。
 % 另外，在\secrefx{额外命令}和\secrefx{额外功能}中提供了部分额外命令和功能来增强排版效果。
 % \changes{v1.3.0.1}{2022/04/20}{增加兼容性说明}
 % \section{兼容性说明}
 % \label{兼容性说明}
-% \clsx[]{xdupgthesis}和\clsx{xduugthesis}文档类对部分常见宏包进行了针对性地适配，
+% \clsx[]{xduugthesis}和\clsx{xdupgthesis}文档类对部分常见宏包进行了针对性地适配，
 % 需要注意的是，这些宏包仍需用户视需求自行加载。
 % \subsection{算法}
 % 主要适配算法内容字号和默认浮动位置。
@@ -384,7 +386,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v4.0.0.1}{2022/12/11}{增加使用建议}
 % \section{使用建议}
 % \label{使用建议}
-% 本节主要针对\clsx{xdupgthesis}和\clsx{xduugthesis}文档类提出使用建议，
+% 本节主要针对\clsx{xduugthesis}和\clsx{xdupgthesis}文档类提出使用建议，
 % 用户仍可不遵守本节的建议并根据自己的偏好进行使用。
 % \par
 % 宏包方面，在\secrefx{兼容性说明}中提到已适配多种宏包。
@@ -392,26 +394,26 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 推荐使用\pkgx{algorithm}和\pkgx{algpseudocodex}宏包排版算法；
 % 推荐使用\pkgx{subcaption}宏包排版子图和子表；
 % 推荐使用\pkgx{tabularray}宏包排版\textbf{所有的表格}；
-% 推荐使用\pkgx{siunitx}宏包排版单位；
-% 推荐使用\pkgx{xurl}宏包实现链接自动折行。
-% 另外，不要加载任何与参考文献相关的宏包。
+% 推荐使用\pkgx{enumitem}宏包修改列表环境样式；
+% 推荐使用\pkgx{siunitx}宏包排版单位。
+% 另外，不要加载任何与参考文献和中英文字体相关的宏包。
 % 使用宏包提供的功能时，\textbf{请阅读相应的宏包文档}。
 % \par
 % 字体方面，中文、英文和数学字体均提供了多种配置。
 % 对于中英文字体，用户可以根据自己的喜好选择合适的配置，
 % 部分配置对应的字体可能需要自行购买并安装。
-% 对于数学字体，强烈建议用户选择一个与中英文字体搭配的数学字体。
+% 对于数学字体，建议用户选择一个与英文字体搭配的数学字体。
 % 注意，当使用非Computer Modern字体时，
 % 部分命令（例如，加粗等）可能与传统方式不同，
-% 请自行阅读\pkgx{unicode-math}文档。
+% 请阅读\pkgx{unicode-math}文档。
 % \section{功能说明}
 % \label{功能说明}
-% 请根据\secrefx{使用说明}中相应文档类/宏包的说明来选择性地阅读本节内容。
+% 请根据\secrefx{使用说明}中相应宏包/文档类的说明来选择性地阅读本节内容。
 % \subsection{编译}
 % \label{编译}
 % \changes{v0.5.1.2}{2022/04/07}{增加编译说明}
-% \LaTeX{}本身是命令行程序，通过不同的命令调用所需的编译引擎，编辑器提供的快捷按钮实际只是做了包装。
-% \xduts[]{}仅支持\XeLaTeX{}，参考文献后端程序默认为\cmdx{biber}[]，也可以切换为\cmdx{bibtex}[]。
+% \xduts[]{}仅支持\XeLaTeX{}，
+% 参考文献后端程序默认为\cmdx{biber}[]，也可以参考\secrefx{参考文献配置}切换为\cmdx{bibtex}[]。
 % \subsection{参考文献引用}
 % \label{参考文献引用}
 % \changes{v4.3.0.1}{2023/01/30}{修改文档中关于参考文献的描述}
@@ -429,7 +431,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \tn{xdusetup}\marg{键值列表}
 %   \end{syntax}
 % \xduts[]{}提供了一系列选项，可自行配置。
-% 载入文档类/宏包之后，以下所有选项均可通过统一的命令\tnx{xdusetup}来设置。
+% 载入宏包/文档类之后，以下所有选项均可通过统一的命令\tnx{xdusetup}来设置。
 % \csx[]{xdusetup}的参数是一组由（英文）逗号隔开的选项列表，
 % 下文中尖括号内列出了若干个允许的选项，其中加粗的为默认选项。
 % 列表中的选项通常是\kvoptx{\metax[]{key}[]}{\metax[]{value}[]}的形式。
@@ -1802,7 +1804,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 %<@@=xdu>
 %    \end{macrocode}
-% \subsection{文档类和宏包}
+% \subsection{宏包和文档类}
 %    \begin{macrocode}
 %<*class|sty>
 %    \end{macrocode}
