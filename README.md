@@ -70,4 +70,4 @@ Be sure to read the documentation (i.e., `xduts.pdf`) from the beginning in orde
 
 ## License
 
-XDUTS is subject to [the LaTeX Project Public License 1.3c](https://ctan.org/license/lppl1.3).
+XDUTS is subject to [the LaTeX Project Public License version 1.3c or later version](https://www.latex-project.org/lppl.txt).
