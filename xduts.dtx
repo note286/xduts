@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/09 v4.4.5.0 Xidian University TeX Suite]
+[2023/02/11 v4.4.5.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/09}{4.4.5.0}
+%<class|sty>  {2023/02/11}{4.4.5.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -43,9 +43,6 @@
 }
 \setcounter{tocdepth}{5}
 \ctexset{punct=quanjiao}
-\usepackage{xurl}
-\usepackage{xspace}
-\xspaceaddexceptions{。？！，、；：“”‘’—….－-～·《》<>＿}
 \usepackage{pifont}
 \newcommand{\cmark}{\ding{51}}
 \usepackage{subcaption}
@@ -57,48 +54,48 @@
 \DefTblrTemplate{caption-sep}{default}{\quad}
 \DefTblrTemplate{conthead-text}{default}{\textbf{(续表)}}
 \DefTblrTemplate{contfoot-text}{default}{\textbf{接下页}}
+\changes{v4.4.5.1}{2023/02/11}{移除文档对xspace的依赖}
 % 交叉引用
-\newcommand{\secrefx}[1]{第\xspace\ref{#1}\xspace 节}
-\newcommand{\tabrefx}[1]{\tablename\xspace\ref{#1}\xspace}
-\newcommand{\figrefx}[1]{\figurename\xspace\ref{#1}\xspace}
+\NewDocumentCommand{\secrefx}{m}{第\space\ref{#1}\space{}节}
+\NewDocumentCommand{\tabrefx}{O{}mO{\space}}{#1\tablename\space\ref{#2}#3}
+\NewDocumentCommand{\figrefx}{O{}mO{\space}}{#1\figurename\space\ref{#2}#3}
 % 文档类选项
-\newcommand{\optx}[1]{\xspace{\ttfamily\seqsplit{#1}}\xspace}
+\NewDocumentCommand{\optx}{O{\space}mO{\space}}{#1{\ttfamily\seqsplit{#2}}#3}
 % \name LaTeX3控制序列
-\newcommand{\csx}[1]{\xspace\cs{#1}\xspace}
+\NewDocumentCommand{\csx}{O{\space}mO{\space}}{#1\cs{#2}#3}
 % \name 传统LaTeX2e命令
-\newcommand{\tnx}[1]{\xspace\tn{#1}\xspace}
+\NewDocumentCommand{\tnx}{O{\space}mO{\space}}{#1\tn{#2}#3}
 % <name> LaTeX3键值
-\newcommand{\metax}[1]{\xspace\meta{#1}\xspace}
+\NewDocumentCommand{\metax}{O{\space}mO{\space}}{#1\meta{#2}#3}
 % LaTeX3键值对
 \newcommand{\breakablethinspace}{\hskip 0.16667em\relax}
-\newcommand{\kvoptx}[2]{\xspace\texttt{#1\breakablethinspace=\breakablethinspace#2}\xspace}
+\NewDocumentCommand{\kvoptx}{O{\space}mmO{\space}}{#1\texttt{#2\breakablethinspace=\breakablethinspace#3}#4}
 % {<name>} LaTeX2e参数
-\newcommand{\argx}[1]{\xspace\Arg{#1}\xspace}
+\NewDocumentCommand{\margx}{O{\space}mO{\space}}{#1\marg{#2}#3}
 % [<name>] LaTeX2e可选参数
-\newcommand{\oargx}[1]{\xspace\Arg{#1}\xspace}
+\NewDocumentCommand{\oargx}{O{\space}mO{\space}}{#1\oarg{#2}#3}
 % 文件
 \usepackage{seqsplit}
-\newcommand{\filex}[1]{\xspace{\ttfamily\seqsplit{#1}}\xspace}
+\NewDocumentCommand{\filex}{O{\space}mO{\space}}{#1{\ttfamily\seqsplit{#2}}#3}
 % 环境
-\newcommand{\envx}[1]{\xspace\env{#1}\xspace}
+\NewDocumentCommand{\envx}{O{\space}mO{\space}}{#1\env{#2}#3}
 % 宏包
-\newcommand{\pkgx}[1]{\xspace\pkg{#1}\xspace}
+\NewDocumentCommand{\pkgx}{O{\space}mO{\space}}{#1\pkg{#2}#3}
 % 文档类
-\newcommand{\clsx}[1]{\xspace\cls{#1}\xspace}
+\NewDocumentCommand{\clsx}{O{\space}mO{\space}}{#1\cls{#2}#3}
 % 值
-\newcommand{\valuex}[1]{\xspace{\ttfamily\seqsplit{#1}}\xspace}
-% 命令
-\newcommand{\cmdx}[1]{\xspace{\ttfamily\seqsplit{#1}}\xspace}
+\NewDocumentCommand{\valuex}{O{\space}mO{\space}}{#1{\ttfamily\seqsplit{#2}}#3}
+% 程序
+\NewDocumentCommand{\cmdx}{O{\space}mO{\space}}{#1{\ttfamily\seqsplit{#2}}#3}
 % 链接
-\newcommand{\footurl}[1]{\footnote{\url{#1}}}
-\newcommand{\ctanurl}[1]{\href{https://mirrors.cloud.tencent.com/CTAN/#1}{\ttfamily CTAN://#1}}
-\newcommand{\footctan}[1]{\footnote{\ctanurl{#1}}}
+\NewDocumentCommand{\footurl}{m}{\footnote{\url{#1}}}
+\NewDocumentCommand{\footctan}{m}{\footnote{\href{https://mirrors.cloud.tencent.com/CTAN/#1}{\ttfamily CTAN://#1}}}
 % logo
 \changes{v4.1.1.1}{2023/01/21}{修正LOGO字形高度}
 \newfontfamily{\ffmfamily}[Scale=MatchUppercase]{ffmb10.otf}
-\newcommand{\xduts}{{\ffmfamily XDUTS}}
-\newcommand{\bibtex}{\xspace\hologo{BibTeX}\xspace}
-\newcommand{\biblatex}{\xspace Bib\LaTeX\xspace}
+\NewDocumentCommand{\xduts}{O{\space}mO{\space}}{#1{\ffmfamily XDUTS}#3}
+\NewDocumentCommand{\bibtex}{O{\space}mO{\space}}{#1\hologo{BibTeX}#3}
+\NewDocumentCommand{\biblatex}{O{\space}mO{\space}}{#1 Bib\LaTeX #3}
 % arguments list
 \setlist[arguments]{label=\texttt{\#\arabic*}\,:}
 % 浮动体默认设置
@@ -150,7 +147,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 \usepackage[firstpageonly=true]{draftwatermark}
 \DraftwatermarkOptions{angle=45,fontsize=40pt,color={gray9!25}}
 \ExplSyntaxOn
-\SetWatermarkText{\prg_replicate:nn{18}{\prg_replicate:nn{6}{\xduts{}~}\xduts\\[30pt]}}
+\SetWatermarkText{\prg_replicate:nn{18}{\prg_replicate:nn{6}{\xduts[]{}[]~}\xduts[]{}[]\\[30pt]}}
 \ExplSyntaxOff
 \begin{document}
 \changes{v2.18.1.1}{2022/12/01}{隐藏源码、版本和索引}
@@ -163,13 +160,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %</driver>
 % \fi
 % \GetFileInfo{\jobname.dtx}
-% \title{\bfseries\xduts{}手册}
+% \title{\bfseries\xduts[]{}手册}
 % \author{\href{https://github.com/note286/}{note286}}
 % \date{\href{https://github.com/note286/xduts/releases/tag/\fileversion/}{\fileversion}~(\filedate)}
 % \maketitle
 % \thispagestyle{empty}
 % \begin{abstract}
-% \xduts{}是面向西安电子科技大学本科生/研究生的\LaTeXiii{}文档类和宏包套装，
+% \xduts[]{}是面向西安电子科技大学本科生/研究生的\LaTeXiii{}文档类和宏包套装，
 % 仅支持\XeLaTeX{}，
 % 仅支持\TeXLive{}、Mac\TeX{}、\MiKTeX{}，
 % 支持Windows、macOS、GNU/Linux、Overleaf和TeXPage。
@@ -178,8 +175,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \begin{abstract}
 % 在使用\xduts{}时，默认您同意以下内容：
 % \begin{enumerate}
-% \item \xduts{}作者不对使用\xduts{}产生的格式审查问题负责。
-% \item \xduts{}的发布遵守
+% \item \xduts[]{}作者不对使用\xduts{}产生的格式审查问题负责。
+% \item \xduts[]{}的发布遵守
 % \LaTeX{} Project Public License\footurl{https://www.latex-project.org/lppl.txt}，
 % 使用前请认真阅读协议内容。
 % \item 任何个人或组织以\xduts{}为基础进行修改、扩展而生成的新的\LaTeX{}文档类/宏包，
@@ -197,18 +194,18 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \clearpage
 % \changes{v2.14.1.3}{2022/11/23}{修改文档措辞}
 % \section{介绍}
-% \xduts{} (Xidian University \TeX{} Suite)
+% \xduts[]{}(Xidian University \TeX{} Suite)
 % 是为了帮助西安电子科技大学本科生/研究生撰写开题报告/学位论文及其他文档
 % 而编写的\LaTeXiii{}文档类和宏包套装，目前有：
 % \begin{itemize}
-% \item \pkgx{xdufont.sty}，中/英/数学字体配置宏包。
-% \item \clsx{xduugtp.cls}，本科生毕业设计论文开题报告文档类。
-% \item \clsx{xdupgthesis.cls}，研究生学位论文文档类。
-% \item \clsx{xduugthesis.cls}，本科生毕业设计论文文档类。
+% \item \pkgx[]{xdufont.sty}[]，中/英/数学字体配置宏包。
+% \item \clsx[]{xduugtp.cls}[]，本科生毕业设计论文开题报告文档类。
+% \item \clsx[]{xdupgthesis.cls}[]，研究生学位论文文档类。
+% \item \clsx[]{xduugthesis.cls}[]，本科生毕业设计论文文档类。
 % \end{itemize}
 % 即将支持：
 % \begin{itemize}
-% \item \clsx{xdupgtp.cls}，研究生学位论文开题报告文档类。
+% \item \clsx[]{xdupgtp.cls}[]，研究生学位论文开题报告文档类。
 % \end{itemize}
 % \par
 % \changes{v1.2.0.1}{2022/04/19}{增加GitHub Discussions}
@@ -224,24 +221,24 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 《一份（不太）简短的\LaTeXe{}介绍》\footctan{info/lshort/chinese/lshort-zh-cn.pdf}
 % 中提及的内容本文档将不再赘述。
 % 此外，在\secrefx{使用建议}中给出了部分使用建议。
-% \xduts{}中的所有文档类和宏包仅内置了实现功能所需的宏包，
-% 对于常用的宏包如\pkgx{subcaption}、\pkgx{algpseudocodex}、
-% \pkgx{amsmath}、\pkgx{amsthm}和\pkgx{siunitx}等\textbf{均未内置}，
+% \xduts[]{}中的所有文档类和宏包仅内置了实现功能所需的宏包，
+% 对于常用的宏包如\pkgx{subcaption}[]、\pkgx[]{algpseudocodex}[]、
+% \pkgx[]{amsmath}[]、\pkgx[]{amsthm}和\pkgx{siunitx}等\textbf{均未内置}，
 % 用户可以参考\secrefx{兼容性说明}后，视需求自行加载。
 % 相应格式规范均已实现，用户仅需要撰写文章内容即可，请勿随意添加格式修改命令。
 % \changes{v1.1.2.1}{2022/04/15}{增加默认值说明}
 % \textbf{部分样式的默认值并不严格符合学校规范}，
 % 用户可以结合学校规范并参考\secrefx{功能说明}功能说明自行修改。
 % \par
-% 请在最新版\LaTeX{}环境中使用最新版\xduts{}，
-% 认真阅读相应文档类/宏包使用说明章节后即可使用\xduts{}。
-% \subsection{\pkgx{xdufont}宏包}
-% \pkgx{xdufont}宏包基于\pkgx{xeCJK}宏包和\pkgx{unicode-math}宏包，
+% 请在最新版\LaTeX{}环境中使用最新版\xduts{}[]，
+% 认真阅读相应文档类/宏包使用说明章节后即可使用\xduts{}[]。
+% \subsection{\pkgx[]{xdufont}宏包}
+% \pkgx[]{xdufont}宏包基于\pkgx{xeCJK}宏包和\pkgx{unicode-math}宏包，
 % 在中文字体配置方面相较于\pkgx{ctex}宏包的主要优势为默认支持宋体粗体、斜体，
 % 内置多种字体配置，可任意搭配中/英/数学字体，更加符合校内各种文档的撰写要求。
 % \par
 % \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置，具体的配置选项见\secrefx{字体选项}。
-% \pkgx{xdufont}宏包可以搭配任意文档类进行使用，例如：
+% \pkgx[]{xdufont}宏包可以搭配任意文档类进行使用，例如：
 % \begin{lstlisting}
 % \documentclass{article}
 % \usepackage{xdufont}
@@ -253,10 +250,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{lstlisting}
 % \par
 % 学会以上用法后即可使用\pkgx{xdufont}宏包。
-% \subsection{\pkgx{xduugtp}文档类}
-% \pkgx{xduugtp}文档类基于\clsx{ctexart}文档类，
+% \subsection{\clsx[]{xduugtp}文档类}
+% \clsx[]{xduugtp}文档类基于\clsx{ctexart}文档类，
 % 提供多种字体配置，信息录入便捷。
-% 请在阅读《西安电子科技大学本科毕设设计（论文）开题报告》后再使用\pkgx{xduugtp}文档类。
+% 请在阅读《西安电子科技大学本科毕设设计（论文）开题报告》后再使用\clsx{xduugtp}文档类。
 % \par
 % 使用\clsx{xduugtp}文档类的最小示例如下所示：
 % \begin{lstlisting}
@@ -285,10 +282,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.4.0.0}{2022/04/26}{新增研究生学位论文}
 % \changes{v1.30.0.2}{2022/06/20}{研究生学位论文文档}
 % \changes{v2.2.1.1}{2022/06/23}{移除研究生学位论文中关于章节配置的文档}
-% \subsection{\pkgx{xdupgthesis}文档类}
-% \pkgx{xdupgthesis}文档类基于\clsx{ctexbook}文档类，
+% \subsection{\clsx[]{xdupgthesis}文档类}
+% \clsx[]{xdupgthesis}文档类基于\clsx{ctexbook}文档类，
 % 提供多种字体配置，部分样式可自定义，信息录入便捷。
-% 请在阅读《西安电子科技大学研究生学位论文模板（2015年修订版）-2019.03修订》后再使用\pkgx{xdupgthesis}文档类。
+% 请在阅读《西安电子科技大学研究生学位论文模板（2015年修订版）-2019.03修订》后再使用\clsx{xdupgthesis}文档类。
 % 专业学位硕士请额外阅读《西安电子科技大学专业学位硕士学位论文封面及中英文题名页模板（2015年版）-2019.03修订》，
 % 撰写英文学位论文请额外阅读《西安电子科技大学英文学位论文撰写相关规定》。
 % \par
@@ -324,11 +321,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \par
 % 学会以上用法后即可使用\clsx{xdupgthesis}文档类。
 % 另外，在\secrefx{额外命令}中提供了部分额外命令来增强排版效果。
-% \subsection{\pkgx{xduugthesis}文档类}
-% \pkgx{xduugthesis}文档类基于\clsx{ctexbook}文档类，
+% \subsection{\clsx[]{xduugthesis}文档类}
+% \clsx[]{xduugthesis}文档类基于\clsx{ctexbook}文档类，
 % 提供多种字体配置，部分样式可自定义，信息录入便捷。
 % \changes{v1.3.1.1}{2022/04/26}{英文本科生毕业设计规范参考说明}
-% 请在阅读《本科生毕业设计（论文）工作手册》后再使用\pkgx{xduugthesis}文档类。
+% 请在阅读《本科生毕业设计（论文）工作手册》后再使用\clsx{xduugthesis}文档类。
 % \par
 % 使用\clsx{xduugthesis}文档类的最小示例如下所示：
 % \begin{lstlisting}
@@ -363,13 +360,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.3.0.1}{2022/04/20}{增加兼容性说明}
 % \section{兼容性说明}
 % \label{兼容性说明}
-% \pkgx{xduugthesis}和\pkgx{xduugthesis}文档类对部分常见宏包进行了针对性地适配，
+% \clsx[]{xdupgthesis}和\clsx{xduugthesis}文档类对部分常见宏包进行了针对性地适配，
 % 需要注意的是，这些宏包仍需用户视需求自行加载。
 % \subsection{算法}
 % 主要适配算法内容字号和默认浮动位置。
-% \pkgx{algorithm}宏包提供了算法浮动体\envx{algorithm}环境，
+% \pkgx[]{algorithm}宏包提供了算法浮动体\envx{algorithm}环境，
 % 可以搭配\pkgx{algpseudocodex}等宏包使用。
-% \pkgx{algorithm2e}宏包提供了算法环境，
+% \pkgx[]{algorithm2e}宏包提供了算法环境，
 % 该宏包提供的\envx{algorithm}环境实际将浮动体与算法内容合二为一。
 % \subsection{图片}
 % \changes{v1.13.5.1}{2022/05/08}{补充子图引用样式文档}
@@ -379,7 +376,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \subsection{表格}
 % 主要适配表格内容字号，
 % 包括所有使用\envx{table}浮动体的表格、
-% \pkgx{tabularray}宏包提供的\envx{tblr}、\envx{longtblr}环境
+% \pkgx[]{tabularray}宏包提供的\envx{tblr}[]、\envx[]{longtblr}环境
 % 和\pkgx{longtable}宏包提供的\envx{longtable}环境。
 % \changes{v4.1.1.0}{2023/01/16}{适配子表样式}
 % 以及适配子表caption字体字号和子表引用样式，
@@ -387,7 +384,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v4.0.0.1}{2022/12/11}{增加使用建议}
 % \section{使用建议}
 % \label{使用建议}
-% 本节主要针对\pkgx{xduugthesis}和\pkgx{xduugthesis}文档类提出使用建议，
+% 本节主要针对\clsx{xdupgthesis}和\clsx{xduugthesis}文档类提出使用建议，
 % 用户仍可不遵守本节的建议并根据自己的偏好进行使用。
 % \par
 % 宏包方面，在\secrefx{兼容性说明}中提到已适配多种宏包。
@@ -414,14 +411,14 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{编译}
 % \changes{v0.5.1.2}{2022/04/07}{增加编译说明}
 % \LaTeX{}本身是命令行程序，通过不同的命令调用所需的编译引擎，编辑器提供的快捷按钮实际只是做了包装。
-% \xduts{}仅支持\XeLaTeX{}，参考文献后端程序默认为\cmdx{biber}，也可以切换为\cmdx{bibtex}。
+% \xduts[]{}仅支持\XeLaTeX{}，参考文献后端程序默认为\cmdx{biber}[]，也可以切换为\cmdx{bibtex}[]。
 % \subsection{参考文献引用}
 % \label{参考文献引用}
 % \changes{v4.3.0.1}{2023/01/30}{修改文档中关于参考文献的描述}
-% \xduts{}提供了两种参考文献处理方式，
-% 一种是\pkgx{natbib}宏包搭配\pkgx{gbt7714}宏包，后端程序为\cmdx{bibtex}；
-% 另一种是\pkgx{biblatex}宏包，后端程序为\cmdx{biber}。
-% 引用参考文献时，\tnx{cite}为上标样式，\tnx{parencite}为非上标样式。
+% \xduts[]{}提供了两种参考文献处理方式，
+% 一种是\pkgx{natbib}宏包搭配\pkgx{gbt7714}宏包，后端程序为\cmdx{bibtex}[]；
+% 另一种是\pkgx{biblatex}宏包，后端程序为\cmdx{biber}[]。
+% 引用参考文献时，\tnx[]{cite}为上标样式，\tnx[]{parencite}为非上标样式。
 % \subsection{参数设置}
 % \label{参数设置}
 % \changes{v4.4.2.1}{2023/02/08}{修正接口文档说明样式}
@@ -431,12 +428,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \tn{xdusetup}\marg{键值列表}
 %   \end{syntax}
-% \xduts{}提供了一系列选项，可自行配置。
+% \xduts[]{}提供了一系列选项，可自行配置。
 % 载入文档类/宏包之后，以下所有选项均可通过统一的命令\tnx{xdusetup}来设置。
-% \csx{xdusetup}的参数是一组由（英文）逗号隔开的选项列表，
+% \csx[]{xdusetup}的参数是一组由（英文）逗号隔开的选项列表，
 % 下文中尖括号内列出了若干个允许的选项，其中加粗的为默认选项。
-% 列表中的选项通常是\kvoptx{\metax{key}}{\metax{value}}的形式。
-% \csx{xdusetup}采用\LaTeXiii{}风格的键值设置，
+% 列表中的选项通常是\kvoptx{\metax[]{key}[]}{\metax[]{value}[]}的形式。
+% \csx[]{xdusetup}采用\LaTeXiii{}风格的键值设置，
 % 支持不同类型以及多种层次的选项设定。
 % 键值列表中，“|=|”左右的空格不影响设置；
 % 但需注意，参数列表中不可以出现空行。
@@ -473,13 +470,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \opt{style/cjk-font} = adobe|(fandol)|founder|sinotype|win|none
 %   \end{syntax}
-% 设置中文字体，具体配置见\tabrefx{tab:cjk-font}。
+% 设置中文字体，具体配置见\tabrefx{tab:cjk-font}[]。
 % \end{function}
 % \begin{optdesc}
-%   \item[adobe] \filex{adobesongstd-light.otf}、\filex{adobekaitistd-regular.otf}、\filex{adobeheitistd-regular.otf}和\filex{Adobe-Fangsong-Std-R-Font.otf}。
-%   \item[founder] \filex{FZShuSong-Z01.ttf}、\filex{FZKai-Z03.ttf}、\filex{FZHei-B01.ttf}和\filex{FZFSK.TTF}。
-%   \item[sinotype] \filex{STSONG.TTF}、\filex{STKAITI.TTF}、\filex{STXIHEI.TTF}、\filex{STHeiti.ttf}和\filex{STFANGSO.TTF}。
-%   \item[win] \filex{simsun.ttc}、\filex{simkai.ttf}、\filex{simhei.ttf}和\filex{simfang.ttf}。
+%   \item[adobe] \filex[]{adobesongstd-light.otf}[]、\filex[]{adobekaitistd-regular.otf}[]、\filex[]{adobeheitistd-regular.otf}和\filex{Adobe-Fangsong-Std-R-Font.otf}。
+%   \item[founder] \filex[]{FZShuSong-Z01.ttf}[]、\filex[]{FZKai-Z03.ttf}[]、\filex[]{FZHei-B01.ttf}和\filex{FZFSK.TTF}。
+%   \item[sinotype] \filex[]{STSONG.TTF}[]、\filex[]{STKAITI.TTF}[]、\filex[]{STXIHEI.TTF}[]、\filex[]{STHeiti.ttf}和\filex{STFANGSO.TTF}。
+%   \item[win] \filex[]{simsun.ttc}[]、\filex[]{simkai.ttf}[]、\filex[]{simhei.ttf}和\filex{simfang.ttf}。
 %   \item[none] 关闭内置中文字体配置，需自行配置中文字体。
 % \end{optdesc}
 % \changes{v2.16.1.1}{2022/11/27}{修改中文字体配置表文档样式}
@@ -510,24 +507,24 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \opt{style/cjk-fake-bold} = \meta{伪粗体粗细程度}
 %   \end{syntax}
-% 设置中文字体伪粗体粗细程度。默认为\valuex{3}，对于部分存在对应粗体字体的中文字体，如FandolSong和FandolHei等，该选项不生效。
+% 设置中文字体伪粗体粗细程度。默认为\valuex{3}[]，对于部分存在对应粗体字体的中文字体，如FandolSong和FandolHei等，该选项不生效。
 % \end{function}
 % \begin{function}[added=2022-04-01]{style/cjk-fake-slant}
 %   \begin{syntax}
 %     \opt{style/cjk-fake-slant} = \meta{伪斜体倾斜程度}
 %   \end{syntax}
-% 设置中文字体伪斜体倾斜程度。默认为\valuex{0.2}。
+% 设置中文字体伪斜体倾斜程度。默认为\valuex{0.2}[]。
 % \end{function}
 % \begin{function}[added=2022-03-06,updated=2022-05-06]{style/latin-font}
 %   \begin{syntax}
 %     \opt{style/latin-font} = tac|tacn|thcs|(gyre)|none
 %   \end{syntax}
-% 设置英文字体，具体配置见\tabrefx{tab:latin-font}。
+% 设置英文字体，具体配置见\tabrefx{tab:latin-font}[]。
 % \end{function}
 % \begin{optdesc}
-%   \item[tac] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{arial.ttf}、\filex{arialbd.ttf}、\filex{ariali.ttf}、\filex{arialbi.ttf}、\filex{consola.ttf}、\filex{consolab.ttf}、\filex{consolai.ttf}和\filex{consolaz.ttf}。
-%   \item[tacn] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{arial.ttf}、\filex{arialbd.ttf}、\filex{ariali.ttf}、\filex{arialbi.ttf}、\filex{cour.ttf}、\filex{courbd.ttf}、\filex{couri.ttf}和\filex{courbi.ttf}。
-%   \item[thcs] \filex{times.ttf}、\filex{timesbd.ttf}、\filex{timesi.ttf}、\filex{timesbi.ttf}、\filex{Helvetica.ttf}、\filex{Helvetica~Bold.ttf}、\filex{Helvetica~Oblique.ttf}、\filex{Helvetica~Bold~Oblique.ttf}、\filex{CourierStd.otf}、\filex{CourierStd-Bold.otf}、\filex{CourierStd-Oblique.otf}和\filex{CourierStd-BoldOblique.otf}。
+%   \item[tac] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{arial.ttf}[]、\filex[]{arialbd.ttf}[]、\filex[]{ariali.ttf}[]、\filex[]{arialbi.ttf}[]、\filex[]{consola.ttf}[]、\filex[]{consolab.ttf}[]、\filex[]{consolai.ttf}和\filex{consolaz.ttf}。
+%   \item[tacn] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{arial.ttf}[]、\filex[]{arialbd.ttf}[]、\filex[]{ariali.ttf}[]、\filex[]{arialbi.ttf}[]、\filex[]{cour.ttf}[]、\filex[]{courbd.ttf}[]、\filex[]{couri.ttf}和\filex{courbi.ttf}。
+%   \item[thcs] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{Helvetica.ttf}[]、\filex[]{Helvetica~Bold.ttf}[]、\filex[]{Helvetica~Oblique.ttf}[]、\filex[]{Helvetica~Bold~Oblique.ttf}[]、\filex[]{CourierStd.otf}[]、\filex[]{CourierStd-Bold.otf}[]、\filex[]{CourierStd-Oblique.otf}和\filex{CourierStd-BoldOblique.otf}。
 %   \item[none] 关闭内置英文字体配置，需自行配置英文字体。
 % \end{optdesc}
 % \changes{v2.16.1.1}{2022/11/27}{修改英文字体配置表文档样式}
@@ -565,12 +562,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \opt{style/math-font} = asana|cambria|(cm)|fira|garamond|lm|...|termes|xits|none
 %   \end{syntax}
-% 设置数学字体，具体配置见\tabrefx{tab:math-font}。除Computer Modern字体外，均使用\pkgx{unicode-math}宏包调用字体。
+% 设置数学字体，具体配置见\tabrefx{tab:math-font}[]。除Computer Modern字体外，均使用\pkgx{unicode-math}宏包调用字体。
 % \end{function}
 % \changes{v2.16.1.1}{2022/11/27}{修改数学字体配置表文档样式}
 % \changes{v0.1.4.1}{2022/04/04}{数学字体风格介绍}
 % \begin{optdesc}
-%   \item[cambria] \filex{cambria.ttc}。
+%   \item[cambria] \filex[]{cambria.ttc}[]。
 %   \item[none] 关闭内置数学字体配置，需自行配置数学字体。
 % \end{optdesc}
 % \begin{tblr}
@@ -587,29 +584,29 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % row{1}         = {cmd=\strong},
 % rowhead        = 1
 % }
-% 选项名称           & 字体名称                 \\
-% |asana|            & Asana Math               \\
-% |cambria|\tnote{1} & Cambria Math             \\
-% |cm|               & Computer Modern          \\
-% |concrete|         & Concrete Math            \\
-% |erewhon|          & Erewhon Math             \\
-% |euler|            & Euler Math               \\
-% |fira|             & Fira Math                \\
-% |garamond|         & Garamond Math            \\
-% |gfsneohellenic|   & GFS Neohellenic Math     \\
-% |kp|               & KpMath                   \\
-% |libertinus|       & Libertinus Math          \\
-% |lm|               & Latin Modern Math        \\
-% |newcm|            & New Computer Modern Math \\
-% |stix2|            & STIX Two Math            \\
-% |stix|             & STIX Math                \\
-% |xcharter|         & XCharter Math            \\
-% |xits|             & XITS Math                \\
-% |bonum|            & TeX Gyre Bonum Math      \\
-% |dejavu|           & TeX Gyre DejaVu Math     \\
-% |pagella|          & TeX Gyre Pagella Math    \\
-% |schola|           & TeX Gyre Schola Math     \\
-% |termes|           & TeX Gyre Termes Math     \\
+% 选项名称         & 字体名称                 \\
+% |asana|          & Asana Math               \\
+% |cambria|        & Cambria Math             \\
+% |cm|             & Computer Modern          \\
+% |concrete|       & Concrete Math            \\
+% |erewhon|        & Erewhon Math             \\
+% |euler|          & Euler Math               \\
+% |fira|           & Fira Math                \\
+% |garamond|       & Garamond Math            \\
+% |gfsneohellenic| & GFS Neohellenic Math     \\
+% |kp|             & KpMath                   \\
+% |libertinus|     & Libertinus Math          \\
+% |lm|             & Latin Modern Math        \\
+% |newcm|          & New Computer Modern Math \\
+% |stix2|          & STIX Two Math            \\
+% |stix|           & STIX Math                \\
+% |xcharter|       & XCharter Math            \\
+% |xits|           & XITS Math                \\
+% |bonum|          & TeX Gyre Bonum Math      \\
+% |dejavu|         & TeX Gyre DejaVu Math     \\
+% |pagella|        & TeX Gyre Pagella Math    \\
+% |schola|         & TeX Gyre Schola Math     \\
+% |termes|         & TeX Gyre Termes Math     \\
 % \end{tblr}
 % \begin{function}[added=2022-03-14]{style/unicode-math}
 %   \begin{syntax}
@@ -631,7 +628,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \opt{style/font-path} = \marg{路径}
 %   \end{syntax}
-% 设置字体文件路径，即\metax{路径}目录内存储全部所需中文、英文和数学字体文件，仅在\optx{font-type}等于|file|时有效，默认值为\valuex{fonts}。
+% 设置字体文件路径，即\metax{路径}目录内存储全部所需中文、英文和数学字体文件，仅在\optx{font-type}等于|file|时有效，默认值为\valuex{fonts}[]。
 % \end{function}
 % \subsection{英文字体}
 % \label{英文字体}
@@ -671,7 +668,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{function}
 % \begin{optdesc}
 %   \item[zh] 中文。
-%   \item[en] 英文。注意，研究生学位论文一二三级标题命令请参考\secrefx{英文研究生学位论文双语标题}。
+%   \item[en] 英文。注意，研究生学位论文一二三级标题命令请参考\secrefx{英文研究生学位论文标题}。
 % \end{optdesc}
 % \subsection{参考文献配置}
 % \label{参考文献配置}
@@ -682,15 +679,15 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置参考文献支持方式。
 % \end{function}
 % \begin{optdesc}
-%   \item[bibtex] 使用\bibtex{}处理参考文献，后端程序为\cmdx{bibtex}。
-%   \item[biblatex] 使用\biblatex{}处理参考文献，后端程序为\cmdx{biber}。
+%   \item[bibtex] 使用\bibtex{}处理参考文献，后端程序为\cmdx{bibtex}[]。
+%   \item[biblatex] 使用\biblatex{}处理参考文献，后端程序为\cmdx{biber}[]。
 % \end{optdesc}
 % \changes{v1.31.0.0}{2022/06/21}{修改\pkgx{biblatex}默认选项}
 % \begin{function}[added=2022-06-21]{style/biblatex-option}
 %   \begin{syntax}
 %     \opt{style/biblatex-option} = \marg{biblatex宏包选项}
 %   \end{syntax}
-% 修改\pkgx{biblatex}默认选项，具体配置参考\filex{biblatex-gb7714-2015.pdf}，
+% 修改\pkgx{biblatex}默认选项，具体配置参考\filex{biblatex-gb7714-2015.pdf}[]，
 % 仅在\optx{style/bib-backend}等于|biblatex|时有效。例如：
 % \begin{lstlisting}
 % \xdusetup{
@@ -726,9 +723,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \opt{style/file-search-path} = \marg{路径}
 %   \end{syntax}
-% 设置文件搜索路径，可用于\tnx{input}、\tnx{include}和\tnx{includegraphics}，
+% 设置文件搜索路径，可用于\tnx{input}[]、\tnx[]{include}和\tnx{includegraphics}[]，
 % 多个路径之间需要使用英文半角逗号隔开。
-% 设置后\tnx{input}、\tnx{include}和\tnx{includegraphics}仅需填写文件名。
+% 设置后\tnx{input}[]、\tnx[]{include}和\tnx{includegraphics}仅需填写文件名。
 % \end{function}
 % \begin{function}[added=2022-07-01]{style/fix-input,style/fix-include,style/fix-includegraphics}
 %   \begin{syntax}
@@ -738,7 +735,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \end{syntax}
 % TEXMF树搜索优先级高于用户自定义的文件搜索路径，
 % 如果在TEXMF树内存在同名文件，则会导致错误的文件被加载。
-% 通过为\tnx{input}、\tnx{include}和\tnx{includegraphics}命令打补丁可以避免该问题。
+% 通过为\tnx{input}[]、\tnx[]{include}和\tnx{includegraphics}命令打补丁可以避免该问题。
 % 如果用户的\TeX{}或图片等文件不与TEXMF树内文件同名，或与\TeX{}主文件在同一目录，则无需打补丁。
 % \end{function}
 % \subsection{交叉引用配置}
@@ -763,7 +760,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \opt{style/caption-label-sep} = \meta{间距}
 %   \end{syntax}
-% 设置图、表、算法标签与后面标题之间的间距，默认值为\valuex{0.75em}。
+% 设置图、表、算法标签与后面标题之间的间距，默认值为\valuex{0.75em}[]。
 % \end{function}
 % \subsection{图表配置}
 % \label{图表配置}
@@ -863,13 +860,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \opt{style/before-skip} = \marg{间距列表}
 %   \end{syntax}
-% 设置章节标题前的垂直间距，默认值为\valuex{\{24pt, 18pt, 12pt, 12pt, 12pt, 12pt\}}，分别对应\tnx{chapter}、\tnx{section}、\tnx{subsection}、\tnx{subsubsection}、\tnx{paragraph}和\tnx{subparagraph}。
+% 设置章节标题前的垂直间距，默认值为\valuex{\{24pt, 18pt, 12pt, 12pt, 12pt, 12pt\}}[]，分别对应\tnx{chapter}[]、\tnx[]{section}[]、\tnx[]{subsection}[]、\tnx[]{subsubsection}[]、\tnx[]{paragraph}和\tnx{subparagraph}。
 % \end{function}
 % \begin{function}[added=2022-04-05]{style/after-skip}
 %   \begin{syntax}
 %     \opt{style/after-skip} = \marg{间距列表}
 %   \end{syntax}
-% 设置章节标题后的垂直间距，默认值为\valuex{\{18pt, 12pt, 6pt, 6pt, 6pt, 6pt\}}，分别对应\tnx{chapter}、\tnx{section}、\tnx{subsection}、\tnx{subsubsection}、\tnx{paragraph}和\tnx{subparagraph}。
+% 设置章节标题后的垂直间距，默认值为\valuex{\{18pt, 12pt, 6pt, 6pt, 6pt, 6pt\}}[]，分别对应\tnx{chapter}[]、\tnx[]{section}[]、\tnx[]{subsection}[]、\tnx[]{subsubsection}[]、\tnx[]{paragraph}和\tnx{subparagraph}。
 % \end{function}
 % \begin{function}[added=2022-04-11]
 %   {
@@ -889,8 +886,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \opt{style/subpara-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
 %   \end{syntax}
 % 设置章节标题字号。
-% 当论文语言为中文时，默认值分别为\valuex{3}、\valuex{4}、\valuex{4}、\valuex{4}、\valuex{4}、\valuex{4}。
-% 当论文语言为英文时，默认值分别为\valuex{4}、\valuex{-4}、\valuex{-4}、\valuex{-4}、\valuex{-4}、\valuex{-4}。
+% 当论文语言为中文时，默认值分别为\valuex{3}[]、\valuex[]{4}[]、\valuex[]{4}[]、\valuex[]{4}[]、\valuex[]{4}和\valuex{4}。
+% 当论文语言为英文时，默认值分别为\valuex{4}[]、\valuex[]{-4}[]、\valuex[]{-4}[]、\valuex[]{-4}[]、\valuex[]{-4}和\valuex{-4}。
 % \end{function}
 % \begin{optdesc}
 %   \item[0] 初号
@@ -944,9 +941,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \opt{style/colspec-loa} = \marg{缩略语对照表列格式}
 %   \end{syntax}
 % 设置符号对照表和缩略语对照表列格式，
-% 符号对照表列格式默认值为\valuex{Q[l,h]X[l,h]}。
-% 缩略语对照表列格式默认值为\valuex{Q[l,h]X[l,h]X[l,h]}。
-% 语法参考\pkgx{tabularray}宏包\cmdx{colspec}选项。
+% 符号对照表列格式默认值为\valuex{Q[l,h]X[l,h]}[]。
+% 缩略语对照表列格式默认值为\valuex{Q[l,h]X[l,h]X[l,h]}[]。
+% 语法参考\pkgx{tabularray}宏包\valuex{colspec}选项。
 % 仅在\optx{style/customize-los}和\optx{style/customize-loa}等于\valuex{false}时有效。
 % \end{function}
 % \begin{function}[added=2022-06-05]{style/title-row-los,style/title-row-loa}
@@ -995,8 +992,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \par
 % [2] XXX, XXX, XXX等. 科研项目名称. 陕西省科技进步三等奖, 获奖日期.
 % \end{lstlisting}
-%   \item[false] 使用内置的基于\envx{tblr}环境（\pkgx{tabularray}宏包）实现的
-% 教育背景表格环境\envx{edubg}和基于\envx{enumerate}环境（\pkgx{enumitem}宏包）实现的
+%   \item[false] 使用内置的基于\envx{tblr}环境（\pkgx[]{tabularray}宏包）实现的
+% 教育背景表格环境\envx{edubg}和基于\envx{enumerate}环境（\pkgx[]{enumitem}宏包）实现的
 % 攻读硕士学位期间的研究成果列表环境\envx{resresult}。
 % 在\secrefx{信息录入}中提及的\optx{info/bio}中对应的文件中使用\envx{edubg}和\envx{resresult}环境即可，例如：
 % \begin{lstlisting}
@@ -1293,7 +1290,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \opt{info/date} = \marg{日期1,日期2}
 %   \end{syntax}
-% 设置开题报告签名日期，格式为\argx{yyyy-mm-dd}，如果留空，则自动使用编译当天日期。
+% 设置开题报告签名日期，格式为\margx{yyyy-mm-dd}[]，如果留空，则自动使用编译当天日期。
 % \end{function}
 % \begin{optdesc}
 %   \item[日期1] 指导教师意见签名日期。
@@ -1658,15 +1655,15 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \tn{noauxwrite}\marg{参考文献引用命令}
 %   \end{syntax}
-% \tnx{noauxwrite}允许添加不影响现有引用列表顺序的引用。
+% \tnx[]{noauxwrite}允许添加不影响现有引用列表顺序的引用。
 % 一个简单的例子如下所示：
 % \begin{lstlisting}
 % \caption{本文与文献\noauxwrite{\parencite{某文献}}计算开销对比}
 % \end{lstlisting}
 % \end{function}
-% \changes{v1.30.0.0}{2022/06/20}{英文研究生学位论文双语标题}
-% \subsubsection{英文研究生学位论文双语标题}
-% \label{英文研究生学位论文双语标题}
+% \changes{v1.30.0.0}{2022/06/20}{英文研究生学位论文标题}
+% \subsubsection{英文研究生学位论文标题}
+% \label{英文研究生学位论文标题}
 % \begin{function}[added=2022-06-20,updated=2023-01-28]{\chapter,\section,\subsection}
 %   \begin{syntax}
 %     \tn{chapter}\marg{英文标题}\oarg{中文标题}
@@ -1690,13 +1687,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \tn{anon}\oarg{匿名内容}\marg{非匿名内容}
 %   \end{syntax}
-% 根据\optx{style/anonymous}的状态来显示相应的\metax{匿名内容}和\metax{非匿名内容}。
+% 根据\optx{style/anonymous}的状态来显示相应的\metax{匿名内容}和\metax{非匿名内容}[]。
 % 其中\oargx{匿名内容}为可选参数，默认为XXX。
 % 一个简单的例子如下所示：
 % \begin{lstlisting}
 % \anon[XX]{张三}
 % \end{lstlisting}
-% 当\optx{style/anonymous}为\valuex{true}，输出张三；当\optx{style/anonymous}为\valuex{false}，输出XX。
+% 当\optx{style/anonymous}为\valuex{true}[]，输出XX；当\optx{style/anonymous}为\valuex{false}[]，输出张三。
 % \end{function}
 % \subsection{额外功能}
 % \label{额外功能}
@@ -1705,8 +1702,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 已和学位办确认，对于研究生，如挂名导师与带教导师不是一人的，
 % 仅需填写带教导师，无需填写挂名导师。
 % 如有特殊需求，需要填写两位老师，
-% 可在\optx{info/supervisor}、\optx{info/supervisor*}、
-% \optx{info/supervisor-title}和\optx{info/supervisor-title*}中
+% 可在\optx{info/supervisor}[]、\optx[]{info/supervisor*}[]、
+% \optx[]{info/supervisor-title}和\optx{info/supervisor-title*}中
 % 使用逗号分隔两位老师的信息。
 % \changes{v2.10.1.1}{2022/06/26}{相似性检测、盲审和抽查评估}
 % \subsubsection{相似性检测、盲审和抽查评估}
@@ -1728,7 +1725,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % }
 % \end{lstlisting}
 % \section{贡献者}
-% \xduts{}的开发过程中，唯一维护者为
+% \xduts[]{}的开发过程中，唯一维护者为
 % \href{https://github.com/note286/}{\ttfamily @note286}。
 % \changes{v1.15.0.1}{2022/05/15}{增加\clsx{xduugthesis}内测人员}
 % 其中，在\clsx{xduugthesis}的开发过程中，
@@ -1737,13 +1734,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \href{https://github.com/songyueran}{\ttfamily @syr-bloom}
 % 等人参与了内测。
 % 同时，也要感谢所有在GitHub和睿思上反馈问题和提出建议的同学、老师们。
-% \xduts{}的持续发展，离不开你们的帮助与支持。
+% \xduts[]{}的持续发展，离不开你们的帮助与支持。
 % \section{致谢}
 % 在学习文学编程的过程中，
 % 《在\LaTeX{}中进行文学编程》\footurl{https://liam.page/2015/01/23/literate-programming-in-latex/}
 % 和《Good things come in little packages: An introduction to writing .ins and .dtx files》\footurl{https://www.tug.org/TUGboat/tb29-2/tb92pakin.pdf}
 % 提供了很大帮助。
-% 在文档的编写过程中，参考了\filex{ctex.dtx}、\filex{fduthesis.dtx}、\filex{njuthesis.dtx}和\filex{thuthesis.dtx}。
+% 在文档的编写过程中，参考了\filex{ctex.dtx}[]、\filex[]{fduthesis.dtx}[]、\filex[]{njuthesis.dtx}和\filex{thuthesis.dtx}。
 % \changes{v4.0.1.1}{2022/12/12}{增加支付宝红包二维码}
 % \changes{v3.1.1.3}{2022/12/10}{二维码增加图标}
 % \changes{v3.1.1.2}{2022/12/06}{增加QQ支付二维码}
@@ -1751,7 +1748,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v2.15.0.1}{2022/11/26}{增加赞助二维码}
 % \section{赞助}
 % 如果\xduts{}对您有所帮助，
-% 可以扫描\figrefx{fig:zanzhu}中的二维码来赞助\xduts{}。
+% 可以扫描\figrefx{fig:zanzhu}中的二维码来赞助\xduts{}[]。
 % \ExplSyntaxOn
 % \str_set_convert:Nnnn \l_xduts_alipay_red_packet_qr_str {%
 % 68747470733A2F2F71722E616C697061792E636F6D2F31317731333035336232617236757438%
@@ -2233,7 +2230,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_cjk_font_win:}
-% 中文字体配置\valuex{win}。
+% 中文字体配置\valuex{win}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_cjk_font_win:
   {
@@ -2248,7 +2245,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_cjk_font_adobe:}
-% 中文字体配置\valuex{adobe}。
+% 中文字体配置\valuex{adobe}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_cjk_font_adobe:
   {
@@ -2264,7 +2261,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \begin{macro}{\@@_load_cjk_font_founder:}
 % \changes{v0.5.1.0}{2022/04/06}{适配macOS平台方正字体}
-% 中文字体配置\valuex{founder}。
+% 中文字体配置\valuex{founder}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_cjk_font_founder:
   {
@@ -2279,7 +2276,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_cjk_font_sinotype:}
-% 中文字体配置\valuex{sinotype}。
+% 中文字体配置\valuex{sinotype}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_cjk_font_sinotype:
   {
@@ -2296,7 +2293,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \begin{macro}{\@@_load_cjk_font_fandol:}
 % \changes{v0.5.1.0}{2022/04/06}{适配macOS平台Fandol字体}
-% 中文字体配置\valuex{fandol}。
+% 中文字体配置\valuex{fandol}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_cjk_font_fandol:
   {
@@ -2313,7 +2310,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_cjk_font_none:}
-% 中文字体配置\valuex{none}。
+% 中文字体配置\valuex{none}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_cjk_font_none: { }
 %    \end{macrocode}
@@ -2503,7 +2500,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \begin{macro}{\@@_load_latin_font_tac:}
 % \changes{v1.12.0.0}{2022/05/06}{新增Arial和Consolas英文字体配置}
-% 英文字体配置\valuex{tac}。
+% 英文字体配置\valuex{tac}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_latin_font_tac:
   {
@@ -2517,7 +2514,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_latin_font_tacn:}
-% 英文字体配置\valuex{tacn}。
+% 英文字体配置\valuex{tacn}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_latin_font_tacn:
   {
@@ -2531,7 +2528,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_latin_font_thcs:}
-% 英文字体配置\valuex{thcs}。
+% 英文字体配置\valuex{thcs}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_latin_font_thcs:
   {
@@ -2558,7 +2555,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \begin{macro}{\@@_load_latin_font_gyre:}
 % \changes{v0.9.0.0}{2022/04/13}{新增gyre系列英文字体配置}
-% 英文字体配置\valuex{gyre}。
+% 英文字体配置\valuex{gyre}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_latin_font_gyre:
   {
@@ -2581,7 +2578,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_latin_font_none:}
-% 英文字体配置\valuex{none}。
+% 英文字体配置\valuex{none}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_latin_font_none: { }
 %    \end{macrocode}
@@ -2599,7 +2596,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_math_font_cambria:}
-% 数学字体配置\valuex{cambria}。
+% 数学字体配置\valuex{cambria}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_math_font_cambria:
   {
@@ -2660,13 +2657,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v0.5.1.0}{2022/04/06}{适配macOS平台MacTeX内置XITSMath数学字体}
 % \changes{v2.12.1.0}{2022/07/03}{移除XITSMath数学字体冗余语句}
 % \begin{macro}{\@@_load_math_font_cm:}
-% 数学字体配置\valuex{cm}。
+% 数学字体配置\valuex{cm}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_math_font_cm: { }
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_load_math_font_none:}
-% 数学字体配置\valuex{none}。
+% 数学字体配置\valuex{none}[]。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_math_font_none: { }
 %    \end{macrocode}
@@ -4233,8 +4230,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \subsection{额外命令}
 % \begin{macro}{\noauxwrite}
-% \changes{v1.15.0.0}{2022/05/13}{\tnx{noauxwrite}允许添加不影响现有引用列表顺序的引用}
-% \tnx{noauxwrite}允许添加不影响现有引用列表顺序的引用。
+% \changes{v1.15.0.0}{2022/05/13}{\tnx[]{noauxwrite}允许添加不影响现有引用列表顺序的引用}
+% \tnx[]{noauxwrite}允许添加不影响现有引用列表顺序的引用。
 %    \begin{macrocode}
 \NewDocumentCommand \noauxwrite { m }
   {
@@ -5112,7 +5109,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \begin{macro}{\thealgocf}
 % \changes{v0.10.4.0}{2022/04/14}{修正\pkgx{algorithm2e}算法编号样式}
-% \changes{v1.1.2.0}{2022/04/15}{检测是否加载\pkgx{algorithm2e}}
+% \changes{v1.1.2.0}{2022/04/15}{检测是否加载\pkgx{algorithm2e}[]}
 % 重定义\pkgx{algorithm2e}宏包算法编号样式。
 %    \begin{macrocode}
 \PassOptionsToPackage { algochapter } { algorithm2e }
@@ -5360,8 +5357,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_tblr_caption_box:n}
-% \changes{v2.16.2.0}{2022/11/27}{\envx{longtblr}环境整页宽的caption盒子}
-% \pkgx{tabularray}中\envx{longtblr}环境整页宽的caption盒子。
+% \changes{v2.16.2.0}{2022/11/27}{\envx[]{longtblr}环境整页宽的caption盒子}
+% \pkgx[]{tabularray}中\envx{longtblr}环境整页宽的caption盒子。
 %    \begin{macrocode}
 \cs_new:Npn \@@_tblr_caption_box:n #1
   { \makebox [ \tablewidth ] { \parbox { \columnwidth } { #1 } } }
@@ -5624,7 +5621,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \cs_set_eq:NN \SlashFont \rmfamily
       }
 %    \end{macrocode}
-% \bibtex{}和\pkgx{biblatex}通用字体字号配置。
+% \bibtex[]{}和\pkgx{biblatex}通用字体字号配置。
 %    \begin{macrocode}
     \cs_set:Npn \bibfont
       {
@@ -5641,8 +5638,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \changes{v4.4.4.0}{2023/02/09}{精简研究生学位论文移除参考文献列表宏包调用}
 % \changes{v2.12.2.0}{2022/08/15}{修正本科毕业设计参考文献列表编译错误}
-% \changes{v2.7.0.0}{2022/06/26}{\bibtex{}下允许不生成文献列表}
-% \bibtex{}下允许不生成文献列表。
+% \changes{v2.7.0.0}{2022/06/26}{\bibtex[]{}下允许不生成文献列表}
+% \bibtex[]{}下允许不生成文献列表。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
