@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/11 v4.4.5.2 Xidian University TeX Suite]
+[2023/02/11 v4.4.5.3 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/11}{4.4.5.2}
+%<class|sty>  {2023/02/11}{4.4.5.3}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -224,7 +224,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 中提及的内容本文档将不再赘述。
 % 此外，在\secrefx{使用建议}中给出了部分使用建议。
 % \xduts[]{}中的所有宏包和文档类仅内置了实现功能所需的宏包，
-% 对于常用的宏包如\pkgx{subcaption}[]、\pkgx[]{algpseudocodex}[]、
+% 对于常用的宏包如\pkgx{subcaption}[]、\pkgx[]{algpseudocodex}[]、^^A
 % \pkgx[]{amsmath}[]、\pkgx[]{amsthm}和\pkgx{siunitx}等\textbf{均未内置}，
 % 用户可以参考\secrefx{兼容性说明}视需求自行加载。
 % 相应格式规范均已实现，用户仅需要撰写文章内容即可，请勿随意添加格式修改命令。
@@ -365,9 +365,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \clsx[]{xduugthesis}和\clsx{xdupgthesis}文档类对部分常见宏包进行了针对性地适配，
 % 需要注意的是，这些宏包仍需用户视需求自行加载。
 % \subsection{算法}
-% 主要适配算法内容字号和默认浮动位置。
+% 主要适配算法内容字号和默认浮动位置。^^A
 % \pkgx[]{algorithm}宏包提供了算法浮动体\envx{algorithm}环境，
-% 可以搭配\pkgx{algpseudocodex}等宏包使用。
+% 可以搭配\pkgx{algpseudocodex}等宏包使用。^^A
 % \pkgx[]{algorithm2e}宏包提供了算法环境，
 % 该宏包提供的\envx{algorithm}环境实际将浮动体与算法内容合二为一。
 % \subsection{图片}
@@ -377,7 +377,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 包括\pkgx{subcaption}宏包和\pkgx{subfig}宏包。
 % \subsection{表格}
 % 主要适配表格内容字号，
-% 包括所有使用\envx{table}浮动体的表格、
+% 包括所有使用\envx{table}浮动体的表格、^^A
 % \pkgx[]{tabularray}宏包提供的\envx{tblr}[]、\envx[]{longtblr}环境
 % 和\pkgx{longtable}宏包提供的\envx{longtable}环境。
 % \changes{v4.1.1.0}{2023/01/16}{适配子表样式}
@@ -405,7 +405,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 对于数学字体，建议用户选择一个与英文字体搭配的数学字体。
 % 注意，当使用非Computer Modern字体时，
 % 部分命令（例如，加粗等）可能与传统方式不同，
-% 请阅读\pkgx{unicode-math}文档。
+% 请阅读\pkgx{unicode-math}宏包文档。
 % \section{功能说明}
 % \label{功能说明}
 % 请根据\secrefx{使用说明}中相应宏包/文档类的说明来选择性地阅读本节内容。
@@ -431,10 +431,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \tn{xdusetup}\marg{键值列表}
 %   \end{syntax}
 % \xduts[]{}提供了一系列选项，可自行配置。
-% 载入宏包/文档类之后，以下所有选项均可通过统一的命令\tnx{xdusetup}来设置。
+% 载入宏包/文档类之后，以下所有选项均可通过统一的命令\tnx{xdusetup}来设置。^^A
 % \csx[]{xdusetup}的参数是一组由（英文）逗号隔开的选项列表，
 % 下文中尖括号内列出了若干个允许的选项，其中加粗的为默认选项。
-% 列表中的选项通常是\kvoptx{\metax[]{key}[]}{\metax[]{value}[]}的形式。
+% 列表中的选项通常是\kvoptx{\metax[]{key}[]}{\metax[]{value}[]}的形式。^^A
 % \csx[]{xdusetup}采用\LaTeXiii{}风格的键值设置，
 % 支持不同类型以及多种层次的选项设定。
 % 键值列表中，“|=|”左右的空格不影响设置；
@@ -689,12 +689,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \begin{syntax}
 %     \opt{style/biblatex-option} = \marg{biblatex宏包选项}
 %   \end{syntax}
-% 修改\pkgx{biblatex}默认选项，具体配置参考\filex{biblatex-gb7714-2015.pdf}[]，
+% 修改\pkgx{biblatex}默认选项，具体配置参考\pkgx{biblatex-gb7714-2015}宏包文档，
 % 仅在\optx{style/bib-backend}等于|biblatex|时有效。例如：
 % \begin{lstlisting}
-% \xdusetup{
-%   style / biblatex-option = { gbnamefmt=quanpin }
-% }
+% \xdusetup{ style / biblatex-option = { gbnamefmt=quanpin } }
 % \end{lstlisting}
 % \end{function}
 % \subsection{页面配置}
@@ -1704,7 +1702,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 已和学位办确认，对于研究生，如挂名导师与带教导师不是一人的，
 % 仅需填写带教导师，无需填写挂名导师。
 % 如有特殊需求，需要填写两位老师，
-% 可在\optx{info/supervisor}[]、\optx[]{info/supervisor*}[]、
+% 可在\optx{info/supervisor}[]、\optx[]{info/supervisor*}[]、^^A
 % \optx[]{info/supervisor-title}和\optx{info/supervisor-title*}中
 % 使用逗号分隔两位老师的信息。
 % \changes{v2.10.1.1}{2022/06/26}{相似性检测、盲审和抽查评估}
@@ -1722,27 +1720,30 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 由于存在插图索引、表格索引、符号对照表或缩略语对照表为空的情况，
 % 故支持隐藏插图索引、表格索引、符号对照表或缩略语对照表，例如：
 % \begin{lstlisting}
-% \xdusetup{
-%   style / remove-page = { 插图索引, 符号对照表 }
-% }
+% \xdusetup{ style / remove-page = { 插图索引, 符号对照表 } }
 % \end{lstlisting}
 % \section{贡献者}
 % \xduts[]{}的开发过程中，唯一维护者为
 % \href{https://github.com/note286/}{\ttfamily @note286}。
 % \changes{v1.15.0.1}{2022/05/15}{增加\clsx{xduugthesis}内测人员}
-% 其中，在\clsx{xduugthesis}的开发过程中，
-% \href{https://github.com/Ke-Huo}{\ttfamily @Ke-Huo}、
-% \href{https://github.com/GRHun}{\ttfamily @RH}、
-% \href{https://github.com/songyueran}{\ttfamily @syr-bloom}
+% 其中，在\clsx{xduugthesis}的开发过程中，^^A
+% \href{https://github.com/Ke-Huo}{\ttfamily @Ke-Huo}、^^A
+% \href{https://github.com/GRHun}{\ttfamily @RH}、^^A
+% \href{https://github.com/songyueran}{\ttfamily @syr-bloom}^^A
 % 等人参与了内测。
-% 同时，也要感谢所有在GitHub和睿思上反馈问题和提出建议的同学、老师们。
+% 同时，也要感谢所有在GitHub和睿思上反馈问题和提出建议的同学、老师们。^^A
 % \xduts[]{}的持续发展，离不开你们的帮助与支持。
+% \changes{v4.4.5.3}{2023/02/11}{增加致谢参考链接}
 % \section{致谢}
 % 在学习文学编程的过程中，
 % 《在\LaTeX{}中进行文学编程》\footurl{https://liam.page/2015/01/23/literate-programming-in-latex/}
 % 和《Good things come in little packages: An introduction to writing .ins and .dtx files》\footurl{https://www.tug.org/TUGboat/tb29-2/tb92pakin.pdf}
 % 提供了很大帮助。
-% 在文档的编写过程中，参考了\filex{ctex.dtx}[]、\filex[]{fduthesis.dtx}[]、\filex[]{njuthesis.dtx}和\filex{thuthesis.dtx}。
+% 在文档的编写过程中，参考了^^A
+% \filex{ctex.dtx}[]\footurl{https://github.com/CTeX-org/ctex-kit/blob/master/ctex/ctex.dtx}、^^A
+% \filex[]{fduthesis.dtx}[]\footurl{https://github.com/stone-zeng/fduthesis/blob/main/source/fduthesis.dtx}、^^A
+% \filex[]{njuthesis.dtx}[]\footurl{https://github.com/nju-lug/NJUThesis/blob/master/source/njuthesis.dtx}和^^A
+% \filex{thuthesis.dtx}[]\footurl{https://github.com/tuna/thuthesis/blob/master/thuthesis.dtx}。
 % \changes{v4.0.1.1}{2022/12/12}{增加支付宝红包二维码}
 % \changes{v3.1.1.3}{2022/12/10}{二维码增加图标}
 % \changes{v3.1.1.2}{2022/12/06}{增加QQ支付二维码}
