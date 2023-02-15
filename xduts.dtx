@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/11 v4.4.5.4 Xidian University TeX Suite]
+[2023/02/15 v4.4.5.5 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/11}{4.4.5.4}
+%<class|sty>  {2023/02/15}{4.4.5.5}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -223,8 +223,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 中提及的内容本文档将不再赘述。
 % 此外，在\secrefx{使用建议}中给出了部分使用建议。
 % \xduts[]{}中的所有宏包和文档类仅内置了实现功能所需的宏包，
-% 对于常用的宏包如\pkgx{subcaption}[]、\pkgx[]{algpseudocodex}[]、^^A
-% \pkgx[]{amsmath}[]、\pkgx[]{amsthm}和\pkgx{siunitx}等\textbf{均未内置}，
+% 对于常用的宏包如\pkgx{subcaption}[]、\pkgx[]{algorithm}[]、\pkgx[]{algpseudocodex}[]、^^A
+% \pkgx[]{amsmath}[]、\pkgx[]{theorem}和\pkgx{siunitx}等\textbf{均未内置}，
 % 用户可以参考\secrefx{兼容性说明}视需求自行加载。
 % 相应格式规范均已实现，用户仅需要撰写文章内容即可，请勿随意添加格式修改命令。
 % \changes{v1.1.2.1}{2022/04/15}{增加默认值说明}
@@ -382,6 +382,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v4.1.1.0}{2023/01/16}{适配子表样式}
 % 以及适配子表caption字体字号和子表引用样式，
 % 包括\pkgx{subcaption}宏包和\pkgx{subfig}宏包。
+% \changes{v4.4.5.5}{2023/02/15}{增加定理环境自定义建议}
 % \changes{v4.0.0.1}{2022/12/11}{增加使用建议}
 % \section{使用建议}
 % \label{使用建议}
@@ -394,6 +395,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 推荐使用\pkgx{subcaption}宏包排版子图和子表；
 % 推荐使用\pkgx{tabularray}宏包排版\textbf{所有的表格}；
 % 推荐使用\pkgx{enumitem}宏包修改列表环境样式；
+% 推荐使用\pkgx{theorem}宏包修改定理环境样式；
 % 推荐使用\pkgx{siunitx}宏包排版单位。
 % 另外，不要加载任何与参考文献和中英文字体相关的宏包。
 % 使用宏包提供的功能时，\textbf{请阅读相应的宏包文档}。
