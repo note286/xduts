@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/15 v4.4.5.5 Xidian University TeX Suite]
+[2023/02/17 v5.0.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/15}{4.4.5.5}
+%<class|sty>  {2023/02/17}{5.0.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -693,7 +693,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 修改\pkgx{biblatex}默认选项，具体配置参考\pkgx{biblatex-gb7714-2015}宏包文档，
 % 仅在\optx{style/bib-backend}等于|biblatex|时有效。例如：
 % \begin{lstlisting}
-% \xdusetup{ style / biblatex-option = { gbnamefmt=quanpin } }
+% \xdusetup{ style / biblatex-option = { gbnamefmt = quanpin } }
 % \end{lstlisting}
 % \end{function}
 % \subsection{页面配置}
@@ -801,9 +801,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{optdesc}
 % \subsection{算法配置}
 % \label{算法配置}
-% \begin{function}[added=2022-06-25]{style/algorithm-small-caption}
+% \changes{v5.0.0.0}{2023/02/17}{精简算法接口名称}
+% \begin{function}[added=2022-06-25,updated=2023-02-17]{style/alg-small-caption}
 %   \begin{syntax}
-%     \opt{style/algorithm-small-caption} = (true)|false
+%     \opt{style/alg-small-caption} = (true)|false
 %   \end{syntax}
 % 设置算法caption字号是否为五号。
 % \end{function}
@@ -811,9 +812,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \item[true] 五号。
 %   \item[false] 小四号。
 % \end{optdesc}
-% \begin{function}[added=2022-04-15]{style/algorithm-small-font}
+% \begin{function}[added=2022-04-15,updated=2023-02-17]{style/alg-small-font}
 %   \begin{syntax}
-%     \opt{style/algorithm-small-font} = (true)|false
+%     \opt{style/alg-small-font} = (true)|false
 %   \end{syntax}
 % 设置算法内容字号是否为五号。
 % \end{function}
@@ -1053,53 +1054,53 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % cell{4-Z}{1}   = {cmd=\texttt},
 % rowhead        = 3
 % }
-%                              & 开题   & 毕业设计 &        & 学位论文 &        &        &        \\
-%                              & 本科   & 本科     &        & 硕士     &        & 博士   &        \\
-%                              &        & 校内     & 校外   & 学术     & 专业   & 学术   & 专业   \\
-% graduate-type                &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% degree-type                  &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% degree                       &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% degree*                      &        &          &        &          & \cmark &        & \cmark \\
-% title                        &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
-% title*                       &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% department                   & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
-% major                        & \cmark & \cmark   & \cmark & \cmark   &        & \cmark &        \\
-% major*                       &        &          &        & \cmark   &        & \cmark &        \\
-% sub-major                    &        &          &        & \cmark   &        & \cmark &        \\
-% domain                       &        &          &        &          & \cmark &        & \cmark \\
-% author                       & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
-% author*                      &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% supervisor                   & \cmark & \cmark   &        & \cmark   & \cmark & \cmark & \cmark \\
-% supervisor*                  &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% supervisor-department        &        & \cmark   &        &          &        &        &        \\
-% supervisor-enterprise        &        &          & \cmark &          & \cmark &        & \cmark \\
-% supervisor-enterprise*       &        &          &        &          & \cmark &        & \cmark \\
-% supervisor-school            &        &          & \cmark &          &        &        &        \\
-% supervisor-title             &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% supervisor-title*            &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% supervisor-enterprise-title  &        &          &        &          & \cmark &        & \cmark \\
-% supervisor-enterprise-title* &        &          &        &          & \cmark &        & \cmark \\
-% class                        & \cmark &          &        &          &        &        &        \\
-% class-id                     &        & \cmark   & \cmark &          &        &        &        \\
-% student-id                   & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
-% clc                          &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% secret-level                 &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% secret-year                  &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% submit-date                  & \cmark &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% statement-scan               &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% statement-sign               &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% sign                         & \cmark &          &        &          &        &        &        \\
-% date                         & \cmark &          &        &          &        &        &        \\
-% abstract                     &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
-% abstract*                    &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
-% keywords                     &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
-% keywords*                    &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
-% los                          &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% loa                          &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% bib-resource                 & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
-% appendix                     &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
-% acknowledgements             &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
-% bio                          &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+%                  & 开题   & 毕业设计 &        & 学位论文 &        &        &        \\
+%                  & 本科   & 本科     &        & 硕士     &        & 博士   &        \\
+%                  &        & 校内     & 校外   & 学术     & 专业   & 学术   & 专业   \\
+% graduate-type    &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% degree-type      &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% degree           &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% degree*          &        &          &        &          & \cmark &        & \cmark \\
+% title            &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% title*           &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% department       & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% major            & \cmark & \cmark   & \cmark & \cmark   &        & \cmark &        \\
+% major*           &        &          &        & \cmark   &        & \cmark &        \\
+% sub-major        &        &          &        & \cmark   &        & \cmark &        \\
+% domain           &        &          &        &          & \cmark &        & \cmark \\
+% author           & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% author*          &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% supervisor       & \cmark & \cmark   &        & \cmark   & \cmark & \cmark & \cmark \\
+% supervisor*      &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% supv-dept        &        & \cmark   &        &          &        &        &        \\
+% supv-ent         &        &          & \cmark &          & \cmark &        & \cmark \\
+% supv-ent*        &        &          &        &          & \cmark &        & \cmark \\
+% supv-school      &        &          & \cmark &          &        &        &        \\
+% supv-title       &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% supv-title*      &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% supv-ent-title   &        &          &        &          & \cmark &        & \cmark \\
+% supv-ent-title*  &        &          &        &          & \cmark &        & \cmark \\
+% class            & \cmark &          &        &          &        &        &        \\
+% class-id         &        & \cmark   & \cmark &          &        &        &        \\
+% student-id       & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% clc              &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% secret-level     &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% secret-year      &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% submit-date      & \cmark &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% statement-scan   &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% statement-sign   &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% sign             & \cmark &          &        &          &        &        &        \\
+% date             & \cmark &          &        &          &        &        &        \\
+% abstract         &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% abstract*        &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% keywords         &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% keywords*        &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% los              &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% loa              &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
+% bib-resource     & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% appendix         &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% acknowledgements &        & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
+% bio              &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
 % \end{tblr}
 % \changes{v1.9.0.0}{2022/05/03}{增加研究生信息录入选项文档}
 % \begin{function}[added=2022-05-02,updated=2022-05-03]{info/graduate-type}
@@ -1176,36 +1177,37 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \end{syntax}
 % 设置导师姓名。
 % \end{function}
-% \begin{function}[added=2022-04-01]{info/supervisor-department}
+% \changes{v5.0.0.0}{2023/02/17}{精简部分信息录入接口名称}
+% \begin{function}[added=2022-04-01,updated=2023-02-17]{info/supv-dept}
 %   \begin{syntax}
-%     \opt{info/supervisor-department} = \meta{院内导师姓名}
+%     \opt{info/supv-dept} = \meta{院内导师姓名}
 %   \end{syntax}
 % 设置院内导师姓名。
 % \end{function}
-% \begin{function}[added=2022-04-01,updated=2022-05-03]{info/supervisor-enterprise,info/supervisor-enterprise*}
+% \begin{function}[added=2022-04-01,updated=2023-02-17]{info/supv-ent,info/supv-ent*}
 %   \begin{syntax}
-%     \opt{info/supervisor-enterprise} = \meta{校外导师姓名}
-%     \opt{info/supervisor-enterprise*} = \meta{校外导师姓名拼音}
+%     \opt{info/supv-ent} = \meta{校外导师姓名}
+%     \opt{info/supv-ent*} = \meta{校外导师姓名拼音}
 %   \end{syntax}
 % 设置校外导师姓名。
 % \end{function}
-% \begin{function}[added=2022-04-01]{info/supervisor-school}
+% \begin{function}[added=2022-04-01,updated=2023-02-17]{info/supv-school}
 %   \begin{syntax}
-%     \opt{info/supervisor-school} = \meta{校内导师姓名}
+%     \opt{info/supv-school} = \meta{校内导师姓名}
 %   \end{syntax}
 % 设置校内导师姓名。
 % \end{function}
-% \begin{function}[added=2022-05-03]{info/supervisor-title,info/supervisor-title*}
+% \begin{function}[added=2022-05-03,updated=2023-02-17]{info/supv-title,info/supv-title*}
 %   \begin{syntax}
-%     \opt{info/supervisor-title} = \meta{导师职称}
-%     \opt{info/supervisor-title*} = \meta{导师职称英文名称}
+%     \opt{info/supv-title} = \meta{导师职称}
+%     \opt{info/supv-title*} = \meta{导师职称英文名称}
 %   \end{syntax}
 % 设置导师职称。
 % \end{function}
-% \begin{function}[added=2022-05-03]{info/supervisor-enterprise-title,info/supervisor-enterprise-title*}
+% \begin{function}[added=2022-05-03,updated=2023-02-17]{info/supv-ent-title,info/supv-ent-title*}
 %   \begin{syntax}
-%     \opt{info/supervisor-enterprise-title} = \meta{校外导师职称}
-%     \opt{info/supervisor-enterprise-title*} = \meta{校外导师职称英文名称}
+%     \opt{info/supv-ent-title} = \meta{校外导师职称}
+%     \opt{info/supv-ent-title*} = \meta{校外导师职称英文名称}
 %   \end{syntax}
 % 设置校外导师职称。
 % \end{function}
@@ -1595,20 +1597,20 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \par
 % 电子与信息,
 % 先进制造
-% \item \optx{supervisor-title}
+% \item \optx{supv-title}
 % \par
 % 教授,
 % 副教授
-% \item \optx{supervisor-title*}
+% \item \optx{supv-title*}
 % \par
 % Professor,
 % Associate Professor
-% \item \optx{supervisor-enterprise-title}
+% \item \optx{supv-ent-title}
 % \par
 % 研究员,
 % 副研究员,
 % 高工
-% \item \optx{supervisor-enterprise-title*}
+% \item \optx{supv-ent-title*}
 % \par
 % Research Fellow,
 % Associate Research Fellow,
@@ -1704,7 +1706,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 仅需填写带教导师，无需填写挂名导师。
 % 如有特殊需求，需要填写两位老师，
 % 可在\optx{info/supervisor}[]、\optx[]{info/supervisor*}[]、^^A
-% \optx[]{info/supervisor-title}和\optx{info/supervisor-title*}中
+% \optx[]{info/supv-title}和\optx{info/supv-title*}中
 % 使用逗号分隔两位老师的信息。
 % \changes{v2.10.1.1}{2022/06/26}{相似性检测、盲审和抽查评估}
 % \subsubsection{相似性检测、盲审和抽查评估}
@@ -2800,6 +2802,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % 校外导师姓名。
 %    \begin{macrocode}
+    supv-ent .tl_set:N = \l_@@_supv_ent_str,
     supervisor-enterprise .tl_set:N = \l_@@_supv_ent_str,
 %    \end{macrocode}
 % 作者学号。
@@ -2846,6 +2849,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     info / major                 = { },
     info / author                = { },
     info / supervisor            = { },
+    info / supv-ent              = { },
     info / supervisor-enterprise = { },
     info / student-id            = { },
     info / abstract              = { },
@@ -2972,10 +2976,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % 院内导师姓名。
 %    \begin{macrocode}
+    supv-dept .tl_set:N = \l_@@_supv_dept_str,
     supervisor-department .tl_set:N = \l_@@_supv_dept_str,
 %    \end{macrocode}
 % 校内导师姓名。
 %    \begin{macrocode}
+    supv-school .tl_set:N = \l_@@_supv_sch_str,
     supervisor-school .tl_set:N = \l_@@_supv_sch_str,
 %    \end{macrocode}
 % 作者班级号。
@@ -2989,7 +2995,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
+    info / supv-dept             = { },
     info / supervisor-department = { },
+    info / supv-school           = { },
     info / supervisor-school     = { },
     info / class-id              = { }
   }
@@ -3147,16 +3155,21 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % 校外导师姓名拼音。
 %    \begin{macrocode}
+    supv-ent* .tl_set:N = \l_@@_supv_ent_en_str,
     supervisor-enterprise* .tl_set:N = \l_@@_supv_ent_en_str,
 %    \end{macrocode}
 % 导师职称。
 %    \begin{macrocode}
+    supv-title .clist_set:N = \l_@@_supv_t_clist,
     supervisor-title .clist_set:N = \l_@@_supv_t_clist,
+    supv-title* .clist_set:N = \l_@@_supv_t_en_clist,
     supervisor-title* .clist_set:N = \l_@@_supv_t_en_clist,
 %    \end{macrocode}
 % 校外导师职称。
 %    \begin{macrocode}
+    supv-ent-title .tl_set:N = \l_@@_supv_ent_t_str,
     supervisor-enterprise-title .tl_set:N = \l_@@_supv_ent_t_str,
+    supv-ent-title* .tl_set:N = \l_@@_supv_ent_t_en_str,
     supervisor-enterprise-title* .tl_set:N = \l_@@_supv_ent_t_en_str,
 %    \end{macrocode}
 % 论文标题英文。
@@ -3221,23 +3234,28 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-    info / graduate-type                = { 硕士 },
-    info / degree-type                  = { 学术 },
+    info / graduate-type                = 硕士,
+    info / degree-type                  = 学术,
     info / degree                       = { },
     info / degree*                      = { },
     info / author*                      = { },
     info / supervisor*                  = { },
+    info / supv-ent*                    = { },
     info / supervisor-enterprise*       = { },
+    info / supv-title                   = { },
     info / supervisor-title             = { },
+    info / supv-title*                  = { },
     info / supervisor-title*            = { },
+    info / supv-ent-title               = { },
     info / supervisor-enterprise-title  = { },
+    info / supv-ent-title*              = { },
     info / supervisor-enterprise-title* = { },
     info / title*                       = { },
     info / major*                       = { },
     info / sub-major                    = { },
     info / domain                       = { },
     info / clc                          = { },
-    info / secret-level                 = { 公开 },
+    info / secret-level                 = 公开,
     info / secret-year                  = { },
     info / submit-date                  = { },
     info / statement-scan               = { },
@@ -3325,8 +3343,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 \keys_set:nn { xdu }
   {
     style / remove-page   = { },
-    style / remove-header = { false },
-    style / remove-footer = { false }
+    style / remove-header = false,
+    style / remove-footer = false
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3463,7 +3481,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-    style / anonymous = { false }
+    style / anonymous = false
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3689,10 +3707,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % 设置算法Caption字号是否为五号。
 %    \begin{macrocode}
+    alg-small-caption .bool_set:N = \l_@@_alg_small_cap_bool,
     algorithm-small-caption .bool_set:N = \l_@@_alg_small_cap_bool,
 %    \end{macrocode}
 % 设置算法内容字号是否为五号。
 %    \begin{macrocode}
+    alg-small-font .bool_set:N = \l_@@_alg_small_bool,
     algorithm-small-font .bool_set:N = \l_@@_alg_small_bool,
 %    \end{macrocode}
 % 设置章节标题前的垂直间距。
@@ -3737,19 +3757,21 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     style / fix-include             = false,
     style / fix-includegraphics     = false,
     style / ref-add-space           = false,
-    style / caption-label-sep       = { 0.75em },
-    style / ft-caption-format       = { hang },
-    style / alg-caption-format      = { hang },
-    style / ft-caption-align        = { centering-left },
-    style / alg-caption-align       = { left },
-    style / add-alg-rule-vspace     = { false },
+    style / caption-label-sep       = 0.75em,
+    style / ft-caption-format       = hang,
+    style / alg-caption-format      = hang,
+    style / ft-caption-align        = centering-left,
+    style / alg-caption-align       = left,
+    style / add-alg-rule-vspace     = false,
     style / table-small-font        = true,
+    style / alg-small-caption       = true,
     style / algorithm-small-caption = true,
+    style / alg-small-font          = true,
     style / algorithm-small-font    = true,
     style / before-skip             = { 24pt, 18pt, 12pt, 12pt, 12pt, 12pt },
     style / after-skip              = { 18pt, 12pt, 6pt, 6pt, 6pt, 6pt },
     style / symmetric-margin        = false,
-    style / page-vertical-align     = { 顶部对齐 }
+    style / page-vertical-align     = 顶部对齐
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3846,12 +3868,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-    style / customize-los = { true               },
-    style / customize-loa = { true               },
-    style / colspec-los   = { Q[l,h]X[l,h]       },
+    style / customize-los = true,
+    style / customize-loa = true,
+    style / colspec-los   = { Q[l,h]X[l,h] },
     style / colspec-loa   = { Q[l,h]X[l,h]X[l,h] },
-    style / title-row-los = { false              },
-    style / title-row-loa = { false              }
+    style / title-row-los = false,
+    style / title-row-loa = false
   }
 %    \end{macrocode}
 % \end{macro}
@@ -3892,8 +3914,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 \keys_set:nn { xdu }
   {
-    style / customize-edubg     = { true },
-    style / customize-resresult = { true }
+    style / customize-edubg     = true,
+    style / customize-resresult = true
   }
 %    \end{macrocode}
 % \end{macro}
