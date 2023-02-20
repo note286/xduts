@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/17 v5.0.0.0 Xidian University TeX Suite]
+[2023/02/20 v5.1.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/17}{5.0.0.0}
+%<class|sty>  {2023/02/20}{5.1.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -471,15 +471,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \label{字体选项}
 % \begin{function}[added=2022-03-06]{style/cjk-font}
 %   \begin{syntax}
-%     \opt{style/cjk-font} = adobe|(fandol)|founder|sinotype|win|none
+%     \opt{style/cjk-font} = adobe|(fandol)|founder|hanyi|sinotype|win|none
 %   \end{syntax}
 % 设置中文字体，具体配置见\tabrefx{tab:cjk-font}[]。
 % \end{function}
 % \begin{optdesc}
-%   \item[adobe] \filex[]{adobesongstd-light.otf}[]、\filex[]{adobekaitistd-regular.otf}[]、\filex[]{adobeheitistd-regular.otf}和\filex{Adobe-Fangsong-Std-R-Font.otf}。
-%   \item[founder] \filex[]{FZShuSong-Z01.ttf}[]、\filex[]{FZKai-Z03.ttf}[]、\filex[]{FZHei-B01.ttf}和\filex{FZFSK.TTF}。
-%   \item[sinotype] \filex[]{STSONG.TTF}[]、\filex[]{STKAITI.TTF}[]、\filex[]{STXIHEI.TTF}[]、\filex[]{STHeiti.ttf}和\filex{STFANGSO.TTF}。
-%   \item[win] \filex[]{simsun.ttc}[]、\filex[]{simkai.ttf}[]、\filex[]{simhei.ttf}和\filex{simfang.ttf}。
+%   \item[adobe] \filex[]{adobesongstd-light.otf}[]、\filex[]{adobekaitistd-regular.otf}[]、\filex[]{adobeheitistd-regular.otf}和\filex{Adobe-Fangsong-Std-R-Font.otf}[]。
+%   \item[founder] \filex[]{FZShuSong-Z01.ttf}[]、\filex[]{FZKai-Z03.ttf}[]、\filex[]{FZHei-B01.ttf}和\filex{FZFSK.TTF}[]。
+%   \item[hanyi] \filex[]{HYShuSongErS.ttf}[]、\filex[]{HYKaiTiS.ttf}[]、\filex[]{HYZhongHeiTiS.ttf}和\filex{HYFangSongS.ttf}[]。
+%   \item[sinotype] \filex[]{STSONG.TTF}[]、\filex[]{STKAITI.TTF}[]、\filex[]{STXIHEI.TTF}[]、\filex[]{STHeiti.ttf}和\filex{STFANGSO.TTF}[]。
+%   \item[win] \filex[]{simsun.ttc}[]、\filex[]{simkai.ttf}[]、\filex[]{simhei.ttf}和\filex{simfang.ttf}[]。
 %   \item[none] 关闭内置中文字体配置，需自行配置中文字体。
 % \end{optdesc}
 % \changes{v2.16.1.1}{2022/11/27}{修改中文字体配置表文档样式}
@@ -502,6 +503,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % |adobe|    & Adobe 宋体 Std & Adobe 楷体 Std & Adobe 黑体 Std    & Adobe 仿宋 Std \\
 % |fandol|   & FandolSong     & FandolKai      & FandolHei         & FandolFang     \\
 % |founder|  & 方正书宋\_GBK  & 方正楷体\_GBK  & 方正黑体\_GBK     & 方正仿宋\_GBK  \\
+% |hanyi|    & 汉仪书宋二S    & 汉仪楷体S      & 汉仪中黑S         & 汉仪仿宋S      \\
 % |sinotype| & 华文宋体       & 华文楷体       & 华文细黑/华文黑体 & 华文仿宋       \\
 % |win|      & 中易宋体       & 中易楷体       & 中易黑体          & 中易仿宋       \\
 % \end{tblr}
@@ -525,9 +527,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置英文字体，具体配置见\tabrefx{tab:latin-font}[]。
 % \end{function}
 % \begin{optdesc}
-%   \item[tac] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{arial.ttf}[]、\filex[]{arialbd.ttf}[]、\filex[]{ariali.ttf}[]、\filex[]{arialbi.ttf}[]、\filex[]{consola.ttf}[]、\filex[]{consolab.ttf}[]、\filex[]{consolai.ttf}和\filex{consolaz.ttf}。
-%   \item[tacn] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{arial.ttf}[]、\filex[]{arialbd.ttf}[]、\filex[]{ariali.ttf}[]、\filex[]{arialbi.ttf}[]、\filex[]{cour.ttf}[]、\filex[]{courbd.ttf}[]、\filex[]{couri.ttf}和\filex{courbi.ttf}。
-%   \item[thcs] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{Helvetica.ttf}[]、\filex[]{Helvetica~Bold.ttf}[]、\filex[]{Helvetica~Oblique.ttf}[]、\filex[]{Helvetica~Bold~Oblique.ttf}[]、\filex[]{CourierStd.otf}[]、\filex[]{CourierStd-Bold.otf}[]、\filex[]{CourierStd-Oblique.otf}和\filex{CourierStd-BoldOblique.otf}。
+%   \item[tac] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{arial.ttf}[]、\filex[]{arialbd.ttf}[]、\filex[]{ariali.ttf}[]、\filex[]{arialbi.ttf}[]、\filex[]{consola.ttf}[]、\filex[]{consolab.ttf}[]、\filex[]{consolai.ttf}和\filex{consolaz.ttf}[]。
+%   \item[tacn] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{arial.ttf}[]、\filex[]{arialbd.ttf}[]、\filex[]{ariali.ttf}[]、\filex[]{arialbi.ttf}[]、\filex[]{cour.ttf}[]、\filex[]{courbd.ttf}[]、\filex[]{couri.ttf}和\filex{courbi.ttf}[]。
+%   \item[thcs] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{Helvetica.ttf}[]、\filex[]{Helvetica~Bold.ttf}[]、\filex[]{Helvetica~Oblique.ttf}[]、\filex[]{Helvetica~Bold~Oblique.ttf}[]、\filex[]{CourierStd.otf}[]、\filex[]{CourierStd-Bold.otf}[]、\filex[]{CourierStd-Oblique.otf}和\filex{CourierStd-BoldOblique.otf}[]。
 %   \item[none] 关闭内置英文字体配置，需自行配置英文字体。
 % \end{optdesc}
 % \changes{v2.16.1.1}{2022/11/27}{修改英文字体配置表文档样式}
@@ -1937,7 +1939,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 中文字体配置。
 %    \begin{macrocode}
     cjk-font .choices:nn =
-      { win, adobe, founder, sinotype, fandol, none }
+      { win, adobe, founder, hanyi, sinotype, fandol, none }
       { \tl_set_eq:NN \l_@@_cjk_font_tl \l_keys_choice_tl },
 %    \end{macrocode}
 % 中文字体伪粗体粗细程度。
@@ -2278,6 +2280,22 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       { \@@_select_font:nn { FZHei-B01      } { FZHei-B01.ttf     } }
     \@@_set_cjk_mono_font:n
       { \@@_select_font:nn { FZFangSong-Z02 } { FZFSK.TTF         } }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \changes{v5.1.0.0}{2023/02/20}{新增汉仪字体}
+% \begin{macro}{\@@_load_cjk_font_hanyi:}
+% 中文字体配置\valuex{hanyi}[]。
+%    \begin{macrocode}
+\cs_new:Npn \@@_load_cjk_font_hanyi:
+  {
+    \@@_set_cjk_main_font:nn
+      { \@@_select_font:nn { HYShuSongErS } { HYShuSongErS.ttf  } }
+      { \@@_select_font:nn { HYKaiTiS     } { HYKaiTiS.ttf      } }
+    \@@_set_cjk_sans_font:n
+      { \@@_select_font:nn { HYZhongHei   } { HYZhongHeiTiS.ttf } }
+    \@@_set_cjk_mono_font:n
+      { \@@_select_font:nn { HYFangSongS  } { HYFangSongS.ttf   } }
   }
 %    \end{macrocode}
 % \end{macro}
