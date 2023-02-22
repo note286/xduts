@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/22 v5.1.0.1 Xidian University TeX Suite]
+[2023/02/23 v5.2.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/22}{5.1.0.1}
+%<class|sty>  {2023/02/23}{5.2.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -5202,8 +5202,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \subsection{Caption}
 % \begin{macro}{\DeclareCaptionLabelSeparator,\DeclareCaptionFont,\captionsetup}
-% \changes{v3.0.0.0}{2022/12/03}{设置图、表caption格式}
-% \changes{v2.17.0.0}{2022/11/28}{设置图、表caption格式}
+% \changes{v5.2.0.0}{2023/02/23}{设置图表caption前后垂直间距}
+% \changes{v3.0.0.0}{2022/12/03}{设置图表caption格式}
+% \changes{v2.17.0.0}{2022/11/28}{设置图表caption格式}
 % \changes{v0.1.2.0}{2022/04/03}{设置图片标签与后面标题之间的间距}
 % \changes{v0.1.3.0}{2022/04/03}{设置图片标签与标题字体字号}
 % \changes{v2.10.1.0}{2022/06/26}{修复算法标签与标题字体字号警告}
@@ -5215,9 +5216,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 \DeclareCaptionFont { customfont   } { \@@_rm_family: \zihao { 5 } }
 \captionsetup
   {
+    strut    = off,
     labelsep = customskip,
     font     = customfont
   }
+\dim_set_eq:NN \intextsep \abovecaptionskip
 \ctex_at_end_preamble:n
   {
     \tl_if_eq:NnTF \l_@@_ft_cap_format_tl { hang }
@@ -5417,6 +5420,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\SetTblrStyle,\DefTblrTemplate}
+% \changes{v5.2.0.0}{2023/02/23}{适配\pkgx{tabularray}宏包caption前后垂直间距}
 % \changes{v2.17.0.0}{2022/11/28}{设置\pkgx{tabularray}中\envx{longtblr}环境caption格式}
 % \changes{v2.16.3.0}{2022/11/27}{适配不同语言下的\envx{longtblr}环境中标题和尾部的续表文本}
 % \changes{v2.16.2.0}{2022/11/27}{修正\envx{longtblr}环境caption宽度}
@@ -5427,6 +5431,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   {
     \@ifpackageloaded { tabularray }
       {
+        \SetTblrOuter [ tblr, longtblr, talltblr ]
+          { presep = \belowcaptionskip + \intextsep, headsep = \abovecaptionskip }
         \SetTblrStyle { head } { font = \@@_rm_family: \zihao { 5 } }
         \DefTblrTemplate { caption-sep } { default }
           { \hskip \l_@@_cap_label_sep_tl }
