@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/23 v5.3.0.0 Xidian University TeX Suite]
+[2023/02/23 v5.4.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/23}{5.3.0.0}
+%<class|sty>  {2023/02/23}{5.4.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -527,7 +527,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{function}
 % \begin{function}[added=2022-03-06,updated=2023-02-23]{style/latin-font}
 %   \begin{syntax}
-%     \opt{style/latin-font} = (gyre)|tac|tacn|tcc|thcs|none
+%     \opt{style/latin-font} = (gyre)|tac|tacn|tcc|thcs|tll|none
 %   \end{syntax}
 % 设置英文字体，具体配置见\tabrefx{tab:latin-font}[]。
 % \end{function}
@@ -536,6 +536,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \item[tacn] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{arial.ttf}[]、\filex[]{arialbd.ttf}[]、\filex[]{ariali.ttf}[]、\filex[]{arialbi.ttf}[]、\filex[]{cour.ttf}[]、\filex[]{courbd.ttf}[]、\filex[]{couri.ttf}和\filex{courbi.ttf}[]。
 %   \item[tcc] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}和\filex{timesbi.ttf}[]。
 %   \item[thcs] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{Helvetica.ttf}[]、\filex[]{Helvetica~Bold.ttf}[]、\filex[]{Helvetica~Oblique.ttf}[]、\filex[]{Helvetica~Bold~Oblique.ttf}[]、\filex[]{CourierStd.otf}[]、\filex[]{CourierStd-Bold.otf}[]、\filex[]{CourierStd-Oblique.otf}和\filex{CourierStd-BoldOblique.otf}[]。
+%   \item[tll] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}和\filex{timesbi.ttf}[]。
 %   \item[none] 关闭内置英文字体配置，需自行配置英文字体。
 % \end{optdesc}
 % \changes{v2.16.1.1}{2022/11/27}{修改英文字体配置表文档样式}
@@ -545,18 +546,19 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \begin{tblr}
 % {
 % width          = \linewidth,
-% colspec        = {Q[c,m]*{3}{X[c,m]}},
+% colspec        = {Q[c,m]*{3}{X[-1,c,m]}},
 % hline{1,2,Z}   = {wd=.08em},
 % row{even[2-Z]} = {bg=gray9!40},
 % cell{2-Z}{1}   = {font=\ttfamily},
 % row{1}         = {font=\bfseries}
 % }
-% 选项名称 & 罗马族          & 无衬线族       & 打字机族            \\
-% gyre     & TeX Gyre Termes & TeX Gyre Heros & TeX Gyre Cursor     \\
-% tac      & Times New Roman & CMU Sans Serif & CMU Typewriter Text \\
-% tacn     & Times New Roman & Arial          & Courier New         \\
-% tcc      & Times New Roman & Arial          & Consolas            \\
-% thcs     & Times New Roman & Helvetica      & Courier Std         \\
+% 选项名称 & 罗马族          & 无衬线族         & 打字机族               \\
+% gyre     & TeX Gyre Termes & TeX Gyre Heros   & TeX Gyre Cursor        \\
+% tac      & Times New Roman & CMU Sans Serif   & CMU Typewriter Text    \\
+% tacn     & Times New Roman & Arial            & Courier New            \\
+% tcc      & Times New Roman & Arial            & Consolas               \\
+% thcs     & Times New Roman & Helvetica        & Courier Std            \\
+% tll      & Times New Roman & Linux Biolinum O & Linux Libertine Mono O \\
 % \end{tblr}
 % \end{table}
 % \begin{function}[added=2023-01-28]{style/latin-sans-scale,style/latin-mono-scale}
@@ -1969,7 +1971,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % 英文字体配置。
 %    \begin{macrocode}
-    latin-font .choices:nn = { gyre, tac, tacn, tcc, thcs, none }
+    latin-font .choices:nn = { gyre, tac, tacn, tcc, thcs, tll, none }
       { \tl_set_eq:NN \l_@@_latin_font_tl \l_keys_choice_tl },
 %    \end{macrocode}
 % 数学字体配置。
@@ -2609,6 +2611,31 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       { CourierStd-Bold.otf        }
       { CourierStd-Oblique.otf     }
       { CourierStd-BoldOblique.otf }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_load_latin_font_tll:}
+% \changes{v5.3.0.0}{2023/02/23}{增加tll系列英文字体配置}
+% 英文字体配置\valuex{tll}[]。
+%    \begin{macrocode}
+\cs_new:Npn \@@_load_latin_font_tll:
+  {
+    \@@_set_latin_main_font:nnnnn
+      { Times~New~Roman      }
+      { times.ttf            }
+      { timesbd.ttf          }
+      { timesi.ttf           }
+      { timesbi.ttf          }
+    \@@_set_latin_sans_font:nnnn
+      { LinBiolinum_R.otf    }
+      { LinBiolinum_RB.otf   }
+      { LinBiolinum_RI.otf   }
+      { LinBiolinum_RBO.otf  }
+    \@@_set_latin_mono_font:nnnn
+      { LinLibertine_M.otf   }
+      { LinLibertine_MB.otf  }
+      { LinLibertine_MO.otf  }
+      { LinLibertine_MBO.otf }
   }
 %    \end{macrocode}
 % \end{macro}
