@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/23 v5.4.0.0 Xidian University TeX Suite]
+[2023/02/23 v5.4.0.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/23}{5.4.0.0}
+%<class|sty>  {2023/02/23}{5.4.0.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -525,6 +525,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \end{syntax}
 % 设置中文字体伪斜体倾斜程度。默认为\valuex{0.2}[]。
 % \end{function}
+% \changes{v5.4.0.1}{2023/02/23}{修正文档内英文字体配置表格错误}
 % \begin{function}[added=2022-03-06,updated=2023-02-23]{style/latin-font}
 %   \begin{syntax}
 %     \opt{style/latin-font} = (gyre)|tac|tacn|tcc|thcs|tll|none
@@ -554,9 +555,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % }
 % 选项名称 & 罗马族          & 无衬线族         & 打字机族               \\
 % gyre     & TeX Gyre Termes & TeX Gyre Heros   & TeX Gyre Cursor        \\
-% tac      & Times New Roman & CMU Sans Serif   & CMU Typewriter Text    \\
+% tac      & Times New Roman & Arial            & Consolas               \\
 % tacn     & Times New Roman & Arial            & Courier New            \\
-% tcc      & Times New Roman & Arial            & Consolas               \\
+% tcc      & Times New Roman & CMU Sans Serif   & CMU Typewriter Text    \\
 % thcs     & Times New Roman & Helvetica        & Courier Std            \\
 % tll      & Times New Roman & Linux Biolinum O & Linux Libertine Mono O \\
 % \end{tblr}
