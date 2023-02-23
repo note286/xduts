@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/23 v5.2.0.0 Xidian University TeX Suite]
+[2023/02/23 v5.3.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/23}{5.2.0.0}
+%<class|sty>  {2023/02/23}{5.3.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -525,15 +525,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \end{syntax}
 % 设置中文字体伪斜体倾斜程度。默认为\valuex{0.2}[]。
 % \end{function}
-% \begin{function}[added=2022-03-06,updated=2022-05-06]{style/latin-font}
+% \begin{function}[added=2022-03-06,updated=2023-02-23]{style/latin-font}
 %   \begin{syntax}
-%     \opt{style/latin-font} = tac|tacn|thcs|(gyre)|none
+%     \opt{style/latin-font} = (gyre)|tac|tacn|tcc|thcs|none
 %   \end{syntax}
 % 设置英文字体，具体配置见\tabrefx{tab:latin-font}[]。
 % \end{function}
 % \begin{optdesc}
 %   \item[tac] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{arial.ttf}[]、\filex[]{arialbd.ttf}[]、\filex[]{ariali.ttf}[]、\filex[]{arialbi.ttf}[]、\filex[]{consola.ttf}[]、\filex[]{consolab.ttf}[]、\filex[]{consolai.ttf}和\filex{consolaz.ttf}[]。
 %   \item[tacn] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{arial.ttf}[]、\filex[]{arialbd.ttf}[]、\filex[]{ariali.ttf}[]、\filex[]{arialbi.ttf}[]、\filex[]{cour.ttf}[]、\filex[]{courbd.ttf}[]、\filex[]{couri.ttf}和\filex{courbi.ttf}[]。
+%   \item[tcc] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}和\filex{timesbi.ttf}[]。
 %   \item[thcs] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{Helvetica.ttf}[]、\filex[]{Helvetica~Bold.ttf}[]、\filex[]{Helvetica~Oblique.ttf}[]、\filex[]{Helvetica~Bold~Oblique.ttf}[]、\filex[]{CourierStd.otf}[]、\filex[]{CourierStd-Bold.otf}[]、\filex[]{CourierStd-Oblique.otf}和\filex{CourierStd-BoldOblique.otf}[]。
 %   \item[none] 关闭内置英文字体配置，需自行配置英文字体。
 % \end{optdesc}
@@ -550,11 +551,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % cell{2-Z}{1}   = {font=\ttfamily},
 % row{1}         = {font=\bfseries}
 % }
-% 选项名称 & 罗马族          & 无衬线族       & 打字机族        \\
-% tac      & Times New Roman & Arial          & Consolas        \\
-% tacn     & Times New Roman & Arial          & Courier New     \\
-% thcs     & Times New Roman & Helvetica      & Courier Std     \\
-% gyre     & TeX Gyre Termes & TeX Gyre Heros & TeX Gyre Cursor \\
+% 选项名称 & 罗马族          & 无衬线族       & 打字机族            \\
+% gyre     & TeX Gyre Termes & TeX Gyre Heros & TeX Gyre Cursor     \\
+% tac      & Times New Roman & CMU Sans Serif & CMU Typewriter Text \\
+% tacn     & Times New Roman & Arial          & Courier New         \\
+% tcc      & Times New Roman & Arial          & Consolas            \\
+% thcs     & Times New Roman & Helvetica      & Courier Std         \\
 % \end{tblr}
 % \end{table}
 % \begin{function}[added=2023-01-28]{style/latin-sans-scale,style/latin-mono-scale}
@@ -1967,7 +1969,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % 英文字体配置。
 %    \begin{macrocode}
-    latin-font .choices:nn = { tac, tacn, thcs, gyre, none }
+    latin-font .choices:nn = { gyre, tac, tacn, tcc, thcs, none }
       { \tl_set_eq:NN \l_@@_latin_font_tl \l_keys_choice_tl },
 %    \end{macrocode}
 % 数学字体配置。
@@ -2556,6 +2558,31 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       { Arial           } { arial.ttf } { arialbd.ttf } { ariali.ttf } { arialbi.ttf }
     \@@_set_latin_mono_font:nnnnn
       { Courier~New     } { cour.ttf  } { courbd.ttf  } { couri.ttf  } { courbi.ttf  }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\@@_load_latin_font_tcc:}
+% \changes{v5.3.0.0}{2023/02/23}{增加tcc系列英文字体配置}
+% 英文字体配置\valuex{tcc}[]。
+%    \begin{macrocode}
+\cs_new:Npn \@@_load_latin_font_tcc:
+  {
+    \@@_set_latin_main_font:nnnnn
+      { Times~New~Roman }
+      { times.ttf       }
+      { timesbd.ttf     }
+      { timesi.ttf      }
+      { timesbi.ttf     }
+    \@@_set_latin_sans_font:nnnn
+      { cmunss.otf      }
+      { cmunsx.otf      }
+      { cmunsi.otf      }
+      { cmunso.otf      }
+    \@@_set_latin_mono_font:nnnn
+      { cmuntt.otf      }
+      { cmuntb.otf      }
+      { cmunit.otf      }
+      { cmuntx.otf      }
   }
 %    \end{macrocode}
 % \end{macro}
