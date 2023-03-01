@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/02/23 v5.4.0.1 Xidian University TeX Suite]
+[2023/03/01 v5.5.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/02/23}{5.4.0.1}
+%<class|sty>  {2023/03/01}{5.5.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -1830,6 +1830,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 \RequirePackage { xparse, l3keys2e }
 %    \end{macrocode}
+% \changes{v5.5.0.0}{2023/03/01}{抑制\pkgx{fontspec}对数学字体的修改}
+% \begin{macro}{\PassOptionsToPackage}
+% 抑制\pkgx{fontspec}对数学字体的修改。
+%    \begin{macrocode}
+\PassOptionsToPackage { no-math } { fontspec }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\PassOptionsToPackage}
 % 忽略字体警告。
 %    \begin{macrocode}
