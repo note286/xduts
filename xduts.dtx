@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/01 v5.5.0.0 Xidian University TeX Suite]
+[2023/03/01 v5.6.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/01}{5.5.0.0}
+%<class|sty>  {2023/03/01}{5.6.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -2679,13 +2679,15 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \subsubsection{数学字体}
 % \begin{macro}{\@@_load_unicode_math_pkg:}
+% \changes{v5.6.0.0}{2023/03/01}{设置\pkgx{unicode-math}下算符字体为数学字体}
 % \changes{v1.14.1.0}{2022/05/10}{使用\tnx{PassOptionsToPackage}传递\pkgx{unicode-math}宏包参数}
-% 加载\pkgx{unicode-math}宏包。
+% 加载\pkgx{unicode-math}宏包并设置算符字体为数学字体。
 %    \begin{macrocode}
 \cs_new:Npn \@@_load_unicode_math_pkg:
   {
     \PassOptionsToPackage { \l_@@_unicode_math_tl } { unicode-math }
-    \RequirePackage { unicode-math }
+    \RequirePackage  { unicode-math }
+    \setoperatorfont { \symup       }
   }
 %    \end{macrocode}
 % \end{macro}
