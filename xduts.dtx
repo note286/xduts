@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/01 v5.6.0.0 Xidian University TeX Suite]
+[2023/03/02 v6.0.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/01}{5.6.0.0}
+%<class|sty>  {2023/03/02}{6.0.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -666,8 +666,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \opt{style/title-bold-math} = true|(false)
 %   \end{syntax}
 % 是否自动加粗如下位置中的数学字体：
-% 中文研究生学位论文中，封面和提名页中英文标题，正文所有级别标题和目录一级标题；
-% 英文研究生学位论文中，封面和提名页中英文标题，正文二三四五六级标题和中文目录一级标题；
+% 中文研究生学位论文中，封面和题名页中英文标题，正文所有级别标题和目录一级标题；
+% 英文研究生学位论文中，封面和题名页中英文标题，正文二三四五六级标题和中文目录一级标题；
 % 本科生毕业设计论文中，封面标题，中英文关键词，目录一级标题和正文一级标题。
 % 目前仅支持Computer Modern数学字体。
 % \end{function}
@@ -1634,15 +1634,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \setlength\parindent{2em}
 % \subsection{页面和信息移除}
 % \label{页面和信息移除}
+% \changes{v6.0.0.0}{2023/03/02}{修正题名页键值}
 % \changes{v2.12.1.0}{2022/07/03}{页面和信息移除选项增加分组}
-% \begin{function}[added=2022-06-26]{style/remove-page}
+% \begin{function}[added=2022-06-26,updated=2023-03-02]{style/remove-page}
 %   \begin{syntax}
-%     \opt{style/remove-page} = \marg{封面|提名页|声明页|摘要|索引|对照表|目录|附录|参考文献|致谢|作者简介}
+%     \opt{style/remove-page} = \marg{封面|题名页|声明页|摘要|索引|对照表|目录|附录|参考文献|致谢|作者简介}
 %   \end{syntax}
 % 设置移除的页面，可多选，多个值之间需要使用英文半角逗号隔开。
 % \end{function}
 % \begin{optdesc}
-%   \item[提名页] 中英文提名页。
+%   \item[题名页] 中英文题名页。
 %   \item[摘要] 中英文摘要。
 %   \item[索引] 图片索引和表格索引。
 %   \item[对照表] 符号对照表和缩略语对照表。
@@ -3458,7 +3459,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
 \bool_new:N \l_@@_rm_cover_bool
 %    \end{macrocode}
-% 中英文提名页。
+% 中英文题名页。
 %    \begin{macrocode}
 \bool_new:N \l_@@_rm_title_page_bool
 %    \end{macrocode}
@@ -3509,6 +3510,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \clist_if_in:NnT \l_@@_rm_page_clist { 封面 }
       { \bool_set_true:N \l_@@_rm_cover_bool }
     \clist_if_in:NnT \l_@@_rm_page_clist { 提名页 }
+      { \bool_set_true:N \l_@@_rm_title_page_bool }
+    \clist_if_in:NnT \l_@@_rm_page_clist { 题名页 }
       { \bool_set_true:N \l_@@_rm_title_page_bool }
     \clist_if_in:NnT \l_@@_rm_page_clist { 声明页 }
       { \bool_set_true:N \l_@@_rm_statement_bool }
@@ -6143,8 +6146,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{variable}
 % \begin{macro}{\@@_cover_i:nnnnn}
 % \changes{v1.16.0.0}{2022/05/22}{绘制研究生封面单行内容}
-% \changes{v1.17.0.0}{2022/05/28}{绘制研究生封面和提名页单行内容}
-% 绘制研究生封面和提名页单行内容。
+% \changes{v1.17.0.0}{2022/05/28}{绘制研究生封面和题名页单行内容}
+% 绘制研究生封面和题名页单行内容。
 % \begin{arguments}
 %   \item 盒子高度。
 %   \item 字体族。
@@ -6205,8 +6208,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_cover_iii:nnnn}
-% \changes{v1.17.0.0}{2022/05/28}{绘制研究生中文提名页顶部信息}
-% 绘制研究生中文提名页顶部信息。
+% \changes{v1.17.0.0}{2022/05/28}{绘制研究生中文题名页顶部信息}
+% 绘制研究生中文题名页顶部信息。
 % \begin{arguments}
 %   \item 标签宽度。
 %   \item 标签名称。
@@ -6320,7 +6323,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_cover_author_info:}
-% \changes{v2.18.1.0}{2022/12/01}{修正专业博士封面和提名页信息}
+% \changes{v2.18.1.0}{2022/12/01}{修正专业博士封面和题名页信息}
 % \changes{v1.26.4.0}{2022/06/10}{研究生封面底部作者信息}
 % 研究生封面底部作者信息。
 %    \begin{macrocode}
@@ -6394,15 +6397,15 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{中文提名页}
+% \paragraph{中文题名页}
 % \begin{macro}{\@@_zh_title_page_info:}
-% \changes{v1.26.7.0}{2022/06/11}{拆分研究生中文提名页底部信息}
-% 中文提名页底部信息。
+% \changes{v1.26.7.0}{2022/06/11}{拆分研究生中文题名页底部信息}
+% 中文题名页底部信息。
 %    \begin{macrocode}
 \cs_new:Npn \@@_zh_title_page_info:
   {
 %    \end{macrocode}
-% \changes{v1.26.6.0}{2022/06/11}{研究生中文提名页底部信息宽度测量}
+% \changes{v1.26.6.0}{2022/06/11}{研究生中文题名页底部信息宽度测量}
 % 底部信息宽度测量。
 %    \begin{macrocode}
     \rmfamily \zihao { 4 }
@@ -6448,8 +6451,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \@@_str_max_dim:Nn \l_@@_zh_title_page_info_dim
       { 提交日期：\@@_zh_submit_date: }
 %    \end{macrocode}
-% \changes{v1.26.6.0}{2022/06/11}{研究生中文提名页底部信息自动居中}
-% \changes{v1.26.10.0}{2022/06/17}{修正中文提名页底部信息字体系列}
+% \changes{v1.26.6.0}{2022/06/11}{研究生中文题名页底部信息自动居中}
+% \changes{v1.26.10.0}{2022/06/17}{修正中文题名页底部信息字体系列}
 % 底部信息。
 %    \begin{macrocode}
     \dim_new:N \l_@@_zh_title_page_info_skip_dim
@@ -6509,8 +6512,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_zh_title_page:}
-% \changes{v1.17.0.0}{2022/05/28}{中文提名页}
-% 中文提名页。
+% \changes{v1.17.0.0}{2022/05/28}{中文题名页}
+% 中文题名页。
 %    \begin{macrocode}
 \cs_new:Npn \@@_zh_title_page:
   {
@@ -6540,8 +6543,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     \@@_cover_i:nnnnn { 100pt  } { sf } { 1  } { bf } { 西安电子科技大学   }
     \@@_cover_i:nnnnn { 85pt   } { rm } { -1 } { bf } { \l_@@_gr_type_tl 学位论文 }
 %    \end{macrocode}
-% \changes{v4.4.0.0}{2023/02/03}{研究生中文提名页标题中数学字体加粗}
-% \changes{v1.18.1.0}{2022/05/30}{不拆分研究生中文提名页标题}
+% \changes{v4.4.0.0}{2023/02/03}{研究生中文题名页标题中数学字体加粗}
+% \changes{v1.18.1.0}{2022/05/30}{不拆分研究生中文题名页标题}
 % 论文标题。
 %    \begin{macrocode}
     \skip_vertical:n { 87.5pt }
@@ -6561,10 +6564,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
-% \paragraph{中文提名页}
+% \paragraph{中文题名页}
 % \begin{macro}{\@@_en_title_supv:n}
-% \changes{v1.18.0.0}{2022/05/29}{英文提名页底部导师姓名拼音盒子}
-% 英文提名页底部导师姓名拼音盒子。
+% \changes{v1.18.0.0}{2022/05/29}{英文题名页底部导师姓名拼音盒子}
+% 英文题名页底部导师姓名拼音盒子。
 %    \begin{macrocode}
 \dim_new:N \l_@@_supv_dim
 \dim_new:N \l_@@_supv_max_dim
@@ -6596,8 +6599,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_en_title_supv_t:n}
-% \changes{v1.18.0.0}{2022/05/29}{英文提名页底部导师英文职称盒子}
-% 英文提名页底部导师英文职称盒子。
+% \changes{v1.18.0.0}{2022/05/29}{英文题名页底部导师英文职称盒子}
+% 英文题名页底部导师英文职称盒子。
 %    \begin{macrocode}
 \dim_new:N \l_@@_supv_t_dim
 \dim_new:N \l_@@_supv_t_max_dim
@@ -6629,11 +6632,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_en_title_page:}
-% \changes{v4.4.0.0}{2023/02/03}{研究生英文提名页标题中数学字体加粗}
-% \changes{v1.18.0.0}{2022/05/29}{英文提名页}
+% \changes{v4.4.0.0}{2023/02/03}{研究生英文题名页标题中数学字体加粗}
+% \changes{v1.18.0.0}{2022/05/29}{英文题名页}
 % \changes{v1.26.1.0}{2022/06/07}{修复作者拼音为空无法编译}
-% \changes{v1.26.11.0}{2022/06/17}{修复非专业硕士英文提名页英文一级学科}
-% 英文提名页。
+% \changes{v1.26.11.0}{2022/06/17}{修复非专业硕士英文题名页英文一级学科}
+% 英文题名页。
 %    \begin{macrocode}
 \cs_new:Npn \@@_en_title_page:
   {
@@ -7278,7 +7281,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \cleardoublepage
       }
 %    \end{macrocode}
-% 中英文提名页。
+% 中英文题名页。
 %    \begin{macrocode}
     \bool_if:NF \l_@@_rm_title_page_bool
       {
