@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/02 v6.0.0.0 Xidian University TeX Suite]
+[2023/03/03 v6.0.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/02}{6.0.0.0}
+%<class|sty>  {2023/03/03}{6.0.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -5269,6 +5269,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \subsection{Caption}
 % \begin{macro}{\DeclareCaptionLabelSeparator,\DeclareCaptionFont,\captionsetup}
+% \changes{v6.0.1.0}{2023/03/03}{修正子图子表caption垂直间距}
 % \changes{v5.2.0.0}{2023/02/23}{设置图表caption前后垂直间距}
 % \changes{v3.0.0.0}{2022/12/03}{设置图表caption格式}
 % \changes{v2.17.0.0}{2022/11/28}{设置图表caption格式}
@@ -5287,6 +5288,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     labelsep = customskip,
     font     = customfont
   }
+\captionsetup [ subfigure ] { strut = on, skip = 0pt }
+\captionsetup [ subtable  ] { strut = on, skip = 0pt }
 \dim_set_eq:NN \intextsep \abovecaptionskip
 \ctex_at_end_preamble:n
   {
