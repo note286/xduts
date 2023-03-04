@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/03 v6.0.1.0 Xidian University TeX Suite]
+[2023/03/04 v6.0.1.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/03}{6.0.1.0}
+%<class|sty>  {2023/03/04}{6.0.1.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -237,7 +237,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \par
 % 请在最新版\LaTeX{}环境中使用最新版\xduts{}[]，
 % 认真阅读相应宏包/文档类使用说明章节后即可使用\xduts{}[]。
-% \subsection{\pkgx[]{xdufont}宏包}
+% \changes{v6.0.1.1}{2023/03/04}{修正文档中部分标题书签字符}
+% \subsection{\textsf{xdufont}宏包}
 % \pkgx[]{xdufont}宏包基于\pkgx{xeCJK}宏包和\pkgx{unicode-math}宏包，
 % 在中文字体配置方面相较于\pkgx{ctex}宏包的主要优势为默认支持宋体粗体、斜体，
 % 内置多种字体配置，可任意搭配中/英/数学字体，更加符合校内各种文档的撰写要求。
@@ -256,7 +257,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \secrefx{编译}介绍了如何编译，\secrefx{参数设置}介绍了如何自定义配置，具体的配置选项见\secrefx{字体选项}。
 % \par
 % 学会以上用法后即可使用\pkgx{xdufont}宏包。
-% \subsection{\clsx[]{xduugtp}文档类}
+% \subsection{\textsf{xduugtp}文档类}
 % \clsx[]{xduugtp}文档类基于\clsx{ctexart}文档类，
 % 提供多种字体配置，信息录入便捷。
 % 请在阅读《西安电子科技大学本科毕设设计（论文）开题报告》后再使用\clsx{xduugtp}文档类。
@@ -285,7 +286,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 支持的信息录入选项见\secrefx{信息录入}。
 % \par
 % 学会以上用法后即可使用\clsx{xduugtp}文档类。
-% \subsection{\clsx[]{xduugthesis}文档类}
+% \subsection{\textsf{xduugthesis}文档类}
 % \clsx[]{xduugthesis}文档类基于\clsx{ctexbook}文档类，
 % 提供多种字体配置，部分样式可自定义，信息录入便捷。
 % \changes{v1.3.1.1}{2022/04/26}{英文本科生毕业设计规范参考说明}
@@ -323,7 +324,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v1.4.0.0}{2022/04/26}{增加研究生学位论文}
 % \changes{v1.30.0.2}{2022/06/20}{研究生学位论文文档}
 % \changes{v2.2.1.1}{2022/06/23}{移除研究生学位论文中关于章节配置的文档}
-% \subsection{\clsx[]{xdupgthesis}文档类}
+% \subsection{\textsf{xdupgthesis}文档类}
 % \clsx[]{xdupgthesis}文档类基于\clsx{ctexbook}文档类，
 % 提供多种字体配置，部分样式可自定义，信息录入便捷。
 % 请在阅读《西安电子科技大学研究生学位论文模板（2015年修订版）-2019.03修订》后再使用\clsx{xdupgthesis}文档类。
