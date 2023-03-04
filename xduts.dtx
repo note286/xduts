@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/04 v6.0.1.1 Xidian University TeX Suite]
+[2023/03/04 v6.1.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/04}{6.0.1.1}
+%<class|sty>  {2023/03/04}{6.1.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -803,6 +803,19 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \item[centering-left] 只有一行时居中，多行时左对齐。
 % \end{optdesc}
 % \end{function}
+% \changes{v6.1.0.0}{2023/03/04}{增加图表对齐接口}
+% \begin{function}[added=2023-03-04]{style/figure-align,style/table-align}
+%   \begin{syntax}
+%     \opt{style/figure-align} = left|(centering)|right
+%     \opt{style/table-align} = left|(centering)|right
+%   \end{syntax}
+% 设置\envx{figure}和\envx{table}环境中内容对齐方式。
+% \end{function}
+% \begin{optdesc}
+%   \item[left] 左对齐。
+%   \item[centering] 居中。
+%   \item[right] 右对齐。
+% \end{optdesc}
 % \changes{v0.10.0.1}{2022/04/13}{补充表格内容字号文档说明}
 % \begin{function}[added=2022-04-13,updated=2022-04-15]{style/table-small-font}
 %   \begin{syntax}
@@ -3630,6 +3643,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \l_@@_alg_cap_align_tl,
 %     \l_@@_add_alg_rule_vspace_bool,
 %     \l_@@_tab_small_bool,
+%     \l_@@__figure_align_tl,
+%     \l_@@__table_align_tl,
 %     \l_@@_alg_small_cap_bool,
 %     \l_@@_alg_small_bool,
 %     \l_@@_before_skip_clist,
@@ -3699,6 +3714,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置表格字号是否为五号。
 %    \begin{macrocode}
 \bool_new:N \l_@@_tab_small_bool
+%    \end{macrocode}
+% 设置图表内容对齐方式。
+%    \begin{macrocode}
+\tl_new:N \l_@@_figure_align_tl
+\tl_new:N \l_@@_table_align_tl
 %    \end{macrocode}
 % 设置算法Caption字号是否为五号。
 %    \begin{macrocode}
@@ -3799,6 +3819,13 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \begin{macrocode}
     table-small-font .bool_set:N = \l_@@_tab_small_bool,
 %    \end{macrocode}
+% 设置图表内容对齐方式。
+%    \begin{macrocode}
+    figure-align .choices:nn = { left, centering, right }
+      { \tl_set_eq:NN \l_@@_figure_align_tl \l_keys_choice_tl },
+    table-align .choices:nn = { left, centering, right }
+      { \tl_set_eq:NN \l_@@_table_align_tl \l_keys_choice_tl },
+%    \end{macrocode}
 % 设置算法Caption字号是否为五号。
 %    \begin{macrocode}
     alg-small-caption .bool_set:N = \l_@@_alg_small_cap_bool,
@@ -3858,6 +3885,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     style / alg-caption-align       = left,
     style / add-alg-rule-vspace     = false,
     style / table-small-font        = true,
+    style / figure-align            = centering,
+    style / table-align             = centering,
     style / alg-small-caption       = true,
     style / algorithm-small-caption = true,
     style / alg-small-font          = true,
@@ -5540,6 +5569,31 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \subsection{图片}
+% \changes{v6.1.0.0}{2023/03/04}{设置\envx{figure}环境中内容对齐方式}
+% \begin{macro}{\@floatboxreset}
+% 设置\envx{figure}环境中内容对齐方式。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \tl_if_eq:NnTF \l_@@_figure_align_tl { left }
+      {
+          \AtBeginEnvironment { figure }
+            { \g@addto@macro { \@floatboxreset } { \raggedright } }
+      }
+      {
+        \tl_if_eq:NnTF \l_@@_figure_align_tl { centering }
+          {
+            \AtBeginEnvironment { figure }
+              { \g@addto@macro { \@floatboxreset } { \centering } }
+          }
+          {
+            \AtBeginEnvironment { figure }
+              { \g@addto@macro { \@floatboxreset } { \raggedleft } }
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\PassOptionsToPackage,\captionsetup*}
 % \changes{v0.4.2.0}{2022/04/05}{设置子图标签与标题字体字号}
 % 设置子图标签与标题字体字号，支持\pkgx{subfig}和\pkgx{subcaption}宏包。
@@ -5579,18 +5633,43 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \subsection{表格}
+% \changes{v6.1.0.0}{2023/03/04}{设置\envx{table}环境中内容对齐方式}
+% \begin{macro}{\@floatboxreset}
+% 设置\envx{table}环境中内容对齐方式。
+%    \begin{macrocode}
+\ctex_at_end_preamble:n
+  {
+    \tl_if_eq:NnTF \l_@@_table_align_tl { left }
+      {
+          \AtBeginEnvironment { table }
+            { \g@addto@macro { \@floatboxreset } { \raggedright } }
+      }
+      {
+        \tl_if_eq:NnTF \l_@@_table_align_tl { centering }
+          {
+            \AtBeginEnvironment { table }
+              { \g@addto@macro { \@floatboxreset } { \centering } }
+          }
+          {
+            \AtBeginEnvironment { table }
+              { \g@addto@macro { \@floatboxreset } { \raggedleft } }
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \changes{v6.1.0.0}{2023/03/04}{修改表格字号设置方法}
 % \changes{v0.10.0.0}{2022/04/13}{设置表格字号是否为五号}
 % \changes{v1.0.2.0}{2022/04/14}{修复表格五号字无法设定浮动位置}
-% \begin{macro}{table}
+% \begin{macro}{\@floatboxreset}
 % 设置表格字号是否为五号。
 %    \begin{macrocode}
 \ctex_at_end_preamble:n
   {
     \bool_if:NT \l_@@_tab_small_bool
       {
-        \renewenvironment { table }
-          { \def\@floatboxreset { \reset@font\small\@setminipage } \@float { table } }
-          { \end@float }
+        \AtBeginEnvironment { table }
+          { \g@addto@macro { \@floatboxreset } { \small } }
       }
   }
 %    \end{macrocode}
