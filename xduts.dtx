@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/04 v6.1.0.0 Xidian University TeX Suite]
+[2023/03/05 v6.1.0.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/04}{6.1.0.0}
+%<class|sty>  {2023/03/05}{6.1.0.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -179,7 +179,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \changes{v4.4.5.4}{2023/02/11}{更新许可证版本号}
 % \renewcommand{\abstractname}{免责声明}
 % \begin{abstract}
-% 在使用\xduts{}时，默认您同意以下内容：
+% 在使用\xduts{}时，默认你同意以下内容：
 % \begin{enumerate}
 % \item \xduts[]{}作者不对使用\xduts{}产生的格式审查问题负责。
 % \item \xduts[]{}的发布遵守\LaTeX{} Project Public License Version 1.3c或更高版本\footurl{https://www.latex-project.org/lppl.txt}。
@@ -1762,10 +1762,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 其中，在\clsx{xduugthesis}的开发过程中，^^A
 % \href{https://github.com/Ke-Huo}{\ttfamily @Ke-Huo}、^^A
 % \href{https://github.com/GRHun}{\ttfamily @RH}、^^A
-% \href{https://github.com/songyueran}{\ttfamily @syr-bloom}^^A
+% \href{https://github.com/songyueran}{\ttfamily @syr-bloom}
 % 等人参与了内测。
-% 同时，也要感谢所有在GitHub和睿思上反馈问题和提出建议的同学、老师们。^^A
-% \xduts[]{}的持续发展，离不开你们的帮助与支持。
+% \changes{v6.1.0.1}{2023/03/04}{增加赞助致谢}
 % \changes{v4.4.5.3}{2023/02/11}{增加致谢参考链接}
 % \section{致谢}
 % 在学习文学编程的过程中，
@@ -1775,16 +1774,21 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 在文档的编写过程中，参考了^^A
 % \filex{ctex.dtx}[]\footurl{https://github.com/CTeX-org/ctex-kit/blob/master/ctex/ctex.dtx}、^^A
 % \filex[]{fduthesis.dtx}[]\footurl{https://github.com/stone-zeng/fduthesis/blob/main/source/fduthesis.dtx}、^^A
-% \filex[]{njuthesis.dtx}[]\footurl{https://github.com/nju-lug/NJUThesis/blob/master/source/njuthesis.dtx}和^^A
+% \filex[]{njuthesis.dtx}[]\footurl{https://github.com/nju-lug/NJUThesis/blob/master/source/njuthesis.dtx}\space{}和^^A
 % \filex{thuthesis.dtx}[]\footurl{https://github.com/tuna/thuthesis/blob/master/thuthesis.dtx}。
+% \par
+% 同时，非常感谢赞助\xduts{}的同学们，你们的赞助让我有持续维护的动力。^^A
+% 也感谢所有在GitHub和睿思上反馈问题和提出建议的同学、老师们，^^A
+% \xduts[]{}的持续发展，离不开你们的帮助与支持。
 % \changes{v4.0.1.1}{2022/12/12}{增加支付宝红包二维码}
 % \changes{v3.1.1.3}{2022/12/10}{二维码增加图标}
 % \changes{v3.1.1.2}{2022/12/06}{增加QQ支付二维码}
 % \changes{v2.16.1.2}{2022/11/27}{修正文档中图片引用间距}
 % \changes{v2.15.0.1}{2022/11/26}{增加赞助二维码}
 % \section{赞助}
-% 如果\xduts{}对您有所帮助，
-% 可以扫描\figrefx{fig:zanzhu}中的二维码来赞助\xduts{}[]。
+% 如果\xduts{}对你有所帮助，
+% 可以扫描\figrefx{fig:zanzhu}中的二维码来赞助\xduts{}[]，
+% 并备注\xduts{}或其他相关字样以便于确认款项来源。
 % \ExplSyntaxOn
 % \str_set_convert:Nnnn \l_xduts_alipay_red_packet_qr_str {%
 % 68747470733A2F2F71722E616C697061792E636F6D2F31317731333035336232617236757438%
