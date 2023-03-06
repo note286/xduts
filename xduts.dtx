@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/06 v6.1.1.0 Xidian University TeX Suite]
+[2023/03/06 v6.1.1.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/06}{6.1.1.0}
+%<class|sty>  {2023/03/06}{6.1.1.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -1648,13 +1648,17 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \setlength\parindent{2em}
 % \subsection{页面和信息移除}
 % \label{页面和信息移除}
+% \changes{v6.1.1.1}{2023/03/06}{修正文档中页面移除值样式}
 % \changes{v6.0.0.0}{2023/03/02}{修正题名页键值}
 % \changes{v2.12.1.0}{2022/07/03}{页面和信息移除选项增加分组}
 % \begin{function}[added=2022-06-26,updated=2023-03-02]{style/remove-page}
 %   \begin{syntax}
-%     \opt{style/remove-page} = \marg{封面|题名页|声明页|摘要|索引|对照表|目录|附录|参考文献|致谢|作者简介}
+%     \opt{style/remove-page} = \texttt{\char`\{}封面|题名页|声明页|摘要|索引|对照表|目录|附录|参考文献|致谢|作者简介\texttt{\char`\}}
 %   \end{syntax}
-% 设置移除的页面，可多选，多个值之间需要使用英文半角逗号隔开。
+% 设置移除的页面，可多选，多个值之间需要使用英文半角逗号隔开，例如：
+% \begin{lstlisting}
+% \xdusetup{ style / remove-page = { 封面, 题名页, 致谢 } }
+% \end{lstlisting}
 % \end{function}
 % \begin{optdesc}
 %   \item[题名页] 中英文题名页。
