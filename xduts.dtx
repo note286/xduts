@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/06 v6.1.1.1 Xidian University TeX Suite]
+[2023/03/07 v6.1.2.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/06}{6.1.1.1}
+%<class|sty>  {2023/03/07}{6.1.2.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -2396,9 +2396,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   }
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@@_set_latin_sans_scale:,\@@_set_latin_mono_scale:}
+% \changes{v6.1.2.0}{2023/03/07}{修正匹配打字机族字符高度}
 % \changes{v4.3.0.0}{2023/01/28}{匹配无衬线族和打字机族字符高度}
 % \changes{v0.8.3.0}{2022/04/13}{匹配小写字母字符高度}
+% \begin{macro}{\@@_set_latin_sans_scale:,\@@_set_latin_mono_scale:}
 % 匹配无衬线族和打字机族字符高度。
 %    \begin{macrocode}
 \cs_new:Npn \@@_set_latin_sans_scale: { }
@@ -2411,10 +2412,10 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \tl_if_eq:NnT \l_@@_latin_sans_scale_tl { lower }
           { \cs_set:Npn \@@_set_latin_sans_scale: { Scale = MatchLowercase , } }
       }
-    \tl_if_eq:NnTF \l_@@_set_latin_mono_scale { upper }
+    \tl_if_eq:NnTF \l_@@_latin_mono_scale_tl { upper }
       { \cs_set:Npn \@@_set_latin_mono_scale: { Scale = MatchUppercase , } }
       {
-        \tl_if_eq:NnT \l_@@_set_latin_mono_scale { lower }
+        \tl_if_eq:NnT \l_@@_latin_mono_scale_tl { lower }
           { \cs_set:Npn \@@_set_latin_mono_scale: { Scale = MatchLowercase , } }
       }
   }
