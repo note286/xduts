@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/07 v6.1.2.0 Xidian University TeX Suite]
+[2023/03/09 v6.1.2.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/07}{6.1.2.0}
+%<class|sty>  {2023/03/09}{6.1.2.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -58,11 +58,12 @@
 \DefTblrTemplate{caption-sep}{default}{\hskip.75em}
 \DefTblrTemplate{conthead-text}{default}{\textbf{(续表)}}
 \DefTblrTemplate{contfoot-text}{default}{\textbf{接下页}}
+\changes{v6.1.2.1}{2023/03/09}{修改文档交叉引用样式}
 \changes{v4.4.5.1}{2023/02/11}{移除文档对xspace的依赖}
 % 交叉引用
-\NewDocumentCommand{\secrefx}{m}{第\space\ref{#1}\space{}节}
-\NewDocumentCommand{\tabrefx}{O{}mO{\space}}{#1\tablename\space\ref{#2}#3}
-\NewDocumentCommand{\figrefx}{O{}mO{\space}}{#1\figurename\space\ref{#2}#3}
+\NewDocumentCommand{\secrefx}{m}{第\nobreakspace\ref{#1}\nobreakspace{}节}
+\NewDocumentCommand{\tabrefx}{mO{\space}}{表\nobreakspace\ref{#1}#2}
+\NewDocumentCommand{\figrefx}{mO{\space}}{图\nobreakspace\ref{#1}#2}
 % 选项
 \NewDocumentCommand{\optx}{O{\space}mO{\space}}{#1{\ttfamily\seqsplit{#2}}#3}
 % \name LaTeX3控制序列
