@@ -53,12 +53,16 @@ If you have installed LaTeX distribution locally, you can get the document class
 
 ### GitHub
 
-After completing the preparation, download this [repository](https://github.com/note286/xduts/archive/refs/heads/main.zip) and run the following commands in the downloaded folder to get the document class/package files and the documentation.
+After completing the preparation, download [this repository](https://github.com/note286/xduts/archive/refs/heads/main.zip) and run the following commands in the downloaded folder to get the document class/package files and the documentation.
 
 ```shell
 xetex xduts.ins
 l3build doc
 ```
+
+## Update
+
+To update, simply follow the [description above](#installation), which is the same as installation.
 
 ## Usage
 
