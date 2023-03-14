@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/13 v6.1.4.0 Xidian University TeX Suite]
+[2023/03/14 v6.1.4.1 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/13}{6.1.4.0}
+%<class|sty>  {2023/03/14}{6.1.4.1}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -328,8 +328,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \subsection{\textsf{xdupgthesis}文档类}
 % \clsx[]{xdupgthesis}文档类基于\clsx{ctexbook}文档类，
 % 提供多种字体配置，部分样式可自定义，信息录入便捷。
-% 请在阅读《西安电子科技大学研究生学位论文模板（2015年修订版）-2019.03修订》后再使用\clsx{xdupgthesis}文档类。
-% 专业学位硕士请额外阅读《西安电子科技大学专业学位硕士学位论文封面及中英文题名页模板（2015年版）-2019.03修订》，
+% 请在阅读《西安电子科技大学研究生学位论文模板（2015年修订版）-2022.11修订》后再使用\clsx{xdupgthesis}文档类。
+% 专业学位硕士请额外阅读《西安电子科技大学专业学位硕士学位论文封面及中英文题名页模板（2015年版）-2022.11修订》，
 % 撰写英文学位论文请额外阅读《西安电子科技大学英文学位论文撰写相关规定》。
 % \par
 % 使用\clsx{xdupgthesis}文档类的最小示例如下所示：
@@ -1383,267 +1383,281 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \end{syntax}
 % 设置作者简介文件路径，文件内容可参考\secrefx{作者简介配置}中的示例。
 % \end{function}
+% \changes{v6.1.4.1}{2023/03/14}{更新研究生信息推荐值}
 % \changes{v2.18.1.0}{2022/12/01}{增加专业博士信息录入推荐值来源}
 % \changes{v2.12.2.1}{2022/11/20}{调整研究生信息推荐值展示样式}
 % \changes{v1.26.11.2}{2022/06/18}{研究生信息推荐值}
 % \subsubsection{研究生信息推荐值}
 % \label{研究生信息推荐值}
 % 以下研究生信息推荐值均来自
-% 《西安电子科技大学研究生学位论文模板（2015年修订版）-2019.03修订》、
-% 《西安电子科技大学专业学位硕士学位论文封面及中英文题名页模板（2015年版）-2019.03修订》和
-% 《西安电子科技大学专业学位博士学位论文封面及中英文题名页模板-2019.03》，
+% 《西安电子科技大学研究生学位论文模板（2015年修订版）-2022.11修订》、
+% 《西安电子科技大学专业学位硕士学位论文封面及中英文题名页模板（2015年版）-2022.11修订》和
+% 《西安电子科技大学专业学位博士学位论文封面及中英文题名页模板-2022.11》，
 % 无任何修改，仅供参考。
 % \setlength\parindent{0pt}
 % \begin{itemize}
 % \item \optx{degree} (学术硕士、学术博士)
 % \par
-% 工学硕士,
-% 工学博士,
-% 哲学硕士,
-% 经济学硕士,
-% 法学硕士,
-% 教育学硕士,
-% 文学硕士,
-% 理学硕士,
-% 理学博士,
-% 军事学硕士,
-% 军事学博士,
-% 管理学硕士,
+% 工学硕士、
+% 工学博士、
+% 哲学硕士、
+% 经济学硕士、
+% 法学硕士、
+% 教育学硕士、
+% 文学硕士、
+% 理学硕士、
+% 理学博士、
+% 军事学硕士、
+% 军事学博士、
+% 管理学硕士、
 % 管理学博士
 % \item \optx{degree} (专业硕士)
 % \par
-% 金融硕士,
-% 应用统计硕士,
-% 翻译硕士,
-% 工程硕士,
-% 工商管理硕士,
-% 公共管理硕士
+% 金融硕士、
+% 应用统计硕士、
+% 翻译硕士、
+% 电子信息硕士、
+% 机械硕士、
+% 材料与化工硕士、
+% 工商管理硕士、
+% 公共管理硕士、
+% 图书情报硕士、
+% 工程管理硕士、
+% 工程硕士
 % \item \optx{degree} (专业博士)
 % \par
+% 电子信息博士、
+% 机械博士、
 % 工程博士
 % \item \optx{degree*} (专业硕士)
 % \par
-% Finance,
-% Applied Statistics,
-% Translation,
-% Engineering,
-% Business Administration,
-% Public Administration
+% Finance、
+% Applied Statistics、
+% Translation、
+% Electronic Information、
+% Machinery、
+% Material and Chemistry、
+% Business Administration、
+% Public Administration、
+% Engineering Administration、
+% Engineering
 % \item \optx{degree*} (专业博士)
 % \par
+% Electronic Information、
+% Machinery、
 % Engineering
 % \item \optx{department}
 % \par
-% 通信工程学院,
-% 电子工程学院,
-% 计算机科学与技术学院,
-% 机电工程学院,
-% 物理与光电工程学院,
-% 经济与管理学院,
-% 数学与统计学院,
-% 微电子学院,
-% 外国语学院,
-% 生命科学技术学院,
-% 空间科学与技术学院,
-% 先进材料与纳米科技学院,
-% 网络与信息安全学院,
-% 人文学院,
-% 马克思主义学院,
-% 人工智能学院
+% 通信工程学院、
+% 电子工程学院、
+% 计算机科学与技术学院、
+% 机电工程学院、
+% 光电工程学院、
+% 物理学院、
+% 经济与管理学院、
+% 数学与统计学院、
+% 人文学院、
+% 外国语学院、
+% 微电子学院、
+% 生命科学技术学院、
+% 空间科学与技术学院、
+% 先进材料与纳米科技学院、
+% 网络与信息安全学院、
+% 马克思主义学院、
+% 人工智能学院、
+% 集成电路研究院
 % \item \optx{major}
 % \par
-% 哲学,
-% 应用经济学,
-% 马克思主义理论,
-% 教育学,
-% 体育学,
-% 外国语言文学,
-% 数学,
-% 物理学,
-% 统计学,
-% 力学,
-% 机械工程,
-% 光学工程,
-% 仪器科学与技术,
-% 材料科学与工程,
-% 电气工程,
-% 电子科学与技术,
-% 信息与通信工程,
-% 控制科学与工程,
-% 计算机科学与技术,
-% 化学工程与技术,
-% 交通运输工程,
-% 环境科学与工程,
-% 生物医学工程,
-% 软件工程,
-% 军队指挥学,
-% 管理科学与工程,
-% 工商管理,
-% 公共管理,
-% 图书情报与档案管理,
-% 网络空间安全
+% 哲学、
+% 应用经济学、
+% 马克思主义理论、
+% 体育学、
+% 外国语言文学、
+% 数学、
+% 物理学、
+% 统计学、
+% 力学、
+% 机械工程、
+% 光学工程、
+% 仪器科学与技术、
+% 材料科学与工程、
+% 电气工程、
+% 电子科学与技术、
+% 信息与通信工程、
+% 控制科学与工程、
+% 计算机科学与技术、
+% 交通运输工程、
+% 生物医学工程、
+% 软件工程、
+% 网络空间安全、
+% 军队指挥学、
+% 管理科学与工程、
+% 工商管理、
+% 图书情报与档案管理、
+% 集成电路科学与工程
 % \item \optx{major*}
 % \par
-% Philosophy,
-% Applied Economics,
-% Marxist Theory,
-% Education Science,
-% Science of Physical Culture and Sports,
-% Foreign Languages and Literature,
-% Mathematics,
-% Physics,
-% Statistics,
-% Mechanics,
-% Mechanical Engineering,
-% Optical Engineering,
-% Instrument Science and Technology,
-% Materials Science and Engineering,
-% Electrical Engineering,
-% Electronics Science and Technology,
-% Information and Communications Engineering,
-% Control Science and Engineering,
-% Computer Science and Technology,
-% Chemical Engineering and Technology,
-% Communication and Transportation Engineering,
-% Environmental Science and Engineering,
-% Biomedical Engineering,
-% Software Engineering,
-% Science of Command,
-% Management Science and Engineering,
-% Business Administration,
-% Public Management,
-% Science of Library, Information and Archival,
-% Cyber Security
+% Philosophy、
+% Applied Economics、
+% Marxist Theory、
+% Sports Science、
+% Foreign Languages and Literature、
+% Mathematics、
+% Physics、
+% Statistics、
+% Mechanics、
+% Mechanical Engineering、
+% Optical Engineering、
+% Instrument Science and Technology、
+% Materials Science and Engineering、
+% Electrical Engineering、
+% Electronics Science and Technology、
+% Information and Communications Engineering、
+% Control Science and Engineering、
+% Computer Science and Technology、
+% Communication and Transportation Engineering、
+% Biomedical Engineering、
+% Software Engineering、
+% Cyber Security、
+% Military Command Science、
+% Management Science and Engineering、
+% Business Administration、
+% Science of Library, Information and Archival
 % \item \optx{sub-major}
 % \par
-% 美学,
-% 宗教学,
-% 国民经济学,
-% 金融学,
-% 产业经济学,
-% 马克思主义基本原理,
-% 思想政治教育,
-% 高等教育学,
-% 教育技术学,
-% 教育哲学,
-% 体育教育训练学,
-% 英语语言文学,
-% 外国语言学及应用语言学,
-% 计算数学,
-% 概率论与数理统计,
-% 应用数学,
-% 运筹学与控制论,
-% 等离子体物理,
-% 凝聚态物理,
-% 光学,
-% 无线电物理,
-% 统计学,
-% 工程力学,
-% 机械制造及其自动化,
-% 机械电子工程,
-% 机械设计及理论,
-% 电子机械科学与技术,
-% 工业设计,
-% 光学工程,
-% 精密仪器及机械,
-% 测试计量技术及仪器,
-% 材料物理与化学,
-% 材料学,
-% 电机与电器,
-% 电力电子与电力传动,
-% 物理电子学,
-% 电路与系统,
-% 微电子学与固体电子学,
-% 电磁场与微波技术,
-% 信息对抗技术,
-% 集成电路系统设计,
-% 通信与信息系统,
-% 信号与信息处理,
-% 智能信息处理,
-% 空间信息科学与技术,
-% 控制理论与控制工程,
-% 检测技术与自动化装置,
-% 系统工程,
-% 模式识别与智能系统,
-% 导航、制导与控制,
-% 计算机系统结构,
-% 计算机软件与理论,
-% 计算机应用技术,
-% 应用化学,
-% 交通信息工程及控制,
-% 环境科学,
-% 环境工程,
-% 生物医学工程,
-% 生物材料与细胞工程,
-% 软件工程,
-% 软件工程技术,
-% 军事通信学,
-% 密码学,
-% 管理科学与工程,
-% 管理哲学,
-% 会计学,
-% 企业管理,
-% 技术经济及管理,
-% 行政管理,
-% 图书馆学,
-% 情报学,
-% 光通信,
-% 信息安全,
-% 生物信息科学与技术,
-% 机器人技术,
-% 遥感信息科学与技术,
-% 空间科学与技术,
-% 马克思主义中国化研究,
-% 外国文学,
-% 翻译学,
-% 基础数学,
-% 流体力学,
-% 固体力学,
-% 智能机电系统及测控技术,
-% 空间科学仪器与电磁实验技术,
-% 飞行器测控与导航制导,
+% 美学、
+% 宗教学、
+% 国民经济学、
+% 金融学、
+% 产业经济学、
+% 马克思主义基本原理、
+% 思想政治教育、
+% 体育教育训练学、
+% 英语语言文学、
+% 外国语言学及应用语言学、
+% 计算数学、
+% 概率论与数理统计、
+% 应用数学、
+% 运筹学与控制论、
+% 等离子体物理、
+% 凝聚态物理、
+% 光学、
+% 无线电物理、
+% 统计学、
+% 工程力学、
+% 机械制造及其自动化、
+% 机械电子工程、
+% 机械设计及理论、
+% 电子机械科学与技术、
+% 工业设计、
+% 光学工程、
+% 精密仪器及机械、
+% 测试计量技术及仪器、
+% 材料物理与化学、
+% 材料学、
+% 电机与电器、
+% 电力电子与电力传动、
+% 物理电子学、
+% 电路与系统、
+% 微电子学与固体电子学、
+% 电磁场与微波技术、
+% 信息对抗技术、
+% 集成电路系统设计、
+% 通信与信息系统、
+% 信号与信息处理、
+% 智能信息处理、
+% 空间信息科学与技术、
+% 控制理论与控制工程、
+% 检测技术与自动化装置、
+% 系统工程、
+% 模式识别与智能系统、
+% 导航、制导与控制、
+% 计算机系统结构、
+% 计算机软件与理论、
+% 计算机应用技术、
+% 交通信息工程及控制、
+% 生物医学工程、
+% 生物材料与细胞工程、
+% 软件工程、
+% 软件工程技术、
+% 军事通信学、
+% 密码学、
+% 管理科学与工程、
+% 管理哲学、
+% 会计学、
+% 企业管理、
+% 技术经济及管理、
+% 图书馆学、
+% 情报学、
+% 光通信、
+% 信息安全、
+% 生物信息科学与技术、
+% 机器人技术、
+% 遥感信息科学与技术、
+% 空间科学与技术、
+% 马克思主义中国化研究、
+% 外国文学、
+% 翻译学、
+% 基础数学、
+% 流体力学、
+% 固体力学、
+% 智能机电系统及测控技术、
+% 空间科学仪器与电磁实验技术、
+% 飞行器测控与导航制导、
 % 智能检测与新型传感器
 % \item \optx{domain} (专业硕士)
 % \par
-% 金融,
-% 应用统计,
-% 英语笔译,
-% 机械工程,
-% 光学工程,
-% 仪器仪表工程,
-% 材料工程,
-% 电子与通信工程,
-% 集成电路工程,
-% 控制工程,
-% 计算机技术,
-% 软件工程,
-% 生物医学工程,
-% 航天工程,
-% 项目管理,
-% 物流工程,
-% 工商管理,
-% 公共管理
+% 金融、
+% 应用统计、
+% 英语笔译、
+% 新一代电子信息技术（含量子技术等）、
+% 通信工程（含宽带网络、移动通信等）、
+% 集成电路工程、
+% 计算机技术、
+% 软件工程、
+% 控制工程、
+% 仪器仪表工程、
+% 光电信息工程、
+% 生物医学工程、
+% 人工智能、
+% 网络与信息安全、
+% 机械、
+% 材料与化工、
+% 工商管理、
+% 公共管理、
+% 图书情报、
+% 工程管理、
+% 物流工程与管理、
+% 机械工程、
+% 光学工程、
+% 材料工程、
+% 电子与通信工程、
+% 航天工程、
+% 项目管理、
+% 物流工程
 % \item \optx{domain} (专业博士)
 % \par
-% 电子与信息,
-% 先进制造
+% 电子与信息、
+% 先进制造、
+% 电子信息、
+% 机械
 % \item \optx{supv-title}
 % \par
-% 教授,
+% 教授、
 % 副教授
 % \item \optx{supv-title*}
 % \par
-% Professor,
+% Professor、
 % Associate Professor
 % \item \optx{supv-ent-title}
 % \par
-% 研究员,
-% 副研究员,
+% 研究员、
+% 副研究员、
 % 高工
 % \item \optx{supv-ent-title*}
 % \par
-% Research Fellow,
-% Associate Research Fellow,
+% Research Fellow、
+% Associate Research Fellow、
 % Senior Engineer
 % \end{itemize}
 % \setlength\parindent{2em}
