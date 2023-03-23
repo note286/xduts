@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/14 v6.1.4.1 Xidian University TeX Suite]
+[2023/03/23 v6.1.4.2 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/14}{6.1.4.1}
+%<class|sty>  {2023/03/23}{6.1.4.2}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -483,6 +483,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{function}
 % \begin{optdesc}
 %   \item[adobe] \filex[]{adobesongstd-light.otf}[]、\filex[]{adobekaitistd-regular.otf}[]、\filex[]{adobeheitistd-regular.otf}和\filex{Adobe-Fangsong-Std-R-Font.otf}[]。
+%   \item[fandol] \filex[]{FandolSong-Regular.otf}[]、\filex[]{FandolSong-Bold.otf}[]、\filex[]{FandolKai-Regular.otf}[]、\filex[]{FandolHei-Regular.otf}[]、\filex[]{FandolHei-Bold.otf}和\filex{FandolFang-Regular.otf}[]。
 %   \item[founder] \filex[]{FZShuSong-Z01.ttf}[]、\filex[]{FZKai-Z03.ttf}[]、\filex[]{FZHei-B01.ttf}和\filex{FZFSK.TTF}[]。
 %   \item[hanyi] \filex[]{HYShuSongErS.ttf}[]、\filex[]{HYKaiTiS.ttf}[]、\filex[]{HYZhongHeiTiS.ttf}和\filex{HYFangSongS.ttf}[]。
 %   \item[sinotype] \filex[]{STSONG.TTF}[]、\filex[]{STKAITI.TTF}[]、\filex[]{STXIHEI.TTF}[]、\filex[]{STHeiti.ttf}和\filex{STFANGSO.TTF}[]。
@@ -527,6 +528,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \end{syntax}
 % 设置中文字体伪斜体倾斜程度。默认为\valuex{0.2}[]。
 % \end{function}
+% \changes{v6.1.4.2}{2023/03/23}{补充TeX Live内置字体文件名}
 % \changes{v5.4.0.1}{2023/02/23}{修正文档内英文字体配置表格错误}
 % \begin{function}[added=2022-03-06,updated=2023-02-23]{style/latin-font}
 %   \begin{syntax}
@@ -535,11 +537,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 设置英文字体，具体配置见\tabrefx{tab:latin-font}[]。
 % \end{function}
 % \begin{optdesc}
+%   \item[gyre] \filex[]{texgyretermes-regular.otf}[]、\filex[]{texgyretermes-bold.otf}[]、\filex[]{texgyretermes-italic.otf}[]、\filex[]{texgyretermes-bolditalic.otf}[]、\filex[]{texgyreheros-regular.otf}[]、\filex[]{texgyreheros-bold.otf}[]、\filex[]{texgyreheros-italic.otf}[]、\filex[]{texgyreheros-bolditalic.otf}[]、\filex[]{texgyrecursor-regular.otf}[]、\filex[]{texgyrecursor-bold.otf}[]、\filex[]{texgyrecursor-italic.otf}和\filex{texgyrecursor-bolditalic.otf}[]。
 %   \item[tac] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{arial.ttf}[]、\filex[]{arialbd.ttf}[]、\filex[]{ariali.ttf}[]、\filex[]{arialbi.ttf}[]、\filex[]{consola.ttf}[]、\filex[]{consolab.ttf}[]、\filex[]{consolai.ttf}和\filex{consolaz.ttf}[]。
 %   \item[tacn] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{arial.ttf}[]、\filex[]{arialbd.ttf}[]、\filex[]{ariali.ttf}[]、\filex[]{arialbi.ttf}[]、\filex[]{cour.ttf}[]、\filex[]{courbd.ttf}[]、\filex[]{couri.ttf}和\filex{courbi.ttf}[]。
-%   \item[tcc] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}和\filex{timesbi.ttf}[]。
+%   \item[tcc] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{cmunss.otf}[]、\filex[]{cmunsx.otf}[]、\filex[]{cmunsi.otf}[]、\filex[]{cmunso.otf}[]、\filex[]{cmuntt.otf}[]、\filex[]{cmuntb.otf}[]、\filex[]{cmunit.otf}和\filex{cmuntx.otf}。
 %   \item[thcs] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{Helvetica.ttf}[]、\filex[]{Helvetica~Bold.ttf}[]、\filex[]{Helvetica~Oblique.ttf}[]、\filex[]{Helvetica~Bold~Oblique.ttf}[]、\filex[]{CourierStd.otf}[]、\filex[]{CourierStd-Bold.otf}[]、\filex[]{CourierStd-Oblique.otf}和\filex{CourierStd-BoldOblique.otf}[]。
-%   \item[tll] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}和\filex{timesbi.ttf}[]。
+%   \item[tll] \filex[]{times.ttf}[]、\filex[]{timesbd.ttf}[]、\filex[]{timesi.ttf}[]、\filex[]{timesbi.ttf}[]、\filex[]{LinBiolinum_R.otf}[]、\filex[]{LinBiolinum_RB.otf}[]、\filex[]{LinBiolinum_RI.otf}[]、\filex[]{LinBiolinum_RBO.otf}[]、\filex[]{LinLibertine_M.otf}[]、\filex[]{LinLibertine_MB.otf}[]、\filex[]{LinLibertine_MO.otf}和\filex{LinLibertine_MBO.otf}。
 %   \item[none] 关闭内置英文字体配置，需自行配置英文字体。
 % \end{optdesc}
 % \changes{v2.16.1.1}{2022/11/27}{修改英文字体配置表文档样式}
