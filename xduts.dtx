@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2023/03/23 v6.1.4.2 Xidian University TeX Suite]
+[2025/01/11 v6.2.0.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2023/03/23}{6.1.4.2}
+%<class|sty>  {2025/01/11}{6.2.0.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -1118,7 +1118,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % student-id       & \cmark & \cmark   & \cmark & \cmark   & \cmark & \cmark & \cmark \\
 % clc              &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
 % secret-level     &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
-% secret-year      &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
 % submit-date      & \cmark &          &        & \cmark   & \cmark & \cmark & \cmark \\
 % statement-scan   &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
 % statement-sign   &        &          &        & \cmark   & \cmark & \cmark & \cmark \\
@@ -1273,12 +1272,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \opt{info/secret-level} = 秘密|(公开)
 %   \end{syntax}
 % 设置密级。
-% \end{function}
-% \begin{function}[added=2022-05-30]{info/secret-year}
-%   \begin{syntax}
-%     \opt{info/secret-year} = \meta{保密年限}
-%   \end{syntax}
-% 设置保密年限，仅在\optx{secret-level}等于|秘密|时有效。
 % \end{function}
 % \changes{v1.17.0.1}{2022/05/29}{研究生学位论文提交日期格式}
 % \begin{function}[added=2022-05-03,updated=2022-12-31]{info/submit-date}
@@ -3162,7 +3155,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     \l_@@_domain_str,
 %     \l_@@_clc_str,
 %     \l_@@_secret_lv_str,
-%     \l_@@_secret_year_str,
 %     \l_@@_submit_date_str,
 %     \l_@@_statement_scan_str,
 %     \l_@@_statement_sign_clist,
@@ -3228,10 +3220,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 密级。
 %    \begin{macrocode}
 \str_new:N \l_@@_secret_lv_str
-%    \end{macrocode}
-% 保密年限。
-%    \begin{macrocode}
-\str_new:N \l_@@_secret_year_str
 %    \end{macrocode}
 % 提交日期。
 %    \begin{macrocode}
@@ -3331,10 +3319,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     secret-level .choices:nn = { 秘密, 公开 }
       { \tl_set_eq:NN \l_@@_secret_lv_str \l_keys_choice_tl },
 %    \end{macrocode}
-% 保密年限。
-%    \begin{macrocode}
-    secret-year .tl_set:N = \l_@@_secret_year_str,
-%    \end{macrocode}
 % 提交日期。
 %    \begin{macrocode}
     submit-date .tl_set:N = \l_@@_submit_date_str,
@@ -3390,7 +3374,6 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
     info / domain                       = { },
     info / clc                          = { },
     info / secret-level                 = 公开,
-    info / secret-year                  = { },
     info / submit-date                  = { },
     info / statement-scan               = { },
     info / statement-sign               = { },
@@ -6844,6 +6827,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_statement:}
+% \changes{v6.2.0.0}{2025/01/11}{更新研究生学位论文关于论文使用授权的说明}
 % \changes{v1.19.0.0}{2022/05/30}{学位论文独创性声明和关于论文使用授权的说明}
 % \changes{v2.2.0.0}{2022/06/23}{支持声明页插入签字扫描文件}
 % 学位论文独创性声明和关于论文使用授权的说明。
@@ -6851,8 +6835,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 \cs_new:Npn \@@_statement:
   {
     \vbox:n { }
-    \skip_vertical:n { -7.5pt }
-    \vbox_to_ht:nn { 60pt }
+    \skip_vertical:n { -8.5pt }
+    \vbox_to_ht:nn { 59.5pt }
       {
         \rmfamily \zihao { 4 } \bfseries \centering
         \dim_set:Nn \baselineskip { 20pt }
@@ -6875,7 +6859,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       }
     \clist_if_empty:NT \l_@@_statement_sign_clist
       { \skip_vertical:n { 20pt } }
-    \vbox_to_ht:nn { 175pt }
+    \vbox_to_ht:nn { 155pt }
       {
         \rmfamily \zihao { -4 }
         \dim_set:Nn \parindent { 2em }
@@ -6894,33 +6878,29 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       }
     \clist_if_empty:NF \l_@@_statement_sign_clist
       { \skip_vertical:n { 20pt } }
-    \vbox_to_ht:nn { 60pt }
+    \vbox_to_ht:nn { 39.5pt }
       {
         \rmfamily \zihao { 4 } \bfseries \centering
         \dim_set:Nn \baselineskip { 20pt }
         西安电子科技大学\\
         关于论文使用授权的说明
       }
-    \vbox_to_ht:nn { 120pt }
+    \vbox_to_ht:nn { 160pt }
       {
         \rmfamily \zihao { -4 }
         \dim_set:Nn \parindent { 2em }
         \dim_set:Nn \baselineskip { 20pt }
         本人完全了解西安电子科技大学有关保留和使用学位论文的规定，即：研究生在校
-        攻读学位期间论文工作的知识产权属于西安电子科技大学。学校有权保留送交论文
-        的复印件，允许查阅、借阅论文；学校可以公布论文的全部或部分内容，允许采用
-        影印、缩印或其它复制手段保存论文。同时本人保证，结合学位论文研究成果完成
-        的论文、发明专利等成果，署名单位为西安电子科技大学。
+        攻读学位期间论文工作的知识产权属于西安电子科技大学。学校有权保留并向国家
+        有关部门或机构送交学位论文的复印件和电子版，以学术交流为目的赠送和交换学
+        位论文，允许学位论文被查阅、借阅和复印，将学位论文的全部或部分内容编入有
+        关数据库进行检索和提供相应阅览服务；允许采用影印、缩印或其它复制手段保存
+        学位论文。同时本人保证，结合学位论文研究成果完成的论文、发明专利等成果，
+        署名单位为西安电子科技大学。
         \par
-        保密的学位论文在
-        \str_if_eq:NNTF \l_@@_secret_lv_str { 秘密 }
-          {
-            \str_if_empty:NTF \l_@@_secret_year_str
-              { \@@_uline:n { \skip_horizontal:n { 1.5em } } }
-              { \@@_uline:n { \enskip \l_@@_secret_year_str \enskip } }
-          }
-          { \@@_uline:n { \skip_horizontal:n { 1.5em } } }
-        年解密后适用本授权书。
+        本人保证遵守上述规定。
+        \par
+        （保密的论文在解密后遵守此规定）
         \vfil
       }
     \clist_if_empty:NT \l_@@_statement_sign_clist
