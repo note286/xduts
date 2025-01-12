@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2025/01/12 v6.2.2.0 Xidian University TeX Suite]
+[2025/01/12 v6.2.3.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2025/01/12}{6.2.2.0}
+%<class|sty>  {2025/01/12}{6.2.3.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -902,7 +902,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %   \end{syntax}
 % 设置章节标题后的垂直间距，默认值为\valuex{\{18pt, 12pt, 6pt, 6pt, 6pt, 6pt\}}[]，分别对应\tnx{chapter}[]、\tnx[]{section}[]、\tnx[]{subsection}[]、\tnx[]{subsubsection}[]、\tnx[]{paragraph}和\tnx{subparagraph}。
 % \end{function}
-% \begin{function}[added=2022-04-11]
+% \changes{v6.2.3.0}{2025/01/12}{修复本科生毕业设计三四五六级标题字号默认值}
+% \begin{function}[added=2022-04-11,updated=2025-01-12]
 %   {
 %     style/chap-zihao,
 %     style/sec-zihao,
@@ -912,16 +913,14 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %     style/subpara-zihao
 %   }
 %   \begin{syntax}
-%     \opt{style/chap-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
-%     \opt{style/sec-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
-%     \opt{style/subsec-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
-%     \opt{style/subsubsec-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
-%     \opt{style/para-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
-%     \opt{style/subpara-zihao} = 0|-0|1|-1|2|-2|3|-3|4|-4|5|-5|6|-6|7|8
+%     \opt{style/chap-zihao} = 0|-0|1|-1|2|-2|(3)|-3|4|-4|5|-5|6|-6|7|8
+%     \opt{style/sec-zihao} = 0|-0|1|-1|2|-2|3|-3|(4)|-4|5|-5|6|-6|7|8
+%     \opt{style/subsec-zihao} = 0|-0|1|-1|2|-2|3|-3|4|(-4)|5|-5|6|-6|7|8
+%     \opt{style/subsubsec-zihao} = 0|-0|1|-1|2|-2|3|-3|4|(-4)|5|-5|6|-6|7|8
+%     \opt{style/para-zihao} = 0|-0|1|-1|2|-2|3|-3|4|(-4)|5|-5|6|-6|7|8
+%     \opt{style/subpara-zihao} = 0|-0|1|-1|2|-2|3|-3|4|(-4)|5|-5|6|-6|7|8
 %   \end{syntax}
 % 设置章节标题字号。
-% 当论文语言为中文时，默认值分别为\valuex{3}[]、\valuex[]{4}[]、\valuex[]{4}[]、\valuex[]{4}[]、\valuex[]{4}和\valuex{4}。
-% 当论文语言为英文时，默认值分别为\valuex{4}[]、\valuex[]{-4}[]、\valuex[]{-4}[]、\valuex[]{-4}[]、\valuex[]{-4}和\valuex{-4}。
 % \end{function}
 % \begin{optdesc}
 %   \item[0] 初号
@@ -4776,6 +4775,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\ctexset}
+% \changes{v6.2.3.0}{2025/01/12}{修复本科生毕业设计三四五六级标题字号默认值}
 % \changes{v4.4.0.0}{2023/02/03}{本科生毕业设计一级标题中数学字体加粗}
 % \changes{v0.7.0.0}{2022/04/11}{自定义章节标题字号}
 % 设置章节名字和随后的标题内容格式。
@@ -4784,12 +4784,12 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
   {
     \@@_lang_switch:nn
       {
-        \@@_tl_set_if_empty:Nn \l_@@_chap_tl      { 3 }
-        \@@_tl_set_if_empty:Nn \l_@@_sec_tl       { 4 }
-        \@@_tl_set_if_empty:Nn \l_@@_subsec_tl    { 4 }
-        \@@_tl_set_if_empty:Nn \l_@@_subsubsec_tl { 4 }
-        \@@_tl_set_if_empty:Nn \l_@@_para_tl      { 4 }
-        \@@_tl_set_if_empty:Nn \l_@@_subpara_tl   { 4 }
+        \@@_tl_set_if_empty:Nn \l_@@_chap_tl      { 3  }
+        \@@_tl_set_if_empty:Nn \l_@@_sec_tl       { 4  }
+        \@@_tl_set_if_empty:Nn \l_@@_subsec_tl    { -4 }
+        \@@_tl_set_if_empty:Nn \l_@@_subsubsec_tl { -4 }
+        \@@_tl_set_if_empty:Nn \l_@@_para_tl      { -4 }
+        \@@_tl_set_if_empty:Nn \l_@@_subpara_tl   { -4 }
         \ctexset
           {
             chapter       / format = { \@@_zh_t:nnn { sf } { chap      } { c } \@@_bold_math: },
