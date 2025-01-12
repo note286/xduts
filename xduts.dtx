@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2025/01/11 v6.2.0.0 Xidian University TeX Suite]
+[2025/01/12 v6.2.1.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2025/01/11}{6.2.0.0}
+%<class|sty>  {2025/01/12}{6.2.1.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -6115,10 +6115,11 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \@@_cover_iii:nnnn { 校内导师姓名 } { rm } { -3 } { \l_@@_supv_sch_str }
       }
 %    \end{macrocode}
+% \changes{v6.2.1.0}{2025/01/12}{修复本科生毕业设计导师信息录入}
 % \changes{v1.15.1.0}{2022/05/21}{使用\csx{group_begin:}和\csx{group_end:}替换分组}
 % 校内毕设，排版导师姓名、院内导师姓名。
 %    \begin{macrocode}
-      \group_begin:
+      {
         \@@_cover_iii:nnnn { 导师姓名 } { rm } { -3 } { \l_@@_supv_str }
         \tl_if_blank:VF \l_@@_supv_dept_str
           {
@@ -6128,7 +6129,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
               { -3                  }
               { \l_@@_supv_dept_str }
           }
-      \group_end:
+      }
     \cleardoublepage
 %    \end{macrocode}
 % \changes{v0.8.0.0}{2022/04/12}{支持对称页边距}
