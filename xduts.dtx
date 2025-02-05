@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2025/01/12 v6.2.3.1 Xidian University TeX Suite]
+[2025/02/05 v6.2.4.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2025/01/12}{6.2.3.1}
+%<class|sty>  {2025/02/05}{6.2.4.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -6829,6 +6829,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\@@_statement:}
+% \changes{v6.2.4.0}{2025/02/05}{修正研究生学位论文关于论文使用授权的说明标题后空行}
 % \changes{v6.2.0.0}{2025/01/11}{更新研究生学位论文关于论文使用授权的说明}
 % \changes{v1.19.0.0}{2022/05/30}{学位论文独创性声明和关于论文使用授权的说明}
 % \changes{v2.2.0.0}{2022/06/23}{支持声明页插入签字扫描文件}
@@ -6880,7 +6881,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       }
     \clist_if_empty:NF \l_@@_statement_sign_clist
       { \skip_vertical:n { 20pt } }
-    \vbox_to_ht:nn { 39.5pt }
+    \vbox_to_ht:nn { 60pt }
       {
         \rmfamily \zihao { 4 } \bfseries \centering
         \dim_set:Nn \baselineskip { 20pt }
