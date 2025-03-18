@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2025/02/17 v6.2.5.0 Xidian University TeX Suite]
+[2025/03/18 v6.2.6.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2025/02/17}{6.2.5.0}
+%<class|sty>  {2025/03/18}{6.2.6.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -7186,10 +7186,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       { \@@_lang_switch:nn { 符号对照表 } { List~of~Symbols } }
     \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 符号对照表 } }
 %    \end{macrocode}
+% \changes{v6.2.6.0}{2025/03/18}{修正自定义符号对照表字号}
 % 是否完全自定义符号对照表。
 %    \begin{macrocode}
     \bool_if:NTF \l_@@_customize_los_bool
-      { \file_if_exist_input:n { \l_@@_los_str } }
+      {
+        \group_begin:
+        \zihao { -4 }
+        \file_if_exist_input:n { \l_@@_los_str }
+        \group_end:
+      }
       {
 %    \end{macrocode}
 % 配置符号对照表标题行。
@@ -7262,10 +7268,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       { \@@_lang_switch:nn { 缩略语对照表 } { List~of~Abbreviations } }
     \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 缩略语对照表 } }
 %    \end{macrocode}
+% \changes{v6.2.6.0}{2025/03/18}{修正自定义缩略语对照表字号}
 % 是否完全自定义缩略语对照表。
 %    \begin{macrocode}
     \bool_if:NTF \l_@@_customize_loa_bool
-      { \file_if_exist_input:n { \l_@@_loa_str } }
+      {
+        \group_begin:
+        \zihao { -4 }
+        \file_if_exist_input:n { \l_@@_loa_str }
+        \group_end:
+      }
       {
 %    \end{macrocode}
 % 配置缩略语对照表标题行。
