@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2025/03/18 v6.2.6.1 Xidian University TeX Suite]
+[2025/03/18 v6.2.6.2 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2025/03/18}{6.2.6.1}
+%<class|sty>  {2025/03/18}{6.2.6.2}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -430,6 +430,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 引用参考文献时，\tnx[]{cite}为上标样式，\tnx[]{parencite}为非上标样式。
 % \subsection{参数设置}
 % \label{参数设置}
+% \changes{v6.2.6.2}{2025/03/18}{修改字体设置示例代码}
 % \changes{v4.4.2.1}{2023/02/08}{修正接口文档说明样式}
 % \changes{v0.5.1.1}{2022/04/06}{增加xdusetup配置文档}
 % \changes{v1.30.0.1}{2022/06/20}{修改xdusetup配置文档}
@@ -451,7 +452,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{function}
 % \begin{lstlisting}
 % \xdusetup{
-%   style = { cjk-font = fandol, latin-font = gyre },
+%   style = { cjk-font = win, latin-font = tac },
 %   info  = {
 %     title      = {论如何让用户\\认真阅读文档},
 %     author     = {张三},
@@ -464,8 +465,8 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % 或者
 % \begin{lstlisting}
 % \xdusetup{
-%   style / cjk-font   = fandol,
-%   style / latin-font = gyre,
+%   style / cjk-font   = win,
+%   style / latin-font = tac,
 %   info  / title      = {论如何让用户\\认真阅读文档},
 %   info  / author     = {张三},
 %   info  / department = {排版学院},
