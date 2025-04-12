@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2025/03/18 v6.2.6.2 Xidian University TeX Suite]
+[2025/04/12 v6.2.7.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2025/03/18}{6.2.6.2}
+%<class|sty>  {2025/04/12}{6.2.7.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -6186,13 +6186,14 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
       \file_if_exist_input:n { \l_@@_abstract_en_tl }
     \group_end:
 %    \end{macrocode}
+% \changes{v6.2.7.0}{2025/04/12}{修改本科生毕业设计英文关键词冒号字符}
 % \changes{v4.4.0.0}{2023/02/03}{本科生毕业设计英文关键词中数学字体加粗}
 % 英文关键词，Times New Roman字体加粗，小四号。
 %    \begin{macrocode}
     \group_begin:
       \rmfamily \zihao { -4 } \bfseries \@@_bold_math: \par
       \@@_typeout_keywords:nNn
-        { Keywords： } { \l_@@_keywords_en_clist } { \@@_keywords_space: }
+        { Keywords:~ } { \l_@@_keywords_en_clist } { \@@_keywords_space: }
     \group_end:
     \cleardoublepage
 %    \end{macrocode}
