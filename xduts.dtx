@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2025/04/26 v6.2.7.1 Xidian University TeX Suite]
+[2025/04/26 v6.2.7.2 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2025/04/26}{6.2.7.1}
+%<class|sty>  {2025/04/26}{6.2.7.2}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -300,13 +300,14 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \par
 % 请在最新版\LaTeX{}环境中使用最新版\xduts{}[]，
 % 认真阅读相应宏包/文档类使用说明章节后即可使用\xduts{}[]。
+% \changes{v6.2.7.2}{2025/04/26}{修正xdufont使用范围说明}
 % \changes{v6.0.1.1}{2023/03/04}{修正文档中部分标题书签字符}
 % \subsection{\textsf{xdufont}宏包}
 % \pkgx[]{xdufont}宏包基于\pkgx{xeCJK}宏包和\pkgx{unicode-math}宏包，
 % 在中文字体配置方面相较于\pkgx{ctex}宏包的主要优势为默认支持宋体粗体、斜体，
 % 内置多种字体配置，可任意搭配中/英/数学字体，更加符合校内各种文档的撰写要求。
 % \par
-% \pkgx[]{xdufont}宏包可以搭配任意文档类进行使用，例如：
+% \pkgx[]{xdufont}宏包可以搭配除\xduts{}所包含的其他文档类进行使用，例如：
 % \begin{lstlisting}
 % \documentclass{article}
 % \usepackage{xdufont}
