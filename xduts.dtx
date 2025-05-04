@@ -1,7 +1,7 @@
 % \iffalse
 %<*driver>
 \ProvidesFile{xduts.dtx}
-[2025/05/04 v6.2.8.0 Xidian University TeX Suite]
+[2025/05/04 v6.2.9.0 Xidian University TeX Suite]
 %</driver>
 %<class|sty>\NeedsTeXFormat{LaTeX2e}
 %<class|sty>\RequirePackage{expl3}
@@ -9,7 +9,7 @@
 %<xduugtp>\ProvidesExplClass{xduugtp}
 %<xdupgthesis>\ProvidesExplClass{xdupgthesis}
 %<xduugthesis>\ProvidesExplClass{xduugthesis}
-%<class|sty>  {2025/05/04}{6.2.8.0}
+%<class|sty>  {2025/05/04}{6.2.9.0}
 %<xdufont>  {Xidian University Font package}
 %<xduugtp>  {Xidian University Undergraduate Thesis Proposal class}
 %<xdupgthesis>  {Xidian University Postgraduate Thesis document class}
@@ -6932,6 +6932,7 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 % \end{macro}
 % \paragraph{中英文摘要}
 % \begin{macro}{\@@_zh_abstract_keywords:}
+% \changes{v6.2.9.0}{2025/05/04}{设置研究生英文论文中文摘要标题字体系列}
 % \changes{v6.2.8.0}{2025/05/04}{修正研究生英文论文中文摘要标题字体}
 % \changes{v1.20.0.0}{2022/05/30}{中文摘要和关键词}
 % \changes{v1.28.1.0}{2022/06/18}{添加中文摘要至目录}
@@ -6943,7 +6944,9 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
 %    \end{macrocode}
 % 中文摘要。
 %    \begin{macrocode}
-    \@@_n_chapter_head_toc:nn { 摘要 } { \@@_sf_family: 摘 { \quad } 要 }
+    \@@_n_chapter_head_toc:nn
+      { 摘要 }
+      { \@@_sf_family: \mdseries 摘 { \quad } 要 }
     \@@_lang_switch:nn { } { \@@_add_zh_toc:nn { chapter } { 摘要 } }
     \group_begin:
       \dim_set:Nn \parindent { 2 \ccwd }
@@ -7455,13 +7458,16 @@ literate        = {\$}{{\textcolor{purple3}{\$}}}{1}
         \@starttoc { toc }
         \cleardoublepage
 %    \end{macrocode}
+% \changes{v6.2.9.0}{2025/05/04}{设置研究生英文论文中文目录标题字体系列}
 % \changes{v1.30.0.0}{2022/06/20}{英文研究生学位论文中文目录}
 % 英文研究生学位论文中文目录。
 %    \begin{macrocode}
         \@@_lang_switch:nn { }
           {
             \setcounter { tocdepth } { 2 }
-            \@@_n_chapter_head:nn { 目录 } { \@@_sf_family: 目 { \quad } 录 }
+            \@@_n_chapter_head:nn
+              { 目录 }
+              { \@@_sf_family: \mdseries 目 { \quad } 录 }
             \@starttoc { zh.toc }
             \cleardoublepage
           }
